@@ -3,37 +3,48 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Splines;
 
-
+[RequireComponent(typeof(SplineExtrude))]
 public class SplineTrack : MonoBehaviour
 {
         [Header("Grind Rail Settings")]
-    public float overrideSpeed;
     public bool IsGrindRail;
+    public float overrideSpeed;
 
         [Header("Spline Events")]
     public UnityEvent OnBoatEnter;
     public UnityEvent OnBoatExit;
 
-    [NonSerialized] public SplineContainer Track;
-    private SplineExtrude extruder;
+    [NonSerialized] public SplineContainer track;
+    [SerializeField] private SplineExtrude extruder;
 
         [Header("idk")]
     public bool WidthGizmo = true;
-    public float width, multiplier;
+    public float width, multiplier = 1.0f;
     Vector3 lastSplinePos = Vector3.zero, lastPlayerPos = Vector3.zero;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //Get spline component and component to extrude spline mesh
-        Track = GetComponent<SplineContainer>();
+        track = GetComponent<SplineContainer>();
         extruder = GetComponent<SplineExtrude>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        extruder.Radius = width* multiplier;
+        //extruder.Radius = width* multiplier;
+        //extruder.Rebuild();
+    }
+
+
+    private void OnValidate()
+    {
+        if (extruder != null)
+        {
+            extruder.Radius = width * multiplier;
+            extruder.Rebuild();
+        }
     }
     
             //Debug Gizoms
@@ -65,7 +76,7 @@ public class SplineTrack : MonoBehaviour
         distance *= Track[0].GetLength();
 
         EvalInfo EvalInfo = new EvalInfo();
-        EvalInfo.t = distance;
+        EvalInfo.distance = distance;
         EvalInfo.SplinePos = new Vector3(nearest.x, nearest.y, nearest.z) + transform.position;
         lastSplinePos = EvalInfo.SplinePos;
         print("LAST SPLINE POS: " + lastSplinePos.ToString());
@@ -76,6 +87,6 @@ public class SplineTrack : MonoBehaviour
 }
     public struct EvalInfo
     {
-        public float t;
+        public float distance;
         public Vector3 SplinePos;
     }
