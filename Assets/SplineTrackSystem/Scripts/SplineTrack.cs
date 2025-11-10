@@ -71,9 +71,9 @@ public class SplineTrack : MonoBehaviour
     {
         lastPlayerPos = WorldPos;
         
-        SplineUtility.GetNearestPoint(Track[0], WorldPos - transform.position, out Unity.Mathematics.float3 nearest, out float distance);
+        SplineUtility.GetNearestPoint(track[0], WorldPos - transform.position, out Unity.Mathematics.float3 nearest, out float distance);
         print("T: " + distance.ToString());
-        distance *= Track[0].GetLength();
+        distance *= track[0].GetLength();
 
         EvalInfo EvalInfo = new EvalInfo();
         EvalInfo.distance = distance;
