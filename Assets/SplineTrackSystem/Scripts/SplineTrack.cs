@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Splines;
 
+
+// Automatically adds the SplineExtrude component to the game object when adding this component to said game object
 [RequireComponent(typeof(SplineExtrude))]
 public class SplineTrack : MonoBehaviour
 {
@@ -15,11 +17,12 @@ public class SplineTrack : MonoBehaviour
     public UnityEvent OnBoatExit;
 
     [NonSerialized] public SplineContainer track;
-    [SerializeField] private SplineExtrude extruder;
+    private SplineExtrude extruder;
 
         [Header("idk")]
     public bool WidthGizmo = true;
-    public float width, multiplier = 1.0f;
+    public float width = 1.0f;
+    public float multiplier = 1.0f;
     Vector3 lastSplinePos = Vector3.zero, lastPlayerPos = Vector3.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,13 +41,14 @@ public class SplineTrack : MonoBehaviour
     }
 
 
+    // This function is called when editing values in the inspector
     private void OnValidate()
     {
-        if (extruder != null)
-        {
-            extruder.Radius = width * multiplier;
-            extruder.Rebuild();
-        }
+        // Get the spline extrude component
+        extruder = GetComponent<SplineExtrude>();
+        // Update the radius when editing the width or multiplier
+        extruder.Radius = width * multiplier;
+        extruder.Rebuild();
     }
     
             //Debug Gizoms
