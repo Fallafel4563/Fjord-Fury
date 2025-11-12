@@ -19,7 +19,7 @@ public class SplineTrack : MonoBehaviour
     [NonSerialized] public SplineContainer track;
     private SplineExtrude extruder;
 
-        [Header("idk")]
+        [Header("Track Width")]
     public bool WidthGizmo = true;
     public float width = 1.0f;
     public float multiplier = 1.0f;
