@@ -33,7 +33,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _Voronoi_Scale
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -55,19 +55,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FoamAmount: 1
-    - _FoamCutoff: 1
-    - _FoamScale: 9.6
+    - _FoamAmount: 0
+    - _FoamCutoff: 0
+    - _FoamScale: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleAmount: 3.06
-    - _VoronoiSpeed: 2
+    - _RippleAmount: -0.89
+    - _VoronoiSpeed: 3.1
     - _Voronoi_Scale: 9
     m_Colors:
-    - _FoamColour: {r: 0.8490566, g: 0.8370417, b: 0.8370417, a: 1}
-    - _FoamSpeed: {r: 1, g: 1, b: 0, a: 0}
-    - _RippleSpeed: {r: 0, g: 4.09, b: 0, a: 0}
-    - _RipplesColour: {r: 0.2105287, g: 0.6779493, b: 0.7830189, a: 0.3490196}
-    - _Tiling: {r: 0, g: 0, b: 0, a: 0}
+    - _FoamColour: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _RippleSpeed: {r: 0, g: 0.32, b: 0, a: 0}
+    - _RipplesColour: {r: 1.0724411, g: 0.67987686, b: 0.18717134, a: 0.3490196}
+    - _Tiling: {r: -15.83, g: 0.01, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
