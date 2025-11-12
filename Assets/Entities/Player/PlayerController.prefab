@@ -196,8 +196,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000962615, y: 0.000012698016, z: -0.0000072222274, w: 1}
-  m_LocalPosition: {x: -1.2439453e-13, y: -0.00000013699425, z: -0.00000019513071}
+  m_LocalRotation: {x: 0.00000029338636, y: -0.6554237, z: 0.46014982, w: 0.5989007}
+  m_LocalPosition: {x: 150.95679, y: -46.568684, z: -66.33111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -613,6 +613,21 @@ MonoBehaviour:
   frontBackOffsetLimit: 3
   dollyKart: {fileID: 8965506563597239976}
   mainTrack: {fileID: 0}
+  OnLanded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8261415816405388536}
+        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
+        m_MethodName: ApplyGroundOffset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   forwardInput: 0
   steerInput: 0
   isJumping: 0
@@ -620,6 +635,21 @@ MonoBehaviour:
   jumpPower: 15
   maxJumps: 1
   colliderDisabledAfterJumpDuration: 0.5
+  OnJumped:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8261415816405388536}
+        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
+        m_MethodName: ApplyJumpOffset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   airSteerSpeed: 10
   gravity: 75
   quickfallSpeed: 50
@@ -631,10 +661,24 @@ MonoBehaviour:
   OnRightDashed:
     m_PersistentCalls:
       m_Calls: []
-  boatCamera: {fileID: 5983764731637625418}
   respawnLerpDuration: 0.5
   respawnYPosition: -25
   respawnDelayDuration: 0.5
+  OnRespawned:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8261415816405388536}
+        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
+        m_MethodName: ResetCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +693,7 @@ GameObject:
   - component: {fileID: 6389050002901436765}
   - component: {fileID: 3575003207059894041}
   - component: {fileID: 5239818575151630225}
+  - component: {fileID: 8261415816405388536}
   m_Layer: 0
   m_Name: FollowCameraRoot
   m_TagString: Untagged
@@ -664,8 +709,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6454330232883850996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30129924, y: 0.0000023656492, z: -0.00000074750517, w: 0.95352966}
-  m_LocalPosition: {x: -0.00000040609754, y: 4.0574594, z: -3.0818436}
+  m_LocalRotation: {x: 0.30129924, y: 0.000003473758, z: -0.0000010976488, w: 0.95352966}
+  m_LocalPosition: {x: -0.00000059632004, y: 4.0574594, z: -3.0818436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -816,6 +861,20 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: -132.77469, y: -24.645477, z: -234.84671}
+--- !u!114 &8261415816405388536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454330232883850996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac61dba102ac189485d29922c915c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpCameraYOffset: 0
+  groundCameraYOffset: 4
 --- !u!1 &8914522806762380729
 GameObject:
   m_ObjectHideFlags: 0
