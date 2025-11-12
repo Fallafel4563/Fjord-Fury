@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     private void SetUpCameraOutputChannel()
     {
         // Set the output channel of the cinemachine camera and barin to be different channel form other players so that they render properly in splitscreen

@@ -187,7 +187,6 @@ public class SplineBoat : MonoBehaviour
             fallSpeed = gravity + quickfallSpeed;
             quickfallStarted = true;
         }
-        Debug.Log(isJumping);
         ySpeed -= fallSpeed * Time.deltaTime * MathF.Pow(timeSinceJump + 0.5f, 2f);
         // Apply fall speed
         transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
