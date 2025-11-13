@@ -1,22 +1,53 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleFxHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-    private ParticleSystem ps;
-    public List<ParticleSystem.Particle> particleSystems = new List<ParticleSystem.Particle>();
-
-    void Start()
+    [System.Serializable]
+    public class ParticleTypes
     {
-        ps = GetComponent<ParticleSystem>();
+        public string actionName;            // Name of player action
+        public ParticleSystem particleSystem; // The particle system to play for said action
     }
 
-    // Update is called once per frame
-    void Update()
+    [Header("Particle Systems")]
+    public ParticleTypes[] particleTypes;
+
+    
+    
+    /// Plays the particle system associated with the given action.
+   
+    public void PlayActionParticles(string action)
     {
-        
+        foreach (var ap in particleTypes)
+        {
+            if (ap.actionName.Equals(action, System.StringComparison.OrdinalIgnoreCase))
+            {
+                if (ap.particleSystem != null)
+                {
+                    ap.particleSystem.Play();
+                    return;
+                }
+            }
+        }
+
+        Debug.LogWarning($"[PlayerParticleHandler] No particle system found for action: {action}");
+    }
+
+   
+    /// Stops the particle system associated with the given action.
+    
+    public void StopActionParticles(string action)
+    {
+        foreach (var ap in particleTypes)
+        {
+            if (ap.actionName.Equals(action, System.StringComparison.OrdinalIgnoreCase))
+            {
+                if (ap.particleSystem != null)
+                {
+                    ap.particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                    return;
+                }
+            }
+        }
     }
 }
