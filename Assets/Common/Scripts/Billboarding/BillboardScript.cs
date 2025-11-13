@@ -14,7 +14,7 @@ public class BillboardScript : MonoBehaviour
         }
         else
         {
-                transform.rotation = Camera.main.transform.rotation;
+          transform.rotation = Camera.main.transform.rotation;
         }
     }
 }
