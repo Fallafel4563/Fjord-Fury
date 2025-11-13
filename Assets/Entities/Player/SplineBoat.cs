@@ -22,6 +22,7 @@ public class SplineBoat : MonoBehaviour
     [HideInInspector] public float forwardInput;
     [HideInInspector] public float steerInput;
     [HideInInspector] public bool isJumping = false;
+    [HideInInspector] public bool dontChangeMainTrack = false;
 
     private bool isGrounded = true;
     private bool isDashing = false;
@@ -110,6 +111,12 @@ public class SplineBoat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Don't change main track when it's inside a DontChangeMainTrack trigger
+        if (dontChangeMainTrack == true && isGrounded == true)
+        {
+            Debug.Log("I want to saty on the main track");
+            return;
+        }
         if (other.TryGetComponent(out SplineTrack splineTrack) && (isGrounded == false || splineTrack != currentTrack))
         {
             // Change track when landing on a rail
