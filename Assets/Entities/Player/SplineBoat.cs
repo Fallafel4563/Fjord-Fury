@@ -140,7 +140,7 @@ public class SplineBoat : MonoBehaviour
                     Debug.Log("You jumped too far");
 
                     // Get the spline pos that is closest to the position it should've had had it not landed on the wrong part of the track
-                    Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition(distanceWhenJumped + jumpedDistance);
+                    Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition((distanceWhenJumped + jumpedDistance) / splineTrack.track.Spline.GetLength());
                     Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
 
                     // Override distance info with the distance it should've had, had the boat landed on the right part of the track
