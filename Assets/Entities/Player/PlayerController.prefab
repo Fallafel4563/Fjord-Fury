@@ -196,8 +196,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000029338636, y: -0.6554237, z: 0.46014982, w: 0.5989007}
-  m_LocalPosition: {x: 150.95679, y: -46.568684, z: -66.33111}
+  m_LocalRotation: {x: -0.000000028417398, y: -3.2712484e-14, z: -1.03526054e-13, w: 1}
+  m_LocalPosition: {x: 9.981781e-13, y: -0.00000013699425, z: -0.00000019513071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -618,7 +618,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8261415816405388536}
         m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
-        m_MethodName: ApplyGroundOffset
+        m_MethodName: OnLanded
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -640,7 +640,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8261415816405388536}
         m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
-        m_MethodName: ApplyJumpOffset
+        m_MethodName: OnJumped
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -663,13 +663,27 @@ MonoBehaviour:
       m_Calls: []
   respawnLerpDuration: 0.5
   respawnYPosition: -25
-  respawnDelayDuration: 0.5
-  OnRespawned:
+  OnRespawnStarted:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8261415816405388536}
         m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
-        m_MethodName: ResetCamera
+        m_MethodName: OnRespawnStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRespawnEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8261415816405388536}
+        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
+        m_MethodName: OnRespawnEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -875,6 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpCameraYOffset: 0
   groundCameraYOffset: 4
+  respawnOffset: {x: 0, y: 4, z: -7}
 --- !u!1 &8914522806762380729
 GameObject:
   m_ObjectHideFlags: 0

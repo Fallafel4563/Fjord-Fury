@@ -62,14 +62,15 @@ public class SplineBoat : MonoBehaviour
 
 
     [Header("Respawning")]
-    [SerializeField] private float respawnLerpDuration = 0.5f;
+    [SerializeField] private float respawnLerpDuration = 1f;
     // How far bellow the track the boat has to be before respawning
-    [SerializeField] private float respawnYPosition = -25f;
-    [SerializeField] private float respawnDelayDuration = 0.5f;
-    public UnityEvent OnRespawned;
+    [SerializeField] private float deathYPosition = -25f;
+    public UnityEvent OnRespawnStarted;
+    public UnityEvent OnRespawnEnded;
 
     private bool isDead = false;
     private float respawnLerpTime;
+    private Vector3 respawnLerpStart;
 
 
 
@@ -87,6 +88,7 @@ public class SplineBoat : MonoBehaviour
         if (isDead == true)
         {
             RespawnLerp();
+            return;
         }
 
         // Update dollyKart speed
@@ -245,7 +247,7 @@ public class SplineBoat : MonoBehaviour
         transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
 
         // Start respawn if the boat falls far bellow the track
-        if (transform.localPosition.y < respawnYPosition && isDead == false)
+        if (transform.localPosition.y < deathYPosition && isDead == false)
         {
             StartRespawn();
         }
@@ -373,15 +375,40 @@ public class SplineBoat : MonoBehaviour
     }
 
 
+    private void StartRespawn()
+    {
+        // Start the respawn lerp
+        isDead = true;
+        respawnLerpTime = 0f;
+        respawnLerpStart = transform.localPosition;
+
+        // Reset stuff
+        ySpeed = 0f;
+        isGrounded = true;
+
+        // Invoke event
+        OnRespawnStarted.Invoke();
+    }
+
+
     private void RespawnLerp()
     {
-        Vector3 from = transform.localPosition;
+        Vector3 from = respawnLerpStart;
         Vector3 to = Vector3.zero;
-        float weight = 1 - respawnLerpTime;
+        // Get the % of how far the boat should've moved between from and to
+        respawnLerpTime += Time.deltaTime;
+        float weight = respawnLerpTime / respawnLerpDuration;
+
+        // Move boat to the to position over
         transform.localPosition = Vector3.Lerp(from, to, weight);
-        respawnLerpTime -= Time.deltaTime;
-        if (respawnLerpTime < 0)
+
+        // Stop respawning when it has respawned for respawnLerpDuration
+        if (respawnLerpTime >= respawnLerpDuration)
+        {
             isDead = false;
+            dollyKart.AutomaticDolly.Enabled = true;
+            OnRespawnEnded.Invoke();
+        }
     }
 
 
@@ -390,21 +417,5 @@ public class SplineBoat : MonoBehaviour
         colliderReference.enabled = false;
         yield return new WaitForSeconds(colliderDisabledAfterJumpDuration);
         colliderReference.enabled = true;
-    }
-
-
-    private void StartRespawn()
-    {
-        // Start the respawn lerp
-        isDead = true;
-        respawnLerpTime = respawnLerpDuration;
-        
-        // Reset stuff
-        ySpeed = 0f;
-        isGrounded = true;
-        dollyKart.AutomaticDolly.Enabled = true;
-
-        // Invoke event
-        OnRespawned.Invoke();
     }
 }
