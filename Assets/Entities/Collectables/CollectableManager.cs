@@ -16,6 +16,7 @@ public class CollectableManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         coinCount = 0;
+        coinsCollected.value = 0;
         collectableCount = 0;
         
     }
