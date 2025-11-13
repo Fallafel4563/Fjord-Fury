@@ -129,7 +129,7 @@ public class SplineBoat : MonoBehaviour
             // Check if the track it lands on is the same as the current main track and that the the boat didn't jump off a rail
             if (splineTrack == mainTrack && wasLastTrackRail == false)
             {
-                // Check how far it has travled while jumping (normal jump distance is around 75)
+                // Check how far it has travled while jumping (normal jump distance is around 75 (with a gravity of 75 and quickfall speed of 50))
                 // If it's above 200 then the player has found a shortcut that we don't want
                 Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
                 if (distanceInfo.distance - distanceWhenJumped > 200f)
