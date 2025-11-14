@@ -14,7 +14,7 @@ public class SplineTrack : MonoBehaviour
     [SerializeField] private float segmentsPerUnit = 0.5f;
     [HideInInspector] public SplineContainer track;
     private SplineExtrude extruder;
-
+    public trackType trailType;
 
     [Header("Grind Rail Settings")]
     public bool IsGrindRail;
