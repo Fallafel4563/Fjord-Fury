@@ -196,8 +196,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000028417398, y: -3.2712484e-14, z: -1.03526054e-13, w: 1}
-  m_LocalPosition: {x: 9.981781e-13, y: -0.00000013699425, z: -0.00000019513071}
+  m_LocalRotation: {x: 0.0000030188942, y: -0.5495303, z: 0.38580883, w: 0.74105877}
+  m_LocalPosition: {x: 151.0675, y: -47.24333, z: -67.29207}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -613,6 +613,14 @@ MonoBehaviour:
   frontBackOffsetLimit: 3
   dollyKart: {fileID: 8965506563597239976}
   mainTrack: {fileID: 0}
+  forwardInput: 0
+  steerInput: 0
+  isJumping: 0
+  dontChangeMainTrack: 0
+  groundSteerSpeed: 15
+  jumpPower: 15
+  maxJumps: 1
+  colliderDisabledAfterJumpDuration: 0.5
   OnLanded:
     m_PersistentCalls:
       m_Calls:
@@ -628,13 +636,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  forwardInput: 0
-  steerInput: 0
-  isJumping: 0
-  groundSteerSpeed: 15
-  jumpPower: 15
-  maxJumps: 1
-  colliderDisabledAfterJumpDuration: 0.5
   OnJumped:
     m_PersistentCalls:
       m_Calls:
@@ -662,7 +663,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   respawnLerpDuration: 0.5
-  respawnYPosition: -25
+  deathYPosition: -25
   OnRespawnStarted:
     m_PersistentCalls:
       m_Calls:
