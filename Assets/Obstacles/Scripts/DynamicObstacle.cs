@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class DynamicObstacle : MonoBehaviour
 {
-    //public Transform pointA;  // Starting point
-    //public Transform pointB;  // Ending point
+    public Transform[] points;
+    
+    private int currentPointIndex = 0;
+    
     public float speed = 3f;  // Movement speed
 
-    public Transform[] points;
+    private float minDistance = 0.1f; // Minimum distance required between player and target point to move to next point in array
 
-    private Vector3 target;
+    private Vector3 target; 
 
-    private int currentPointIndex = 0;
-
-    private float minDistance = 0.1f;
+    public bool closeLoop = false; 
 
     void Start()
     {
         if (points == null)
         {
-            Debug.LogError("Please assign Point A and Point B Transforms in the inspector.");
+            Debug.LogError("Please assign Point Transforms in the inspector.");
             enabled = false;
             return;
         }
@@ -35,7 +35,7 @@ public class DynamicObstacle : MonoBehaviour
         // If close to the target, switch target
         if (Vector3.Distance(transform.position, target) < minDistance)
         {
-            if (currentPointIndex == points.Length - 1)
+            if (currentPointIndex == points.Length - 1 && (closeLoop = true)) //If at the end of list of points and close loop is checked; set target back to the start
             {
                 currentPointIndex = 0;
             }
@@ -45,7 +45,7 @@ public class DynamicObstacle : MonoBehaviour
                 target = points[currentPointIndex + 1].position;
             }
                 
-            //target = (target == pointA.position) ? pointB.position : pointA.position;
+            
         }
     }
 }
