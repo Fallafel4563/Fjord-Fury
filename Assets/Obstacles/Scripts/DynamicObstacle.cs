@@ -50,6 +50,11 @@ public class DynamicObstacle : MonoBehaviour
                 }
                 
             }
+            else if(currentPointIndex == points.Length && closeLoop)
+            {
+                currentPointIndex = 0;
+                target = points[currentPointIndex + 1].position;
+            }
             else
             {
                 currentPointIndex += 1;
