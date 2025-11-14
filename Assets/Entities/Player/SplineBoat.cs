@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Splines;
 
 public class SplineBoat : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class SplineBoat : MonoBehaviour
     [SerializeField] private float frontBackOffsetLimit = 3f;
     [SerializeField] private CinemachineSplineCart dollyKart;
     [SerializeField] private SplineTrack mainTrack;
-    public UnityEvent OnLanded;
 
     [HideInInspector] public float forwardInput;
     [HideInInspector] public float steerInput;
@@ -26,6 +26,7 @@ public class SplineBoat : MonoBehaviour
 
     private bool isGrounded = true;
     private bool isDashing = false;
+    private bool wasLastTrackRail = false;
     private float steerSpeed;
     private float distanceTraveled;
     private float currentForwardSpeed = 50f;
@@ -39,8 +40,11 @@ public class SplineBoat : MonoBehaviour
     [SerializeField] private float jumpPower = 15f;
     [SerializeField] private int maxJumps = 1;
     [SerializeField] private float colliderDisabledAfterJumpDuration = 0.5f;
+    public UnityEvent OnLanded;
     public UnityEvent OnJumped;
     private int jumpsLeft;
+    private float distanceWhenJumped;
+    private Vector3 jumpPosition;
 
 
     [Header("Air movement")]
@@ -111,54 +115,81 @@ public class SplineBoat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Don't change main track when it's inside a DontChangeMainTrack trigger
-        if (dontChangeMainTrack == true && isGrounded == true)
-        {
-            Debug.Log("I want to saty on the main track");
-            return;
-        }
         if (other.TryGetComponent(out SplineTrack splineTrack) && (isGrounded == false || splineTrack != currentTrack))
         {
-            // Change track when landing on a rail
-            if (currentTrack != splineTrack)
+            // Don't change main track when it's inside a DontChangeMainTrack trigger
+            // Can still change to rails
+            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.IsGrindRail == false)
             {
-                // Change the speed if the spline track has a faster override speed
-                bool hasFasterSpeed = splineTrack.overrideSpeed > baseForwardSpeed;
-                currentForwardSpeed = hasFasterSpeed ? splineTrack.overrideSpeed : baseForwardSpeed;
+                return;
+            }
 
-                // Set the new track
-                dollyKart.Spline = splineTrack.track;
-                currentTrack = splineTrack;
-                // Set the new track to a main track if it isn't a rail
-                if (splineTrack.IsGrindRail == false)
+            // Stop the player from jumping to a part of the track that is too far ahead (On whirlpool for example)
+            TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
+            // Check if the track it lands on is the same as the current main track and that the the boat didn't jump off a rail
+            if (splineTrack == mainTrack && wasLastTrackRail == false)
+            {
+                // Check how far it has travled while jumping (normal jump distance is around 75 (with a gravity of 75 and quickfall speed of 50))
+                // If it's above 200 then the player has found a shortcut that we don't want
+                Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
+                if (distanceInfo.distance - distanceWhenJumped > 200f)
                 {
-                    mainTrack = splineTrack;
+                    // Get the distance it has jumped
+                    float jumpedDistance = Vector3.Distance(jumpPosition, transform.position);
+                    Debug.Log(distanceWhenJumped + jumpedDistance);
+                    Debug.Log("You jumped too far");
+
+                    // Get the spline pos that is closest to the position it should've had had it not landed on the wrong part of the track
+                    Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition((distanceWhenJumped + jumpedDistance) / splineTrack.track.Spline.GetLength());
+                    Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
+
+                    // Override distance info with the distance it should've had, had the boat landed on the right part of the track
+                    distanceInfo.distance = distanceWhenJumped + jumpedDistance;
+                    distanceInfo.nearestSplinePos = desiredWorldPos;
                 }
             }
 
-            // Landing
-            // Reset stuff when landing
+
+            // Set the new track
+            currentTrack = splineTrack;
+            dollyKart.Spline = splineTrack.track;
+
+            // Check if the new track is a rail
+            if (splineTrack.IsGrindRail == true)
+                wasLastTrackRail = true;
+            else
+            {
+                mainTrack = splineTrack;
+                wasLastTrackRail = false;
+            }
+
+            // Change the speed if the spline track has a faster override speed
+            currentForwardSpeed = baseForwardSpeed;
+            if (splineTrack.overrideSpeed > baseForwardSpeed)
+                currentForwardSpeed = splineTrack.overrideSpeed;
+
+            // Reset stuff
             ySpeed = 0f;
             dashTime = 0f;
             isDashing = false;
             isGrounded = true;
 
             // Set the dollyKarts position
-            TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
             dollyKart.SplinePosition = distanceInfo.distance;
             // Make the kart move again
             dollyKart.AutomaticDolly.Enabled = true;
 
             // Set the landing position
+            // Get how far the boat is in the x position (but we don't know if it's to the left or right)
             float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
 
-            // Check which side of the track the palyer lands on
+            // Check if the boat landed on the right or left side
             Vector3 directionToPlayer = transform.position - distanceInfo.nearestSplinePos;
             float rightDirDot = Vector3.Dot(transform.right, directionToPlayer);
             // If rightDirDot is greater than 0 then the boat landed on the right side of the track
             if (rightDirDot < 0)
                 xPosition *= -1f;
-
+            // Set new x position
             transform.localPosition = new Vector3(xPosition, 0f, 0F);
 
             // Invoke events
@@ -304,6 +335,10 @@ public class SplineBoat : MonoBehaviour
             // Move the boat upwards
             ySpeed = jumpPower;
 
+            // How far the boat had traveled when jumping
+            jumpPosition = transform.position;
+            distanceWhenJumped = dollyKart.SplinePosition;
+
             // Detach the boat form the track
             dollyKart.AutomaticDolly.Enabled = false;
 
@@ -392,6 +427,9 @@ public class SplineBoat : MonoBehaviour
         // Reset stuff
         ySpeed = 0f;
         isGrounded = true;
+        // Reset speed when respawning
+        if (currentTrack.overrideSpeed < baseForwardSpeed)
+            currentForwardSpeed = baseForwardSpeed;
 
         // Invoke event
         OnRespawnStarted.Invoke();
