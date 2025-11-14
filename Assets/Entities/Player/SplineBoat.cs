@@ -1,51 +1,89 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
+using UnityEngine.Splines;
 
 public class SplineBoat : MonoBehaviour
 {
-    [SerializeField] private CinemachineCamera boat_camera;
+    [SerializeField] private Transform modelHolder;
+
+
+    [Header("General movement")]
+    [SerializeField] private float baseForwardSpeed = 50f;
+    // How far the boat can move forward / backwards form the dolly kart
+    [SerializeField] private float frontBackOffsetLimit = 3f;
     [SerializeField] private CinemachineSplineCart dollyKart;
     [SerializeField] private SplineTrack mainTrack;
-    [SerializeField] private SplineTrack currentTrack;
-    [SerializeField] private Transform modelHolder;
-    [SerializeField] private Collider colliderReference;
 
-    [SerializeField] private float baseForwardSpeed = 40f;
-    [SerializeField] private float frontBackOffsetLimit = 3f;
-    [SerializeField] private float steerSpeed = 10f;
-    [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float gravityForce = 20f;
-    [SerializeField] private float quickFallGravity = 40f;
-    [SerializeField] private float dashDuration = 0.3f;
-    [SerializeField] private float dashForce = 100f;
-    [SerializeField] private float respawnLerpDuration = 0.5f;
+    [HideInInspector] public float forwardInput;
+    [HideInInspector] public float steerInput;
+    [HideInInspector] public bool isJumping = false;
+    [HideInInspector] public bool dontChangeMainTrack = false;
 
     private bool isGrounded = true;
-    private bool isJumping = false;
     private bool isDashing = false;
-    private bool isDead = false;
-    private bool isRespawnLerpActive = false;
-    private float forwardInput;
-    private float steerInput;
-    private float dashDirection;
-    private float dashTime;
-    private float verticalSpeed;
-    private float respawnLerpTime;
-    private float timeSinceJump;
-    private Transform camDeathPos;
+    private bool wasLastTrackRail = false;
+    private float steerSpeed;
+    private float distanceTraveled;
+    private float currentForwardSpeed = 50f;
+    private Dictionary<string, float> forwardSpeedMultipliers = new();
+    private SplineTrack currentTrack;
+    private Collider colliderReference;
 
+
+    [Header("Ground movement")]
+    [SerializeField] private float groundSteerSpeed = 15f;
+    [SerializeField] private float jumpPower = 15f;
+    [SerializeField] private int maxJumps = 1;
+    [SerializeField] private float colliderDisabledAfterJumpDuration = 0.5f;
+    public UnityEvent OnLanded;
+    public UnityEvent OnJumped;
+    private int jumpsLeft;
+    private float distanceWhenJumped;
+    private Vector3 jumpPosition;
+
+
+    [Header("Air movement")]
+    [SerializeField] private float airSteerSpeed = 10f;
+    [SerializeField] private float gravity = 50f;
+    [SerializeField] private float quickfallSpeed = 75f;
+    private bool quickfallStarted = false;
+    private float ySpeed;
+    private float timeSinceJump;
+
+
+    [Header("Dashing")]
+    [SerializeField] private float dashDuration = 0.3f;
+    [SerializeField] private float dashForce = 100f;
     public UnityEvent OnLeftDashed;
     public UnityEvent OnRightDashed;
+
+    private float dashTime;
+    private float dashDirection;
+
+
+    [Header("Respawning")]
+    [SerializeField] private float respawnLerpDuration = 1f;
+    // How far bellow the track the boat has to be before respawning
+    [SerializeField] private float deathYPosition = -25f;
+    public UnityEvent OnRespawnStarted;
+    public UnityEvent OnRespawnEnded;
+
+    private bool isDead = false;
+    private float respawnLerpTime;
+    private Vector3 respawnLerpStart;
+
 
 
     private void Start()
     {
-        GetMainTrack();
-        GetBoatCamera();
-        SetSpeed(baseForwardSpeed);
+        // Set the start base speed
+        currentForwardSpeed = baseForwardSpeed;
+        colliderReference = GetComponent<CapsuleCollider>();
     }
 
 
@@ -54,95 +92,23 @@ public class SplineBoat : MonoBehaviour
         // Lerp to death cam position
         if (isDead == true)
         {
-            boat_camera.transform.position = camDeathPos.position;
+            RespawnLerp();
+            return;
         }
-        RespawnLerp();
 
-        // Apply Steering
-        transform.localPosition += Vector3.right * steerInput * steerSpeed * Time.deltaTime;
-        // Apply dashing
-        if (isDashing == true)
-            transform.localPosition += Vector3.right * dashDirection * dashForce * dashTime * Time.deltaTime;
-        
+        // Update dollyKart speed
+        SetSpeed(GetCurrentSpeed());
 
+        // Apply general movement
+        GeneralMovement();
+
+        // Apply state specific movement
         if (isGrounded == true)
-        {
-            // Ground Movement
-            // How much the boat should move forward every frame
-            float forward_force = transform.localPosition.z + forwardInput * steerSpeed * (1.1f - Mathf.Abs(transform.localPosition.z) / frontBackOffsetLimit) * Time.deltaTime;
-            // Limit how far the boat can move forward / backwards
-            float forward_limt = Mathf.Clamp(forward_force, -frontBackOffsetLimit, frontBackOffsetLimit);
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, forward_limt);
+            GroundMovement();
+        else
+            AirMovement();
 
-            // Reset time since jump (Why 0.2? I don't know)
-            timeSinceJump = 0.2f;
-            
-            // Stop the boat from going off the track
-            // Divided by 2 since the end of the width is only half of the width
-            if (Mathf.Abs(transform.localPosition.x) > (currentTrack.width / 2f))
-            {
-                float sideways_limit = (currentTrack.width / 2.0f) * Mathf.Sign(transform.localPosition.x);
-                transform.localPosition = new Vector3(sideways_limit, transform.localPosition.y, transform.localPosition.z);
-            }
-
-            // Do something when the boat reaches the end of the track
-            if (dollyKart.SplinePosition > 0.99f * currentTrack.track.Spline.GetLength())
-            {
-                // Jump off the track if it's a rail
-                if (currentTrack.IsGrindRail)
-                {
-                    Jump();
-                }
-                //currentTrack.OnEnd.Invoke();
-            }
-
-            // Dash cooldown
-            // Stop dashing when dashTime is less or equal to 0
-            if (dashTime <= 0f)
-            {
-                isDashing = false;
-                dashTime = 0f;
-            }
-            // Reduce dashTime when dashing
-            else
-            {
-                dashTime -= Time.deltaTime;
-                dashTime = Mathf.Max(dashTime, 0f);
-            }
-        }
-        else // Airborne
-        {
-            timeSinceJump += Time.deltaTime;
-            
-            // Forward movement
-            transform.localPosition += Vector3.forward * baseForwardSpeed * Time.deltaTime;
-            // Apply vertical movement (Jumping and gravity)
-            transform.localPosition += Vector3.up * verticalSpeed * Time.deltaTime;
-            // Reduce vertical speed by gravity force
-            verticalSpeed -= gravityForce * (timeSinceJump * timeSinceJump) * Time.deltaTime;
-
-            // Apply quickfalling when not holding jump key
-            if (isJumping == false)
-                verticalSpeed -= quickFallGravity * (timeSinceJump * timeSinceJump) * Time.deltaTime;
-            
-            // Stop jumping when holding the jump key and when the boat is falling
-            if (isJumping == true && verticalSpeed < 0f)
-                isJumping = false;
-            
-            // Start respawn after falling off the track
-            if (verticalSpeed < 0 && transform.localPosition.y < -25f && isDead == false)
-            {
-                isDead = true;
-                camDeathPos = boat_camera.transform;
-
-                isJumping = false;
-                dollyKart.AutomaticDolly.Enabled = true;
-
-                const float RESPAWN_DEALY_DURATION = 0.5f;
-                StartCoroutine(RespawnDelay(RESPAWN_DEALY_DURATION));
-            }
-        }
-
+        // Animate model
         ModelAnim();
     }
 
@@ -151,56 +117,179 @@ public class SplineBoat : MonoBehaviour
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (isGrounded == false || splineTrack != currentTrack))
         {
-            // Change track when landing on a rail
-            if (currentTrack != splineTrack)
+            // Don't change main track when it's inside a DontChangeMainTrack trigger
+            // Can still change to rails
+            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.IsGrindRail == false)
             {
-                // Change the speed
-                SetSpeed(splineTrack.overrideSpeed);
-                // Set the new track
-                dollyKart.Spline = splineTrack.track;
-                currentTrack = splineTrack;
-                if (splineTrack.IsGrindRail == false)
+                return;
+            }
+
+            // Stop the player from jumping to a part of the track that is too far ahead (On whirlpool for example)
+            TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
+            // Check if the track it lands on is the same as the current main track and that the the boat didn't jump off a rail
+            if (splineTrack == mainTrack && wasLastTrackRail == false)
+            {
+                // Check how far it has travled while jumping (normal jump distance is around 75 (with a gravity of 75 and quickfall speed of 50))
+                // If it's above 200 then the player has found a shortcut that we don't want
+                Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
+                if (distanceInfo.distance - distanceWhenJumped > 200f)
                 {
-                    mainTrack = splineTrack;
+                    // Get the distance it has jumped
+                    float jumpedDistance = Vector3.Distance(jumpPosition, transform.position);
+                    Debug.Log(distanceWhenJumped + jumpedDistance);
+                    Debug.Log("You jumped too far");
+
+                    // Get the spline pos that is closest to the position it should've had had it not landed on the wrong part of the track
+                    Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition((distanceWhenJumped + jumpedDistance) / splineTrack.track.Spline.GetLength());
+                    Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
+
+                    // Override distance info with the distance it should've had, had the boat landed on the right part of the track
+                    distanceInfo.distance = distanceWhenJumped + jumpedDistance;
+                    distanceInfo.nearestSplinePos = desiredWorldPos;
                 }
             }
 
-            // Landing
-            dashTime = 0.0f;
+
+            // Set the new track
+            currentTrack = splineTrack;
+            dollyKart.Spline = splineTrack.track;
+
+            // Check if the new track is a rail
+            if (splineTrack.IsGrindRail == true)
+                wasLastTrackRail = true;
+            else
+            {
+                mainTrack = splineTrack;
+                wasLastTrackRail = false;
+            }
+
+            // Change the speed if the spline track has a faster override speed
+            currentForwardSpeed = baseForwardSpeed;
+            if (splineTrack.overrideSpeed > baseForwardSpeed)
+                currentForwardSpeed = splineTrack.overrideSpeed;
+
+            // Reset stuff
+            ySpeed = 0f;
+            dashTime = 0f;
             isDashing = false;
             isGrounded = true;
-            splineTrack.OnBoatEnter.Invoke();
 
-            EvalInfo dupeditt = splineTrack.EvaluateBasedOnWorldPosition(transform.position);
-            dollyKart.SplinePosition = dupeditt.distance;
-
-            verticalSpeed = 0.0f;
+            // Set the dollyKarts position
+            dollyKart.SplinePosition = distanceInfo.distance;
+            // Make the kart move again
             dollyKart.AutomaticDolly.Enabled = true;
-            transform.parent = dollyKart.transform;
 
-            float leftPosition = Vector3.Distance(transform.position, dupeditt.SplinePos) * -1f;
-            float rightPosition = Vector3.Distance(transform.position, dupeditt.SplinePos);
-            bool useRightPos = Vector3.Distance(dupeditt.SplinePos + leftPosition * transform.right, transform.position) > Vector3.Distance(dupeditt.SplinePos + rightPosition * transform.right, transform.position);
-            float newPosition = useRightPos ? rightPosition : leftPosition;
+            // Set the landing position
+            // Get how far the boat is in the x position (but we don't know if it's to the left or right)
+            float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
 
-            transform.localPosition = new Vector3(newPosition, 0f, 0f);
+            // Check if the boat landed on the right or left side
+            Vector3 directionToPlayer = transform.position - distanceInfo.nearestSplinePos;
+            float rightDirDot = Vector3.Dot(transform.right, directionToPlayer);
+            // If rightDirDot is greater than 0 then the boat landed on the right side of the track
+            if (rightDirDot < 0)
+                xPosition *= -1f;
+            // Set new x position
+            transform.localPosition = new Vector3(xPosition, 0f, 0F);
+
+            // Invoke events
+            OnLanded.Invoke();
+            splineTrack.OnBoatEnter.Invoke(gameObject);
         }
     }
 
 
-    // Gets the main track
-    private void GetMainTrack()
+    private void GeneralMovement()
     {
-        //
+        // Apply steering
+        steerSpeed = airSteerSpeed;
+        if (isGrounded)
+            steerSpeed = groundSteerSpeed;
+        transform.localPosition += Vector3.right * (steerInput * steerSpeed) * Time.deltaTime;
+        // Apply dashing
+        if (isDashing == true)
+        {
+            transform.localPosition += Vector3.right * dashDirection * dashForce * dashTime * Time.deltaTime;
+        }
     }
 
 
-    // Gets the boat camera
-    private void GetBoatCamera()
+    private void GroundMovement()
     {
-        //
+        timeSinceJump = 0f;
+        // Reset how many jumps the boat has
+        jumpsLeft = maxJumps;
+        quickfallStarted = false;
+
+        // Move boat forwards
+        float forwardMovement = transform.localPosition.z + forwardInput * groundSteerSpeed * (1.1f - (MathF.Abs(transform.localPosition.z) / frontBackOffsetLimit)) * Time.deltaTime;
+        // Limit how far forward/backwards the boat can travel
+        float forwardLimit = Mathf.Clamp(forwardMovement, -frontBackOffsetLimit, frontBackOffsetLimit);
+        // Apply forwards movement
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, forwardLimit);
+
+        // Stop the boat from going off the sides of the track
+        // Divided by 2 since the end of the width is only half of the width
+        if (Mathf.Abs(transform.localPosition.x) > (currentTrack.width / 2f))
+        {
+            float sidewaysLimit = Mathf.Sign(transform.localPosition.x) * (currentTrack.width / 2.0f);
+            // Apply sideways limit
+            transform.localPosition = new Vector3(sidewaysLimit, transform.localPosition.y, transform.localPosition.z);
+        }
+
+        // Calculate how far the boat has traveled on the current track
+        distanceTraveled = currentTrack.track.Spline.GetLength();
+
+        // Do something when the boat reaches the end of a track
+        if (dollyKart.SplinePosition > (0.999f * distanceTraveled))
+        {
+            // Jump off the track if it's a rail
+            if (currentTrack.IsGrindRail)
+            {
+                Jump();
+            }
+
+            currentTrack.OnBoatReachedEnd.Invoke(gameObject);
+        }
+
+        // Dash cooldown
+        // Stop dashing when dashTime is less or equal to 0
+        if (dashTime <= 0f)
+        {
+            isDashing = false;
+            dashTime = 0f;
+        }
+        // Reduce dashTime when dashing
+        else
+        {
+            dashTime -= Time.deltaTime;
+            dashTime = Mathf.Max(dashTime, 0f);
+        }
     }
 
+
+    private void AirMovement()
+    {
+        // Move boat forwards
+        transform.localPosition += Vector3.forward * GetCurrentSpeed() * Time.deltaTime;
+
+        // Get fall speed
+        float fallSpeed = gravity;
+        if (isJumping == false || quickfallStarted == true)
+        {
+            fallSpeed = gravity + quickfallSpeed;
+            quickfallStarted = true;
+        }
+        ySpeed -= fallSpeed * Time.deltaTime * MathF.Pow(timeSinceJump + 0.5f, 2f);
+        // Apply fall speed
+        transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
+
+        // Start respawn if the boat falls far bellow the track
+        if (transform.localPosition.y < deathYPosition && isDead == false)
+        {
+            StartRespawn();
+        }
+    }
 
     // Set the new speed of the dolly kart
     private void SetSpeed(float newSpeed)
@@ -212,45 +301,106 @@ public class SplineBoat : MonoBehaviour
     }
 
 
-    private void Jump()
+    private float GetCurrentSpeed()
     {
-        // Reattach the boat to the main track when jumping of a rail
-        if (currentTrack.IsGrindRail)
+        return currentForwardSpeed * GetTotalSpeedMultipliers();
+    }
+
+
+    // Get the total speed multipler form the forwardSpeedMultipliers dict
+    public float GetTotalSpeedMultipliers()
+    {
+        float multiplier = 1f;
+        for (int i = 0; i < forwardSpeedMultipliers.Count; i++)
         {
-            Vector3 globalPosition = transform.position;
-            // Attach the boat to the main track when jumping off a rail
-            currentTrack = mainTrack;
-            dollyKart.Spline = mainTrack.track;
-
-            // Get the position relative to the main track
-            EvalInfo dupeEditt = mainTrack.EvaluateBasedOnWorldPosition(globalPosition);
-            Vector3 newPosition = globalPosition - dupeEditt.SplinePos;
-
-            // Set the position of the dolly kart
-            dollyKart.SplinePosition = dupeEditt.distance;
-
-            // Set the position of the boat
-            transform.localPosition = newPosition;
-            SetSpeed(baseForwardSpeed);
+            var item = forwardSpeedMultipliers.ElementAt(i);
+            float value = item.Value;
+            multiplier += value;
         }
+        return multiplier;
+    }
 
-        isJumping = true;
-        isDashing = false;
-        isGrounded = false;
-        timeSinceJump = 0.2f;
-        dollyKart.AutomaticDolly.Enabled = false;
-        verticalSpeed = jumpForce;
-        // Briefly disable the collider when jumping
-        const float DISABLE_COLLIDER_DURATION = 0.15f;
-        StartCoroutine(DisableColliderBriefly(DISABLE_COLLIDER_DURATION));
+
+    public void Jump()
+    {
+        if (jumpsLeft > 0)
+        {
+            // Reduce how many jumps the player has remaining
+            jumpsLeft -= 1;
+            // Reset stuff
+            isDashing = false;
+            isGrounded = false;
+            timeSinceJump = 0f;
+
+            // Move the boat upwards
+            ySpeed = jumpPower;
+
+            // How far the boat had traveled when jumping
+            jumpPosition = transform.position;
+            distanceWhenJumped = dollyKart.SplinePosition;
+
+            // Detach the boat form the track
+            dollyKart.AutomaticDolly.Enabled = false;
+
+            // Disable collider for a bit after jumping
+            StartCoroutine(DisableColliderBriefly());
+
+            // Reattach the boat to the main track when jumping of a rail
+            if (currentTrack.IsGrindRail)
+            {
+                Vector3 globalPosition = transform.position;
+                // Attach the boat to the main track when jumping off a rail
+                currentTrack = mainTrack;
+                dollyKart.Spline = mainTrack.track;
+
+                // Get the position relative to the main track
+                TrackDistanceInfo distanceInfo = mainTrack.GetDistanceInfoFromPosition(globalPosition);
+                Vector3 newPosition = globalPosition - distanceInfo.nearestSplinePos;
+
+                // Set the position of the dolly kart
+                dollyKart.SplinePosition = distanceInfo.distance;
+
+                // Set the position of the boat
+                transform.localPosition = newPosition;
+                SetSpeed(baseForwardSpeed);
+            }
+
+            // Invoke events
+            OnJumped.Invoke();
+            currentTrack.OnBoatExit.Invoke(gameObject);
+        }
+    }
+
+
+    public void DashLeft()
+    {
+        if (isDashing == false)
+        {
+            isDashing = true;
+            dashTime = dashDuration;
+            dashDirection = -1f;
+            OnLeftDashed.Invoke();
+        }
+    }
+
+
+    public void DashRight()
+    {
+        if (isDashing == false)
+        {
+            isDashing = true;
+            dashTime = dashDuration;
+            dashDirection = 1f;
+            OnRightDashed.Invoke();
+        }
     }
 
 
     private void ModelAnim()
     {
-        Vector3 newRotation = transform.localEulerAngles;
+        Vector3 newRotation = modelHolder.transform.localEulerAngles;
 
-        newRotation.x = -verticalSpeed * 2f;
+        newRotation.x = -ySpeed * 2f;
 
         float y_from = newRotation.y;
         float y_to = steerInput * steerSpeed * 2f + dashTime * dashDirection * 200f * (isGrounded ? 5f : 1f);
@@ -263,90 +413,54 @@ public class SplineBoat : MonoBehaviour
         modelHolder.localScale = isGrounded ? Vector3.one : new Vector3(horizontal_scale, vertical_scale, horizontal_scale);
 
         // Apply rotations
-        transform.localEulerAngles = newRotation;
+        modelHolder.transform.localEulerAngles = newRotation;
     }
 
 
-    public void OnHorizontal(InputValue inputValue)
+    private void StartRespawn()
     {
-        steerInput = inputValue.Get<float>();
-    }
+        // Start the respawn lerp
+        isDead = true;
+        respawnLerpTime = 0f;
+        respawnLerpStart = transform.localPosition;
 
-    public void OnVertical(InputValue inputValue)
-    {
-        forwardInput = inputValue.Get<float>();
-    }
+        // Reset stuff
+        ySpeed = 0f;
+        isGrounded = true;
+        // Reset speed when respawning
+        if (currentTrack.overrideSpeed < baseForwardSpeed)
+            currentForwardSpeed = baseForwardSpeed;
 
-
-    public void OnJump(InputValue inputValue)
-    {
-        if (isGrounded == true && inputValue.Get() != null)
-        {
-            Jump();
-        }
-        else if (inputValue.Get() == null)
-        {
-            isJumping = false;
-        }
-    }
-
-    public void OnLeftDash(InputValue inputValue)
-    {
-        if (isDashing == false)
-        {
-            isDashing = true;
-            dashTime = dashDuration;
-            dashDirection = -1f;
-            OnLeftDashed.Invoke();
-        }
-    }
-
-
-    public void OnRightDash(InputValue inputValue)
-    {
-        if (isDashing == false)
-        {
-            isDashing = true;
-            dashTime = dashDuration;
-            dashDirection = 1f;
-            OnRightDashed.Invoke();
-        }
+        // Invoke event
+        OnRespawnStarted.Invoke();
     }
 
 
     private void RespawnLerp()
     {
-        if (respawnLerpTime > 0)
+        Vector3 from = respawnLerpStart;
+        Vector3 to = Vector3.zero;
+        // Get the % of how far the boat should've moved between from and to
+        respawnLerpTime += Time.deltaTime;
+        float weight = respawnLerpTime / respawnLerpDuration;
+
+        // Move boat to the to position over
+        transform.localPosition = Vector3.Lerp(from, to, weight);
+
+        // Stop respawning when it has respawned for respawnLerpDuration
+        if (respawnLerpTime >= respawnLerpDuration)
         {
-            Vector3 from = transform.localPosition;
-            Vector3 to = new Vector3(isRespawnLerpActive ? 0.0f : transform.localPosition.x, 0.0f, 0.0f);
-            float weight = 1 - respawnLerpTime;
-            transform.localPosition = Vector3.Lerp(from, to, weight);
-            respawnLerpTime -= Time.deltaTime;
-        }
-        else
-        {
-            isRespawnLerpActive = false;
+            isDead = false;
+            dollyKart.AutomaticDolly.Enabled = true;
+            OnRespawnEnded.Invoke();
         }
     }
 
 
-    private IEnumerator DisableColliderBriefly(float disabledDuration)
+    private IEnumerator DisableColliderBriefly()
     {
         colliderReference.enabled = false;
-        yield return new WaitForSeconds(disabledDuration);
+        yield return new WaitForSeconds(colliderDisabledAfterJumpDuration);
         colliderReference.enabled = true;
-    }
-
-
-    private IEnumerator RespawnDelay(float RespawnDelay)
-    {
-        yield return new WaitForSeconds(RespawnDelay);
-        isDead = false;
-        isRespawnLerpActive = true;
-        respawnLerpTime = respawnLerpDuration;
-        isGrounded = true;
-        verticalSpeed = 0f;
-        transform.localEulerAngles = Vector3.zero;
     }
 }
