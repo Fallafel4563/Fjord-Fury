@@ -28,19 +28,15 @@ public class SplineTrack : MonoBehaviour
     public UnityEvent<GameObject> OnBoatReachedEnd;
 
 
-    void Start()
-    {
-        //Get spline component and component to extrude spline mesh
-        track = GetComponent<SplineContainer>();
-        extruder = GetComponent<SplineExtrude>();
-    }
-
-
     // This function is called when editing values in the inspector
     private void OnValidate()
     {
+        // Get the spline container component
+        if (track == null)
+            track = GetComponent<SplineContainer>();
         // Get the spline extrude component
-        extruder = GetComponent<SplineExtrude>();
+        if (extruder == null)
+            extruder = GetComponent<SplineExtrude>();
         // Update the radius when editing the width or multiplier
         extruder.Radius = width * multiplier;
         extruder.SegmentsPerUnit = segmentsPerUnit;
