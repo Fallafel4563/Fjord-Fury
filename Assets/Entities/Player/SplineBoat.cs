@@ -24,14 +24,14 @@ public class SplineBoat : MonoBehaviour
     [HideInInspector] public bool isJumping = false;
     [HideInInspector] public bool dontChangeMainTrack = false;
 
-    private bool isGrounded = true;
+    [HideInInspector] public bool isGrounded = true;
     private bool isDashing = false;
     private bool wasLastTrackRail = false;
     private float steerSpeed;
     private float distanceTraveled;
     private float currentForwardSpeed = 50f;
     private Dictionary<string, SpeedMultiplier> forwardSpeedMultipliers = new();
-    private SplineTrack currentTrack;
+    [HideInInspector] public SplineTrack currentTrack;
     private Collider colliderReference;
 
 
