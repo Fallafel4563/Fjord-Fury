@@ -35,9 +35,20 @@ public class DynamicObstacle : MonoBehaviour
         // If close to the target, switch target
         if (Vector3.Distance(transform.position, target) < minDistance)
         {
-            if (currentPointIndex == points.Length - 1 && (closeLoop = true)) //If at the end of list of points and close loop is checked; set target back to the start
+            if (currentPointIndex == points.Length - 1) //If at the end of list of points and close loop is checked; set target back to the start
             {
-                currentPointIndex = 0;
+                if (closeLoop == true)
+                {
+                    currentPointIndex = points.Length;
+                    target = points[0].position;
+                }
+                else
+                {
+                    currentPointIndex = 0;
+                    transform.position = points[0].position;
+                    target = points[currentPointIndex + 1].position;
+                }
+                
             }
             else
             {
