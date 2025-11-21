@@ -8,10 +8,6 @@ public class RaceFinishTime : MonoBehaviour
     public TextMeshProUGUI timeDisplay;
     public bool isCounting;
     
-    void Start()
-    {
-        finishTime.value = 0;
-    }
 
     // Update is called once per frame
     void Update()
