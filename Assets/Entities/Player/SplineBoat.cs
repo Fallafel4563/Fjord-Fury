@@ -293,7 +293,9 @@ public class SplineBoat : MonoBehaviour
         transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
 
         // Start respawn if the boat falls far bellow the track
-        if (transform.localPosition.y < deathYPosition && isDead == false)
+        Vector3 relativePos = dollyKart.transform.InverseTransformPoint(transform.position);
+        Debug.LogFormat("Relative Y pos: {0}", relativePos.y);
+        if (relativePos.y < deathYPosition && isDead == false)
         {
             StartRespawn();
         }
@@ -477,7 +479,7 @@ private IEnumerator DisableColliderBriefly()
 [Header("Respawning")]
     [SerializeField] private float respawnLerpDuration = 1f;
     // How far bellow the track the boat has to be before respawning
-    [SerializeField] private float deathYPosition = -25f;
+    [SerializeField] private float deathYPosition = -100f;
     public UnityEvent OnRespawnStarted;
     public UnityEvent OnRespawnEnded;
 
