@@ -4952,6 +4952,7 @@ Transform:
   m_Children:
   - {fileID: 4805101058444081956}
   - {fileID: 7575265241815793949}
+  - {fileID: 1736651616295339082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2834201662640471548
@@ -4996,11 +4997,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2407fd2bc4c715789afb867089fe01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 2834201662640471548}
-  cinemachineCamera: {fileID: 5983764731637625418}
-  cinemachineBrain: {fileID: 378872691420787301}
+  mainTrack: {fileID: 0}
+  splineCart: {fileID: 8965506563597239976}
+  playerMovement: {fileID: 909500667991594999}
+  playerCamera: {fileID: 476400460501384618}
+  playerRespawn: {fileID: 7239613926731467213}
+  boatMovementAnims: {fileID: 4139090369463075376}
   dashDoubleTapTiming: 0
-  splineBoat: {fileID: 1672579298930181130}
 --- !u!1 &3283433894581042231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5029,8 +5032,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000028417398, y: -6.721003e-16, z: -2.127015e-15, w: 1}
-  m_LocalPosition: {x: 1.4567763e-12, y: -0.00000013699425, z: -0.00000019513071}
+  m_LocalRotation: {x: 0.00003942847, y: -0.000017154482, z: 0.00001068411, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5331,10 +5334,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8497310814354721785}
-  - component: {fileID: 6636927453759274787}
   - component: {fileID: 653341406667092455}
   - component: {fileID: 4125074992363956026}
-  - component: {fileID: 1672579298930181130}
+  - component: {fileID: 909500667991594999}
+  - component: {fileID: 8568323150731810681}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5358,27 +5361,6 @@ Transform:
   - {fileID: 5850184161569201863}
   m_Father: {fileID: 4805101058444081956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6636927453759274787
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6421745550217031441}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.5, y: 1, z: 0.5}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!136 &653341406667092455
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5398,8 +5380,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.75
+  m_Height: 2.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4125074992363956026
@@ -5429,7 +5411,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1672579298930181130
+--- !u!114 &909500667991594999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5438,44 +5420,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 6421745550217031441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea4249d35f9ad295cb9094a6e0beb5fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bd874aa54e08d4baa65829cb53660f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelHolder: {fileID: 5850184161569201863}
-  baseForwardSpeed: 40
-  frontBackOffsetLimit: 3
-  dollyKart: {fileID: 8965506563597239976}
-  mainTrack: {fileID: 0}
+  jumpInput: 0
   forwardInput: 0
   steerInput: 0
-  isJumping: 0
   dontChangeMainTrack: 0
   isGrounded: 1
+  isJumping: 0
+  isDashing: 0
+  baseForwardSpeed: 0
+  wasLastTrackRail: 0
+  currentForwardSpeed: 40
+  overrideSpeed: 0
+  steerSpeed: 0
+  splineCart: {fileID: 0}
+  mainTrack: {fileID: 0}
   currentTrack: {fileID: 0}
   groundSteerSpeed: 15
-  jumpPower: 15
+  frontBackOffsetLimit: 3
+  airSteerSpeed: 10
+  fallSpeed: 50
+  quickfallSpeed: 75
+  ySpeed: 0
   maxJumps: 1
-  colliderDisabledAfterJumpDuration: 0.5
-  OnLanded:
+  jumpPower: 15
+  Jumped:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8261415816405388536}
-        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
-        m_MethodName: OnLanded
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnJumped:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8261415816405388536}
-        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
+      - m_Target: {fileID: 476400460501384618}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
         m_MethodName: OnJumped
         m_Mode: 1
         m_Arguments:
@@ -5486,49 +5461,44 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  airSteerSpeed: 10
-  gravity: 75
-  quickfallSpeed: 50
-  dashDuration: 0.3
+  timeSinceJump: 0
+  Landed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 476400460501384618}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: OnLanded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   dashForce: 100
-  OnLeftDashed:
+  dashDuration: 0.3
+  dashDirection: 0
+  DashedLeft:
     m_PersistentCalls:
       m_Calls: []
-  OnRightDashed:
+  DashedRight:
     m_PersistentCalls:
       m_Calls: []
-  respawnLerpDuration: 0.5
-  deathYPosition: -25
-  OnRespawnStarted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8261415816405388536}
-        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
-        m_MethodName: OnRespawnStart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRespawnEnded:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8261415816405388536}
-        m_TargetAssemblyTypeName: PlayerCameraController, Assembly-CSharp
-        m_MethodName: OnRespawnEnd
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  dashTime: 0
+--- !u!114 &8568323150731810681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be71ddad3dd98e47d9f2d660ac171203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5543,7 +5513,7 @@ GameObject:
   - component: {fileID: 6389050002901436765}
   - component: {fileID: 3575003207059894041}
   - component: {fileID: 5239818575151630225}
-  - component: {fileID: 8261415816405388536}
+  - component: {fileID: 476400460501384618}
   m_Layer: 0
   m_Name: FollowCameraRoot
   m_TagString: Untagged
@@ -5559,8 +5529,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6454330232883850996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30129924, y: 0.0000037087977, z: -0.0000011719173, w: 0.95352966}
-  m_LocalPosition: {x: -0.00000063666954, y: 4.0574594, z: -3.0818436}
+  m_LocalRotation: {x: 0.30129924, y: 0.0000035416874, z: -0.0000011191133, w: 0.95352966}
+  m_LocalPosition: {x: -0.0000006079827, y: 4.0574594, z: -3.0818436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5587,7 +5557,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 8497310814354721785}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -5711,7 +5681,7 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: -132.77469, y: -24.645477, z: -234.84671}
---- !u!114 &8261415816405388536
+--- !u!114 &476400460501384618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5726,6 +5696,84 @@ MonoBehaviour:
   jumpCameraYOffset: 0
   groundCameraYOffset: 4
   respawnOffset: {x: 0, y: 4, z: -7}
+  trackingTarget: {fileID: 0}
+--- !u!1 &7520541808020998649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1736651616295339082}
+  - component: {fileID: 7239613926731467213}
+  m_Layer: 0
+  m_Name: RespawnSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1736651616295339082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520541808020998649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5007536021592668373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7239613926731467213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520541808020998649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613584d1c5810c7192a9ce129bc314b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnLerpDuration: 1
+  RespawnStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 476400460501384618}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: OnRespawnStarted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  RespawnFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 476400460501384618}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: OnRespawnFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playerMovement: {fileID: 0}
+  splineCart: {fileID: 0}
 --- !u!1 &8914522806762380729
 GameObject:
   m_ObjectHideFlags: 0
@@ -5735,6 +5783,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5850184161569201863}
+  - component: {fileID: 4139090369463075376}
   m_Layer: 0
   m_Name: ModelHolder
   m_TagString: Untagged
@@ -5761,69 +5810,19 @@ Transform:
   - {fileID: 2074746651507172802}
   m_Father: {fileID: 8497310814354721785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &8323749749161757261
-PrefabInstance:
+--- !u!114 &4139090369463075376
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5850184161569201863}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.26
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: m_Name
-      value: Speedboat
-      objectReference: {fileID: 0}
-    - target: {fileID: 8205284283629393163, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 6fe92d7d4638ad648a0dd42255e549f4, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
---- !u!4 &8361318872090275238 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 571ed7fa02b84d146aa23b1267a268a9, type: 3}
-  m_PrefabInstance: {fileID: 8323749749161757261}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914522806762380729}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea361c9416a7919e8a79d6170ec8be7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  lerpSpeed: 5
+  groundTilt: 1
+  airTilt: 5
