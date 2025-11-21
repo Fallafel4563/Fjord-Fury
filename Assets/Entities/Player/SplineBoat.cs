@@ -536,3 +536,57 @@ private IEnumerator DisableColliderBriefly()
 
 #endregion
 }
+
+
+#region Speed multiplier classes
+public class SpeedMultiplier
+{
+    public float value;
+    public float timeOnStart;
+    public SpeedMultiplierCurve multiplierCurve;
+
+    [HideInInspector] public bool shouldDelete = false;
+
+
+    public float GetMultiplierValue(float time)
+    {
+        if (multiplierCurve != null)
+        {
+            // How long the curve has been active for
+            float activeTime = time - timeOnStart;
+
+            // When the start curve ends
+            float startCurveTime = multiplierCurve.startCurve.keys.Last().time;
+            // When the hold time ends
+            float endCurveTime = startCurveTime + multiplierCurve.holdTime;
+            // When to remove the speed multiplier
+            float deleteCurveTime = endCurveTime + multiplierCurve.endCurve.keys.Last().time;
+
+            if (activeTime < startCurveTime)
+            {
+                return value * multiplierCurve.startCurve.Evaluate(activeTime);
+            }
+            else if (activeTime < endCurveTime && activeTime > startCurveTime)
+            {
+                return value;
+            }
+            else if (activeTime < deleteCurveTime && activeTime > endCurveTime)
+            {
+                return value * multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime));
+            }
+            else
+                shouldDelete = true;
+        }
+        return value;
+    }
+}
+
+[Serializable]
+public class SpeedMultiplierCurve
+{
+    public float holdTime;
+    public AnimationCurve startCurve;
+    public AnimationCurve endCurve;
+}
+
+#endregion
