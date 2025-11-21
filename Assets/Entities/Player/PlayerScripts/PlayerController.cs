@@ -1,0 +1,101 @@
+using Unity.Cinemachine;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+
+[RequireComponent(typeof(PlayerInput))]
+public class PlayerController : MonoBehaviour
+{
+    [Header("External References")]
+    public SplineTrack mainTrack;
+
+
+    [Header("Internal References")]
+    [SerializeField] private CinemachineSplineCart splineCart;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private PlayerRespawn playerRespawn;
+    [SerializeField] private BoatMovementAnims boatMovementAnims;
+
+
+    private PlayerInput playerInput;
+
+
+
+    private void Awake()
+    {   
+        playerInput = GetComponent<PlayerInput>();
+    }
+
+
+    // Set references on children
+    private void Start()
+    {
+        splineCart.Spline = mainTrack.track;
+
+        playerMovement.splineCart = splineCart;
+        playerMovement.mainTrack = mainTrack;
+
+        playerCamera.trackingTarget = playerMovement.transform;
+        playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
+
+        playerRespawn.playerMovement = playerMovement;
+        playerRespawn.splineCart = splineCart;
+
+        boatMovementAnims.playerMovement = playerMovement;
+    }
+
+
+
+#region Input
+    [Header("Input")]
+    [SerializeField] private float dashDoubleTapTiming = 0.2f;
+
+    private float forwardInput;
+    private float steerInput;
+    private bool jumpInput;
+
+
+
+    public void OnForward(InputValue inputValue)
+    {
+        // Get input
+        forwardInput = inputValue.Get<float>();
+        // Send input data to boat movement
+        playerMovement.forwardInput = forwardInput;
+    }
+
+
+    public void OnSteer(InputValue inputValue)
+    {
+        // Get input data
+        steerInput = inputValue.Get<float>();
+        // Send input data to boat movement
+        playerMovement.steerInput = steerInput;
+    }
+
+
+    public void OnJump(InputValue inputValue)
+    {
+        jumpInput = inputValue.Get<float>() > 0.5f;
+        playerMovement.jumpInput = jumpInput;
+        if (jumpInput == true)
+        {
+            playerMovement.Jump();
+        }
+    }
+
+
+    public void OnLeftDash()
+    {
+        playerMovement.DashLeft();
+    }
+
+
+    public void OnRightDash()
+    {
+        playerMovement.DashRight();
+    }
+
+#endregion
+}

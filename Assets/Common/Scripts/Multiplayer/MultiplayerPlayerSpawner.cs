@@ -13,6 +13,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     private PlayerInputManager playerInputManager;
 
 
+
     private void Start()
     {
         // Spawn players
@@ -32,9 +33,9 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     {
         Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
-        // Set the main track reference on the spawned player
-        CinemachineSplineCart dollyCart = playerInput.GetComponentInChildren<CinemachineSplineCart>();
-        dollyCart.Spline = mainTrack.track;
+        // Set the main track of the player that joined
+        PlayerController playerController = playerInput.GetComponent<PlayerController>();
+        playerController.mainTrack = mainTrack;
     }
 
 
@@ -46,13 +47,9 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
     private void OnValidate()
     {
-        // Setup the palyer input manager to have the desired default values
         if (playerInputManager == null)
         {
             playerInputManager = GetComponent<PlayerInputManager>();
-            playerInputManager.playerPrefab = playerPrefab;
-            playerInputManager.splitScreen = true;
-            //playerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
         }
     }
 }
