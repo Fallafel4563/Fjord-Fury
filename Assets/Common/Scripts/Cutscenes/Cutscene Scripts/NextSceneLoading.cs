@@ -4,15 +4,21 @@ using System.Collections;
 
 public class NextSceneLoading : MonoBehaviour
 {
+    public string SceneToLoad;
+    bool loading = false;
     public void LoadSceneCoroutine()
     {
+        if (!loading)
+        {
         StartCoroutine(LoadNextScene());
+            loading = true;
+        }
     }
     
 
     IEnumerator LoadNextScene()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("");//Add level to be loaded inside parentheses.
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneToLoad);//Add level to be loaded inside parentheses.
 
         asyncLoad.allowSceneActivation = false;
 
