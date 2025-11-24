@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentTrack = mainTrack;
+        overrideSpeed = baseForwardSpeed;
     }
 
 
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public bool wasLastTrackRail = false;
     [HideInInspector] public float currentForwardSpeed = 40f;
-    [HideInInspector] public float overrideSpeed = 0f;
+    [HideInInspector] public float overrideSpeed = 40f;
     [HideInInspector] public float steerSpeed;
     [HideInInspector]public CinemachineSplineCart splineCart;
     [HideInInspector] public SplineTrack mainTrack;
@@ -116,10 +117,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetOverrideSpeed(float newOverRideSpeed)
     {
-        if (newOverRideSpeed > baseForwardSpeed)
-            overrideSpeed = newOverRideSpeed - baseForwardSpeed;
+        if (newOverRideSpeed > 0f)
+            overrideSpeed = newOverRideSpeed;
         else
-            overrideSpeed = 0f;
+            overrideSpeed = baseForwardSpeed;
     }
 
 
