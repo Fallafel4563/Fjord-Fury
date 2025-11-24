@@ -409,114 +409,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
   m_PrefabInstance: {fileID: 2021414625}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &93876911
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 93876912}
-  - component: {fileID: 93876915}
-  - component: {fileID: 93876914}
-  - component: {fileID: 93876913}
-  m_Layer: 0
-  m_Name: Cube (14)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &93876912
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93876911}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.07294873, y: 0.73862755, z: 0.15156938, w: 0.65278983}
-  m_LocalPosition: {x: -89.8, y: -68.8, z: -208}
-  m_LocalScale: {x: 9.819669, y: 16.392448, z: 10.41225}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1814438713}
-  m_LocalEulerAnglesHint: {x: -18.611, y: 96.166, z: 5.457}
---- !u!65 &93876913
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93876911}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &93876914
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93876911}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &93876915
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93876911}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &95270080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,13 +1583,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 1
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 197266648}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -1753,14 +1645,13 @@ MonoBehaviour:
   m_Range: {x: 0, y: 1}
   m_FlipNormals: 0
   m_Shape:
-    rid: 4247337812514570438
+    rid: 4247337812514570490
   references:
     version: 2
     RefIds:
-    - rid: 4247337812514570438
-      type: {class: Circle, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
-      data:
-        m_Sides: 8
+    - rid: 4247337812514570490
+      type: {class: Road, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
+      data: 
 --- !u!23 &197266653
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1887,13 +1778,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 232701606}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -2323,15 +2214,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.66
+      value: 3.76
       objectReference: {fileID: 0}
     - target: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.22
+      value: -11.3
       objectReference: {fileID: 0}
     - target: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -60.31
+      value: -62.23
       objectReference: {fileID: 0}
     - target: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3006,13 +2897,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 346587063}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -3722,13 +3613,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 433048039}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -4353,257 +4244,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
   m_PrefabInstance: {fileID: 134100271}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &495361134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 495361141}
-  - component: {fileID: 495361140}
-  - component: {fileID: 495361139}
-  - component: {fileID: 495361138}
-  - component: {fileID: 495361137}
-  - component: {fileID: 495361136}
-  - component: {fileID: 495361135}
-  m_Layer: 0
-  m_Name: Spline (14)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &495361135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 15
-  multiplier: 1
-  segmentsPerUnit: 0.5
-  track: {fileID: 495361140}
-  trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
-  OnBoatEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBoatExit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBoatReachedEnd:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!64 &495361136
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!114 &495361137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 222dc08d484f16869bdd89edd9d368fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Container: {fileID: 495361140}
-  m_TargetMesh: {fileID: 0}
-  m_RebuildOnSplineChange: 1
-  m_RebuildFrequency: 30
-  m_UpdateColliders: 1
-  m_Sides: 8
-  m_SegmentsPerUnit: 0.5
-  m_Capped: 1
-  m_Radius: 15
-  m_Range: {x: 0, y: 1}
-  m_FlipNormals: 0
-  m_Shape:
-    rid: 4247337812514570460
-  references:
-    version: 2
-    RefIds:
-    - rid: 4247337812514570460
-      type: {class: Road, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
-      data: 
---- !u!23 &495361138
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 98519854f04aa5d42baaff8c8fef6005, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &495361139
-MeshFilter:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  m_Mesh: {fileID: 0}
---- !u!114 &495361140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Spline:
-    m_EditModeType: 1
-    m_Knots: []
-    m_MetaData: []
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
-  m_Splines:
-  - m_EditModeType: 1
-    m_Knots:
-    - Position:
-        x: 0
-        y: 0
-        z: 0
-      TangentIn:
-        x: -0
-        y: -0
-        z: -3.7374086
-      TangentOut:
-        x: 0
-        y: 0
-        z: 3.7374086
-      Rotation:
-        value:
-          x: -0.009698151
-          y: 0.9813604
-          z: -0.051798545
-          w: -0.1848093
-    - Position:
-        x: -13.519119
-        y: -3.933649
-        z: -34.620544
-      TangentIn:
-        x: -0
-        y: -0
-        z: -3.7374086
-      TangentOut:
-        x: 0
-        y: 0
-        z: 3.7374086
-      Rotation:
-        value:
-          x: -0.009698151
-          y: 0.9813604
-          z: -0.051798545
-          w: -0.1848093
-    m_MetaData:
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
-  m_Knots:
-    m_KnotsLink: []
---- !u!4 &495361141
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495361134}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.08122294, y: -0.119444266, z: -0.5418463, w: 0.82797253}
-  m_LocalPosition: {x: -43.675934, y: 8.932723, z: -353.86566}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2049787824}
-  m_LocalEulerAnglesHint: {x: -14.459, y: -8.264, z: -58.8}
 --- !u!1 &505560820
 GameObject:
   m_ObjectHideFlags: 0
@@ -4721,13 +4361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 1
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 552555601}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -5353,13 +4993,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 593180373}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -6892,13 +6532,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 750054602}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -7410,13 +7050,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 1
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 772067831}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -7472,14 +7112,13 @@ MonoBehaviour:
   m_Range: {x: 0, y: 1}
   m_FlipNormals: 0
   m_Shape:
-    rid: 4247337812514570437
+    rid: 4247337812514570493
   references:
     version: 2
     RefIds:
-    - rid: 4247337812514570437
-      type: {class: Circle, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
-      data:
-        m_Sides: 8
+    - rid: 4247337812514570493
+      type: {class: Road, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
+      data: 
 --- !u!23 &772067829
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7973,13 +7612,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 869645100}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -8453,13 +8092,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 1
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 946081982}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -8515,14 +8154,13 @@ MonoBehaviour:
   m_Range: {x: 0, y: 1}
   m_FlipNormals: 0
   m_Shape:
-    rid: 4247337812514570436
+    rid: 4247337812514570492
   references:
     version: 2
     RefIds:
-    - rid: 4247337812514570436
-      type: {class: Circle, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
-      data:
-        m_Sides: 8
+    - rid: 4247337812514570492
+      type: {class: Road, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
+      data: 
 --- !u!23 &946081980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8605,23 +8243,23 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 11.36496
-        y: 8.877197
-        z: 26.507965
+        x: 11.3602295
+        y: 1.5329533
+        z: 26.506836
       TangentIn:
         x: -0
         y: -0
-        z: -7.8317156
+        z: -7.7824483
       TangentOut:
         x: 0
         y: 0
-        z: 7.8317156
+        z: 7.7824483
       Rotation:
         value:
-          x: -0.0069681583
-          y: 0.9744834
-          z: -0.05660636
-          w: -0.21709272
+          x: 0.003254457
+          y: 0.9759586
+          z: -0.0108172465
+          w: -0.21766289
     - Position:
         x: -21.709755
         y: -0.0000038146973
@@ -8629,17 +8267,17 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -14.750888
+        z: -14.69788
       TangentOut:
         x: 0
         y: 0
-        z: 8.050902
+        z: 8.047322
       Rotation:
         value:
-          x: -0.016718531
-          y: 0.8562423
-          z: -0.03129795
-          w: -0.5153544
+          x: -0.0016561382
+          y: 0.85734725
+          z: -0.0061792205
+          w: -0.51469886
     - Position:
         x: -44.767662
         y: -0.0000038146973
@@ -8979,13 +8617,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 965771878}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -10580,13 +10218,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1146524293}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -12240,7 +11878,7 @@ Transform:
   m_GameObject: {fileID: 1304123569}
   serializedVersion: 2
   m_LocalRotation: {x: 0.034019817, y: 0.75343657, z: 0.029618993, w: 0.6559716}
-  m_LocalPosition: {x: -59.100002, y: -69.6, z: -198.00002}
+  m_LocalPosition: {x: -5.2, y: -67, z: -234.5}
   m_LocalScale: {x: 6.602433, y: 63.64516, z: 40.4265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12382,437 +12020,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
   m_PrefabInstance: {fileID: 490520313}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1327215285
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1327215291}
-  - component: {fileID: 1327215290}
-  - component: {fileID: 1327215289}
-  - component: {fileID: 1327215288}
-  - component: {fileID: 1327215287}
-  - component: {fileID: 1327215286}
-  - component: {fileID: 1327215292}
-  m_Layer: 0
-  m_Name: Spline (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1327215286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 15
-  multiplier: 1
-  segmentsPerUnit: 0.5
-  track: {fileID: 1327215290}
-  trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 30
-  OnBoatEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBoatExit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBoatReachedEnd:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1327215287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 222dc08d484f16869bdd89edd9d368fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Container: {fileID: 1327215290}
-  m_TargetMesh: {fileID: 0}
-  m_RebuildOnSplineChange: 1
-  m_RebuildFrequency: 30
-  m_UpdateColliders: 1
-  m_Sides: 8
-  m_SegmentsPerUnit: 0.5
-  m_Capped: 1
-  m_Radius: 15
-  m_Range: {x: 0, y: 1}
-  m_FlipNormals: 0
-  m_Shape:
-    rid: 4247337812514570408
-  references:
-    version: 2
-    RefIds:
-    - rid: 4247337812514570408
-      type: {class: Road, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
-      data: 
---- !u!23 &1327215288
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c833994af1a801a4c820f787abe0a272, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1327215289
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  m_Mesh: {fileID: 0}
---- !u!114 &1327215290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Spline:
-    m_EditModeType: 1
-    m_Knots: []
-    m_MetaData: []
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
-  m_Splines:
-  - m_EditModeType: 1
-    m_Knots:
-    - Position:
-        x: 0
-        y: 0
-        z: 0
-      TangentIn:
-        x: -0
-        y: -0
-        z: -1.7117014
-      TangentOut:
-        x: 0
-        y: 0
-        z: 1.7117014
-      Rotation:
-        value:
-          x: -0.5316322
-          y: 0.8467799
-          z: -0.009673655
-          w: 0.015407917
-    - Position:
-        x: 0.622715
-        y: -0.0000038146973
-        z: -17.105682
-      TangentIn:
-        x: -0
-        y: -0
-        z: -5.831766
-      TangentOut:
-        x: 0
-        y: 0
-        z: 6.3413696
-      Rotation:
-        value:
-          x: -0.22211488
-          y: 0.9717932
-          z: 0.017661449
-          w: -0.077272534
-    - Position:
-        x: -6.389118
-        y: -0.0000076293945
-        z: -36.091476
-      TangentIn:
-        x: 0
-        y: 0
-        z: -4.0488405
-      TangentOut:
-        x: 0
-        y: 0
-        z: 6.190618
-      Rotation:
-        value:
-          x: -0.17628078
-          y: 0.94280094
-          z: -0.052000284
-          w: -0.27811432
-    - Position:
-        x: -14.629118
-        y: -0.0000038146973
-        z: -50.751465
-      TangentIn:
-        x: 0
-        y: 0
-        z: -5.1478443
-      TangentOut:
-        x: 0
-        y: 0
-        z: 7.4801373
-      Rotation:
-        value:
-          x: -0.091946
-          y: 0.9528808
-          z: 0.027764624
-          w: -0.287738
-    - Position:
-        x: -26.729118
-        y: -0.0000038146973
-        z: -74.15146
-      TangentIn:
-        x: -0
-        y: -0
-        z: -7.4580765
-      TangentOut:
-        x: 0
-        y: 0
-        z: 7.181366
-      Rotation:
-        value:
-          x: -0.23470597
-          y: 0.8452445
-          z: 0.12844713
-          w: -0.46257547
-    - Position:
-        x: -51.12912
-        y: -0.0000038146973
-        z: -75.251465
-      TangentIn:
-        x: -0
-        y: -0
-        z: -7.9347043
-      TangentOut:
-        x: 0
-        y: 0
-        z: 8.907096
-      Rotation:
-        value:
-          x: 0.43265185
-          y: -0.516574
-          z: -0.23379841
-          w: 0.7009294
-    - Position:
-        x: -72.92912
-        y: -20.700005
-        z: -68.65146
-      TangentIn:
-        x: -0
-        y: -0
-        z: -8.800086
-      TangentOut:
-        x: 0
-        y: 0
-        z: 10.232781
-      Rotation:
-        value:
-          x: 0.30330226
-          y: -0.1703849
-          z: -0.20559564
-          w: 0.91471696
-    - Position:
-        x: -72.42912
-        y: -24.900003
-        z: -27.251465
-      TangentIn:
-        x: -0
-        y: -0
-        z: -11.25051
-      TangentOut:
-        x: 0
-        y: 0
-        z: 9.152853
-      Rotation:
-        value:
-          x: 0.011557847
-          y: 0.23031527
-          z: -0.16021448
-          w: 0.959767
-    - Position:
-        x: -50.92912
-        y: -26.900003
-        z: -10.151474
-      TangentIn:
-        x: -0
-        y: -0
-        z: -9.636808
-      TangentOut:
-        x: 0
-        y: 0
-        z: 12.423943
-      Rotation:
-        value:
-          x: -0.02298381
-          y: 0.58755904
-          z: -0.20143257
-          w: 0.78337157
-    - Position:
-        x: -7.329117
-        y: -40.700005
-        z: -12.251465
-      TangentIn:
-        x: -0
-        y: -0
-        z: -13.066746
-      TangentOut:
-        x: 0
-        y: 0
-        z: 16.068806
-      Rotation:
-        value:
-          x: 0.08766018
-          y: 0.90664595
-          z: -0.03913409
-          w: 0.41082534
-    - Position:
-        x: 6.070881
-        y: -35.200005
-        z: -79.95148
-      TangentIn:
-        x: -0
-        y: -0
-        z: -6.923223
-      TangentOut:
-        x: 0
-        y: 0
-        z: 6.923223
-      Rotation:
-        value:
-          x: -0.3717051
-          y: 0.9223717
-          z: 0.0006733031
-          w: 0.10519186
-    m_MetaData:
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 3
-      Tension: 0.5
-    - Mode: 3
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
-  m_Knots:
-    m_KnotsLink: []
---- !u!4 &1327215291
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.71105003, w: 0.70314145}
-  m_LocalPosition: {x: -39.146404, y: 39.693775, z: 60.051483}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1646525427}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1327215292
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327215285}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &1333274316
 GameObject:
   m_ObjectHideFlags: 0
@@ -14412,13 +13619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1631211777}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -14806,7 +14013,6 @@ Transform:
   - {fileID: 688420323}
   - {fileID: 714983144}
   - {fileID: 1592150884}
-  - {fileID: 1327215291}
   m_Father: {fileID: 852060658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.641}
 --- !u!1 &1649296694
@@ -15724,13 +14930,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 1
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1759421857}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -16448,7 +15654,6 @@ Transform:
   - {fileID: 583308935}
   - {fileID: 1292955259}
   - {fileID: 1304123570}
-  - {fileID: 93876912}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1819253725
@@ -17484,13 +16689,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 15
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1942091636}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -18767,13 +17972,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 10
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2049787823}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -18982,7 +18187,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 495361141}
   - {fileID: 433048040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6.553}
@@ -19572,13 +18776,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldRespawnOnTrack: 1
+  overrideSpeed: 30
   width: 1
   multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2140988301}
   trailType: 0
-  IsGrindRail: 0
-  overrideSpeed: 0
   OnBoatEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -19634,14 +18838,13 @@ MonoBehaviour:
   m_Range: {x: 0, y: 1}
   m_FlipNormals: 0
   m_Shape:
-    rid: 4247337812514570439
+    rid: 4247337812514570491
   references:
     version: 2
     RefIds:
-    - rid: 4247337812514570439
-      type: {class: Circle, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
-      data:
-        m_Sides: 8
+    - rid: 4247337812514570491
+      type: {class: Road, ns: UnityEngine.Splines.ExtrusionShapes, asm: Unity.Splines}
+      data: 
 --- !u!23 &2140988299
 MeshRenderer:
   m_ObjectHideFlags: 0
