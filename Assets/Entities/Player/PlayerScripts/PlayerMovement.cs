@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         currentTrack.OnBoatExit.Invoke(gameObject);
 
         // Reattach the cart to the main track when jumping off a rail
-        if (currentTrack.IsGrindRail)
+        if (!currentTrack.shouldRespawnOnTrack)
         {
             // Get the position relative to the main track
             TrackDistanceInfo distanceInfo = mainTrack.GetDistanceInfoFromPosition(positionWhenJumped);
@@ -162,16 +162,26 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // Jump off the track when there's only 10m left of the track
+        // Fall off track when reaching the end
         // Get how long the track is
         float trackLength = currentTrack.track.Spline.GetLength();
         // Get position where the boat should jump off track
-        float jumpOffDistance = trackLength - 10f;
+        float jumpOffDistance = trackLength - 1f;
         // Jump off track when within the jump off distance
         if (splineCart.SplinePosition > jumpOffDistance)
         {
             currentTrack.OnBoatReachedEnd.Invoke(gameObject);
-            Jump();
+
+            // Reset stuff
+            isGrounded = false;
+            isDashing = false;
+
+            // Save position and distance when the boat jumped
+            positionWhenJumped = transform.position;
+            distanceWhenJumped = splineCart.SplinePosition;
+
+            // Detach the boat form the spline cart
+            DetachFromCart();
         }
     }
 
@@ -236,10 +246,10 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent Jumped;
 
     [HideInInspector] public float timeSinceJump;
+    [HideInInspector] public float distanceWhenJumped;
+    [HideInInspector] Vector3 positionWhenJumped;
 
     private int jumpsLeft;
-    private float distanceWhenJumped;
-    private Vector3 positionWhenJumped;
 
 
 
@@ -289,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
-        if (dontChangeMainTrack && splineTrack != mainTrack && !splineTrack.IsGrindRail)
+        if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
         {
             return;
         }
@@ -330,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
         currentTrack = splineTrack;
         splineCart.Spline = currentTrack.track;
         // Update main track if the new track isn't a rail track
-        if (!splineTrack.IsGrindRail)
+        if (splineTrack.shouldRespawnOnTrack)
         {
             mainTrack = splineTrack;
             wasLastTrackRail = false;

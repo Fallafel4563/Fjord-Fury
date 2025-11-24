@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Internal References")]
     [SerializeField] private CinemachineSplineCart splineCart;
-    [SerializeField] private PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
