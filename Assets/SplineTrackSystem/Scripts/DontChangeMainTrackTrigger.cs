@@ -13,17 +13,17 @@ public class DontChangeMainTrackTrigger : MonoBehaviour
 {
     public void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out SplineBoat splineBoat))
+        if (other.TryGetComponent(out PlayerMovement playerMovement))
         {
-            splineBoat.dontChangeMainTrack = true;
+            playerMovement.dontChangeMainTrack = true;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out SplineBoat splineBoat))
+        if (other.TryGetComponent(out PlayerMovement playerMovement))
         {
-            splineBoat.dontChangeMainTrack = false;
+            playerMovement.dontChangeMainTrack = false;
         }
     }
 }
