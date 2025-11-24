@@ -5033,8 +5033,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000028417398, y: -6.721003e-16, z: -2.127015e-15, w: 1}
-  m_LocalPosition: {x: 1.4567763e-12, y: -0.00000013699425, z: -0.00000019513071}
+  m_LocalRotation: {x: -0.000029057264, y: 0.000032902462, z: 0.000005917438, w: 1}
+  m_LocalPosition: {x: 1.651651e-12, y: -0.00000013699425, z: -0.00000019513071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5418,6 +5418,7 @@ GameObject:
   - component: {fileID: 2060630186251258410}
   - component: {fileID: 3401553776943726406}
   - component: {fileID: 2504890653146001464}
+  - component: {fileID: 7040633805338777643}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5458,7 +5459,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
@@ -5481,10 +5482,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.7
+  m_Height: 2.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!54 &4125074992363956026
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5545,6 +5546,7 @@ MonoBehaviour:
   fallSpeed: 50
   quickfallSpeed: 75
   ySpeed: 0
+  hitObstacleSpeedMult: 1
   maxJumps: 1
   jumpPower: 15
   Jumped:
@@ -5734,6 +5736,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be71ddad3dd98e47d9f2d660ac171203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7040633805338777643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c80e220d96eec15da40adb63e94d298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  forwardSpeedMultiplier: {fileID: 0}
+  slowDownValue: -0.5
+  slowDownCurve:
+    holdTime: 1
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.081794426
+        outSlope: -0.081794426
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.13099042
+      - serializedVersion: 3
+        time: 2
+        value: 1
+        inSlope: -0
+        outSlope: -0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.21086264
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  HitObstacle:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,8 +5834,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6454330232883850996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30129924, y: 0.0000037087977, z: -0.0000011719173, w: 0.95352966}
-  m_LocalPosition: {x: -0.00000063666954, y: 4.0574594, z: -3.0818436}
+  m_LocalRotation: {x: 0.30129924, y: 0.0000039848182, z: -0.0000012591353, w: 0.95352966}
+  m_LocalPosition: {x: -0.00000068405245, y: 4.0574594, z: -3.0818436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

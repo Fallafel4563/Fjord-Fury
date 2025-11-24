@@ -74,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
         else
             // Apply normal steering if not dashing
             transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+
+        // Reset hit obstacle speed mult
+        hitObstacleSpeedMult += Time.deltaTime;
+        hitObstacleSpeedMult = Mathf.Clamp(hitObstacleSpeedMult, -1f, 1f);
     }
 
 
@@ -213,13 +217,14 @@ public class PlayerMovement : MonoBehaviour
     public float quickfallSpeed = 75f;
 
     [HideInInspector] public float ySpeed;
+    public float hitObstacleSpeedMult = 1f;
 
 
 
     private void ApplyAirMovement()
     {
         // Move boat forwards
-        transform.position += transform.forward * currentForwardSpeed * Time.deltaTime;
+        transform.position += transform.forward * currentForwardSpeed * hitObstacleSpeedMult * Time.deltaTime;
 
         // Get gravity
         float gravity = fallSpeed;
