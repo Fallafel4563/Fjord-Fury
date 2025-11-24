@@ -6,15 +6,16 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    [SerializeField] private int playerCount = 2;
+    public static int playerCount = 2;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
 
     private PlayerInputManager playerInputManager;
 
-
+    
     private void Start()
     {
+        
         // Spawn players
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
