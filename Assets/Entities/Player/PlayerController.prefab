@@ -5003,6 +5003,7 @@ MonoBehaviour:
   playerCamera: {fileID: 8851560557099016440}
   playerRespawn: {fileID: 9171877306139766730}
   boatMovementAnims: {fileID: 5031827103774947155}
+  trickComboSystem: {fileID: 3401553776943726406}
   dashDoubleTapTiming: 0
 --- !u!1 &3283433894581042231
 GameObject:
@@ -5415,6 +5416,7 @@ GameObject:
   - component: {fileID: 653341406667092455}
   - component: {fileID: 4125074992363956026}
   - component: {fileID: 2060630186251258410}
+  - component: {fileID: 3401553776943726406}
   - component: {fileID: 2504890653146001464}
   m_Layer: 0
   m_Name: Boat
@@ -5586,6 +5588,35 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dashTime: 0
+--- !u!114 &3401553776943726406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326e8056b44adc675acd47c6939df266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  combo: 0
+  trickScore: 0
+  performingTrick: 0
+  inputBuffer: 0
+  inputBufferDefault: 0.2
+  trickList: []
+  trickIndex: 0
+  numberList:
+  - 
+  - Double
+  - Trollple
+  - Quadtrollple
+  - Quintrollple
+  - Sextrollple
+  - Trolltastic
+  - Trolltacular
 --- !u!114 &2504890653146001464
 MonoBehaviour:
   m_ObjectHideFlags: 0

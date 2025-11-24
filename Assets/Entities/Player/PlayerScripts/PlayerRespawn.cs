@@ -56,6 +56,8 @@ public class PlayerRespawn : MonoBehaviour
         respawnLerpStart = playerMovement.transform.position;
 
         splineCart.AutomaticDolly.Enabled = false;
+        // Respawn the palyer 50 units behind where they jumped off the track
+        splineCart.SplinePosition = playerMovement.distanceWhenJumped - 50f;
 
         respawnActive = true;
         playerMovement.enabled = false;
