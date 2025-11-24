@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -61,6 +62,7 @@ public class ForwardSpeedMultiplier : MonoBehaviour
 }
 
 
+[Serializable]
 public class SpeedMultiplier
 {
     public float value;
@@ -103,7 +105,7 @@ public class SpeedMultiplier
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class SpeedMultiplierCurve
 {
     public float holdTime;
