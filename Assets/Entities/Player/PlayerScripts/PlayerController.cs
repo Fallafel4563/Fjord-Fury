@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
+    [SerializeField] private TrickComboSystem trickComboSystem;
 
 
     private PlayerInput playerInput;
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
         playerRespawn.splineCart = splineCart;
 
         boatMovementAnims.playerMovement = playerMovement;
+
+        trickComboSystem.playerMovement = playerMovement;
     }
 
 
