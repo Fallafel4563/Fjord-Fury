@@ -312,17 +312,17 @@ public class PlayerMovement : MonoBehaviour
         {
             // Check how far it has travled while jumping (normal jump distance is around 75 (with a gravity of 75 and quickfall speed of 50))
             // If it's above 200 then the player has found a shortcut that we don't want
-            Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
+            //Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
             if (Mathf.Abs(distanceInfo.distance - distanceWhenJumped) > 200f)
             {
                 // Get the distance it has jumped
                 float jumpedDistance = Vector3.Distance(positionWhenJumped, transform.position);
-                Debug.Log(distanceWhenJumped + jumpedDistance);
-                Debug.Log("You jumped too far");
+                //Debug.Log(distanceWhenJumped + jumpedDistance);
+                //Debug.Log("You jumped too far");
 
                 // Get the spline pos that is closest to the position it should've had had it not landed on the wrong part of the track
                 Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition((distanceWhenJumped + jumpedDistance) / splineTrack.track.Spline.GetLength());
-                Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
+                //Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
 
                 // Override distance info with the distance it should've had, had the boat landed on the right part of the track
                 distanceInfo.distance = distanceWhenJumped + jumpedDistance;
