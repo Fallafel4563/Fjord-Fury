@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 2;
+    public static int playerCount = 1;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int maxJumps = 1;
@@ -33,12 +33,14 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     {
         Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
-        // Set the main track reference on the spawned player
         PlayerController playerController = playerInput.GetComponent<PlayerController>();
+        // Set the main track reference on the spawned player
         playerController.mainTrack = mainTrack;
+        // Set the position of the player to be on the main track
+        playerController.transform.position = mainTrack.transform.position;
+
         // Set the amount of jumps the player controller should have
         playerController.playerMovement.maxJumps = maxJumps;
-        playerController.playerMovement.SetOverrideSpeed(mainTrack.overrideSpeed);
     }
 
 
