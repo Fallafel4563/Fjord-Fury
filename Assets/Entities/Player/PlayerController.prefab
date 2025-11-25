@@ -5550,6 +5550,18 @@ MonoBehaviour:
   Jumped:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnJumped
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8851560557099016440}
         m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
         m_MethodName: OnJumped
@@ -5563,9 +5575,22 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   timeSinceJump: 0
+  distanceWhenJumped: 0
   Landed:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnLanded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8851560557099016440}
         m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
         m_MethodName: OnLanded
@@ -5583,10 +5608,34 @@ MonoBehaviour:
   dashDirection: 0
   DashedLeft:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnDashed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   DashedRight:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnDashed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   dashTime: 0
 --- !u!114 &3401553776943726406
 MonoBehaviour:
@@ -5600,23 +5649,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326e8056b44adc675acd47c6939df266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   playerMovement: {fileID: 0}
+  forwardSpeedMultiplier: {fileID: 0}
   combo: 0
   trickScore: 0
   performingTrick: 0
+  comboMultiplierCurve:
+    holdTime: 2
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0.12960657
+        outSlope: 0.12960657
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.14696491
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   inputBuffer: 0
   inputBufferDefault: 0.2
-  trickList: []
+  boostTime: 0
+  speedValue: 0
+  trickList:
+  - Spin
+  - Backflip
+  - Frontflip
+  - 360
   trickIndex: 0
-  numberList:
-  - 
-  - Double
-  - Trollple
-  - Quadtrollple
-  - Quintrollple
-  - Sextrollple
-  - Trolltastic
-  - Trolltacular
+  trickName: 
+  FailedTrick:
+    m_PersistentCalls:
+      m_Calls: []
+  SucceededTrick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2504890653146001464
 MonoBehaviour:
   m_ObjectHideFlags: 0

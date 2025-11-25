@@ -8,6 +8,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     public static int playerCount = 2;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private int maxJumps = 1;
 
     private PlayerInputManager playerInputManager;
 
@@ -35,6 +36,8 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         // Set the main track reference on the spawned player
         PlayerController playerController = playerInput.GetComponent<PlayerController>();
         playerController.mainTrack = mainTrack;
+        // Set the amount of jumps the player controller should have
+        playerController.playerMovement.maxJumps = maxJumps;
     }
 
 
