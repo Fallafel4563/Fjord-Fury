@@ -116,7 +116,7 @@ public class SplineBoat : MonoBehaviour
         {
             // Don't change main track when it's inside a DontChangeMainTrack trigger
             // Can still change to rails
-            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.IsGrindRail == false)
+            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack == false)
             {
                 return;
             }
@@ -155,7 +155,7 @@ public class SplineBoat : MonoBehaviour
             dollyKart.Spline = splineTrack.track;
 
             // Check if the new track is a rail
-            if (splineTrack.IsGrindRail == true)
+            if (splineTrack.shouldRespawnOnTrack == true)
             {
                 wasLastTrackRail = true;
                 newYpos = splineTrack.width;
@@ -252,7 +252,7 @@ public class SplineBoat : MonoBehaviour
         if (dollyKart.SplinePosition > (0.999f * distanceTraveled))
         {
             // Jump off the track if it's a rail
-            if (currentTrack.IsGrindRail)
+            if (currentTrack.shouldRespawnOnTrack)
             {
                 Jump();
             }
@@ -391,7 +391,7 @@ public class SplineBoat : MonoBehaviour
             transform.localEulerAngles = new(0f, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
             // Reattach the boat to the main track when jumping of a rail
-            if (currentTrack.IsGrindRail)
+            if (currentTrack.shouldRespawnOnTrack)
             {
                 // Get the position relative to the main track
                 TrackDistanceInfo distanceInfo = mainTrack.GetDistanceInfoFromPosition(jumpPosition);

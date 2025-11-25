@@ -17,7 +17,7 @@ public class ForwardSpeedMultiplier : MonoBehaviour
 
     private void Update()
     {
-        playerMovement.currentForwardSpeed = (playerMovement.baseForwardSpeed + playerMovement.overrideSpeed) * GetTotalMultiplierValue();
+        playerMovement.currentForwardSpeed = playerMovement.overrideSpeed * GetTotalMultiplierValue();
     }
 
 

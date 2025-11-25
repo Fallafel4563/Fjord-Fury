@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentTrack = mainTrack;
+        overrideSpeed = baseForwardSpeed;
     }
 
 
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public bool wasLastTrackRail = false;
     [HideInInspector] public float currentForwardSpeed = 40f;
-    [HideInInspector] public float overrideSpeed = 0f;
+    [HideInInspector] public float overrideSpeed = 40f;
     [HideInInspector] public float steerSpeed;
     [HideInInspector]public CinemachineSplineCart splineCart;
     [HideInInspector] public SplineTrack mainTrack;
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         currentTrack.OnBoatExit.Invoke(gameObject);
 
         // Reattach the cart to the main track when jumping off a rail
-        if (currentTrack.IsGrindRail)
+        if (!currentTrack.shouldRespawnOnTrack)
         {
             // Get the position relative to the main track
             TrackDistanceInfo distanceInfo = mainTrack.GetDistanceInfoFromPosition(positionWhenJumped);
@@ -116,10 +117,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetOverrideSpeed(float newOverRideSpeed)
     {
-        if (newOverRideSpeed > baseForwardSpeed)
-            overrideSpeed = newOverRideSpeed - baseForwardSpeed;
+        if (newOverRideSpeed > 0f)
+            overrideSpeed = newOverRideSpeed;
         else
-            overrideSpeed = 0f;
+            overrideSpeed = baseForwardSpeed;
     }
 
 
@@ -161,16 +162,26 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // Jump off the track when there's only 10m left of the track
+        // Fall off track when reaching the end
         // Get how long the track is
         float trackLength = currentTrack.track.Spline.GetLength();
         // Get position where the boat should jump off track
-        float jumpOffDistance = trackLength - 10f;
+        float jumpOffDistance = trackLength - 1f;
         // Jump off track when within the jump off distance
         if (splineCart.SplinePosition > jumpOffDistance)
         {
             currentTrack.OnBoatReachedEnd.Invoke(gameObject);
-            Jump();
+
+            // Reset stuff
+            isGrounded = false;
+            isDashing = false;
+
+            // Save position and distance when the boat jumped
+            positionWhenJumped = transform.position;
+            distanceWhenJumped = splineCart.SplinePosition;
+
+            // Detach the boat form the spline cart
+            DetachFromCart();
         }
     }
 
@@ -235,10 +246,10 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent Jumped;
 
     [HideInInspector] public float timeSinceJump;
+    [HideInInspector] public float distanceWhenJumped;
+    [HideInInspector] Vector3 positionWhenJumped;
 
     private int jumpsLeft;
-    private float distanceWhenJumped;
-    private Vector3 positionWhenJumped;
 
 
 
@@ -288,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
-        if (dontChangeMainTrack && splineTrack != mainTrack && !splineTrack.IsGrindRail)
+        if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
         {
             return;
         }
@@ -301,17 +312,17 @@ public class PlayerMovement : MonoBehaviour
         {
             // Check how far it has travled while jumping (normal jump distance is around 75 (with a gravity of 75 and quickfall speed of 50))
             // If it's above 200 then the player has found a shortcut that we don't want
-            Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
+            //Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
             if (Mathf.Abs(distanceInfo.distance - distanceWhenJumped) > 200f)
             {
                 // Get the distance it has jumped
                 float jumpedDistance = Vector3.Distance(positionWhenJumped, transform.position);
-                Debug.Log(distanceWhenJumped + jumpedDistance);
-                Debug.Log("You jumped too far");
+                //Debug.Log(distanceWhenJumped + jumpedDistance);
+                //Debug.Log("You jumped too far");
 
                 // Get the spline pos that is closest to the position it should've had had it not landed on the wrong part of the track
                 Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition((distanceWhenJumped + jumpedDistance) / splineTrack.track.Spline.GetLength());
-                Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
+                //Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
 
                 // Override distance info with the distance it should've had, had the boat landed on the right part of the track
                 distanceInfo.distance = distanceWhenJumped + jumpedDistance;
@@ -329,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
         currentTrack = splineTrack;
         splineCart.Spline = currentTrack.track;
         // Update main track if the new track isn't a rail track
-        if (!splineTrack.IsGrindRail)
+        if (splineTrack.shouldRespawnOnTrack)
         {
             mainTrack = splineTrack;
             wasLastTrackRail = false;

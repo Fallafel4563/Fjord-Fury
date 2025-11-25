@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +8,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     public static int playerCount = 2;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private int maxJumps = 1;
 
     private PlayerInputManager playerInputManager;
 
@@ -34,8 +34,10 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
         // Set the main track reference on the spawned player
-        CinemachineSplineCart dollyCart = playerInput.GetComponentInChildren<CinemachineSplineCart>();
-        dollyCart.Spline = mainTrack.track;
+        PlayerController playerController = playerInput.GetComponent<PlayerController>();
+        playerController.mainTrack = mainTrack;
+        // Set the amount of jumps the player controller should have
+        playerController.playerMovement.maxJumps = maxJumps;
     }
 
 
@@ -48,12 +50,15 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     private void OnValidate()
     {
         // Setup the palyer input manager to have the desired default values
+
         if (playerInputManager == null)
         {
             playerInputManager = GetComponent<PlayerInputManager>();
-            playerInputManager.playerPrefab = playerPrefab;
             playerInputManager.splitScreen = true;
-            //playerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        }
+        else if (playerPrefab != null)
+        {
+            playerInputManager.playerPrefab = playerPrefab;
         }
     }
 }
