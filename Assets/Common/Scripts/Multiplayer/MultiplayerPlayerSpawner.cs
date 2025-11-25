@@ -38,6 +38,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         playerController.mainTrack = mainTrack;
         // Set the amount of jumps the player controller should have
         playerController.playerMovement.maxJumps = maxJumps;
+        playerController.playerMovement.SetOverrideSpeed(mainTrack.overrideSpeed);
     }
 
 
