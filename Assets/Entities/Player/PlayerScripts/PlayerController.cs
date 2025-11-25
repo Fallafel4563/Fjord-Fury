@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
         steerInput = inputValue.Get<float>();
         // Send input data to boat movement
         playerMovement.steerInput = steerInput;
+        playerCamera.steerInput = steerInput;
     }
 
 

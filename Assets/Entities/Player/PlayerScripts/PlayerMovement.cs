@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentTrack = mainTrack;
+        // Set the players movement speed to be the tracks override speed
         SetOverrideSpeed(mainTrack.overrideSpeed);
     }
 
