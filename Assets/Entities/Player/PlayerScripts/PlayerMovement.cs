@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentTrack = mainTrack;
-        overrideSpeed = baseForwardSpeed;
+        // Set the players movement speed to be the tracks override speed
+        SetOverrideSpeed(mainTrack.overrideSpeed);
     }
 
 
@@ -42,7 +43,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack))
         {
-            LandedOnTrack(splineTrack);
+            // Fix null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
+            if (splineCart)
+                LandedOnTrack(splineTrack);
         }
     }
 
@@ -74,6 +77,10 @@ public class PlayerMovement : MonoBehaviour
         else
             // Apply normal steering if not dashing
             transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+
+        // Reset hit obstacle speed mult
+        hitObstacleSpeedMult += Time.deltaTime;
+        hitObstacleSpeedMult = Mathf.Clamp(hitObstacleSpeedMult, -1f, 1f);
     }
 
 
@@ -213,13 +220,14 @@ public class PlayerMovement : MonoBehaviour
     public float quickfallSpeed = 75f;
 
     [HideInInspector] public float ySpeed;
+    public float hitObstacleSpeedMult = 1f;
 
 
 
     private void ApplyAirMovement()
     {
         // Move boat forwards
-        transform.position += transform.forward * currentForwardSpeed * Time.deltaTime;
+        transform.position += transform.forward * currentForwardSpeed * hitObstacleSpeedMult * Time.deltaTime;
 
         // Get gravity
         float gravity = fallSpeed;
