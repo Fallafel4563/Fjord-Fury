@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isJumping = false;
     [HideInInspector] public bool isDashing = false;
 
+    [SerializeField] public Transform circleRotParent;
+
 
 
     private void Start()
@@ -74,9 +76,9 @@ public class PlayerMovement : MonoBehaviour
         if (isDashing)
             // Apply dashing steering if dashing
             transform.position += transform.right * dashDirection * dashForce * dashTime * Time.deltaTime;
-        else
+        //else
             // Apply normal steering if not dashing
-            transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+            //transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
 
         // Reset hit obstacle speed mult
         hitObstacleSpeedMult += Time.deltaTime;
@@ -138,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
 #region Grounded
     [Header("Grounded")]
     public float groundSteerSpeed = 15f;
+    public float circleTrackSteerSpeed = 7.5f;
     public float frontBackOffsetLimit = 3f;
 
 
@@ -149,7 +152,16 @@ public class PlayerMovement : MonoBehaviour
         // Update the cart speed
         UpdateCartSpeed();
 
+        if (currentTrack.isCircle)
+            CircleTrackMovement();
+        else
+            RoadTrackMovement();
+    }
 
+
+    // Movement on a spline track that is a raod
+    private void RoadTrackMovement()
+    {
         // Move boat forwards
         float forwardPosLimit = 1.2f - (MathF.Abs(transform.localPosition.z) / frontBackOffsetLimit);
         float forwardMovement = transform.localPosition.z + forwardInput * groundSteerSpeed * forwardPosLimit * Time.deltaTime;
@@ -190,6 +202,19 @@ public class PlayerMovement : MonoBehaviour
             // Detach the boat form the spline cart
             DetachFromCart();
         }
+    }
+
+
+
+    // Movement on a spline track that is a cirlce
+    private void CircleTrackMovement()
+    {
+        // Set position of the boat to be the width of the track
+        transform.localPosition = new(transform.localPosition.z, currentTrack.width, transform.localPosition.z);
+        // Get the desired rotation
+        Quaternion desiredRot = Quaternion.Euler(circleRotParent.eulerAngles.x, circleRotParent.eulerAngles.y, circleRotParent.eulerAngles.z + steerInput * -1f * 25f);
+        // Change rotation
+        circleRotParent.rotation = Quaternion.Lerp(circleRotParent.rotation, desiredRot, circleTrackSteerSpeed * Time.deltaTime);
     }
 
 
