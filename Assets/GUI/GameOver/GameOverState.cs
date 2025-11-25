@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.Playables;
 
 public class GameOverState : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameOverState : MonoBehaviour
     public bool isOverFinishLine;
     public bool activeCountdown;
     [SerializeField] private Image screenFade;
+    public PlayableDirector PlayableDirector;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,6 +52,7 @@ public class GameOverState : MonoBehaviour
         restartbutton.gameObject.SetActive(true);
         isGameOver = true;
         activeCountdown = false;
+        PlayableDirector.Play();
 
     }
 
