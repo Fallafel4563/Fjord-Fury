@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyGeneralMovement()
     {
         // Get the current steer speed based on the ground state of the boat
-        steerSpeed = isGrounded ? airSteerSpeed : groundSteerSpeed;
+        steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
         // Reset hit obstacle speed mult
         hitObstacleSpeedMult += Time.deltaTime;
@@ -351,31 +351,6 @@ public class PlayerMovement : MonoBehaviour
 
         TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
 
-         // Stop the player from jumping to a part of the track that is too far ahead (On whirlpool for example)
-        // Check if the track it lands on is the same as the current main track and that the the boat didn't jump off a rail
-        if (splineTrack == mainTrack && wasLastTrackRail == false)
-        {
-            // Check how far it has travled while jumping (normal jump distance is around 75 (with a gravity of 75 and quickfall speed of 50))
-            // If it's above 200 then the player has found a shortcut that we don't want
-            //Debug.LogFormat("Landed distance: {0}, Jump distance: {1}", distanceInfo.distance, distanceWhenJumped);
-            if (Mathf.Abs(distanceInfo.distance - distanceWhenJumped) > 200f)
-            {
-                // Get the distance it has jumped
-                float jumpedDistance = Vector3.Distance(positionWhenJumped, transform.position);
-                //Debug.Log(distanceWhenJumped + jumpedDistance);
-                //Debug.Log("You jumped too far");
-
-                // Get the spline pos that is closest to the position it should've had had it not landed on the wrong part of the track
-                Vector3 desiredWorldPos = splineTrack.track.Spline.EvaluatePosition((distanceWhenJumped + jumpedDistance) / splineTrack.track.Spline.GetLength());
-                //Debug.LogFormat("Land pos: {0}, New spline pos: {1}", transform.position, desiredWorldPos);
-
-                // Override distance info with the distance it should've had, had the boat landed on the right part of the track
-                distanceInfo.distance = distanceWhenJumped + jumpedDistance;
-                distanceInfo.nearestSplinePos = desiredWorldPos;
-            }
-        }
-
-
         // Reset  stuff
         dashTime = 0f;
         isGrounded = true;
@@ -421,8 +396,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void LandOnRoadTrack(TrackDistanceInfo distanceInfo)
     {
-        // Reset circleRot parent
-        circleRotParent.transform.localEulerAngles = Vector3.zero;
         // Get how far the boat is in the x position (but we don't know if it's to the left or right)
         float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
         // Check if the boat landed on the right or left side
@@ -433,6 +406,9 @@ public class PlayerMovement : MonoBehaviour
             xPosition *= -1f;
         // Set new boat position
         transform.localPosition = new Vector3(xPosition, 0f, 0F);
+
+        // Reset circleRot parent
+        circleRotParent.transform.localEulerAngles = Vector3.zero;
     }
 
 
