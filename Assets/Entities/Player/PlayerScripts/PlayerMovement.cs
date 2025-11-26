@@ -2,8 +2,6 @@ using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Splines;
-using UnityEngine.UIElements;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -91,14 +89,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void AttachToCart()
+    public void AttachToTrack(bool isTrackCircle)
     {
-        // Reattach the circle rot to the SplineCart
-        circleRotParent.transform.parent = splineCart.transform;
-        circleRotParent.localPosition = Vector3.zero;
-
-        // Reset rotation
-        transform.localEulerAngles = Vector3.zero;
+        if (isTrackCircle)
+        {
+            // Set circle rot parent as parent and reset boat
+            transform.parent = circleRotParent.transform;
+            transform.localEulerAngles = Vector3.zero;
+            transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            // Set boat parent to spline cart and reset position
+            transform.parent = splineCart.transform;
+            transform.localEulerAngles = Vector3.zero;
+        }
     }
 
 
@@ -108,10 +113,13 @@ public class PlayerMovement : MonoBehaviour
         splineCart.AutomaticDolly.Enabled = false;
 
         // Detach the boat form the cart so that it has free movement while in the air
-        splineCart.transform.DetachChildren();
+        if (transform.parent = circleRotParent)
+            circleRotParent.transform.DetachChildren();
+        else
+            splineCart.transform.DetachChildren();
 
         // Reset boat pitch so that it moves properly while in the air
-        transform.localEulerAngles = new(0f, transform.localEulerAngles.y, transform.localEulerAngles.z);
+        //transform.localEulerAngles = new(0f, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
         // Invoke events
         Jumped.Invoke();
@@ -197,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
         // Get position where the boat should jump off track
         float jumpOffDistance = trackLength - 1f;
         // Jump off track when within the jump off distance
-        if (splineCart.SplinePosition > jumpOffDistance)
+        if (splineCart.SplinePosition > jumpOffDistance && !currentTrack.track.Splines[0].Closed)
         {
             currentTrack.OnBoatReachedEnd.Invoke(gameObject);
 
@@ -225,6 +233,28 @@ public class PlayerMovement : MonoBehaviour
         Quaternion desiredRot = Quaternion.Euler(circleRotParent.eulerAngles.x, circleRotParent.eulerAngles.y, circleRotParent.eulerAngles.z + steerInput * -1f * 25f);
         // Change rotation
         circleRotParent.rotation = Quaternion.Lerp(circleRotParent.rotation, desiredRot, circleTrackSteerSpeed * Time.deltaTime);
+
+        // Fall off track when reaching the end
+        // Get how long the track is
+        float trackLength = currentTrack.track.Spline.GetLength();
+        // Get position where the boat should jump off track
+        float jumpOffDistance = trackLength - 1f;
+        // Jump off track when within the jump off distance
+        if (splineCart.SplinePosition > jumpOffDistance && !currentTrack.track.Splines[0].Closed)
+        {
+            currentTrack.OnBoatReachedEnd.Invoke(gameObject);
+
+            // Reset stuff
+            isGrounded = false;
+            isDashing = false;
+
+            // Save position and distance when the boat jumped
+            positionWhenJumped = transform.position;
+            distanceWhenJumped = splineCart.SplinePosition;
+
+            // Detach the boat form the spline cart
+            DetachFromCart();
+        }
     }
 
 
@@ -238,6 +268,7 @@ public class PlayerMovement : MonoBehaviour
     private void GroundResetStuff()
     {
         ySpeed = 0f;
+        jumpSpeed = 0f;
         ResetJumping();
         // Only reset dashing when grounded
         DashCooldown();
@@ -255,7 +286,10 @@ public class PlayerMovement : MonoBehaviour
     public float quickfallSpeed = 75f;
 
     [HideInInspector] public float ySpeed;
-    public float hitObstacleSpeedMult = 1f;
+    [HideInInspector] public float jumpSpeed;
+    [HideInInspector] public float hitObstacleSpeedMult = 1f;
+
+    private Quaternion desiredAirRotation;
 
 
 
@@ -275,9 +309,14 @@ public class PlayerMovement : MonoBehaviour
             gravity = fallSpeed + quickfallSpeed;
         }
 
+        // Return the boat back to it's desired rotation (local up is equal to global up)
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
+        jumpSpeed -= gravity * Time.deltaTime;
+        jumpSpeed = Mathf.Clamp(jumpPower, 0f, jumpPower);
+
         // Apply gravity
         ySpeed -= gravity * Time.deltaTime * MathF.Pow(timeSinceJump + 0.5f, 2f);
-        transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
+        transform.position += ((Vector3.up * ySpeed) + (transform.up * jumpSpeed)) * Time.deltaTime;
     }
 
 #endregion
@@ -311,11 +350,14 @@ public class PlayerMovement : MonoBehaviour
             timeSinceJump = 0f;
 
             // Move boat upwards
-            ySpeed = jumpPower;
+            jumpSpeed = jumpPower;
+            ySpeed = 0f;
 
             // Save position and distance when the boat jumped
             positionWhenJumped = transform.position;
             distanceWhenJumped = splineCart.SplinePosition;
+
+            desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
 
             // Detach the boat form the spline cart
             DetachFromCart();
@@ -377,9 +419,6 @@ public class PlayerMovement : MonoBehaviour
         // Set the override speed if the boat lands on a fast track
         SetOverrideSpeed(splineTrack.overrideSpeed);
 
-        // Reattach the boat to the track
-        AttachToCart();
-
         // Change landing logic based on if the track is a circle or not
         if (splineTrack.isCircle)
             LandOnCircleTrack(distanceInfo);
@@ -396,6 +435,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void LandOnRoadTrack(TrackDistanceInfo distanceInfo)
     {
+        AttachToTrack(currentTrack.isCircle);
+
         // Get how far the boat is in the x position (but we don't know if it's to the left or right)
         float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
         // Check if the boat landed on the right or left side
@@ -406,21 +447,21 @@ public class PlayerMovement : MonoBehaviour
             xPosition *= -1f;
         // Set new boat position
         transform.localPosition = new Vector3(xPosition, 0f, 0F);
-
-        // Reset circleRot parent
-        circleRotParent.transform.localEulerAngles = Vector3.zero;
     }
 
 
     private void LandOnCircleTrack(TrackDistanceInfo distanceInfo)
     {
+        // Reattach the circle rot to the SplineCart
+        circleRotParent.parent = splineCart.transform;
+        circleRotParent.localPosition = Vector3.zero;
+
         Vector3 dirToTrack = transform.position - distanceInfo.nearestSplinePos;
         // Set the rotation of the circle rot parent to match where the boat is landing
         float desiredAngle = Vector3.SignedAngle(Vector3.up, dirToTrack, splineCart.transform.forward);
         circleRotParent.eulerAngles = new(circleRotParent.eulerAngles.x, circleRotParent.eulerAngles.y, desiredAngle);
 
-        // Reset boat position
-        transform.localPosition = Vector3.zero;
+        AttachToTrack(currentTrack.isCircle);
     }
 
 #endregion
