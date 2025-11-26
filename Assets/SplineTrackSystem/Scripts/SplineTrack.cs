@@ -7,6 +7,11 @@ using UnityEngine.Splines;
 [RequireComponent(typeof(SplineExtrude), typeof(MeshCollider))]
 public class SplineTrack : MonoBehaviour
 {
+    public bool isCircle = false;
+    public bool shouldRespawnOnTrack = true;
+    public float overrideSpeed = 0f;
+
+
     [Header("Track settings")]
     public float width = 1f;
     [SerializeField] private float multiplier = 1f;
@@ -14,11 +19,7 @@ public class SplineTrack : MonoBehaviour
     [SerializeField] private float segmentsPerUnit = 0.5f;
     [HideInInspector] public SplineContainer track;
     private SplineExtrude extruder;
-
-
-    [Header("Grind Rail Settings")]
-    public bool IsGrindRail;
-    public float overrideSpeed;
+    public trackType trailType;
 
 
     [Header("Spline Events")]

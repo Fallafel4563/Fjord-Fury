@@ -24,14 +24,14 @@ public class SplineBoat : MonoBehaviour
     [HideInInspector] public bool isJumping = false;
     [HideInInspector] public bool dontChangeMainTrack = false;
 
-    private bool isGrounded = true;
+    [HideInInspector] public bool isGrounded = true;
     private bool isDashing = false;
     private bool wasLastTrackRail = false;
     private float steerSpeed;
     private float distanceTraveled;
     private float currentForwardSpeed = 50f;
-    private Dictionary<string, float> forwardSpeedMultipliers = new();
-    private SplineTrack currentTrack;
+    private Dictionary<string, SpeedMultiplier> forwardSpeedMultipliers = new();
+    [HideInInspector] public SplineTrack currentTrack;
     private Collider colliderReference;
 
 
@@ -66,18 +66,7 @@ public class SplineBoat : MonoBehaviour
     private float dashDirection;
 
 
-    [Header("Respawning")]
-    [SerializeField] private float respawnLerpDuration = 1f;
-    // How far bellow the track the boat has to be before respawning
-    [SerializeField] private float deathYPosition = -25f;
-    public UnityEvent OnRespawnStarted;
-    public UnityEvent OnRespawnEnded;
-
-    private bool isDead = false;
-    private float respawnLerpTime;
-    private Vector3 respawnLerpStart;
-
-
+#region Start, Update, etc...
 
     private void Start()
     {
@@ -116,13 +105,18 @@ public class SplineBoat : MonoBehaviour
     }
 
 
+#endregion
+
+#region Landing
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (isGrounded == false || splineTrack != currentTrack))
         {
             // Don't change main track when it's inside a DontChangeMainTrack trigger
             // Can still change to rails
-            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.IsGrindRail == false)
+            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack == false)
             {
                 return;
             }
@@ -155,14 +149,17 @@ public class SplineBoat : MonoBehaviour
                 }
             }
 
-
+            float newYpos = 0f;
             // Set the new track
             currentTrack = splineTrack;
             dollyKart.Spline = splineTrack.track;
 
             // Check if the new track is a rail
-            if (splineTrack.IsGrindRail == true)
+            if (splineTrack.shouldRespawnOnTrack == true)
+            {
                 wasLastTrackRail = true;
+                newYpos = splineTrack.width;
+            }
             else
             {
                 mainTrack = splineTrack;
@@ -196,13 +193,17 @@ public class SplineBoat : MonoBehaviour
             if (rightDirDot < 0)
                 xPosition *= -1f;
             // Set new x position
-            transform.localPosition = new Vector3(xPosition, 0f, 0F);
+            transform.localPosition = new Vector3(xPosition, newYpos, 0F);
 
             // Invoke events
             OnLanded.Invoke();
             splineTrack.OnBoatEnter.Invoke(gameObject);
         }
     }
+
+#endregion
+
+#region Movement
 
 
     private void GeneralMovement()
@@ -251,7 +252,7 @@ public class SplineBoat : MonoBehaviour
         if (dollyKart.SplinePosition > (0.999f * distanceTraveled))
         {
             // Jump off the track if it's a rail
-            if (currentTrack.IsGrindRail)
+            if (currentTrack.shouldRespawnOnTrack)
             {
                 Jump();
             }
@@ -292,13 +293,20 @@ public class SplineBoat : MonoBehaviour
         transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
 
         // Start respawn if the boat falls far bellow the track
-        if (transform.localPosition.y < deathYPosition && isDead == false)
+        Vector3 relativePos = dollyKart.transform.InverseTransformPoint(transform.position);
+        Debug.LogFormat("Relative Y pos: {0}", relativePos.y);
+        if (relativePos.y < deathYPosition && isDead == false)
         {
             StartRespawn();
         }
     }
 
-    // Set the new speed of the dolly kart
+
+#endregion
+
+#region Speed
+
+// Set the new speed of the dolly kart
     private void SetSpeed(float newSpeed)
     {
         if (dollyKart.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
@@ -307,26 +315,54 @@ public class SplineBoat : MonoBehaviour
         }
     }
 
-
     private float GetCurrentSpeed()
     {
-        return currentForwardSpeed * GetTotalSpeedMultipliers();
+        return currentForwardSpeed * GetForwardSpeedMultipliers();
     }
 
 
-    // Get the total speed multipler form the forwardSpeedMultipliers dict
-    public float GetTotalSpeedMultipliers()
+    public void SetForwardSpeedMultiplier(string name, float value, SpeedMultiplierCurve multiplierCurve = null)
     {
-        float multiplier = 1f;
+        // Create new Speed multiplier value
+        SpeedMultiplier speedMultiplier = new();
+        speedMultiplier.value = value;
+        speedMultiplier.timeOnStart = Time.time;
+        speedMultiplier.multiplierCurve = multiplierCurve;
+
+        // Add value to dict
+        forwardSpeedMultipliers[name.ToLower()] = speedMultiplier;
+    }
+
+    public SpeedMultiplier GetForwardSpeedMultiplier(string name)
+    {
+        if (forwardSpeedMultipliers.ContainsKey(name.ToLower()))
+            return forwardSpeedMultipliers[name.ToLower()];
+        else
+            return null;
+    }
+
+
+    private float GetForwardSpeedMultipliers()
+    {
+        float totalSpeedMultiplier = 1f;
         for (int i = 0; i < forwardSpeedMultipliers.Count; i++)
         {
             var item = forwardSpeedMultipliers.ElementAt(i);
-            float value = item.Value;
-            multiplier += value;
+            string key = item.Key;
+            SpeedMultiplier value = item.Value;
+
+            totalSpeedMultiplier += value.GetMultiplierValue(Time.time);
+            // Remove the value when it has reached the end
+            if (value.shouldDelete == true)
+                forwardSpeedMultipliers.Remove(key);
         }
-        return multiplier;
+        return totalSpeedMultiplier;
     }
 
+#endregion
+
+
+#region Actions
 
     public void Jump()
     {
@@ -355,7 +391,7 @@ public class SplineBoat : MonoBehaviour
             transform.localEulerAngles = new(0f, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
             // Reattach the boat to the main track when jumping of a rail
-            if (currentTrack.IsGrindRail)
+            if (currentTrack.shouldRespawnOnTrack)
             {
                 // Get the position relative to the main track
                 TrackDistanceInfo distanceInfo = mainTrack.GetDistanceInfoFromPosition(jumpPosition);
@@ -404,6 +440,18 @@ public class SplineBoat : MonoBehaviour
     }
 
 
+private IEnumerator DisableColliderBriefly()
+    {
+        colliderReference.enabled = false;
+        yield return new WaitForSeconds(colliderDisabledAfterJumpDuration);
+        colliderReference.enabled = true;
+    }
+
+#endregion
+
+
+#region Anim
+
     private void ModelAnim()
     {
         Vector3 newRotation = modelHolder.transform.localEulerAngles;
@@ -423,6 +471,21 @@ public class SplineBoat : MonoBehaviour
         // Apply rotations
         modelHolder.transform.localEulerAngles = newRotation;
     }
+
+#endregion
+
+#region Respawn
+
+[Header("Respawning")]
+    [SerializeField] private float respawnLerpDuration = 1f;
+    // How far bellow the track the boat has to be before respawning
+    [SerializeField] private float deathYPosition = -100f;
+    public UnityEvent OnRespawnStarted;
+    public UnityEvent OnRespawnEnded;
+
+    private bool isDead = false;
+    private float respawnLerpTime;
+    private Vector3 respawnLerpStart;
 
 
     private void StartRespawn()
@@ -471,10 +534,5 @@ public class SplineBoat : MonoBehaviour
     }
 
 
-    private IEnumerator DisableColliderBriefly()
-    {
-        colliderReference.enabled = false;
-        yield return new WaitForSeconds(colliderDisabledAfterJumpDuration);
-        colliderReference.enabled = true;
-    }
+#endregion
 }

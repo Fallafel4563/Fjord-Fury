@@ -8,11 +8,11 @@ public class BillboardScript : MonoBehaviour
     void OnWillRenderObject()
     {
         if (sprite != null) 
-        if (SceneView.currentDrawingSceneView)
+        /*if (SceneView.currentDrawingSceneView)
         {    
           transform.rotation = Camera.current.transform.rotation;
         }
-        else
+        else*/
         {
           transform.rotation = Camera.main.transform.rotation;
         }
