@@ -757,6 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 15
@@ -2634,6 +2635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 1
@@ -3015,6 +3017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 80
   width: 15
@@ -3523,6 +3526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 15
@@ -3824,38 +3828,38 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -29.148214
+        z: -29.177002
       TangentOut:
         x: 0
         y: 0
-        z: 36.307346
+        z: 36.34357
       Rotation:
         value:
-          x: -0.110084854
-          y: 0.37779674
-          z: 0.05155825
-          w: 0.917874
+          x: -0.11190581
+          y: 0.37771162
+          z: 0.052305344
+          w: 0.91764647
     - Position:
         x: -308
-        y: 63
+        y: 64
         z: 320
       TangentIn:
         x: -0
         y: -0
-        z: -49.71973
+        z: -49.720215
       TangentOut:
         x: 0
         y: 0
-        z: 44.622482
+        z: 44.622467
       Rotation:
         value:
-          x: 0.000000002413287
-          y: 0.6572965
-          z: -0.000000001869642
-          w: 0.75363207
+          x: -0.0011948703
+          y: 0.6572957
+          z: 0.0010421315
+          w: 0.7536312
     - Position:
         x: -182
-        y: 63
+        y: 64
         z: 336
       TangentIn:
         x: -0
@@ -3867,82 +3871,82 @@ MonoBehaviour:
         z: 42.24783
       Rotation:
         value:
-          x: -0.0000000017468648
+          x: 0.00000001836757
           y: 0.63041407
-          z: 0.0000000014186607
+          z: 0.000000022616874
           w: 0.77625906
     - Position:
         x: -60
-        y: 63
+        y: 64
         z: 372
       TangentIn:
         x: -0
         y: -0
-        z: -41.127506
+        z: -41.128098
       TangentOut:
         x: 0
         y: 0
-        z: 43.054913
+        z: 43.069366
       Rotation:
         value:
-          x: 0
-          y: 0.46213835
-          z: 0
-          w: 0.88680786
+          x: -0.008381836
+          y: 0.46216542
+          z: 0.00436798
+          w: 0.88674337
     - Position:
         x: 23
-        y: 63
+        y: 69
         z: 484
       TangentIn:
         x: -0
         y: -0
-        z: -42.749313
+        z: -42.883877
       TangentOut:
         x: 0
         y: 0
-        z: 40.02563
+        z: 40.224453
       Rotation:
         value:
-          x: -0.06556093
-          y: 0.17549631
-          z: 0.012941296
-          w: 0.98220944
+          x: -0.07875989
+          y: 0.17559916
+          z: 0.015268323
+          w: 0.9811874
     - Position:
         x: 30
-        y: 94
+        y: 102
         z: 602
       TangentIn:
         x: -0
         y: -0
-        z: -27.698917
+        z: -26.61414
       TangentOut:
         x: 0
         y: 0
-        z: 30.785772
+        z: 29.674143
       Rotation:
         value:
-          x: -0.08591543
-          y: -0.40306473
-          z: -0.04967862
-          w: 0.9097743
+          x: -0.036619693
+          y: -0.42520216
+          z: -0.1354956
+          w: 0.89414936
     - Position:
         x: -120
-        y: 94
-        z: 585
+        y: 95
+        z: 575
       TangentIn:
         x: -0
         y: -0
-        z: -45.35417
+        z: -45.577778
       TangentOut:
         x: 0
         y: 0
-        z: 37.698425
+        z: 37.141243
       Rotation:
         value:
-          x: 0.2258055
-          y: 0.7495788
-          z: -0.15869135
-          w: -0.6016315
+          x: 0.2165455
+          y: 0.74783176
+          z: -0.17042692
+          w: -0.6039953
     - Position:
         x: -218
         y: 101
@@ -3950,89 +3954,89 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -31.551863
+        z: -30.20834
       TangentOut:
         x: 0
         y: 0
-        z: 27.212526
+        z: 25.794413
       Rotation:
         value:
-          x: 0.29675463
-          y: 0.7350515
-          z: -0.07339607
-          w: -0.6051851
+          x: 0.30540928
+          y: 0.71802783
+          z: -0.059144046
+          w: -0.62262607
     - Position:
-        x: -287
-        y: 134
+        x: -280
+        y: 139
         z: 537
       TangentIn:
         x: -0
         y: -0
-        z: -26.14322
+        z: -25.25286
       TangentOut:
         x: 0
         y: 0
-        z: 28.324083
+        z: 29.066364
       Rotation:
         value:
-          x: 0.07347941
-          y: 0.70979315
-          z: 0.110366605
-          w: -0.69181913
+          x: 0.08730238
+          y: 0.71154827
+          z: 0.12314135
+          w: -0.68623155
     - Position:
         x: -377
-        y: 141
+        y: 144
         z: 549
       TangentIn:
         x: -0
         y: -0
-        z: -22.222048
+        z: -23.228668
       TangentOut:
         x: 0
         y: 0
-        z: 23.555529
+        z: 23.696936
       Rotation:
         value:
-          x: -0.10717379
-          y: -0.3087057
-          z: 0.12639348
-          w: 0.9366106
+          x: -0.060263824
+          y: -0.31820306
+          z: 0.14209682
+          w: 0.93537354
     - Position:
         x: -364
-        y: 151
+        y: 142
         z: 650
       TangentIn:
         x: -0
         y: -0
-        z: -30.242956
+        z: -30.250256
       TangentOut:
         x: 0
         y: 0
-        z: 27.805288
+        z: 27.816317
       Rotation:
         value:
-          x: 0.0045991773
-          y: 0.24820422
-          z: -0.0015156073
-          w: 0.96869564
+          x: -0.0131094465
+          y: 0.24814951
+          z: 0.0030291132
+          w: 0.96862835
     - Position:
         x: -298
-        y: 141
+        y: 148
         z: 705
       TangentIn:
         x: -0
         y: -0
-        z: -27.317823
+        z: -28.041908
       TangentOut:
         x: 0
         y: 0
-        z: 28.850075
+        z: 29.07424
       Rotation:
         value:
-          x: -0.17267016
-          y: 0.46513307
-          z: -0.050857365
-          w: 0.8667467
+          x: -0.19950812
+          y: 0.46062824
+          z: -0.035486396
+          w: 0.86415213
     - Position:
         x: -225
         y: 197
@@ -4040,17 +4044,17 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -31.402351
+        z: -30.63056
       TangentOut:
         x: 0
         y: 0
-        z: 31.472137
+        z: 31.3366
       Rotation:
         value:
-          x: -0.1727824
-          y: 0.51589465
-          z: 0.10707585
-          w: 0.83218616
+          x: -0.16000046
+          y: 0.5180848
+          z: 0.09897537
+          w: 0.83438116
     - Position:
         x: -143
         y: 216
@@ -4343,6 +4347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 15
@@ -4802,6 +4807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 1
@@ -5207,6 +5213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 15
@@ -7351,6 +7358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 15
@@ -9299,6 +9307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 10
   width: 15
@@ -9727,6 +9736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 1
@@ -11328,6 +11338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd62a2e81c6a6a44ab2e5ba06eba736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCircle: 0
   shouldRespawnOnTrack: 1
   overrideSpeed: 0
   width: 1
