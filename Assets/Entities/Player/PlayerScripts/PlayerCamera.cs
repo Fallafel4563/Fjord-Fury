@@ -24,6 +24,7 @@ public class PlayerCamera : MonoBehaviour
 
 
 
+    [HideInInspector] public bool isRespawning = false;
     [HideInInspector] public float steerInput;
     [HideInInspector] public Transform trackingTarget;
 
@@ -74,7 +75,9 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        SetCameraPosition();
+        // Only set the position when not respawning
+        if (!isRespawning)
+            SetCameraPosition();
         SetCameraRotation();
     }
 
@@ -119,29 +122,5 @@ public class PlayerCamera : MonoBehaviour
         int outputChannel = (int)Mathf.Pow(2, playerIndex + 1);
         cinemachineBrain.ChannelMask = (OutputChannels)outputChannel;
         cinemachineCamera.OutputChannel = (OutputChannels)outputChannel;
-    }
-
-
-    public void OnLanded()
-    {
-        //
-    }
-
-
-    public void OnJumped()
-    {
-        //
-    }
-
-
-    public void OnRespawnStarted()
-    {
-        //
-    }
-
-
-    public void OnRespawnFinished()
-    {
-        //
     }
 }
