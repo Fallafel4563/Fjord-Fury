@@ -144,7 +144,6 @@ public class TrickComboSystem : MonoBehaviour
         //TODO: Set boost meter's value to boost time
 
         speedValue += currentScore / 100f;
-        Debug.LogFormat("{0}, {1}, {2}", currentScore, combo, speedValue);
 
         currentScore = 0;
         combo = 0;
