@@ -139,17 +139,18 @@ public class TrickComboSystem : MonoBehaviour
         currentScore = combo * trickScore;
         //TODO: Send score to ScoreSystem
 
-        boostTime += currentScore / 100;
+        boostTime += currentScore / 100f;
         //TODO: Set boost meter's high value to boost time
         //TODO: Set boost meter's value to boost time
 
-        speedValue += currentScore / 300;
+        speedValue += currentScore / 100f;
+        Debug.LogFormat("{0}, {1}, {2}", currentScore, combo, speedValue);
 
         currentScore = 0;
         combo = 0;
         tableOfTricks.Clear();
 
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ComboBoost", 1 + speedValue, comboMultiplierCurve);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ComboBoost", speedValue, comboMultiplierCurve);
 
         // While boosting
         //TODO: Play boost sound
@@ -213,5 +214,12 @@ public class TrickComboSystem : MonoBehaviour
     public void OnJumped()
     {
         //
+    }
+
+
+    public void OnRespawnStarted()
+    {
+        // Fail trick when respawning
+        FailTrick();
     }
 }

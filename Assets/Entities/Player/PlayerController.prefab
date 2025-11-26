@@ -5320,6 +5320,18 @@ MonoBehaviour:
   RespawnStarted:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnRespawnStarted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8851560557099016440}
         m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
         m_MethodName: OnRespawnStarted
@@ -5574,6 +5586,7 @@ MonoBehaviour:
   mainTrack: {fileID: 0}
   currentTrack: {fileID: 0}
   groundSteerSpeed: 15
+  circleTrackSteerSpeed: 7.5
   frontBackOffsetLimit: 3
   airSteerSpeed: 10
   fallSpeed: 50
