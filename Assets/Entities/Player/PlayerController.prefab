@@ -5033,8 +5033,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000028417398, y: -6.721003e-16, z: -2.127015e-15, w: 1}
-  m_LocalPosition: {x: 1.4567763e-12, y: -0.00000013699425, z: -0.00000019513071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5205,6 +5205,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7394530659016896994}
   - {fileID: 8497310814354721785}
   m_Father: {fileID: 5007536021592668373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5240,6 +5241,37 @@ MonoBehaviour:
       type: {class: SplineAutoDolly/FixedSpeed, ns: Unity.Cinemachine, asm: Unity.Cinemachine}
       data:
         Speed: 40
+--- !u!1 &4573433686711041914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7394530659016896994}
+  m_Layer: 0
+  m_Name: CircleRotParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7394530659016896994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573433686711041914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4805101058444081956}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5327165719451054092
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,12 +5316,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9613584d1c5810c7192a9ce129bc314b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnLerpDuration: 1
+  fadeDuration: 0.5
   RespawnStarted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
         m_MethodName: OnRespawnStarted
         m_Mode: 1
         m_Arguments:
@@ -5302,20 +5334,9 @@ MonoBehaviour:
         m_CallState: 2
   RespawnFinished:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
-        m_MethodName: OnRespawnFinished
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   playerMovement: {fileID: 0}
+  playerCamera: {fileID: 0}
   splineCart: {fileID: 0}
 --- !u!1 &5679388680422619996
 GameObject:
@@ -5418,6 +5439,8 @@ GameObject:
   - component: {fileID: 2060630186251258410}
   - component: {fileID: 3401553776943726406}
   - component: {fileID: 2504890653146001464}
+  - component: {fileID: 7040633805338777643}
+  - component: {fileID: 9054204099485319101}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5433,7 +5456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5458,7 +5481,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
@@ -5481,10 +5504,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.7
+  m_Height: 2.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!54 &4125074992363956026
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5531,6 +5554,7 @@ MonoBehaviour:
   isGrounded: 1
   isJumping: 0
   isDashing: 0
+  circleRotParent: {fileID: 7394530659016896994}
   baseForwardSpeed: 40
   wasLastTrackRail: 0
   currentForwardSpeed: 40
@@ -5540,18 +5564,19 @@ MonoBehaviour:
   mainTrack: {fileID: 0}
   currentTrack: {fileID: 0}
   groundSteerSpeed: 15
+  circleTrackSteerSpeed: 7.5
   frontBackOffsetLimit: 3
   airSteerSpeed: 10
   fallSpeed: 50
   quickfallSpeed: 75
-  ySpeed: 0
+  airVelocity: {x: 0, y: 0, z: 0}
   maxJumps: 1
   jumpPower: 15
   Jumped:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
         m_MethodName: OnJumped
         m_Mode: 1
         m_Arguments:
@@ -5563,11 +5588,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   timeSinceJump: 0
+  distanceWhenJumped: 0
   Landed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
         m_MethodName: OnLanded
         m_Mode: 1
         m_Arguments:
@@ -5583,10 +5609,34 @@ MonoBehaviour:
   dashDirection: 0
   DashedLeft:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnDashed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   DashedRight:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnDashed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   dashTime: 0
 --- !u!114 &3401553776943726406
 MonoBehaviour:
@@ -5600,23 +5650,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326e8056b44adc675acd47c6939df266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   playerMovement: {fileID: 0}
+  forwardSpeedMultiplier: {fileID: 0}
   combo: 0
   trickScore: 0
   performingTrick: 0
+  comboMultiplierCurve:
+    holdTime: 2
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0.12960657
+        outSlope: 0.12960657
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.14696491
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   inputBuffer: 0
   inputBufferDefault: 0.2
-  trickList: []
+  boostTime: 0
+  speedValue: 0
+  trickList:
+  - Spin
+  - Backflip
+  - Frontflip
+  - 360
   trickIndex: 0
-  numberList:
-  - 
-  - Double
-  - Trollple
-  - Quadtrollple
-  - Quintrollple
-  - Sextrollple
-  - Trolltastic
-  - Trolltacular
+  trickName: 
+  FailedTrick:
+    m_PersistentCalls:
+      m_Calls: []
+  SucceededTrick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2504890653146001464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5629,6 +5735,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be71ddad3dd98e47d9f2d660ac171203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7040633805338777643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c80e220d96eec15da40adb63e94d298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  forwardSpeedMultiplier: {fileID: 0}
+  slowDownValue: -0.5
+  slowDownCurve:
+    holdTime: 1
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.081794426
+        outSlope: -0.081794426
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.13099042
+      - serializedVersion: 3
+        time: 2
+        value: 1
+        inSlope: -0
+        outSlope: -0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.21086264
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  HitObstacle:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &9054204099485319101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba45e4dd593e7448c8e9723f9ddc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinsCollected: {fileID: 11400000, guid: 042028e12412e3c4d956033733f96848, type: 2}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5639,9 +5826,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7575265241815793949}
   - component: {fileID: 5983764731637625418}
-  - component: {fileID: 2086819912310175373}
-  - component: {fileID: 6389050002901436765}
-  - component: {fileID: 3575003207059894041}
   - component: {fileID: 5239818575151630225}
   - component: {fileID: 8851560557099016440}
   m_Layer: 0
@@ -5659,8 +5843,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6454330232883850996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30129924, y: 0.0000037087977, z: -0.0000011719173, w: 0.95352966}
-  m_LocalPosition: {x: -0.00000063666954, y: 4.0574594, z: -3.0818436}
+  m_LocalRotation: {x: 0.30129924, y: 0.000004223245, z: -0.0000013344741, w: 0.95352966}
+  m_LocalPosition: {x: -0.0000007249807, y: 4.0574594, z: -3.0818436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5710,83 +5894,6 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &2086819912310175373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CameraDistance: 0.1
-  DeadZoneDepth: 0
-  Composition:
-    ScreenPosition: {x: 0, y: 0}
-    DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 4, z: -3}
-  Damping: {x: 0.5, y: 2, z: 0.5}
-  Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &6389050002901436765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Composition:
-    ScreenPosition: {x: 0, y: 0.1}
-    DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 1.25, z: 0}
-  Damping: {x: 1, y: 1}
-  Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &3575003207059894041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 0.1
-  FrequencyGain: 0.1
-  m_NoiseOffsets: {x: -80.7439, y: 846.8771, z: -700.10156}
 --- !u!114 &5239818575151630225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5794,7 +5901,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
   m_Name: 
@@ -5823,9 +5930,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac61dba102ac189485d29922c915c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpCameraYOffset: 0
-  groundCameraYOffset: 4
+  rotLerpSpeed: 5
+  desiredOffsetLerpSpeed: 5
+  rotationOffset: {x: 0, y: 1.25, z: 5}
   respawnOffset: {x: 0, y: 4, z: -7}
+  groundPosOffset: {x: 0, y: 4, z: 4}
+  groundPosLerpSpeed: {x: 7.5, y: 7.5, z: 7.5}
+  airPosOffset: {x: 0, y: 1, z: 4}
+  airPosLerpSpeed: {x: 10, y: 10, z: 10}
+  isRespawning: 0
+  steerInput: 0
   trackingTarget: {fileID: 0}
 --- !u!1 &8914522806762380729
 GameObject:

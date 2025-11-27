@@ -3,35 +3,115 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private float jumpCameraYOffset = 0f;
-    [SerializeField] private float groundCameraYOffset = 4f;
+    [Header("General")]
+    // How fast to lerp between truePosOffset and desiredPosOffset
+    [SerializeField] private float rotLerpSpeed = 7.5f;
+    [SerializeField] private float desiredOffsetLerpSpeed = 5f;
+    [SerializeField] private Vector3 rotationOffset = new(0f, 1.25f, 5f);
     [SerializeField] private Vector3 respawnOffset = new(0f, 4f, -7f);
-    
+
+
+    [Header("Grounded")]
+    [SerializeField] private Vector3 groundPosOffset = new(0f, 4f, 4f);
+    // How fast the camera should move towards the offset position while on the ground
+    [SerializeField] private Vector3 groundPosLerpSpeed = new(5f, 5f, 5f);
+
+
+    [Header("Airborne")]
+    [SerializeField] private Vector3 airPosOffset = new(0f, 2f, 4f);
+    // How fast the camera should move towards the offset position while in the air
+    [SerializeField] private Vector3 airPosLerpSpeed = new(10f, 10f, 10f);
+
+
+
+    [HideInInspector] public bool isRespawning = false;
+    [HideInInspector] public float steerInput;
     [HideInInspector] public Transform trackingTarget;
 
-    private Vector3 defaultPositionOffset;
-    private Vector3 defaultPositionDamping;
+    private Vector3 posLerpSpeed;       // How fast the camera should move towrds the offset position
+    private Vector3 posOffset;          // Where the position offset is
+    private Vector3 desiredPosOffset;   // Where the position offset wants to be
+
+    private PlayerMovement playerMovement;
     private CinemachineBrain cinemachineBrain;
     private CinemachineCamera cinemachineCamera;
-    private CinemachinePositionComposer positionComposer;
 
 
 
     private void Awake()
     {
         // Get component references
-        cinemachineBrain = GetComponentInChildren<CinemachineBrain>();
         cinemachineCamera = GetComponent<CinemachineCamera>();
-        positionComposer = GetComponent<CinemachinePositionComposer>();
+        cinemachineBrain = GetComponentInChildren<CinemachineBrain>();
     }
 
 
     private void Start()
     {
+        playerMovement = trackingTarget.GetComponent<PlayerMovement>();
+
         // Set default values
         cinemachineCamera.Target.TrackingTarget = trackingTarget;
-        defaultPositionOffset = positionComposer.TargetOffset;
-        defaultPositionDamping = positionComposer.Damping;
+
+        posOffset = groundPosOffset;
+        desiredPosOffset = groundPosOffset;
+        posLerpSpeed = groundPosLerpSpeed;
+    }
+
+
+
+    private void Update()
+    {
+        // Get the 
+        desiredPosOffset = playerMovement.isGrounded ? groundPosOffset : airPosOffset;
+        posLerpSpeed = playerMovement.isGrounded ? groundPosLerpSpeed : airPosLerpSpeed;
+
+        // Get the true position offset
+        desiredPosOffset.x = steerInput;
+        posOffset = Vector3.Lerp(posOffset, desiredPosOffset, desiredOffsetLerpSpeed * Time.deltaTime);
+    }
+
+
+
+    private void LateUpdate()
+    {
+        // Only set the position when not respawning
+        if (!isRespawning)
+            SetCameraPosition();
+        SetCameraRotation();
+    }
+
+
+
+    private void SetCameraPosition()
+    {
+        Vector3 xOffset = trackingTarget.right * posOffset.x;
+        Vector3 yOffset = trackingTarget.up * posOffset.y;
+        Vector3 zOffset = -trackingTarget.forward * posOffset.z;
+        // Get the position the camera wants to be at
+        Vector3 desiredPosition = trackingTarget.position + xOffset + yOffset + zOffset;
+
+        // Move camrea to desired position
+        float xPos = Mathf.Lerp(transform.position.x, desiredPosition.x, posLerpSpeed.x * Time.deltaTime);
+        float yPos = Mathf.Lerp(transform.position.y, desiredPosition.y, posLerpSpeed.y * Time.deltaTime);
+        float zPos = Mathf.Lerp(transform.position.z, desiredPosition.z, posLerpSpeed.z * Time.deltaTime);
+        transform.position = new(xPos, yPos, zPos);
+    }
+
+
+    private void SetCameraRotation()
+    {
+        // Get the position the camera wants to look at
+        Vector3 xLookAtPos = trackingTarget.right * rotationOffset.x * steerInput;
+        Vector3 yLookAtPos = trackingTarget.up * rotationOffset.y;
+        Vector3 zLookAtPos = trackingTarget.forward * rotationOffset.z;
+        Vector3 lookAtPos = trackingTarget.position + xLookAtPos + yLookAtPos + zLookAtPos;
+
+        // Get the rotation the camera has to be at to look at the look at position
+        Quaternion desiredRotation = Quaternion.LookRotation(lookAtPos - transform.position);
+        //desiredRotation.eulerAngles = new(desiredRotation.eulerAngles.x, desiredRotation.eulerAngles.y, desiredRotation.eulerAngles.z + steerInput);
+        // Rotate camera towards the desired rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotLerpSpeed * Time.deltaTime);
     }
 
 
@@ -42,33 +122,5 @@ public class PlayerCamera : MonoBehaviour
         int outputChannel = (int)Mathf.Pow(2, playerIndex + 1);
         cinemachineBrain.ChannelMask = (OutputChannels)outputChannel;
         cinemachineCamera.OutputChannel = (OutputChannels)outputChannel;
-    }
-
-
-    public void OnLanded()
-    {
-        positionComposer.TargetOffset.y = groundCameraYOffset;
-    }
-
-
-    public void OnJumped()
-    {
-        positionComposer.TargetOffset.y = jumpCameraYOffset;
-    }
-
-
-    public void OnRespawnStarted()
-    {
-        positionComposer.TargetOffset = respawnOffset;
-        positionComposer.Damping = Vector3.zero;
-        //TODO: Add lerping to the damping so that it's a bit smoother
-    }
-
-
-    public void OnRespawnFinished()
-    {
-        positionComposer.TargetOffset = defaultPositionOffset;
-        positionComposer.Damping = defaultPositionDamping;
-        //TODO: Add lerping to the damping so that it's a bit smoother
     }
 }

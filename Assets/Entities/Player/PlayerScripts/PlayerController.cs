@@ -40,8 +40,9 @@ public class PlayerController : MonoBehaviour
         playerCamera.trackingTarget = playerMovement.transform;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
 
-        playerRespawn.playerMovement = playerMovement;
         playerRespawn.splineCart = splineCart;
+        playerRespawn.playerMovement = playerMovement;
+        playerRespawn.playerCamera = playerCamera;
 
         boatMovementAnims.playerMovement = playerMovement;
 
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
         steerInput = inputValue.Get<float>();
         // Send input data to boat movement
         playerMovement.steerInput = steerInput;
+        playerCamera.steerInput = steerInput;
     }
 
 
@@ -86,6 +88,12 @@ public class PlayerController : MonoBehaviour
         {
             playerMovement.Jump();
         }
+    }
+
+
+    public void OnTrick()
+    {
+        trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
     }
 
 
