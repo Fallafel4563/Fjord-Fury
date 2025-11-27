@@ -3,6 +3,8 @@ using UnityEngine;
 public class BoatMovementAnims : MonoBehaviour
 {
     [HideInInspector] public PlayerMovement playerMovement;
+    public TrickComboSystem trickComboSystem;
+    
 
     [Header("General")]
     public float lerpSpeed = 1f;
@@ -49,11 +51,12 @@ public class BoatMovementAnims : MonoBehaviour
 
     private void AirborneAnim()
     {
+        /*
         // Scale
         float horizontalScale = Mathf.Clamp(playerMovement.timeSinceJump * playerMovement.timeSinceJump * 1.5f, 0.5f, 1f);
         float verticalScale = Mathf.Clamp(1 - playerMovement.timeSinceJump * playerMovement.timeSinceJump, Mathf.Max(playerMovement.timeSinceJump, 1f), 2f);
         transform.localScale = new(horizontalScale, verticalScale, horizontalScale);
-
+        */
 
         // Rotation
         Vector3 newRotation = transform.localEulerAngles;
@@ -68,5 +71,13 @@ public class BoatMovementAnims : MonoBehaviour
         newRotation.z = playerMovement.isDashing ? newRotation.z + 400f * playerMovement.dashDirection * Time.deltaTime : Mathf.LerpAngle(newRotation.z, -playerMovement.steerInput * playerMovement.steerSpeed, Time.deltaTime * 5f);
         // Apply rotation
         transform.localEulerAngles = newRotation;
+    }
+
+    public void TrickAnim()
+    {
+        // Play trick animation
+        trickComboSystem.animator.SetInteger("Trick Index", trickComboSystem.trickIndex);
+        trickComboSystem.animator.SetTrigger("Regular Trick");
+        
     }
 }
