@@ -5029,8 +5029,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000028417398, y: -6.721003e-16, z: -2.127015e-15, w: 1}
-  m_LocalPosition: {x: 1.4567763e-12, y: -0.00000013699425, z: -0.00000019513071}
+  m_LocalRotation: {x: -0.000000028417398, y: -4.3581574e-13, z: 1.3005059e-13, w: 1}
+  m_LocalPosition: {x: 3.442355e-13, y: -0.00000013699425, z: -0.00000019513071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5335,6 +5335,7 @@ GameObject:
   - component: {fileID: 653341406667092455}
   - component: {fileID: 4125074992363956026}
   - component: {fileID: 1672579298930181130}
+  - component: {fileID: 3492839259296096762}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5529,6 +5530,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3492839259296096762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba45e4dd593e7448c8e9723f9ddc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinsCollected: {fileID: 11400000, guid: 042028e12412e3c4d956033733f96848, type: 2}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5559,8 +5573,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6454330232883850996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30129924, y: 0.0000037087977, z: -0.0000011719173, w: 0.95352966}
-  m_LocalPosition: {x: -0.00000063666954, y: 4.0574594, z: -3.0818436}
+  m_LocalRotation: {x: 0.30129924, y: 0.000003871115, z: -0.0000012232069, w: 0.95352966}
+  m_LocalPosition: {x: -0.0000006645327, y: 4.0574594, z: -3.0818436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
