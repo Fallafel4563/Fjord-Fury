@@ -116,7 +116,7 @@ public class SplineBoat : MonoBehaviour
         {
             // Don't change main track when it's inside a DontChangeMainTrack trigger
             // Can still change to rails
-            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.IsGrindRail == false)
+            if (dontChangeMainTrack == true && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack == false)
             {
                 return;
             }
@@ -155,7 +155,7 @@ public class SplineBoat : MonoBehaviour
             dollyKart.Spline = splineTrack.track;
 
             // Check if the new track is a rail
-            if (splineTrack.IsGrindRail == true)
+            if (splineTrack.shouldRespawnOnTrack == true)
             {
                 wasLastTrackRail = true;
                 newYpos = splineTrack.width;
@@ -252,7 +252,7 @@ public class SplineBoat : MonoBehaviour
         if (dollyKart.SplinePosition > (0.999f * distanceTraveled))
         {
             // Jump off the track if it's a rail
-            if (currentTrack.IsGrindRail)
+            if (currentTrack.shouldRespawnOnTrack)
             {
                 Jump();
             }
@@ -293,7 +293,9 @@ public class SplineBoat : MonoBehaviour
         transform.localPosition += Vector3.up * ySpeed * Time.deltaTime;
 
         // Start respawn if the boat falls far bellow the track
-        if (transform.localPosition.y < deathYPosition && isDead == false)
+        Vector3 relativePos = dollyKart.transform.InverseTransformPoint(transform.position);
+        Debug.LogFormat("Relative Y pos: {0}", relativePos.y);
+        if (relativePos.y < deathYPosition && isDead == false)
         {
             StartRespawn();
         }
@@ -389,7 +391,7 @@ public class SplineBoat : MonoBehaviour
             transform.localEulerAngles = new(0f, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
             // Reattach the boat to the main track when jumping of a rail
-            if (currentTrack.IsGrindRail)
+            if (currentTrack.shouldRespawnOnTrack)
             {
                 // Get the position relative to the main track
                 TrackDistanceInfo distanceInfo = mainTrack.GetDistanceInfoFromPosition(jumpPosition);
@@ -477,7 +479,7 @@ private IEnumerator DisableColliderBriefly()
 [Header("Respawning")]
     [SerializeField] private float respawnLerpDuration = 1f;
     // How far bellow the track the boat has to be before respawning
-    [SerializeField] private float deathYPosition = -25f;
+    [SerializeField] private float deathYPosition = -100f;
     public UnityEvent OnRespawnStarted;
     public UnityEvent OnRespawnEnded;
 
@@ -534,57 +536,3 @@ private IEnumerator DisableColliderBriefly()
 
 #endregion
 }
-
-
-#region Speed multiplier classes
-public class SpeedMultiplier
-{
-    public float value;
-    public float timeOnStart;
-    public SpeedMultiplierCurve multiplierCurve;
-
-    [HideInInspector] public bool shouldDelete = false;
-
-
-    public float GetMultiplierValue(float time)
-    {
-        if (multiplierCurve != null)
-        {
-            // How long the curve has been active for
-            float activeTime = time - timeOnStart;
-
-            // When the start curve ends
-            float startCurveTime = multiplierCurve.startCurve.keys.Last().time;
-            // When the hold time ends
-            float endCurveTime = startCurveTime + multiplierCurve.holdTime;
-            // When to remove the speed multiplier
-            float deleteCurveTime = endCurveTime + multiplierCurve.endCurve.keys.Last().time;
-
-            if (activeTime < startCurveTime)
-            {
-                return value * multiplierCurve.startCurve.Evaluate(activeTime);
-            }
-            else if (activeTime < endCurveTime && activeTime > startCurveTime)
-            {
-                return value;
-            }
-            else if (activeTime < deleteCurveTime && activeTime > endCurveTime)
-            {
-                return value * multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime));
-            }
-            else
-                shouldDelete = true;
-        }
-        return value;
-    }
-}
-
-[Serializable]
-public class SpeedMultiplierCurve
-{
-    public float holdTime;
-    public AnimationCurve startCurve;
-    public AnimationCurve endCurve;
-}
-
-#endregion
