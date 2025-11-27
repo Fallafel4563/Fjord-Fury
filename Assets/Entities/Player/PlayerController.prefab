@@ -5205,6 +5205,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7394530659016896994}
   - {fileID: 8497310814354721785}
   m_Father: {fileID: 5007536021592668373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5240,6 +5241,37 @@ MonoBehaviour:
       type: {class: SplineAutoDolly/FixedSpeed, ns: Unity.Cinemachine, asm: Unity.Cinemachine}
       data:
         Speed: 40
+--- !u!1 &4573433686711041914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7394530659016896994}
+  m_Layer: 0
+  m_Name: CircleRotParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7394530659016896994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573433686711041914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4805101058444081956}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5327165719451054092
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,12 +5316,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9613584d1c5810c7192a9ce129bc314b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnLerpDuration: 1
+  fadeDuration: 0.5
   RespawnStarted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
         m_MethodName: OnRespawnStarted
         m_Mode: 1
         m_Arguments:
@@ -5302,20 +5334,9 @@ MonoBehaviour:
         m_CallState: 2
   RespawnFinished:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
-        m_MethodName: OnRespawnFinished
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   playerMovement: {fileID: 0}
+  playerCamera: {fileID: 0}
   splineCart: {fileID: 0}
 --- !u!1 &5679388680422619996
 GameObject:
@@ -5434,7 +5455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5532,6 +5553,7 @@ MonoBehaviour:
   isGrounded: 1
   isJumping: 0
   isDashing: 0
+  circleRotParent: {fileID: 7394530659016896994}
   baseForwardSpeed: 40
   wasLastTrackRail: 0
   currentForwardSpeed: 40
@@ -5541,6 +5563,7 @@ MonoBehaviour:
   mainTrack: {fileID: 0}
   currentTrack: {fileID: 0}
   groundSteerSpeed: 15
+  circleTrackSteerSpeed: 7.5
   frontBackOffsetLimit: 3
   airSteerSpeed: 10
   fallSpeed: 50
@@ -5564,18 +5587,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
-        m_MethodName: OnJumped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   timeSinceJump: 0
   distanceWhenJumped: 0
   Landed:
@@ -5583,18 +5594,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3401553776943726406}
         m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnLanded
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
         m_MethodName: OnLanded
         m_Mode: 1
         m_Arguments:
@@ -5814,9 +5813,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7575265241815793949}
   - component: {fileID: 5983764731637625418}
-  - component: {fileID: 2086819912310175373}
-  - component: {fileID: 6389050002901436765}
-  - component: {fileID: 3575003207059894041}
   - component: {fileID: 5239818575151630225}
   - component: {fileID: 8851560557099016440}
   m_Layer: 0
@@ -5885,83 +5881,6 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &2086819912310175373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CameraDistance: 0.1
-  DeadZoneDepth: 0
-  Composition:
-    ScreenPosition: {x: 0, y: 0}
-    DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 4, z: -3}
-  Damping: {x: 0.5, y: 2, z: 0.5}
-  Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &6389050002901436765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Composition:
-    ScreenPosition: {x: 0, y: 0.1}
-    DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 1.25, z: 0}
-  Damping: {x: 1, y: 1}
-  Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &3575003207059894041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454330232883850996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 0.1
-  FrequencyGain: 0.1
-  m_NoiseOffsets: {x: -80.7439, y: 846.8771, z: -700.10156}
 --- !u!114 &5239818575151630225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6006,6 +5925,7 @@ MonoBehaviour:
   groundPosLerpSpeed: {x: 7.5, y: 7.5, z: 7.5}
   airPosOffset: {x: 0, y: 1, z: 4}
   airPosLerpSpeed: {x: 10, y: 10, z: 10}
+  isRespawning: 0
   steerInput: 0
   trackingTarget: {fileID: 0}
 --- !u!1 &8914522806762380729
