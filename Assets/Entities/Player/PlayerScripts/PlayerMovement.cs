@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isJumping = false;
     [HideInInspector] public bool isDashing = false;
 
-    [SerializeField] public Transform circleRotParent;
+    public Transform circleRotParent;
 
 
 
@@ -267,8 +267,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundResetStuff()
     {
-        ySpeed = 0f;
-        jumpSpeed = 0f;
+        //ySpeed = 0f;
+        //jumpSpeed = 0f;
+        airVelocity = Vector3.zero;
         ResetJumping();
         // Only reset dashing when grounded
         DashCooldown();
@@ -289,6 +290,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float jumpSpeed;
     [HideInInspector] public float hitObstacleSpeedMult = 1f;
 
+    private Vector3 airVelocity = Vector3.zero;
     private Quaternion desiredAirRotation;
 
 
@@ -298,7 +300,10 @@ public class PlayerMovement : MonoBehaviour
         NonCicleSteering();
 
         // Move boat forwards
-        transform.position += transform.forward * currentForwardSpeed * hitObstacleSpeedMult * Time.deltaTime;
+        float forwardVel = Vector3.Dot(airVelocity, transform.forward);
+        if (forwardVel < currentForwardSpeed)
+            airVelocity += transform.forward * currentForwardSpeed * Time.deltaTime;
+        //transform.position += transform.forward * currentForwardSpeed * hitObstacleSpeedMult * Time.deltaTime;
 
         // Get gravity
         float gravity = fallSpeed;
@@ -309,14 +314,18 @@ public class PlayerMovement : MonoBehaviour
             gravity = fallSpeed + quickfallSpeed;
         }
 
-        // Return the boat back to it's desired rotation (local up is equal to global up)
-        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
-        jumpSpeed -= gravity * Time.deltaTime;
-        jumpSpeed = Mathf.Clamp(jumpPower, 0f, jumpPower);
+        //jumpSpeed -= gravity * Time.deltaTime;
+        //jumpSpeed = Mathf.Clamp(jumpPower, 0f, jumpPower);
 
         // Apply gravity
-        ySpeed -= gravity * Time.deltaTime * MathF.Pow(timeSinceJump + 0.5f, 2f);
-        transform.position += ((Vector3.up * ySpeed) + (transform.up * jumpSpeed)) * Time.deltaTime;
+        airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
+        //ySpeed -= gravity * Time.deltaTime * MathF.Pow(timeSinceJump + 0.5f, 2f);
+
+        // Apply air velocity
+        transform.position += airVelocity * Time.deltaTime;
+        //transform.position += ((Vector3.up * ySpeed) + (transform.up * jumpSpeed)) * Time.deltaTime;
+        // Return the boat back to it's desired rotation (local up is equal to global up)
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }
 
 #endregion
@@ -345,13 +354,14 @@ public class PlayerMovement : MonoBehaviour
             jumpsLeft--;
 
             // Reset stuff
-            isGrounded = false;
             isDashing = false;
+            isGrounded = false;
             timeSinceJump = 0f;
 
             // Move boat upwards
-            jumpSpeed = jumpPower;
-            ySpeed = 0f;
+            airVelocity = (transform.up * jumpPower) + (transform.forward * currentForwardSpeed);
+            //jumpSpeed = jumpPower;
+            //ySpeed = 0f;
 
             // Save position and distance when the boat jumped
             positionWhenJumped = transform.position;
