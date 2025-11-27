@@ -5440,6 +5440,7 @@ GameObject:
   - component: {fileID: 3401553776943726406}
   - component: {fileID: 2504890653146001464}
   - component: {fileID: 7040633805338777643}
+  - component: {fileID: 9054204099485319101}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5802,6 +5803,19 @@ MonoBehaviour:
   HitObstacle:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9054204099485319101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba45e4dd593e7448c8e9723f9ddc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinsCollected: {fileID: 11400000, guid: 042028e12412e3c4d956033733f96848, type: 2}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
