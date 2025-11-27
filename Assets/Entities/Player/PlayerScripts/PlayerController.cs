@@ -40,8 +40,9 @@ public class PlayerController : MonoBehaviour
         playerCamera.trackingTarget = playerMovement.transform;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
 
-        playerRespawn.playerMovement = playerMovement;
         playerRespawn.splineCart = splineCart;
+        playerRespawn.playerMovement = playerMovement;
+        playerRespawn.playerCamera = playerCamera;
 
         boatMovementAnims.playerMovement = playerMovement;
 

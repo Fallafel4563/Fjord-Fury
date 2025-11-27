@@ -3,10 +3,9 @@ using UnityEngine.Audio;
 using TMPro;
 using System.Collections.Generic;
 
-
 public class SettingsMenu : MonoBehaviour
 {
-    //ADD IT TO PLAYER PREFS SO IT IS CONSISTENT OVER SCENES
+    //HOW TO ADD IT BOTH MENU AND PAUSE MENU?
 
     #region Properties
 
@@ -24,7 +23,66 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //Select which settings you want to go into
+    //LOAD PLAYER PREFS
+    #region PLayerPrefs
+
+    void Start()
+    {
+        // loads fullscreen prefs
+        // Default to fullscreen ON if no entry exists
+        bool isFullscreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+        Screen.fullScreen = isFullscreen;
+        
+        // loads graphics quality prefs
+        int savedQuality = PlayerPrefs.GetInt("Quality", QualitySettings.GetQualityLevel());
+        QualitySettings.SetQualityLevel(savedQuality);
+        
+        //Resolution
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+        }
+
+        resolutionDropdown.AddOptions(options);
+
+        // Load saved resolution index
+        int savedResolutionIndex = PlayerPrefs.GetInt("Resolution", -1);
+
+        if (savedResolutionIndex != -1)
+        {
+            // Apply saved resolution
+            SetResolution(savedResolutionIndex);
+            resolutionDropdown.value = savedResolutionIndex;
+        }
+        else
+        {
+            // No saved value yet → use current system resolution
+            for (int i = 0; i < resolutions.Length; i++)
+            {
+                if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+                {
+                    currentResolutionIndex = i;
+                    break;
+                }
+            }
+
+        resolutionDropdown.value = currentResolutionIndex;
+        }
+
+    resolutionDropdown.RefreshShownValue();    
+    }
+
+    #endregion
+
+    //SELECT WHICH SETTINGS YOU WANT TO CHANGE
     #region  TabSelectionButtons
 
     //Open controls tab
@@ -67,7 +125,7 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //Controls tab
+    //CONTROLS TAB
     #region Controls    
 
     public void OnCloseControls()
@@ -77,15 +135,30 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //Display tab
+    //DISPLAY TAB
     #region Display
 
+    public void OnCloseDisplay()
+    {
+        displayTab.SetActive(false);
+        tabSelection.SetActive(true);
+    }
+   
     #region Display; Fullscreen toggle
 
-    public void SetFullscreen (bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
+//    public void SetFullscreen (bool isFullscreen)
+//    {
+//        Screen.fullScreen = isFullscreen;
+//    }
+
+    public void SetFullscreen(bool isFullscreen)
+        {
+            Screen.fullScreen = isFullscreen;
+
+            // Save to PlayerPrefs (1 = true, 0 = false)
+            PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+            PlayerPrefs.Save();
+        }
 
     #endregion
 
@@ -94,53 +167,73 @@ public class SettingsMenu : MonoBehaviour
     //to change quality go to edit > project settings > quality
     //for now there low, medium and high quality
     //The quality settings there are not defined yet
-    public void SetQuality (int qualityIndex)
+//    public void SetQuality (int qualityIndex)
+//    {
+//        QualitySettings.SetQualityLevel(qualityIndex);
+//    }
+
+
+    public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+
+        PlayerPrefs.SetInt("Quality", qualityIndex);
+        PlayerPrefs.Save();
     }
-
-    #endregion
-
-    //TBA
-    #region Display; Brightness
 
     #endregion
 
     #region Display; Set resolution
 
-    void Start()
+//    void Start()
+//    {
+//        resolutions = Screen.resolutions;
+//        resolutionDropdown.ClearOptions();
+
+//        List<string> options = new List<string>();
+//        int currentResolutionIndex = 0;
+
+//        for (int i = 0; i < resolutions.Length; i++)
+//        {
+//            string option = resolutions[i].width + " x " + resolutions[i].height;
+//            options.Add(option);
+//            if (resolutions[i].width == Screen.currentResolution.width &&
+//                resolutions[i].height == Screen.currentResolution.height)
+//            {
+//                currentResolutionIndex = i;
+//            }
+//        }
+
+//        resolutionDropdown.AddOptions(options);
+//        resolutionDropdown.value = currentResolutionIndex;
+//        resolutionDropdown.RefreshShownValue();
+//    }
+
+    public void SetResolution(int resolutionIndex)
     {
-        resolutions = Screen.resolutions;
-        resolutionDropdown.ClearOptions();
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
 
-        List<string> options = new List<string>();
-        int currentResolutionIndex = 0;
-
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
-        }
-
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
+        PlayerPrefs.SetInt("Resolution", resolutionIndex);
+        PlayerPrefs.Save();
     }
 
     #endregion
 
     #endregion
 
-    //Accessibility tab
+    //ACCESSIBILITY TAB
     #region  Accessibility
+
+        public void OnCloseAccessibility()
+        {
+            accessibilityTab.SetActive(false);
+            tabSelection.SetActive(true);
+        }
 
     //Subtitles??
 
+    //TBA
     #region Screen shake
 
     public void OnShakeToggleButton()
@@ -150,6 +243,7 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
+    //TBA
     #region Text size
 
     public void OnTextSizeButton()
@@ -161,9 +255,16 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
+    //DOES THIS WORK WITH FMOD??
+    //IT DOES NOT
     //AUDIO TAB
     #region Audio
 
+    public void OnCloseAudio()
+    {
+        audioTab.SetActive(false);
+        tabSelection.SetActive(true);
+    }
     //Master volume
     public void SetVolume(float volume)
     {

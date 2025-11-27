@@ -8,6 +8,7 @@ public class TrickComboSystem : MonoBehaviour
     public Animator animator;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [HideInInspector] public BoatMovementAnims boatMovementAnims;
 
     [HideInInspector] public int combo = 0;
     [HideInInspector] public int trickScore = 0;
@@ -46,6 +47,8 @@ public class TrickComboSystem : MonoBehaviour
     private void Awake()
     {
         forwardSpeedMultiplier = GetComponent<ForwardSpeedMultiplier>();
+
+        boatMovementAnims = GetComponentInChildren<BoatMovementAnims>();
     }
 
 
@@ -97,6 +100,7 @@ public class TrickComboSystem : MonoBehaviour
             // Get random trick from trick list
             trickIndex = Random.Range(0, trickList.Count);
             newTrickName = trickList[trickIndex];
+            boatMovementAnims.TrickAnim();
         }
         
 
@@ -139,17 +143,17 @@ public class TrickComboSystem : MonoBehaviour
         currentScore = combo * trickScore;
         //TODO: Send score to ScoreSystem
 
-        boostTime += currentScore / 100;
+        boostTime += currentScore / 100f;
         //TODO: Set boost meter's high value to boost time
         //TODO: Set boost meter's value to boost time
 
-        speedValue += currentScore / 300;
+        speedValue += currentScore / 100f;
 
         currentScore = 0;
         combo = 0;
         tableOfTricks.Clear();
 
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ComboBoost", 1 + speedValue, comboMultiplierCurve);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ComboBoost", speedValue, comboMultiplierCurve);
 
         // While boosting
         //TODO: Play boost sound
@@ -213,5 +217,12 @@ public class TrickComboSystem : MonoBehaviour
     public void OnJumped()
     {
         //
+    }
+
+
+    public void OnRespawnStarted()
+    {
+        // Fail trick when respawning
+        FailTrick();
     }
 }
