@@ -211,8 +211,11 @@ public class PlayerMovement : MonoBehaviour
         // Jump off track when within the jump off distance
         if (splineCart.SplinePosition > jumpOffDistance && !currentTrack.track.Splines[0].Closed)
         {
-            // Detach the boat form the spline cart
-            DetachFromCart();
+            if (currentTrack.jumpOffAtEnd)
+                Jump();
+            else
+                // Detach the boat form the spline cart
+                DetachFromCart();
 
             currentTrack.OnBoatReachedEnd.Invoke(gameObject);
         }
@@ -238,8 +241,11 @@ public class PlayerMovement : MonoBehaviour
         // Jump off track when within the jump off distance
         if (splineCart.SplinePosition > jumpOffDistance && !currentTrack.track.Splines[0].Closed)
         {
-            // Detach the boat form the spline cart
-            DetachFromCart();
+            if (currentTrack.jumpOffAtEnd)
+                Jump();
+            else
+                // Detach the boat form the spline cart
+                DetachFromCart();
 
             currentTrack.OnBoatReachedEnd.Invoke(gameObject);
         }
