@@ -1,65 +1,66 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    public float respawnLerpDuration = 1f;
+    public float fadeDuration = 0.5f;
     private float deathYPosition = -100f;
     public UnityEvent RespawnStarted;
     public UnityEvent RespawnFinished;
 
     [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public PlayerCamera playerCamera;
     [HideInInspector] public CinemachineSplineCart splineCart;
 
     private bool respawnActive = false;
-    private float respawnLerpTime;
-    private Vector3 respawnLerpStart;
 
 
 
     private void Update()
     {
         Vector3 relativePos = splineCart.transform.InverseTransformPoint(playerMovement.transform.position);
-        if (respawnActive)
-            RespawnLerp();
-        else if (relativePos.y < deathYPosition && !respawnActive)
-            StartRespawn();
+        if (!respawnActive && relativePos.y < deathYPosition)
+            StartCoroutine(nameof(TriggerRespawn));
     }
 
 
-
-    private void RespawnLerp()
+    private IEnumerator TriggerRespawn()
     {
-        Vector3 from = respawnLerpStart;
-        Vector3 to = splineCart.transform.position;
-        // Get the % of how far the boat should've moved between from and to
-        respawnLerpTime += Time.deltaTime;
-        float weight = respawnLerpTime / respawnLerpDuration;
+        // Reset spline cart
+        StartRespawn();
+        // Wait for fade in
+        yield return new WaitForSeconds(fadeDuration);
 
-        // Move boat to the to position over
-        playerMovement.transform.position = Vector3.Lerp(from, to, weight);
+        // Reset boat position
+        playerMovement.enabled = false;
+        float respawnHeight = 3f;
+        if (playerMovement.currentTrack.isCircle)
+            respawnHeight += playerMovement.currentTrack.width;
+        
+        playerMovement.transform.position = splineCart.transform.position + splineCart.transform.up * respawnHeight;
+        // Reset camera
+        playerCamera.transform.position = playerCamera.trackingTarget.transform.position;
+        playerCamera.isRespawning = false;
 
-        // Stop respawning when it has respawned for respawnLerpDuration
-        if (respawnLerpTime >= respawnLerpDuration)
-        {
-            FinishRespawn();
-        }
+        // Wait for fade out
+        yield return new WaitForSeconds(fadeDuration);
+        FinishRespawn();
     }
 
 
 
     public void StartRespawn()
     {
-        respawnLerpTime = 0f;
-        respawnLerpStart = playerMovement.transform.position;
+        respawnActive = true;
 
         splineCart.AutomaticDolly.Enabled = false;
         // Respawn the palyer 50 units behind where they jumped off the track
         splineCart.SplinePosition = playerMovement.distanceWhenJumped - 50f;
 
-        respawnActive = true;
-        playerMovement.enabled = false;
+        playerCamera.isRespawning = true;
+
         RespawnStarted.Invoke();
     }
 
@@ -69,9 +70,8 @@ public class PlayerRespawn : MonoBehaviour
     {
         // Reset player stuff
         playerMovement.enabled = true;
-        playerMovement.AttachToCart();
-        playerMovement.ySpeed = 0f;
-        playerMovement.isGrounded = true;
+        playerMovement.airVelocity = Vector3.zero;
+        playerMovement.isDashing = false;
         playerMovement.wasLastTrackRail = false;
         playerMovement.SetOverrideSpeed(playerMovement.currentTrack.overrideSpeed);
 

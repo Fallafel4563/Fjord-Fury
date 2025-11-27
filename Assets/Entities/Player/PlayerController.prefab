@@ -5206,6 +5206,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7394530659016896994}
+  - {fileID: 8497310814354721785}
   m_Father: {fileID: 5007536021592668373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8965506563597239976
@@ -5268,8 +5269,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8497310814354721785}
+  m_Children: []
   m_Father: {fileID: 4805101058444081956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5327165719451054092
@@ -5316,7 +5316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9613584d1c5810c7192a9ce129bc314b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnLerpDuration: 1
+  fadeDuration: 0.5
   RespawnStarted:
     m_PersistentCalls:
       m_Calls:
@@ -5332,34 +5332,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
-        m_MethodName: OnRespawnStarted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   RespawnFinished:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
-        m_MethodName: OnRespawnFinished
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   playerMovement: {fileID: 0}
+  playerCamera: {fileID: 0}
   splineCart: {fileID: 0}
 --- !u!1 &5679388680422619996
 GameObject:
@@ -5463,6 +5440,7 @@ GameObject:
   - component: {fileID: 3401553776943726406}
   - component: {fileID: 2504890653146001464}
   - component: {fileID: 7040633805338777643}
+  - component: {fileID: 9054204099485319101}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5484,7 +5462,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5850184161569201863}
-  m_Father: {fileID: 7394530659016896994}
+  m_Father: {fileID: 4805101058444081956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6636927453759274787
 BoxCollider:
@@ -5591,8 +5569,7 @@ MonoBehaviour:
   airSteerSpeed: 10
   fallSpeed: 50
   quickfallSpeed: 75
-  ySpeed: 0
-  hitObstacleSpeedMult: 1
+  airVelocity: {x: 0, y: 0, z: 0}
   maxJumps: 1
   jumpPower: 15
   Jumped:
@@ -5600,18 +5577,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3401553776943726406}
         m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnJumped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
         m_MethodName: OnJumped
         m_Mode: 1
         m_Arguments:
@@ -5639,16 +5604,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8851560557099016440}
-        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
-        m_MethodName: OnLanded
-        m_Mode: 1
+      - m_Target: {fileID: 7693696863607440810}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LandAnim
           m_BoolArgument: 0
         m_CallState: 2
   dashForce: 100
@@ -5697,9 +5662,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326e8056b44adc675acd47c6939df266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 7693696863607440810}
   playerMovement: {fileID: 0}
   forwardSpeedMultiplier: {fileID: 0}
+  boatMovementAnims: {fileID: 0}
   combo: 0
   trickScore: 0
   performingTrick: 0
@@ -5758,10 +5724,9 @@ MonoBehaviour:
   boostTime: 0
   speedValue: 0
   trickList:
-  - Spin
+  - 360Spin
   - Backflip
-  - Frontflip
-  - 360
+  - Kickflip
   trickIndex: 0
   trickName: 
   FailedTrick:
@@ -5850,6 +5815,19 @@ MonoBehaviour:
   HitObstacle:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9054204099485319101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba45e4dd593e7448c8e9723f9ddc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinsCollected: {fileID: 11400000, guid: 042028e12412e3c4d956033733f96848, type: 2}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5972,6 +5950,7 @@ MonoBehaviour:
   groundPosLerpSpeed: {x: 7.5, y: 7.5, z: 7.5}
   airPosOffset: {x: 0, y: 1, z: 4}
   airPosLerpSpeed: {x: 10, y: 10, z: 10}
+  isRespawning: 0
   steerInput: 0
   trackingTarget: {fileID: 0}
 --- !u!1 &8914522806762380729
@@ -6023,6 +6002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 0}
+  trickComboSystem: {fileID: 3401553776943726406}
   lerpSpeed: 1
   groundTilt: 5
   airTilt: 5
@@ -6036,15 +6016,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6088,7 +6068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1806680513116206669, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -6137,8 +6117,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7693696863607440810}
   m_SourcePrefab: {fileID: 100100000, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
+--- !u!1 &1475099851457075345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
+  m_PrefabInstance: {fileID: 1781721957718926784}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7693696863607440810
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475099851457075345}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 11d7b1d35ed718045bda7bf483ad0521, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2248224009754034731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
