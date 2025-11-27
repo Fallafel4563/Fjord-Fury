@@ -7,6 +7,7 @@ using UnityEngine.Splines;
 [RequireComponent(typeof(SplineExtrude), typeof(MeshCollider))]
 public class SplineTrack : MonoBehaviour
 {
+    public bool isCircle = false;
     public bool shouldRespawnOnTrack = true;
     public float overrideSpeed = 0f;
 
