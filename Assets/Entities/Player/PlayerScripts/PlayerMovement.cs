@@ -100,7 +100,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void DetachFromCart()
     {
-        // Stop the cart
+        // Reset stuff
+        isDashing = false;
+        isGrounded = false;
+        timeSinceJump = 0f;
+
+        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
+        airVelocity = transform.forward * currentForwardSpeed;
+
+        // Save position and distance when the boat jumped
+        positionWhenJumped = transform.position;
+        distanceWhenJumped = splineCart.SplinePosition;
+        // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
+        // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
+        // FIX: I have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
+        // FIX: but it doesn't get the right rotation when jumping off a slope on a raod track or when jumping off from the top of a circle track
+        desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+        
+        // Stop the splineCart
         splineCart.AutomaticDolly.Enabled = false;
 
         // Detach the boat form the cart so that it has free movement while in the air
@@ -109,11 +126,7 @@ public class PlayerMovement : MonoBehaviour
         else
             splineCart.transform.DetachChildren();
 
-        // Reset boat pitch so that it moves properly while in the air
-        //transform.localEulerAngles = new(0f, transform.localEulerAngles.y, transform.localEulerAngles.z);
-
         // Invoke events
-        Jumped.Invoke();
         currentTrack.OnBoatExit.Invoke(gameObject);
 
         // Reattach the cart to the main track when jumping off a rail
@@ -198,18 +211,10 @@ public class PlayerMovement : MonoBehaviour
         // Jump off track when within the jump off distance
         if (splineCart.SplinePosition > jumpOffDistance && !currentTrack.track.Splines[0].Closed)
         {
-            currentTrack.OnBoatReachedEnd.Invoke(gameObject);
-
-            // Reset stuff
-            isGrounded = false;
-            isDashing = false;
-
-            // Save position and distance when the boat jumped
-            positionWhenJumped = transform.position;
-            distanceWhenJumped = splineCart.SplinePosition;
-
             // Detach the boat form the spline cart
             DetachFromCart();
+
+            currentTrack.OnBoatReachedEnd.Invoke(gameObject);
         }
     }
 
@@ -233,18 +238,10 @@ public class PlayerMovement : MonoBehaviour
         // Jump off track when within the jump off distance
         if (splineCart.SplinePosition > jumpOffDistance && !currentTrack.track.Splines[0].Closed)
         {
-            currentTrack.OnBoatReachedEnd.Invoke(gameObject);
-
-            // Reset stuff
-            isGrounded = false;
-            isDashing = false;
-
-            // Save position and distance when the boat jumped
-            positionWhenJumped = transform.position;
-            distanceWhenJumped = splineCart.SplinePosition;
-
             // Detach the boat form the spline cart
             DetachFromCart();
+
+            currentTrack.OnBoatReachedEnd.Invoke(gameObject);
         }
     }
 
@@ -333,29 +330,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (jumpsLeft > 0)
         {
+            // Detach the boat form the spline cart
+            DetachFromCart();
+
             // Reduce how many jumps the boat has left
             jumpsLeft--;
 
-            // Reset stuff
-            isDashing = false;
-            isGrounded = false;
-            timeSinceJump = 0f;
-
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
-            airVelocity = (transform.up * jumpPower) + (transform.forward * currentForwardSpeed);
+            airVelocity += transform.up * jumpPower;
 
-            // Save position and distance when the boat jumped
-            positionWhenJumped = transform.position;
-            distanceWhenJumped = splineCart.SplinePosition;
-
-            // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
-            // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
-            // FIX: I have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
-            // FIX: but it doesn't get the right rotation when jumping off a slope on a raod track or when jumping off from the top of a circle track
-            desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
-
-            // Detach the boat form the spline cart
-            DetachFromCart();
         }
     }
 
