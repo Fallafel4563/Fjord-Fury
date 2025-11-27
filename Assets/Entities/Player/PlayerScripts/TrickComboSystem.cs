@@ -8,6 +8,7 @@ public class TrickComboSystem : MonoBehaviour
     public Animator animator;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [HideInInspector] public BoatMovementAnims boatMovementAnims;
 
     [HideInInspector] public int combo = 0;
     [HideInInspector] public int trickScore = 0;
@@ -46,6 +47,8 @@ public class TrickComboSystem : MonoBehaviour
     private void Awake()
     {
         forwardSpeedMultiplier = GetComponent<ForwardSpeedMultiplier>();
+
+        boatMovementAnims = GetComponentInChildren<BoatMovementAnims>();
     }
 
 
@@ -97,6 +100,7 @@ public class TrickComboSystem : MonoBehaviour
             // Get random trick from trick list
             trickIndex = Random.Range(0, trickList.Count);
             newTrickName = trickList[trickIndex];
+            boatMovementAnims.TrickAnim();
         }
         
 
