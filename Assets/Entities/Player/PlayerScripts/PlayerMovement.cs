@@ -31,7 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        ApplyGeneralMovement();
+        // Get the current steer speed based on the ground state of the boat
+        steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
         if (isGrounded)
             ApplyGroundMovement();
@@ -44,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack))
         {
-            // Fix null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
+            // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
+            // and the boat hits a track during that frame so we get a null reference error without this if statement
             if (splineCart)
                 LandedOnTrack(splineTrack);
         }
@@ -65,18 +67,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public SplineTrack currentTrack;
 
 
-
-    private void ApplyGeneralMovement()
-    {
-        // Get the current steer speed based on the ground state of the boat
-        steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
-
-        // Reset hit obstacle speed mult
-        hitObstacleSpeedMult += Time.deltaTime;
-        hitObstacleSpeedMult = Mathf.Clamp(hitObstacleSpeedMult, -1f, 1f);
-    }
-
-
+    // Seering that is applied when not on a circle track
     private void NonCicleSteering()
     {
         // Apply steering
@@ -267,8 +258,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundResetStuff()
     {
-        //ySpeed = 0f;
-        //jumpSpeed = 0f;
         airVelocity = Vector3.zero;
         ResetJumping();
         // Only reset dashing when grounded
@@ -286,11 +275,9 @@ public class PlayerMovement : MonoBehaviour
     public float fallSpeed = 50f;
     public float quickfallSpeed = 75f;
 
-    [HideInInspector] public float ySpeed;
-    [HideInInspector] public float jumpSpeed;
-    [HideInInspector] public float hitObstacleSpeedMult = 1f;
+    [HideInInspector] public Vector3 airVelocity = Vector3.zero;
 
-    private Vector3 airVelocity = Vector3.zero;
+    //NOTE: This can also be used to set the rotation of the boat when drifting. Just remember to change the name
     private Quaternion desiredAirRotation;
 
 
@@ -300,31 +287,27 @@ public class PlayerMovement : MonoBehaviour
         NonCicleSteering();
 
         // Move boat forwards
+        // Get how fast the boat is moving forwards
         float forwardVel = Vector3.Dot(airVelocity, transform.forward);
+        // Only apply forwards movement if the boat is going slower than currentForwardSpeed
         if (forwardVel < currentForwardSpeed)
             airVelocity += transform.forward * currentForwardSpeed * Time.deltaTime;
-        //transform.position += transform.forward * currentForwardSpeed * hitObstacleSpeedMult * Time.deltaTime;
 
         // Get gravity
         float gravity = fallSpeed;
-        // Add quickfall speed if no longer jumping
+        // Add quickfall speed if the player is no longer holding the jump key
         if (!jumpInput && !isJumping)
         {
             isJumping = false;
             gravity = fallSpeed + quickfallSpeed;
         }
-
-        //jumpSpeed -= gravity * Time.deltaTime;
-        //jumpSpeed = Mathf.Clamp(jumpPower, 0f, jumpPower);
-
         // Apply gravity
         airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
-        //ySpeed -= gravity * Time.deltaTime * MathF.Pow(timeSinceJump + 0.5f, 2f);
 
         // Apply air velocity
         transform.position += airVelocity * Time.deltaTime;
-        //transform.position += ((Vector3.up * ySpeed) + (transform.up * jumpSpeed)) * Time.deltaTime;
-        // Return the boat back to it's desired rotation (local up is equal to global up)
+
+        // Lerpt the rotation that was set when jumping (also when falling off the track)
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }
 
@@ -358,15 +341,17 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
             timeSinceJump = 0f;
 
-            // Move boat upwards
+            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity = (transform.up * jumpPower) + (transform.forward * currentForwardSpeed);
-            //jumpSpeed = jumpPower;
-            //ySpeed = 0f;
 
             // Save position and distance when the boat jumped
             positionWhenJumped = transform.position;
             distanceWhenJumped = splineCart.SplinePosition;
 
+            // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
+            // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
+            // FIX: I have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
+            // FIX: but it doesn't get the right rotation when jumping off a slope on a raod track or when jumping off from the top of a circle track
             desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
 
             // Detach the boat form the spline cart
@@ -406,7 +391,6 @@ public class PlayerMovement : MonoBehaviour
         // Reset  stuff
         dashTime = 0f;
         isGrounded = true;
-
 
         // Update current and main track
         currentTrack = splineTrack;

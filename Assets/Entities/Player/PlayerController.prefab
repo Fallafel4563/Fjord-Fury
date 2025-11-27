@@ -5569,7 +5569,9 @@ MonoBehaviour:
   fallSpeed: 50
   quickfallSpeed: 75
   ySpeed: 0
+  jumpSpeed: 0
   hitObstacleSpeedMult: 1
+  airVelocity: {x: 0, y: 0, z: 0}
   maxJumps: 1
   jumpPower: 15
   Jumped:
@@ -5971,7 +5973,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8914522806762380729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea361c9416a7919e8a79d6170ec8be7e, type: 3}
   m_Name: 

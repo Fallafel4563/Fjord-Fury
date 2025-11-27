@@ -58,7 +58,7 @@ public class BoatMovementAnims : MonoBehaviour
         // Rotation
         Vector3 newRotation = transform.localEulerAngles;
         // Pitch
-        newRotation.x = -playerMovement.ySpeed * 2f;
+        newRotation.x = -playerMovement.airVelocity.y * 2f;
         newRotation.x = Mathf.Clamp(newRotation.x, -89f, 89f);
         // Yaw
         float yFrom = newRotation.y;

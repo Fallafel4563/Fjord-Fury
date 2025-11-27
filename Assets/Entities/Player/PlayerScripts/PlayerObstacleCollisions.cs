@@ -27,7 +27,7 @@ public class PlayerObstacleCollisions : MonoBehaviour
             Debug.Log("Hit Obstacle");
             // Make the player move backwards
             playerMovement.Jump();
-            playerMovement.hitObstacleSpeedMult = -1f;
+            //playerMovement.hitObstacleSpeedMult = -1f;
 
             // Apply a slowing effect
             forwardSpeedMultiplier.SetForwardSpeedMultiplier("HitObstacle", slowDownValue, slowDownCurve);
