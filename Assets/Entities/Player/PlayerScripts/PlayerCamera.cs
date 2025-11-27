@@ -5,6 +5,8 @@ public class PlayerCamera : MonoBehaviour
 {
     [Header("General")]
     // How fast to lerp between truePosOffset and desiredPosOffset
+    [SerializeField] private float minFov = 65f;
+    [SerializeField] private float maxFov = 90f;
     [SerializeField] private float rotLerpSpeed = 7.5f;
     [SerializeField] private float desiredOffsetLerpSpeed = 5f;
     [SerializeField] private Vector3 rotationOffset = new(0f, 1.25f, 5f);
@@ -33,6 +35,7 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 desiredPosOffset;   // Where the position offset wants to be
 
     private PlayerMovement playerMovement;
+    private ForwardSpeedMultiplier forwardSpeedMultiplier;
     private CinemachineBrain cinemachineBrain;
     private CinemachineCamera cinemachineCamera;
 
@@ -49,6 +52,7 @@ public class PlayerCamera : MonoBehaviour
     private void Start()
     {
         playerMovement = trackingTarget.GetComponent<PlayerMovement>();
+        forwardSpeedMultiplier = trackingTarget.GetComponent<ForwardSpeedMultiplier>();
 
         // Set default values
         cinemachineCamera.Target.TrackingTarget = trackingTarget;
@@ -79,6 +83,9 @@ public class PlayerCamera : MonoBehaviour
         if (!isRespawning)
             SetCameraPosition();
         SetCameraRotation();
+
+        // Update fov based on the how fast the player is moving
+        UpdateFovBasedOnSpeed();
     }
 
 
@@ -122,5 +129,20 @@ public class PlayerCamera : MonoBehaviour
         int outputChannel = (int)Mathf.Pow(2, playerIndex + 1);
         cinemachineBrain.ChannelMask = (OutputChannels)outputChannel;
         cinemachineCamera.OutputChannel = (OutputChannels)outputChannel;
+    }
+
+
+    private void UpdateFovBasedOnSpeed()
+    {
+        // Get the difference between the max fov and the min fov
+        float fovDiff = maxFov - minFov;
+        // How much more fov to add to the min value. Difference * speed multiplier
+        float additionalFov = fovDiff * (forwardSpeedMultiplier.GetTotalMultiplierValue() - 1f);
+        // Add additional fov to the min to get the desired fov
+        float desiredFov = minFov + additionalFov;
+        // Clamp fov between min and max
+        desiredFov = Mathf.Clamp(desiredFov, minFov, maxFov);
+        // Set fov
+        cinemachineCamera.Lens.FieldOfView = desiredFov;
     }
 }
