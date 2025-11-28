@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,16 +5,17 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 2;
+    public static int playerCount = 1;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private int maxJumps = 1;
 
     private PlayerInputManager playerInputManager;
 
-    
+
     private void Start()
     {
-        
+        playerInputManager = GetComponent<PlayerInputManager>();
         // Spawn players
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
@@ -33,9 +33,26 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     {
         Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
+        PlayerController playerController = playerInput.GetComponent<PlayerController>();
         // Set the main track reference on the spawned player
-        CinemachineSplineCart dollyCart = playerInput.GetComponentInChildren<CinemachineSplineCart>();
-        dollyCart.Spline = mainTrack.track;
+        playerController.mainTrack = mainTrack;
+        // Set the position of the player to be on the main track
+        playerController.transform.position = mainTrack.transform.position;
+
+        // Set the amount of jumps the player controller should have
+        playerController.playerMovement.maxJumps = maxJumps;
+
+        // Set player position
+        float trackLeftPos = -(mainTrack.width / 2f);
+
+        // Get the offset between players
+        float playersOffset = mainTrack.width / (playerCount + 1);
+
+        // Get the spawn pos of the player
+        float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
+
+        // Set the spawn pos of the player
+        playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
     }
 
 
@@ -48,12 +65,15 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     private void OnValidate()
     {
         // Setup the palyer input manager to have the desired default values
+
         if (playerInputManager == null)
         {
             playerInputManager = GetComponent<PlayerInputManager>();
-            playerInputManager.playerPrefab = playerPrefab;
             playerInputManager.splitScreen = true;
-            //playerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        }
+        else if (playerPrefab != null)
+        {
+            playerInputManager.playerPrefab = playerPrefab;
         }
     }
 }

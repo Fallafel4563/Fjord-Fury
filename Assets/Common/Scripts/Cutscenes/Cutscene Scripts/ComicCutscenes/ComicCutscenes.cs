@@ -1,23 +1,15 @@
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.Playables;
 
 public class ComicCutscenes : MonoBehaviour
 {
-    public float timeBetweenPanels;
-    public float timeBetweenSlides;
-    public List <GameObject> slides = new List<GameObject>();
-    public List <GameObject> panels = new List<GameObject>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public PlayableDirector PlayableDirector;
+     
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayableDirector.Play();
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
 }
