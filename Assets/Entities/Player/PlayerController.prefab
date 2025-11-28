@@ -5590,8 +5590,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 7693696863607440810}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5981,6 +5981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac61dba102ac189485d29922c915c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minFov: 65
+  maxFov: 90
   rotLerpSpeed: 5
   desiredOffsetLerpSpeed: 5
   rotationOffset: {x: 0, y: 1.25, z: 5}
@@ -5992,6 +5994,8 @@ MonoBehaviour:
   isRespawning: 0
   steerInput: 0
   trackingTarget: {fileID: 0}
+  playerMovement: {fileID: 0}
+  forwardSpeedMultiplier: {fileID: 0}
 --- !u!1 &8914522806762380729
 GameObject:
   m_ObjectHideFlags: 0
