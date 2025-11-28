@@ -15,7 +15,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
     private void Start()
     {
-        
+        playerInputManager = GetComponent<PlayerInputManager>();
         // Spawn players
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
