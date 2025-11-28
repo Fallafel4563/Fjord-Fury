@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
         playerMovement.mainTrack = mainTrack;
 
         playerCamera.trackingTarget = playerMovement.transform;
+        playerCamera.playerMovement = playerMovement;
+        playerCamera.forwardSpeedMultiplier = trickComboSystem.forwardSpeedMultiplier;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
 
         playerRespawn.splineCart = splineCart;
