@@ -330,7 +330,8 @@ public class PlayerMovement : MonoBehaviour
 
     private int jumpsLeft;
 
-
+    // Invoke events
+    
 
     public void Jump()
     {
@@ -345,10 +346,13 @@ public class PlayerMovement : MonoBehaviour
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity += transform.up * jumpPower;
 
+
+            // Invoke events
+            Jumped.Invoke();
         }
     }
 
-
+    
     private void ResetJumping()
     {
         isJumping = false;
