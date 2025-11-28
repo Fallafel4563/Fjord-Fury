@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
+    [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
 
 
     private PlayerInput playerInput;
@@ -29,17 +31,18 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Set references on children
+    // Set references on different systems
     private void Start()
     {
         splineCart.Spline = mainTrack.track;
 
         playerMovement.splineCart = splineCart;
         playerMovement.mainTrack = mainTrack;
+        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
-        playerCamera.trackingTarget = playerMovement.transform;
         playerCamera.playerMovement = playerMovement;
-        playerCamera.forwardSpeedMultiplier = trickComboSystem.forwardSpeedMultiplier;
+        playerCamera.trackingTarget = playerMovement.transform;
+        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
 
         playerRespawn.splineCart = splineCart;
@@ -47,8 +50,14 @@ public class PlayerController : MonoBehaviour
         playerRespawn.playerCamera = playerCamera;
 
         boatMovementAnims.playerMovement = playerMovement;
+        boatMovementAnims.trickComboSystem = trickComboSystem;
 
         trickComboSystem.playerMovement = playerMovement;
+        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
+        trickComboSystem.boatMovementAnims = boatMovementAnims;
+
+        playerObstacleCollisions.playerMovement = playerMovement;
+        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
     }
 
 

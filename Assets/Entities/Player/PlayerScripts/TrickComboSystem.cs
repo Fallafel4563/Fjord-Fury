@@ -44,15 +44,6 @@ public class TrickComboSystem : MonoBehaviour
 
 
 
-    private void Awake()
-    {
-        forwardSpeedMultiplier = GetComponent<ForwardSpeedMultiplier>();
-
-        boatMovementAnims = GetComponentInChildren<BoatMovementAnims>();
-    }
-
-
-
     private void Update()
     {
         // Reduce inputBuffer time
