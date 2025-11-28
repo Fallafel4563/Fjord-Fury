@@ -9,7 +9,6 @@ public class PlayerObstacleCollisions : MonoBehaviour
     public float invulnerableDuration = 3f;
     public int maxCrashes = 3;
     public float crashDuration = 3f;
-    public SpeedMultiplierCurve slowDownCurve;
     public UnityEvent HitObstacle;
 
     [HideInInspector] public PlayerMovement playerMovement;

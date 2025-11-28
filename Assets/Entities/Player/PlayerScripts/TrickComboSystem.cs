@@ -104,7 +104,6 @@ public class TrickComboSystem : MonoBehaviour
             trickScore += 10;
 
             trickIndex = Random.Range(0, trickList.Count);
-            Debug.Log(trickIndex);
             currentTrickName = trickList[trickIndex];
             boatMovementAnims.TrickAnim();
         }
@@ -121,6 +120,7 @@ public class TrickComboSystem : MonoBehaviour
         trickName = GetTrickName();
 
         // TODO: Update score text to show trickScore + "x" + combo
+        Debug.LogFormat("Speed value {0}, Speed mult {1}", speedValue, forwardSpeedMultiplier.GetTotalMultiplierValue());
     }
 
 
@@ -131,6 +131,9 @@ public class TrickComboSystem : MonoBehaviour
 
         // TODO: Set animator trigget for failing trick
         FailedTrick.Invoke();
+
+        Debug.Log("FAILED TRICK");
+        Debug.LogFormat("Speed vaue {0}, Mult {1}", speedValue, forwardSpeedMultiplier.GetTotalMultiplierValue());
     }
 
 
@@ -138,7 +141,7 @@ public class TrickComboSystem : MonoBehaviour
     {
         // TODO: Send trickScore * Combo to score system
 
-        speedValue += trickScore / 600f;
+        speedValue += trickScore / 500f;
 
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", speedValue, ImmediateComboBoostCurve);
 
@@ -158,6 +161,7 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Hide boost meter
 
         combo = 0;
+        trickScore = 0;
         speedValue = 0f;
 
         performingTrick = false;
@@ -202,7 +206,6 @@ public class TrickComboSystem : MonoBehaviour
     public void OnTrickAnimationFinished()
     {
         performingTrick = false;
-        Debug.Log(trickName);
     }
 
 
