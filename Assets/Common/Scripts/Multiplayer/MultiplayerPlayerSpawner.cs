@@ -12,7 +12,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
     private PlayerInputManager playerInputManager;
 
-    
+
     private void Start()
     {
         
@@ -41,6 +41,18 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
         // Set the amount of jumps the player controller should have
         playerController.playerMovement.maxJumps = maxJumps;
+
+        // Set player position
+        float trackLeftPos = -(mainTrack.width / 2f);
+
+        // Get the offset between players
+        float playersOffset = mainTrack.width / (playerCount + 1);
+
+        // Get the spawn pos of the player
+        float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
+
+        // Set the spawn pos of the player
+        playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
     }
 
 
