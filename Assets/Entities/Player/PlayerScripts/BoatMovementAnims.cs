@@ -4,6 +4,7 @@ public class BoatMovementAnims : MonoBehaviour
 {
     [HideInInspector] public PlayerMovement playerMovement;
     public TrickComboSystem trickComboSystem;
+
     
 
     [Header("General")]
@@ -24,6 +25,8 @@ public class BoatMovementAnims : MonoBehaviour
             GroundedAnim();
         else
             AirborneAnim();
+
+        
     }
 
 
@@ -45,6 +48,8 @@ public class BoatMovementAnims : MonoBehaviour
         newRotation.z = Mathf.LerpAngle(newRotation.z, -playerMovement.steerInput * playerMovement.steerSpeed, Time.deltaTime * 5f);
         // Apply rotation
         transform.localEulerAngles = newRotation;
+
+        trickComboSystem.animator.SetBool("Grinding", playerMovement.currentTrack.isCircle);
     }
 
 
@@ -71,6 +76,8 @@ public class BoatMovementAnims : MonoBehaviour
         newRotation.z = playerMovement.isDashing ? newRotation.z + 400f * playerMovement.dashDirection * Time.deltaTime : Mathf.LerpAngle(newRotation.z, -playerMovement.steerInput * playerMovement.steerSpeed, Time.deltaTime * 5f);
         // Apply rotation
         transform.localEulerAngles = newRotation;
+
+        trickComboSystem.animator.SetBool("Grinding", false);
     }
 
     public void TrickAnim()

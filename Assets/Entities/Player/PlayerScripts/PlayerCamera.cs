@@ -34,8 +34,8 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 posOffset;          // Where the position offset is
     private Vector3 desiredPosOffset;   // Where the position offset wants to be
 
-    private PlayerMovement playerMovement;
-    private ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
     private CinemachineBrain cinemachineBrain;
     private CinemachineCamera cinemachineCamera;
 
