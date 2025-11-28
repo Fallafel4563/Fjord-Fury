@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform circleRotParent;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+
     // Input variables
     [HideInInspector] public bool jumpInput;
     [HideInInspector] public float forwardInput;
@@ -16,9 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isGrounded = true;
     [HideInInspector] public bool isJumping = false;
     [HideInInspector] public bool isDashing = false;
-
-    public Transform circleRotParent;
-
+    [HideInInspector] public bool crashing = false;
 
 
     private void Start()
@@ -31,6 +32,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Update the current forward speed
+
+        float crashMult = 1f;
+        if (forwardSpeedMultiplier.GetForwardSpeedMultiplier("HitObstacle") != null)
+            crashMult = 0.5f;
+
+        currentForwardSpeed = overrideSpeed * forwardSpeedMultiplier.GetTotalMultiplierValue() * crashMult;
+
         // Get the current steer speed based on the ground state of the boat
         steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
@@ -144,10 +153,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void SetOverrideSpeed(float newOverRideSpeed)
+    public void SetOverrideSpeed(float newOverrideSpeed)
     {
-        if (newOverRideSpeed > 0f)
-            overrideSpeed = newOverRideSpeed;
+        if (newOverrideSpeed > 0f)
+            overrideSpeed = newOverrideSpeed;
         else
             overrideSpeed = baseForwardSpeed;
     }
