@@ -60,7 +60,7 @@ public class TrickComboSystem : MonoBehaviour
         }
 
 
-        if (boostValue > 0)
+        if (boostValue > 0 && playerMovement.isGrounded)
         {
             boostValue -= Time.deltaTime;
             if (boostValue <= 0f)
