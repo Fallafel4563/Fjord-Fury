@@ -47,8 +47,6 @@ public class TrickComboSystem : MonoBehaviour
 
     private void Update()
     {
-        Debug.LogFormat("Boost value {0}, SpeedValue {1}, Total mult {2}", boostValue, speedValue, forwardSpeedMultiplier.GetTotalMultiplierValue());
-
         // Reduce inputBuffer time
         if (inputBuffer > 0f)
         {
@@ -170,8 +168,8 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Stop playing sound
 
         // Stop boost from affecting the movement
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 0f);
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("LongComboBoost", 0f);
-        Debug.LogFormat("ComboBoost {0}", forwardSpeedMultiplier.GetForwardSpeedMultiplier("LongComboBoost"));
     }
 
 
