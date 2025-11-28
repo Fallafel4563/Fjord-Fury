@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 4685542604099967618}
   - component: {fileID: 6824602915547777886}
   - component: {fileID: 2347837811131025762}
+  - component: {fileID: 3485312352521399880}
   m_Layer: 0
   m_Name: MovingAB
   m_TagString: Obstacles
@@ -141,8 +142,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8586582, y: 1.7285585, z: 1}
-  m_Center: {x: 0.039029896, y: -0.052039832, z: 0}
+  m_Size: {x: 0.95, y: 0.95, z: 0.95}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2347837811131025762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,9 +156,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4af04951887d54ca3c8b4241d71e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 641488041551227743}
-  pointB: {fileID: 7582663354330422990}
+  points: []
   speed: 3
+  closeLoop: 0
+--- !u!114 &3485312352521399880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086535091459370465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowDownValue: -0.5
+  upwardsForce: 15
+  knockbackFroce: 30
 --- !u!1 &6049155616522896160
 GameObject:
   m_ObjectHideFlags: 0
