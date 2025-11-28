@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         trickComboSystem.boatMovementAnims = boatMovementAnims;
 
         playerObstacleCollisions.playerMovement = playerMovement;
-        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
+        playerObstacleCollisions.trickComboSystem = trickComboSystem;
     }
 
 
