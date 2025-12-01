@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Input variables
     [HideInInspector] public bool jumpInput;
+    [HideInInspector] public bool driftInput;
     [HideInInspector] public float forwardInput;
     [HideInInspector] public float steerInput;
     [HideInInspector] public bool dontChangeMainTrack = false;
@@ -450,6 +451,20 @@ public class PlayerMovement : MonoBehaviour
 
         AttachToTrack(currentTrack.isCircle);
     }
+
+    #endregion
+
+
+    #region Drifting
+
+    [Header("Drifting")]
+    public float driftSpeed = 0f;
+
+    private void StartDrift()
+    {
+        //
+    }
+
 
 #endregion
 }

@@ -79,11 +79,10 @@ public class PlayerController : MonoBehaviour
 
 #region Input
     [Header("Input")]
-    [SerializeField] private float dashDoubleTapTiming = 0.2f;
-
     private float forwardInput;
     private float steerInput;
     private bool jumpInput;
+    private bool driftInput;
 
 
 
@@ -117,9 +116,28 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnTrick()
+    private void OnDrift(InputValue inputValue)
+    {
+        driftInput = inputValue.Get<float>() > 0.5f;
+        playerMovement.driftInput = driftInput;
+    }
+
+
+    public void OnShortTrick()
+    {
+        //
+    }
+
+
+    public void OnMediumTrick()
     {
         trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
+    }
+
+
+    public void OnLongTrick()
+    {
+        //
     }
 #endregion
 }
