@@ -5,20 +5,7 @@ using UnityEngine;
 
 public class ForwardSpeedMultiplier : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
     private Dictionary<string, SpeedMultiplier> forwardSpeedMultipliers = new();
-
-
-    private void Awake()
-    {
-        playerMovement = GetComponent<PlayerMovement>();
-    }
-
-
-    private void Update()
-    {
-        playerMovement.currentForwardSpeed = playerMovement.overrideSpeed * GetTotalMultiplierValue();
-    }
 
 
     public float GetTotalMultiplierValue()

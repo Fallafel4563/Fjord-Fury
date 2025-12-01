@@ -51,9 +51,6 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
-        playerMovement = trackingTarget.GetComponent<PlayerMovement>();
-        forwardSpeedMultiplier = trackingTarget.GetComponent<ForwardSpeedMultiplier>();
-
         // Set default values
         cinemachineCamera.Target.TrackingTarget = trackingTarget;
 
