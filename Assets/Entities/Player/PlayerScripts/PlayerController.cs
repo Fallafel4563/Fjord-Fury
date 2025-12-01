@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
     [Header("External References")]
     public SplineTrack mainTrack;
 
+    [HideInInspector] public PlayerHud playerHud;
+
 
     [Header("Internal References")]
     [SerializeField] private CinemachineSplineCart splineCart;
     public PlayerMovement playerMovement;
-    [SerializeField] private PlayerCamera playerCamera;
+    public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
@@ -28,6 +30,17 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
+    }
+
+
+    private void OnEnable()
+    {
+        trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+    }
+
+    private void OnDisable()
+    {
+        trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
     }
 
 
@@ -58,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
         playerObstacleCollisions.playerMovement = playerMovement;
         playerObstacleCollisions.trickComboSystem = trickComboSystem;
+
+        playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
     }
 
 

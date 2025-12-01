@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -37,6 +38,7 @@ public class TrickComboSystem : MonoBehaviour
 
     public UnityEvent FailedTrick;
     public UnityEvent SucceededTrick;
+    public Action<string> TrickScoreUpdated;
 
 
     // FIX: These are only here for because we don't have animations implemented yet
@@ -103,7 +105,7 @@ public class TrickComboSystem : MonoBehaviour
         {
             trickScore += 10;
 
-            trickIndex = Random.Range(0, trickList.Count);
+            trickIndex = UnityEngine.Random.Range(0, trickList.Count);
             currentTrickName = trickList[trickIndex];
             boatMovementAnims.TrickAnim();
         }
@@ -119,7 +121,8 @@ public class TrickComboSystem : MonoBehaviour
         // Get the long tricks name
         trickName = GetTrickName();
 
-        // TODO: Update score text to show trickScore + "x" + combo
+        // DONE: Update score text to show trickScore + "x" + combo
+        TrickScoreUpdated?.Invoke(string.Format("{0} x {1}", trickScore, combo));
         Debug.LogFormat("Speed value {0}, Speed mult {1}", speedValue, forwardSpeedMultiplier.GetTotalMultiplierValue());
     }
 
