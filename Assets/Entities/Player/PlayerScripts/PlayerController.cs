@@ -121,18 +121,5 @@ public class PlayerController : MonoBehaviour
     {
         trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
     }
-
-
-    public void OnLeftDash()
-    {
-        playerMovement.DashLeft();
-    }
-
-
-    public void OnRightDash()
-    {
-        playerMovement.DashRight();
-    }
-
 #endregion
 }

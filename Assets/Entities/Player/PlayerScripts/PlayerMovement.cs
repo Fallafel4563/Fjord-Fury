@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     // State variables
     [HideInInspector] public bool isGrounded = true;
     [HideInInspector] public bool isJumping = false;
-    [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool crashing = false;
 
 
@@ -79,13 +78,7 @@ public class PlayerMovement : MonoBehaviour
     // Seering that is applied when not on a circle track
     private void NonCicleSteering()
     {
-        // Apply steering
-        if (isDashing)
-            // Apply dashing steering if dashing
-            transform.position += transform.right * dashDirection * dashForce * dashTime * Time.deltaTime;
-        else
-            // Apply normal steering if not dashing
-            transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+        transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
     }
 
 
@@ -114,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
             airVelocity = transform.forward * currentForwardSpeed;
 
         // Reset stuff
-        isDashing = false;
         isGrounded = false;
         timeSinceJump = 0f;
 
@@ -124,9 +116,6 @@ public class PlayerMovement : MonoBehaviour
         distanceWhenJumped = splineCart.SplinePosition;
         // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
         // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
-        // FIX: I (Treike) have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
-        // FIX: but it doesn't get the right rotation when jumping off a slope on a raod track or when jumping off from the top of a circle track
-        //desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
         // CREDITS: Steego - https://discussions.unity.com/t/align-up-direction-with-normal-while-retaining-look-direction/852614/3
         bool areParallel = Mathf.Approximately(Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up)), 1f);
         Vector3 newForward = areParallel ? Vector3.up : Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
@@ -278,8 +267,6 @@ public class PlayerMovement : MonoBehaviour
     {
         airVelocity = Vector3.zero;
         ResetJumping();
-        // Only reset dashing when grounded
-        DashCooldown();
     }
 
 
@@ -405,7 +392,6 @@ public class PlayerMovement : MonoBehaviour
         TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
 
         // Reset  stuff
-        dashTime = 0f;
         isGrounded = true;
 
         // Update current and main track
@@ -472,63 +458,6 @@ public class PlayerMovement : MonoBehaviour
         circleRotParent.eulerAngles = new(circleRotParent.eulerAngles.x, circleRotParent.eulerAngles.y, desiredAngle);
 
         AttachToTrack(currentTrack.isCircle);
-    }
-
-#endregion
-
-
-
-#region Dashing
-    [Header("Dashing")]
-    public float dashForce = 100f;
-    public float dashDuration = 0.3f;
-    public float dashDirection = 0f;
-    public UnityEvent DashedLeft;
-    public UnityEvent DashedRight;
-
-    [HideInInspector] public float dashTime;
-
-
-
-    public void DashLeft()
-    {
-        if (!isDashing)
-        {
-            isDashing = true;
-            dashTime = dashDuration;
-            dashDirection = -1f;
-            DashedLeft.Invoke();
-        }
-    }
-
-
-    public void DashRight()
-    {
-        if (!isDashing)
-        {
-            isDashing = true;
-            dashTime = dashDuration;
-            dashDirection = 1f;
-            DashedRight.Invoke();
-        }
-    }
-
-
-    private void DashCooldown()
-    {
-        // Dash cooldown
-        // Stop dashing when dashTime is less or equal to 0
-        if (dashTime <= 0f)
-        {
-            isDashing = false;
-            dashTime = 0f;
-        }
-        // Reduce dashTime when dashing
-        else
-        {
-            dashTime -= Time.deltaTime;
-            dashTime = Mathf.Max(dashTime, 0f);
-        }
     }
 
 #endregion
