@@ -326,7 +326,6 @@ public class PlayerMovement : MonoBehaviour
 
 #region Jumping
     [Header("Jumping")]
-    public int maxJumps = 1;
     public float jumpPower = 15f;
     public UnityEvent Jumped;
 
@@ -334,20 +333,13 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float distanceWhenJumped;
     [HideInInspector] Vector3 positionWhenJumped;
 
-    private int jumpsLeft;
-
-    // Invoke events
-    
 
     public void Jump()
     {
-        if (jumpsLeft > 0)
+        if (isGrounded)
         {
             // Detach the boat form the spline cart
             DetachFromCart();
-
-            // Reduce how many jumps the boat has left
-            jumpsLeft--;
 
             // Stop all upwards velocity
             float upwardsVel = Vector3.Dot(airVelocity, transform.up);
@@ -367,7 +359,6 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = false;
         timeSinceJump = 0f;
-        jumpsLeft = maxJumps;
     }
 
 #endregion
