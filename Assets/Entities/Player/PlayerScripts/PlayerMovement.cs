@@ -109,23 +109,29 @@ public class PlayerMovement : MonoBehaviour
 
     public void DetachFromCart()
     {
+        if (isGrounded)
+            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping (But only when grounded)
+            airVelocity = transform.forward * currentForwardSpeed;
+
         // Reset stuff
         isDashing = false;
         isGrounded = false;
         timeSinceJump = 0f;
 
-        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
-        airVelocity = transform.forward * currentForwardSpeed;
 
         // Save position and distance when the boat jumped
         positionWhenJumped = transform.position;
         distanceWhenJumped = splineCart.SplinePosition;
         // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
         // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
-        // FIX: I have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
+        // FIX: I (Treike) have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
         // FIX: but it doesn't get the right rotation when jumping off a slope on a raod track or when jumping off from the top of a circle track
-        desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
-        
+        //desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+        // CREDITS: Steego - https://discussions.unity.com/t/align-up-direction-with-normal-while-retaining-look-direction/852614/3
+        bool areParallel = Mathf.Approximately(Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up)), 1f);
+        Vector3 newForward = areParallel ? Vector3.up : Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        desiredAirRotation = Quaternion.LookRotation(newForward, Vector3.up);
+
         // Stop the splineCart
         splineCart.AutomaticDolly.Enabled = false;
 
@@ -286,6 +292,8 @@ public class PlayerMovement : MonoBehaviour
     public float airSteerSpeed = 10f;
     public float fallSpeed = 50f;
     public float quickfallSpeed = 75f;
+    // How it should rotate when steering in the air
+    public float airSteerRotSpeed = 0.5f;
 
     [HideInInspector] public Vector3 airVelocity = Vector3.zero;
 
@@ -319,7 +327,9 @@ public class PlayerMovement : MonoBehaviour
         // Apply air velocity
         transform.position += airVelocity * Time.deltaTime;
 
-        // Lerpt the rotation that was set when jumping (also when falling off the track)
+        // Rotate boat when steering
+        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed, transform.up);
+        // Lerp the rotation that was set when jumping (also when falling off the track)
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }
 
@@ -352,6 +362,10 @@ public class PlayerMovement : MonoBehaviour
             // Reduce how many jumps the boat has left
             jumpsLeft--;
 
+            // Stop all upwards velocity
+            float upwardsVel = Vector3.Dot(airVelocity, transform.up);
+            airVelocity -= transform.up * upwardsVel;
+            // Set the upwards air velocity to be the equal to jump power
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity += transform.up * jumpPower;
 
