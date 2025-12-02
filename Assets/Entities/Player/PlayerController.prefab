@@ -4999,6 +4999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTrack: {fileID: 0}
+  playerHud: {fileID: 0}
   splineCart: {fileID: 8965506563597239976}
   playerMovement: {fileID: 2060630186251258410}
   playerCamera: {fileID: 8851560557099016440}
@@ -5007,7 +5008,6 @@ MonoBehaviour:
   trickComboSystem: {fileID: 3401553776943726406}
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
   playerObstacleCollisions: {fileID: 7040633805338777643}
-  dashDoubleTapTiming: 0
 --- !u!1 &3283433894581042231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5444,6 +5444,7 @@ GameObject:
   - component: {fileID: 2504890653146001464}
   - component: {fileID: 7040633805338777643}
   - component: {fileID: 9054204099485319101}
+  - component: {fileID: 8595514781080469001}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5553,18 +5554,19 @@ MonoBehaviour:
   circleRotParent: {fileID: 7394530659016896994}
   forwardSpeedMultiplier: {fileID: 0}
   jumpInput: 0
+  driftInput: 0
   forwardInput: 0
   steerInput: 0
   dontChangeMainTrack: 0
   isGrounded: 1
   isJumping: 0
-  isDashing: 0
   crashing: 0
   baseForwardSpeed: 40
   wasLastTrackRail: 0
   currentForwardSpeed: 40
   overrideSpeed: 0
   steerSpeed: 0
+  HorizontalVelocity: {x: 0, y: 0, z: 0}
   splineCart: {fileID: 0}
   mainTrack: {fileID: 0}
   currentTrack: {fileID: 0}
@@ -5576,7 +5578,6 @@ MonoBehaviour:
   quickfallSpeed: 75
   airSteerRotSpeed: 0.5
   airVelocity: {x: 0, y: 0, z: 0}
-  maxJumps: 1
   jumpPower: 15
   Jumped:
     m_PersistentCalls:
@@ -5658,40 +5659,7 @@ MonoBehaviour:
           m_StringArgument: LandAnim
           m_BoolArgument: 0
         m_CallState: 2
-  dashForce: 100
-  dashDuration: 0.3
-  dashDirection: 0
-  DashedLeft:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnDashed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  DashedRight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnDashed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  dashTime: 0
+  driftSpeed: 0
 --- !u!114 &3401553776943726406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5827,6 +5795,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinsCollected: {fileID: 11400000, guid: 042028e12412e3c4d956033733f96848, type: 2}
+--- !u!114 &8595514781080469001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a797e64eb6eed4ca17fc7a837d7b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bumpForceMultiplier: 10
+  bumpDistance: 35
+  VFX: {fileID: 0}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5946,7 +5929,6 @@ MonoBehaviour:
   rotLerpSpeed: 5
   desiredOffsetLerpSpeed: 5
   rotationOffset: {x: 0, y: 1.25, z: 5}
-  respawnOffset: {x: 0, y: 4, z: -7}
   groundPosOffset: {x: 0, y: 4, z: 4}
   groundPosLerpSpeed: {x: 7.5, y: 7.5, z: 7.5}
   airPosOffset: {x: 0, y: 1, z: 4}
@@ -5956,6 +5938,9 @@ MonoBehaviour:
   trackingTarget: {fileID: 0}
   playerMovement: {fileID: 0}
   forwardSpeedMultiplier: {fileID: 0}
+  activeCamera: {fileID: 0}
+  cinemachineCamera: {fileID: 0}
+  cinemachineBrain: {fileID: 0}
 --- !u!1 &8914522806762380729
 GameObject:
   m_ObjectHideFlags: 0
