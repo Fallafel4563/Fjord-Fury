@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
     [Header("External References")]
     public SplineTrack mainTrack;
 
+    [HideInInspector] public PlayerHud playerHud;
+
 
     [Header("Internal References")]
     [SerializeField] private CinemachineSplineCart splineCart;
     public PlayerMovement playerMovement;
-    [SerializeField] private PlayerCamera playerCamera;
+    public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
@@ -28,6 +30,17 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
+    }
+
+
+    private void OnEnable()
+    {
+        trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+    }
+
+    private void OnDisable()
+    {
+        trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
     }
 
 
@@ -58,17 +71,18 @@ public class PlayerController : MonoBehaviour
 
         playerObstacleCollisions.playerMovement = playerMovement;
         playerObstacleCollisions.trickComboSystem = trickComboSystem;
+
+        playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
     }
 
 
 
 #region Input
     [Header("Input")]
-    [SerializeField] private float dashDoubleTapTiming = 0.2f;
-
     private float forwardInput;
     private float steerInput;
     private bool jumpInput;
+    private bool driftInput;
 
 
 
@@ -102,22 +116,28 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnTrick()
+    private void OnDrift(InputValue inputValue)
+    {
+        driftInput = inputValue.Get<float>() > 0.5f;
+        playerMovement.driftInput = driftInput;
+    }
+
+
+    public void OnShortTrick()
+    {
+        //
+    }
+
+
+    public void OnMediumTrick()
     {
         trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
     }
 
 
-    public void OnLeftDash()
+    public void OnLongTrick()
     {
-        playerMovement.DashLeft();
+        //
     }
-
-
-    public void OnRightDash()
-    {
-        playerMovement.DashRight();
-    }
-
 #endregion
 }

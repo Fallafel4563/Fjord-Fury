@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 1;
+    public static int playerCount = 2;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private int maxJumps = 1;
+    [SerializeField] private GameObject hudPrefab;
 
     private PlayerInputManager playerInputManager;
 
@@ -19,6 +19,14 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         // Spawn players
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
+            //playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[0]);
+            //continue;
+            //if (playerIndex == 0)
+            //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: InputSystem.devices[0]);
+            //    //playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: [InputSystem.devices[0], InputSystem.devices[1]]);
+            //else
+            //    Debug.LogFormat("Player {0}", playerIndex);
+            //continue;
             // Pair player with game pad, if it exists
             if (Gamepad.all.Count > playerIndex)
                 playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[playerIndex]);
@@ -26,39 +34,6 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
             else
                 playerInputManager.JoinPlayer(playerIndex, playerIndex);
         }
-    }
-
-
-    public void OnPlayerJoined(PlayerInput playerInput)
-    {
-        Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
-
-        PlayerController playerController = playerInput.GetComponent<PlayerController>();
-        // Set the main track reference on the spawned player
-        playerController.mainTrack = mainTrack;
-        // Set the position of the player to be on the main track
-        playerController.transform.position = mainTrack.transform.position;
-
-        // Set the amount of jumps the player controller should have
-        playerController.playerMovement.maxJumps = maxJumps;
-
-        // Set player position
-        float trackLeftPos = -(mainTrack.width / 2f);
-
-        // Get the offset between players
-        float playersOffset = mainTrack.width / (playerCount + 1);
-
-        // Get the spawn pos of the player
-        float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
-
-        // Set the spawn pos of the player
-        playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
-    }
-
-
-    public void OnPlayerLeft(PlayerInput playerInput)
-    {
-        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
     }
 
 
@@ -75,5 +50,53 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         {
             playerInputManager.playerPrefab = playerPrefab;
         }
+    }
+
+
+    public void OnPlayerJoined(PlayerInput playerInput)
+    {
+        Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
+
+        PlayerController playerController = playerInput.GetComponent<PlayerController>();
+        // Set the main track reference on the spawned player
+        playerController.mainTrack = mainTrack;
+        // Set the position of the player to be on the main track
+        playerController.transform.position = mainTrack.transform.position;
+
+        SetPlayerPos(playerController, playerInput);
+
+        AddHud(playerController);
+    }
+
+
+    public void OnPlayerLeft(PlayerInput playerInput)
+    {
+        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
+    }
+
+
+    private void SetPlayerPos(PlayerController playerController, PlayerInput playerInput)
+    {
+        // Set player position
+        float trackLeftPos = -(mainTrack.width / 2f);
+
+        // Get the offset between players
+        float playersOffset = mainTrack.width / (playerCount + 1);
+
+        // Get the spawn pos of the player
+        float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
+
+        // Set the spawn pos of the player
+        playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
+    }
+
+
+    private void AddHud(PlayerController playerController)
+    {
+        // Spawn ui
+        GameObject hud = Instantiate(hudPrefab);
+
+        // Send a reference of the hud to the player controller
+        playerController.playerHud = hud.GetComponent<PlayerHud>();
     }
 }
