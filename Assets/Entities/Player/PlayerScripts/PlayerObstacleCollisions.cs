@@ -82,9 +82,6 @@ public class PlayerObstacleCollisions : MonoBehaviour
         if (playerMovement.isGrounded)
             // Make the player airborne
             playerMovement.DetachFromCart();
-        
-        // Stop dashing
-        playerMovement.isDashing = false;
 
         const float KNOCKBACK_OFFSET = 25f;
         float trackLength = playerMovement.currentTrack.track.Spline.GetLength();
