@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 2;
+    public static int playerCount = 1;
     public static Dictionary<int, PlayerSelectInfo> players = new();
 
     [SerializeField] private SplineTrack mainTrack;
@@ -40,7 +40,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         // Spawn players when testing a level in editor
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
-            playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[0]);
+            playerInputManager.JoinPlayer(playerIndex, playerIndex);
             //continue;
             //if (playerIndex == 0)
             //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: InputSystem.devices[0]);
