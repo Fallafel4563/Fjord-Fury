@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 2;
+    public static int playerCount = 1;
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hudPrefab;

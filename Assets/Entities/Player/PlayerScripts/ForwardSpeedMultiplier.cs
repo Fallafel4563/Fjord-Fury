@@ -17,7 +17,8 @@ public class ForwardSpeedMultiplier : MonoBehaviour
             string key = item.Key;
             SpeedMultiplier value = item.Value;
 
-            totalSpeedMultiplier += value.GetMultiplierValue(Time.time);
+            // Multiply the multipliers together
+            totalSpeedMultiplier *= value.GetMultiplierValue(Time.time);
             // Remove the value when it has reached the end
             if (value.shouldDelete == true)
                 forwardSpeedMultipliers.Remove(key);
@@ -75,7 +76,7 @@ public class SpeedMultiplier
 
             if (activeTime < startCurveTime)
             {
-                return value * multiplierCurve.startCurve.Evaluate(activeTime);
+                return value * multiplierCurve.startCurve.Evaluate(activeTime) + 1f;
             }
             else if (activeTime < endCurveTime && activeTime > startCurveTime)
             {
@@ -83,7 +84,7 @@ public class SpeedMultiplier
             }
             else if (activeTime < deleteCurveTime && activeTime > endCurveTime)
             {
-                return value * multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime));
+                return value * multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime)) + 1f;
             }
             else
                 shouldDelete = true;
