@@ -9,6 +9,7 @@ public class PlayerCrash : MonoBehaviour
 {
     public float bumpForceMultiplier;
     public float bumpDistance;
+    public float bumpHeight;
     public GameObject VFX;
     private float collisionForce;
     [HideInInspector] public PlayerMovement playerMovement;
@@ -38,11 +39,13 @@ public class PlayerCrash : MonoBehaviour
                 Vector3 HorizontalSpeed = playerMovement.HorizontalVelocity;
                 Debug.Log("Horizontal speed" + HorizontalSpeed);
 
-               
-                Vector3 bumpVelocity = new Vector3(HorizontalSpeed.x * bumpForceMultiplier + 1, HorizontalSpeed.magnitude * bumpForceMultiplier, forwardSpeed);
+               Vector3 bumpVelocity = (otherPlayerMovement.HorizontalVelocity - HorizontalSpeed ) * 20 * bumpForceMultiplier;  //bumpForceMultiplier;
+               // Vector3 bumpVelocity = new Vector3(HorizontalSpeed.x * bumpForceMultiplier + 1, HorizontalSpeed.magnitude * bumpForceMultiplier, forwardSpeed);
+               Vector3 direction = (otherPlayerMovement.transform.position - transform.position).normalized;
+               //otherPlayerMovement.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpVelocity.magnitude, ForceMode.Impulse);
 
                 otherPlayerMovement.DetachFromCart();
-                otherPlayerMovement.airVelocity = bumpVelocity;
+                otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight) * bumpVelocity.magnitude);
 
                // otherPlayerMovement.airVelocity = bumpVelocity;
                 //StartCoroutine(SetBump(otherPlayerMovement, bumpVelocity));
