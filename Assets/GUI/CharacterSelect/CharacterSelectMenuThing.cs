@@ -15,7 +15,7 @@ public class CharacterSelectMenuThing : MonoBehaviour
     private Image image;
     private PlayerInput playerInput;
 
-    public Action<int, int> CharacterSelected;
+    public Action<int, PlayerSelectInfo> CharacterSelected;
     public Action<int> CharacterDeselected;
     public Action StartGame;
 
@@ -40,9 +40,18 @@ public class CharacterSelectMenuThing : MonoBehaviour
         {
             ready = true;
             readyText.text = "Ready";
-            CharacterSelected?.Invoke(playerInput.playerIndex, currentCharacter);
+            // Create a data struct about what device is connected to which player and which character they chose
+            PlayerSelectInfo playerSelectInfo = new()
+            {
+                characterIndex = currentCharacter,
+                inputDevice = playerInput.devices[0],
+            };
+
+            // Send data struct to the character select menu
+            CharacterSelected?.Invoke(playerInput.playerIndex, playerSelectInfo);
         }
-        else
+        // Only allow the first player to start the game
+        else if (playerInput.playerIndex == 0)
         {
             StartGame?.Invoke();
         }
@@ -52,12 +61,14 @@ public class CharacterSelectMenuThing : MonoBehaviour
     public void OnCancel()
     {
         // Remove player when pressing cancel and the player hasn't choosen a character
-        if (!ready)
+        // Don't allow the first player to quit the game
+        if (!ready && playerInput.playerIndex != 0)
             Destroy(gameObject);
         else // Deselect the current cahracter when pressing cancel and the player is ready
         {
             ready = false;
             readyText.text = "Choosing";
+            // Tell character select menu that a player has deselected a character
             CharacterDeselected?.Invoke(playerInput.playerIndex);
         }
     }
@@ -97,4 +108,10 @@ public class CharacterSelectMenuThing : MonoBehaviour
     {
         image.sprite = characters[currentCharacter];
     }
+}
+
+public struct PlayerSelectInfo
+{
+    public int characterIndex;
+    public InputDevice inputDevice;
 }

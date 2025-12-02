@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,7 @@ using UnityEngine.InputSystem;
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
     public static int playerCount = 2;
-    public static Dictionary<int, int> players = new();
+    public static Dictionary<int, PlayerSelectInfo> players = new();
 
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
@@ -24,16 +25,19 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
     private void Start()
     {
+        // Spawn players from the character select menu
         if (players.Count > 0)
         {
             for (int i = 0; i < players.Count; i++)
             {
-                
+                var item = players.ElementAt(i);
+                playerInputManager.JoinPlayer(item.Key, item.Key, pairWithDevice: item.Value.inputDevice);
             }
+            Debug.Log("Spawned players");
             return;
         }
 
-        // Spawn players
+        // Spawn players when testing a level in editor
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
             playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[0]);
@@ -74,15 +78,21 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     {
         Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
+        // Spawn hud
+        GameObject hud = Instantiate(hudPrefab);
+        PlayerHud playerHud = hud.GetComponent<PlayerHud>();
+
         PlayerController playerController = playerInput.GetComponent<PlayerController>();
         // Set the main track reference on the spawned player
         playerController.mainTrack = mainTrack;
         // Set the position of the player to be on the main track
         playerController.transform.position = mainTrack.transform.position;
+        // Connect hud to player
+        playerController.playerHud = playerHud;
+        // Tell palyer controller which character the player that is controlling it chose
+        playerController.selectedCharacter = players[playerInput.playerIndex].characterIndex;
 
         SetPlayerPos(playerController, playerInput);
-
-        AddHud(playerController);
     }
 
 
@@ -105,15 +115,5 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
         // Set the spawn pos of the player
         playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
-    }
-
-
-    private void AddHud(PlayerController playerController)
-    {
-        // Spawn ui
-        GameObject hud = Instantiate(hudPrefab);
-
-        // Send a reference of the hud to the player controller
-        playerController.playerHud = hud.GetComponent<PlayerHud>();
     }
 }

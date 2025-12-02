@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TrickComboSystem trickComboSystem;
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
     [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
+    [SerializeField] private GameObject skins;
 
+    [HideInInspector] public int selectedCharacter = 0;
 
     private PlayerInput playerInput;
 
@@ -35,12 +37,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+        // Connect events to hud
+        if (playerHud)
+            trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
     }
 
     private void OnDisable()
     {
-        trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
+        // Disconnect events from hud
+        if (playerHud)
+            trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
     }
 
 
@@ -73,6 +79,21 @@ public class PlayerController : MonoBehaviour
         playerObstacleCollisions.trickComboSystem = trickComboSystem;
 
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
+
+        SetActiveSkin();
+    }
+
+
+    private void SetActiveSkin()
+    {
+        // Hide all skins
+        for (int i = 0; i < skins.transform.childCount; i++)
+        {
+            skins.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        // Enable the selected character skin
+        skins.transform.GetChild(selectedCharacter).gameObject.SetActive(true);
     }
 
 

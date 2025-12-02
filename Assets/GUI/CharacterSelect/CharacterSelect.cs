@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,30 +12,29 @@ public class CharacterSelect : MonoBehaviour
     private bool allPlayersReady = false;
     private int playerCount = 0;
     private int readyPlayerCount = 0;
-    private Dictionary<int, int> playerChoiceDict = new();
+    private Dictionary<int, PlayerSelectInfo> playerChoiceDict = new();
 
 
     private void Start()
     {
         allPlayersReadyBanner.SetActive(false);
+        // TODO: Spawn in the first player automatically
     }
 
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
-
         playerCount++;
-
-        // Set the position of the menu thingy
-        playerInput.transform.SetParent(characterSelectPositions[playerInput.playerIndex].transform, false);
-        playerInput.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 
         // Hide banner when a new player joins
         if (playerCount > readyPlayerCount && allPlayersReadyBanner.activeInHierarchy)
             allPlayersReadyBanner.SetActive(false);
 
-        // Connect to events
+        // Set the position of the menu thingy
+        playerInput.transform.SetParent(characterSelectPositions[playerInput.playerIndex].transform, false);
+        playerInput.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+
+        // Connect to menu thingy events
         CharacterSelectMenuThing characterSelectMenuThing = playerInput.GetComponent<CharacterSelectMenuThing>();
         characterSelectMenuThing.CharacterSelected += OnCharacterSelected;
         characterSelectMenuThing.CharacterDeselected += OnCharacterDeselected;
@@ -44,11 +44,9 @@ public class CharacterSelect : MonoBehaviour
 
     public void OnPlayerLeft(PlayerInput playerInput)
     {
-        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
-
         playerCount--;
 
-        // Disconnect from events
+        // Disconnect from menu thingy events
         CharacterSelectMenuThing characterSelectMenuThing = playerInput.GetComponent<CharacterSelectMenuThing>();
         characterSelectMenuThing.CharacterSelected -= OnCharacterSelected;
         characterSelectMenuThing.CharacterDeselected -= OnCharacterDeselected;
@@ -56,12 +54,12 @@ public class CharacterSelect : MonoBehaviour
     }
 
 
-    private void OnCharacterSelected(int playerIndex, int characterIndex)
+    private void OnCharacterSelected(int playerIndex, PlayerSelectInfo playerSelectInfo)
     {
-        Debug.LogFormat("Player {0} chose character {1}", playerIndex, characterIndex);
         // Save player choice
-        playerChoiceDict.Add(playerIndex, characterIndex);
+        playerChoiceDict.Add(playerIndex, playerSelectInfo);
 
+        // Show banner if all player are ready
         readyPlayerCount++;
         if (readyPlayerCount >= playerCount && playerCount >= 2)
         {
@@ -73,9 +71,11 @@ public class CharacterSelect : MonoBehaviour
 
     private void OnCharacterDeselected(int playerIndex)
     {
+        // Remove choice form dict when a player deselects their character
         if (playerChoiceDict.ContainsKey(playerIndex))
             playerChoiceDict.Remove(playerIndex);
 
+        // Hide all player ready banner when a player deselects a character
         if (readyPlayerCount >= playerCount && playerCount >= 2)
         {
             allPlayersReadyBanner.SetActive(false);
@@ -89,7 +89,8 @@ public class CharacterSelect : MonoBehaviour
     {
         if (allPlayersReady)
         {
-            MultiplayerPlayerSpawner.playerCount = playerCount;
+            // Give the multiplayer spawn information about which player chose what character
+            MultiplayerPlayerSpawner.players = playerChoiceDict;
             SceneManager.LoadScene("DevScene");
         }
     }
