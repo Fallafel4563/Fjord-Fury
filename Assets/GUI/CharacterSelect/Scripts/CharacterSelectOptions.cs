@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class CharacterSelectMenuThing : MonoBehaviour
+public class CharacterSelectOptions : MonoBehaviour
 {
     [SerializeField] private TMP_Text readyText;
     [SerializeField] private List<Sprite> characters = new();

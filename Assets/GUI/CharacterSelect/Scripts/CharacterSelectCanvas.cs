@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.LowLevel;
 using UnityEngine.SceneManagement;
 
-public class CharacterSelect : MonoBehaviour
+public class CharacterSelectCanvas : MonoBehaviour
 {
     [SerializeField] private GameObject allPlayersReadyBanner;
     [SerializeField] private List<GameObject> characterSelectPositions = new();
@@ -29,15 +30,17 @@ public class CharacterSelect : MonoBehaviour
         if (playerCount > readyPlayerCount && allPlayersReadyBanner.activeInHierarchy)
             allPlayersReadyBanner.SetActive(false);
 
-        // Set the position of the menu thingy
-        playerInput.transform.SetParent(characterSelectPositions[playerInput.playerIndex].transform, false);
+        GameObject selectPosition = characterSelectPositions[playerInput.playerIndex];
+        
+        // Set
+        playerInput.transform.SetParent(selectPosition.transform, false);
         playerInput.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 
-        // Connect to menu thingy events
-        CharacterSelectMenuThing characterSelectMenuThing = playerInput.GetComponent<CharacterSelectMenuThing>();
-        characterSelectMenuThing.CharacterSelected += OnCharacterSelected;
-        characterSelectMenuThing.CharacterDeselected += OnCharacterDeselected;
-        characterSelectMenuThing.StartGame += OnStartGame;
+        // Connect to character select options events
+        CharacterSelectOptions characterSelectOptions = playerInput.GetComponent<CharacterSelectOptions>();
+        characterSelectOptions.CharacterSelected += OnCharacterSelected;
+        characterSelectOptions.CharacterDeselected += OnCharacterDeselected;
+        characterSelectOptions.StartGame += OnStartGame;
     }
 
 
@@ -45,11 +48,11 @@ public class CharacterSelect : MonoBehaviour
     {
         playerCount--;
 
-        // Disconnect from menu thingy events
-        CharacterSelectMenuThing characterSelectMenuThing = playerInput.GetComponent<CharacterSelectMenuThing>();
-        characterSelectMenuThing.CharacterSelected -= OnCharacterSelected;
-        characterSelectMenuThing.CharacterDeselected -= OnCharacterDeselected;
-        characterSelectMenuThing.StartGame -= OnStartGame;
+        // Disconnect from character select options events
+        CharacterSelectOptions characterSelectOptions = playerInput.GetComponent<CharacterSelectOptions>();
+        characterSelectOptions.CharacterSelected -= OnCharacterSelected;
+        characterSelectOptions.CharacterDeselected -= OnCharacterDeselected;
+        characterSelectOptions.StartGame -= OnStartGame;
     }
 
 
