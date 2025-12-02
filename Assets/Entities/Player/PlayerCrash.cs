@@ -24,9 +24,9 @@ public class PlayerCrash : MonoBehaviour
        
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
+    //void OnTriggerEnter(Collider other)
+    //{
+       /* if(other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Works");
             PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
@@ -65,5 +65,5 @@ public class PlayerCrash : MonoBehaviour
             //Vector3 direction = (other.transform.position-transform.position).normalized;
             //other.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpDistance, ForceMode.Impulse);
         }
-    }
+    }*/
 }
