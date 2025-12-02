@@ -31,7 +31,8 @@ public class CharacterSelectCanvas : MonoBehaviour
             allPlayersReadyBanner.SetActive(false);
 
         GameObject selectPosition = characterSelectPositions[playerInput.playerIndex];
-        
+        selectPosition.transform.GetChild(0).gameObject.SetActive(false);
+
         // Set
         playerInput.transform.SetParent(selectPosition.transform, false);
         playerInput.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
@@ -47,6 +48,9 @@ public class CharacterSelectCanvas : MonoBehaviour
     public void OnPlayerLeft(PlayerInput playerInput)
     {
         playerCount--;
+
+        GameObject selectPosition = characterSelectPositions[playerInput.playerIndex];
+        selectPosition.transform.GetChild(0).gameObject.SetActive(true);
 
         // Disconnect from character select options events
         CharacterSelectOptions characterSelectOptions = playerInput.GetComponent<CharacterSelectOptions>();
