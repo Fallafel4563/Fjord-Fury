@@ -9,14 +9,18 @@ public class PlayerController : MonoBehaviour
     [Header("External References")]
     public SplineTrack mainTrack;
 
+    [HideInInspector] public PlayerHud playerHud;
+
 
     [Header("Internal References")]
     [SerializeField] private CinemachineSplineCart splineCart;
     public PlayerMovement playerMovement;
-    [SerializeField] private PlayerCamera playerCamera;
+    public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
+    [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
 
 
     private PlayerInput playerInput;
@@ -29,23 +33,46 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Set references on children
+    private void OnEnable()
+    {
+        trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+    }
+
+    private void OnDisable()
+    {
+        trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
+    }
+
+
+    // Set references on different systems
     private void Start()
     {
         splineCart.Spline = mainTrack.track;
 
         playerMovement.splineCart = splineCart;
         playerMovement.mainTrack = mainTrack;
+        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
+        playerCamera.playerMovement = playerMovement;
         playerCamera.trackingTarget = playerMovement.transform;
+        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
 
-        playerRespawn.playerMovement = playerMovement;
         playerRespawn.splineCart = splineCart;
+        playerRespawn.playerMovement = playerMovement;
+        playerRespawn.playerCamera = playerCamera;
 
         boatMovementAnims.playerMovement = playerMovement;
+        boatMovementAnims.trickComboSystem = trickComboSystem;
 
         trickComboSystem.playerMovement = playerMovement;
+        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
+        trickComboSystem.boatMovementAnims = boatMovementAnims;
+
+        playerObstacleCollisions.playerMovement = playerMovement;
+        playerObstacleCollisions.trickComboSystem = trickComboSystem;
+
+        playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
     }
 
 
@@ -75,6 +102,7 @@ public class PlayerController : MonoBehaviour
         steerInput = inputValue.Get<float>();
         // Send input data to boat movement
         playerMovement.steerInput = steerInput;
+        playerCamera.steerInput = steerInput;
     }
 
 
