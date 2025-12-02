@@ -34,27 +34,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftDash",
+                    "name": "Drift",
                     "type": "Button",
-                    "id": "70b0756e-2bef-44d9-aa20-65f85901c246",
+                    "id": "871d5b18-74a3-4b85-a8b7-7b9a885f8b65",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShortTrick",
+                    "type": "Button",
+                    "id": "e2fd553b-f98c-404e-b2c2-06a420808920",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightDash",
-                    "type": "Button",
-                    "id": "87a37b6d-87fe-41ec-94de-d7a51d1d3e41",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Trick",
+                    "name": "MediumTrick",
                     "type": "Button",
                     "id": "bc5270fa-24d6-4375-91f1-1e4d5d4758a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LongTrick",
+                    "type": "Button",
+                    "id": "e8458013-7b7f-4a53-ad01-02bd129e38e4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -86,45 +95,23 @@
                 },
                 {
                     "name": "",
-                    "id": "c0926e60-fdef-42ca-9d4d-30b849a8e1a9",
-                    "path": "<Keyboard>/q",
+                    "id": "597ed944-ad1d-4af5-8b5e-d69aa5ac1d53",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard & Mouse",
-                    "action": "LeftDash",
+                    "action": "Drift",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1af00d1b-f23b-454b-9dbb-c554da51d368",
-                    "path": "<Gamepad>/leftShoulder",
+                    "id": "560fa1d9-0e1d-4c50-9023-13d489b22f84",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "LeftDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24d8def3-0a74-466c-a060-2ded52e2b5b6",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard & Mouse",
-                    "action": "RightDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9bcc271d-2fb3-45be-bd38-794a170b54ef",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "RightDash",
+                    "action": "Drift",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -267,7 +254,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard & Mouse",
-                    "action": "Trick",
+                    "action": "MediumTrick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -278,7 +265,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Trick",
+                    "action": "MediumTrick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2cf25f4-454e-4465-826f-5d88b0e9145a",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard & Mouse",
+                    "action": "ShortTrick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b18f0e7a-2a12-49ec-9718-0bdb0de9b8a9",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ShortTrick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa1649df-6bb2-4d91-9a00-8ed10d774b37",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard & Mouse",
+                    "action": "LongTrick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46564bb4-c8b4-4e2c-9cea-67ac2e081e9d",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "LongTrick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
