@@ -9,7 +9,6 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hudPrefab;
-    [SerializeField] private int maxJumps = 1;
 
     private PlayerInputManager playerInputManager;
 
@@ -63,9 +62,6 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         playerController.mainTrack = mainTrack;
         // Set the position of the player to be on the main track
         playerController.transform.position = mainTrack.transform.position;
-
-        // Set the amount of jumps the player controller should have
-        playerController.playerMovement.maxJumps = maxJumps;
 
         SetPlayerPos(playerController, playerInput);
 
