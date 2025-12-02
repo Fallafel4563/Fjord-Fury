@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,8 @@ using UnityEngine.InputSystem;
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
     public static int playerCount = 2;
+    public static Dictionary<int, int> players = new();
+
     [SerializeField] private SplineTrack mainTrack;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hudPrefab;
@@ -14,13 +17,27 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     private PlayerInputManager playerInputManager;
 
 
-    private void Start()
+    private void Awake()
     {
         playerInputManager = GetComponent<PlayerInputManager>();
+    }
+
+
+    private void Start()
+    {
+        if (players.Count > 0)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                
+            }
+            return;
+        }
+
         // Spawn players
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
-            //playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[0]);
+            playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[0]);
             //continue;
             //if (playerIndex == 0)
             //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: InputSystem.devices[0]);
@@ -29,11 +46,11 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
             //    Debug.LogFormat("Player {0}", playerIndex);
             //continue;
             // Pair player with game pad, if it exists
-            if (Gamepad.all.Count > playerIndex)
-                playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[playerIndex]);
-            // Pair player with keyboard if there's no gamepad
-            else
-                playerInputManager.JoinPlayer(playerIndex, playerIndex);
+            //if (Gamepad.all.Count > playerIndex)
+            //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[playerIndex]);
+            //// Pair player with keyboard if there's no gamepad
+            //else
+            //    playerInputManager.JoinPlayer(playerIndex, playerIndex);
         }
     }
 

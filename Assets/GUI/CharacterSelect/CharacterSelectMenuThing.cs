@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,10 @@ public class CharacterSelectMenuThing : MonoBehaviour
     private int currentCharacter = 0;
     private Image image;
     private PlayerInput playerInput;
+
+    public Action<int, int> CharacterSelected;
+    public Action<int> CharacterDeselected;
+    public Action StartGame;
 
 
     private void Awake()
@@ -30,31 +35,43 @@ public class CharacterSelectMenuThing : MonoBehaviour
 
     public void OnAccept()
     {
-        Debug.LogFormat("Player {0} pressed enter", playerInput.playerIndex);
+        // Select the current character when the palyer isn't ready
         if (!ready)
         {
             ready = true;
             readyText.text = "Ready";
+            CharacterSelected?.Invoke(playerInput.playerIndex, currentCharacter);
+        }
+        else
+        {
+            StartGame?.Invoke();
         }
     }
 
 
     public void OnCancel()
     {
+        // Remove player when pressing cancel and the player hasn't choosen a character
         if (!ready)
             Destroy(gameObject);
-        else
+        else // Deselect the current cahracter when pressing cancel and the player is ready
         {
             ready = false;
             readyText.text = "Choosing";
+            CharacterDeselected?.Invoke(playerInput.playerIndex);
         }
-        Debug.LogFormat("Player {0} pressed esc", playerInput.playerIndex);
     }
 
 
     public void OnLeft()
     {
+        // Don't change character when ready
+        if (ready)
+            return;
+        
+        // Decrease the current character index
         currentCharacter--;
+        // Wrap currentCharacter to the end when it becomes lower than the chracters list count
         if (currentCharacter < 0)
             currentCharacter = characters.Count - 1;
         UpdateImage();
@@ -63,7 +80,13 @@ public class CharacterSelectMenuThing : MonoBehaviour
 
     public void OnRight()
     {
+        // Don't change character when ready
+        if (ready)
+            return;
+        
+        // Increase the current character index
         currentCharacter++;
+        // Wrap currentCharacter to the beginning when it becomes larger than the chracters list count
         if (currentCharacter >= characters.Count)
             currentCharacter = 0;
         UpdateImage();
