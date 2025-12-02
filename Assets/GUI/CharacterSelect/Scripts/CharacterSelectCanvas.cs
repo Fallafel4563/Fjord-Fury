@@ -97,7 +97,7 @@ public class CharacterSelectCanvas : MonoBehaviour
         {
             // Give the multiplayer spawn information about which player chose what character
             MultiplayerPlayerSpawner.players = playerChoiceDict;
-            SceneManager.LoadScene("DevScene");
+            SceneManager.LoadScene("Level 1 fjord");
         }
     }
 }
