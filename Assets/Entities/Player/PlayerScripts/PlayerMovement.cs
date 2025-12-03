@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float currentForwardSpeed = 40f;
     [HideInInspector] public float overrideSpeed = 40f;
     [HideInInspector] public float steerSpeed;
+    [HideInInspector] public Vector3 HorizontalVelocity;
     [HideInInspector]public CinemachineSplineCart splineCart;
     [HideInInspector] public SplineTrack mainTrack;
     [HideInInspector] public SplineTrack currentTrack;
@@ -79,7 +80,8 @@ public class PlayerMovement : MonoBehaviour
     // Seering that is applied when not on a circle track
     private void NonCicleSteering()
     {
-        transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+        HorizontalVelocity = transform.right * steerInput * steerSpeed * Time.deltaTime;
+        transform.position += HorizontalVelocity;
     }
 
 
@@ -316,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position += airVelocity * Time.deltaTime;
 
         // Rotate boat when steering
-        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed, transform.up);
+        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed * Time.deltaTime, transform.up);
         // Lerp the rotation that was set when jumping (also when falling off the track)
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }

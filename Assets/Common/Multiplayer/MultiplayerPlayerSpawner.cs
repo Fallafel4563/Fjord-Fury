@@ -90,7 +90,8 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         // Connect hud to player
         playerController.playerHud = playerHud;
         // Tell palyer controller which character the player that is controlling it chose
-        playerController.selectedCharacter = players[playerInput.playerIndex].characterIndex;
+        if (players.Count > 0)
+            playerController.selectedCharacter = players[playerInput.playerIndex].characterIndex;
 
         SetPlayerPos(playerController, playerInput);
     }
