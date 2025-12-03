@@ -53,18 +53,25 @@ public class CurveSpeedOffset : MonoBehaviour
 
         // Callculate circle center and radius form current, next and previous point
         Vector3 circleCenter = GetCircleCenterPos();
-        float radius = Vector3.Distance(circleCenter, previousPoint);
 
+        float splineCartRadius = Vector3.Distance(splineCart.transform.position, circleCenter);
+        float boatRadius = Vector3.Distance(transform.position, circleCenter);
+        float speedOffsetMultiplier = splineCartRadius / boatRadius;
+
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Track Position Multiplier", speedOffsetMultiplier);
+
+        // Set position and scale of debug sphere
         if (sphere)
         {
             sphere.transform.position = circleCenter;
-            sphere.transform.localScale = Vector3.one * radius * 2f;
+            sphere.transform.localScale = Vector3.one * splineCartRadius * 2f;
         }
     }
 
 
     private Vector3 GetCircleCenterPos()
     {
+        // CREDITS: NWin - https://discussions.unity.com/t/how-to-make-a-circle-with-three-known-points/226343/3
         Vector3 v1 = currentPoint - previousPoint;
         Vector3 v2 = nextPoint - previousPoint;
 
