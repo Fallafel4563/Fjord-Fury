@@ -146,9 +146,9 @@ public class TrickComboSystem : MonoBehaviour
 
         speedValue += trickScore / 500f;
 
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", speedValue, ImmediateComboBoostCurve);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + speedValue, ImmediateComboBoostCurve);
 
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("LongComboBoost", speedValue);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("LongComboBoost", 1f + speedValue);
 
         // TODO: Start playing the boost sound
         // TODO: Add camera shake when boosting
@@ -175,8 +175,8 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Stop playing sound
 
         // Stop boost from affecting the movement
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 0f);
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("LongComboBoost", 0f);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("LongComboBoost", 1f);
     }
 
 

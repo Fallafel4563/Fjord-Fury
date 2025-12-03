@@ -76,7 +76,9 @@ public class SpeedMultiplier
 
             if (activeTime < startCurveTime)
             {
-                return value * multiplierCurve.startCurve.Evaluate(activeTime) + 1f;
+                float returnValue = Mathf.Lerp(1, value, multiplierCurve.startCurve.Evaluate(activeTime));
+                //Debug.LogFormat("Start curve value {0}, value {1}", returnValue, value);
+                return returnValue;
             }
             else if (activeTime < endCurveTime && activeTime > startCurveTime)
             {
@@ -84,7 +86,9 @@ public class SpeedMultiplier
             }
             else if (activeTime < deleteCurveTime && activeTime > endCurveTime)
             {
-                return value * multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime)) + 1f;
+                float returnValue = Mathf.Lerp(1, value, multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime)));
+                //Debug.LogFormat("End curve value {0}, value {1}", returnValue, value);
+                return returnValue;
             }
             else
                 shouldDelete = true;

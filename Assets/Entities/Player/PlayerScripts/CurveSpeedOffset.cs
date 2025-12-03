@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class CurveSpeedOffset : MonoBehaviour
 {
@@ -14,18 +12,6 @@ public class CurveSpeedOffset : MonoBehaviour
     private Vector3 currentPoint;
     private Vector3 nextPoint;
     private Vector3 previousPoint;
-
-
-    private List<GameObject> debugObjects = new();
-
-
-    private void Start()
-    {
-        GameObject newGameObject = new();
-        debugObjects.Add(Instantiate(newGameObject));
-        debugObjects.Add(Instantiate(newGameObject));
-        debugObjects.Add(Instantiate(newGameObject));
-    }
 
 
     private void Update()
@@ -43,13 +29,6 @@ public class CurveSpeedOffset : MonoBehaviour
         // Get previous point
         Vector3 posBehind = splineCart.transform.position + splineCart.transform.forward * -distanceOffset;
         previousPoint = currentTrack.GetDistanceInfoFromPosition(posBehind).nearestSplinePos;
-
-
-        // Set the positions of the debug objects
-        debugObjects[0].transform.position = currentPoint;
-        debugObjects[1].transform.position = nextPoint;
-        debugObjects[2].transform.position = previousPoint;
-        Debug.LogFormat("Current {0}, Next {1}, Prev {2}", currentPoint, nextPoint, previousPoint);
 
         // Callculate circle center and radius form current, next and previous point
         Vector3 circleCenter = GetCircleCenterPos();
@@ -72,6 +51,7 @@ public class CurveSpeedOffset : MonoBehaviour
     private Vector3 GetCircleCenterPos()
     {
         // CREDITS: NWin - https://discussions.unity.com/t/how-to-make-a-circle-with-three-known-points/226343/3
+        // I have no idea how this works (Treike)
         Vector3 v1 = currentPoint - previousPoint;
         Vector3 v2 = nextPoint - previousPoint;
 
