@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7369567531238095041}
   - component: {fileID: 351437228836326226}
+  - component: {fileID: 2996765124551583669}
+  - component: {fileID: 4231398327092283328}
+  - component: {fileID: 7878558771631354955}
   m_Layer: 0
   m_Name: Beaver dam
   m_TagString: Obstacles
@@ -72,8 +75,71 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.4204416, y: 4.597034, z: 12.553075}
-  m_Center: {x: -2.0418153, y: 1.798517, z: -5.7765365}
+  m_Size: {x: 5.4924545, y: 2.9861414, z: 7.907792}
+  m_Center: {x: -1.5778217, y: 0.9930712, z: -5.893331}
+--- !u!65 &2996765124551583669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398192862111087540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.3040953, y: 1.7458587, z: 4.7102523}
+  m_Center: {x: -1.9286642, y: 1.7994831, z: -0.674714}
+--- !u!65 &4231398327092283328
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398192862111087540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.68715, y: 3.2693193, z: 2.1088676}
+  m_Center: {x: -1.8934019, y: 1.5327674, z: -10.95244}
+--- !u!65 &7878558771631354955
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398192862111087540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0837169, y: 0.8594103, z: 7.492319}
+  m_Center: {x: -1.594518, y: 3.3277202, z: -5.3802176}
 --- !u!1001 &140857271681706119
 PrefabInstance:
   m_ObjectHideFlags: 0
