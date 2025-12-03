@@ -40,14 +40,22 @@ public class PlayerController : MonoBehaviour
     {
         // Connect events to hud
         if (playerHud)
+        {
             trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+            playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
+            playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
+        }
     }
 
     private void OnDisable()
     {
         // Disconnect events from hud
         if (playerHud)
+        {
             trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
+            playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
+            playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
+        }
     }
 
 
