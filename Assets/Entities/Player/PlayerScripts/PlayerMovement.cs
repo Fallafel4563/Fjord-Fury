@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float currentForwardSpeed = 40f;
     [HideInInspector] public float overrideSpeed = 40f;
     [HideInInspector] public float steerSpeed;
+    [HideInInspector] public Vector3 HorizontalVelocity;
     [HideInInspector]public CinemachineSplineCart splineCart;
     [HideInInspector] public SplineTrack mainTrack;
     [HideInInspector] public SplineTrack currentTrack;
@@ -79,7 +80,8 @@ public class PlayerMovement : MonoBehaviour
     // Seering that is applied when not on a circle track
     private void NonCicleSteering()
     {
-        transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+        HorizontalVelocity = transform.right * steerInput * steerSpeed * Time.deltaTime;
+        transform.position += HorizontalVelocity;
     }
 
 

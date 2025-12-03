@@ -3,33 +3,34 @@ using System;
 using Unity.Cinemachine;
 using UnityEngine.Splines;
 using UnityEngine.Events;
+using System.Collections;
 
 public class PlayerCrash : MonoBehaviour
 {
     public float bumpForceMultiplier;
     public float bumpDistance;
+    public float bumpHeight;
     public GameObject VFX;
     private float collisionForce;
-    
+    [HideInInspector] public PlayerMovement playerMovement;
     
    
     void Start()
     {
-        
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     
     void Update()
     {
-       
     }
 
-    //void OnTriggerEnter(Collider other)
-    //{
-       /* if(other.gameObject.CompareTag("Player"))
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.TryGetComponent(out PlayerCrash otherBoat))
         {
             Debug.Log("Works");
-            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerMovement otherPlayerMovement = otherBoat.playerMovement;
             if(playerMovement != null)
             {
                 float forwardSpeed = playerMovement.currentForwardSpeed;
@@ -38,9 +39,16 @@ public class PlayerCrash : MonoBehaviour
                 Vector3 HorizontalSpeed = playerMovement.HorizontalVelocity;
                 Debug.Log("Horizontal speed" + HorizontalSpeed);
 
-                CinemachineSplineCart splineCartVelocity = playerMovement.splineCart;
-                Debug.Log("Spline Cart speed" + splineCartVelocity);
+               Vector3 bumpVelocity = (otherPlayerMovement.HorizontalVelocity - HorizontalSpeed ) * 20 * bumpForceMultiplier;  //bumpForceMultiplier;
+               // Vector3 bumpVelocity = new Vector3(HorizontalSpeed.x * bumpForceMultiplier + 1, HorizontalSpeed.magnitude * bumpForceMultiplier, forwardSpeed);
+               Vector3 direction = (otherPlayerMovement.transform.position - transform.position).normalized;
+               //otherPlayerMovement.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpVelocity.magnitude, ForceMode.Impulse);
 
+                otherPlayerMovement.DetachFromCart();
+                otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight) * bumpVelocity.magnitude);
+
+               // otherPlayerMovement.airVelocity = bumpVelocity;
+                //StartCoroutine(SetBump(otherPlayerMovement, bumpVelocity));
 
 
                 //HorizontalSpeed * bumpForceMultiplier + 1;
@@ -59,11 +67,18 @@ public class PlayerCrash : MonoBehaviour
 
            
 
-            Instantiate(VFX); 
+           // Instantiate(VFX); 
             //collisionForce = other.impulse.magnitude;
            // bumpDistance = bumpForceMultiplier; //* //collisionForce;
             //Vector3 direction = (other.transform.position-transform.position).normalized;
             //other.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpDistance, ForceMode.Impulse);
         }
-    }*/
+    }
+
+    public IEnumerator SetBump(PlayerMovement boat, Vector3 bump)
+    {
+        yield return new WaitForEndOfFrame();
+        boat.DetachFromCart();
+        boat.airVelocity = bump;
+    }
 }
