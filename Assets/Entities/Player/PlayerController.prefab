@@ -5242,6 +5242,7 @@ GameObject:
   - component: {fileID: 9054204099485319101}
   - component: {fileID: 2784234024063253971}
   - component: {fileID: 8721748571526581582}
+  - component: {fileID: 3341851512688820723}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5384,6 +5385,7 @@ MonoBehaviour:
         m_CallState: 2
   timeSinceJump: 0
   distanceWhenJumped: 0
+  lastMainTrackDistance: 0
   Landed:
     m_PersistentCalls:
       m_Calls:
@@ -5601,6 +5603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 0.5
+  defaultRespawnOffset: 50
   RespawnStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -5610,6 +5613,26 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   playerCamera: {fileID: 0}
   splineCart: {fileID: 0}
+--- !u!114 &3341851512688820723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8a5c11371817142b9687474085bbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityPrefabs: []
+  abilityFailedPrefabs: []
+  AbilitySpawnPoint: {fileID: 0}
+  abilityDuration: 0
+  FirstTrickIndex: 0
+  ShortBoost: 0
+  MediumBoost: 0
+  LongBoost: 0
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5995,11 +6018,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6871708788238873583, guid: b606d9e99b9ec7448bd6e3a08c10297a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000006519258
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6871708788238873583, guid: b606d9e99b9ec7448bd6e3a08c10297a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.9999995
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6871708788238873583, guid: b606d9e99b9ec7448bd6e3a08c10297a, type: 3}
       propertyPath: m_LocalPosition.z

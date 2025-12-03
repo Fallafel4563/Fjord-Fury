@@ -18,45 +18,58 @@ public class TrickAbilitySystem : MonoBehaviour
     [HideInInspector] public int MediumBoost;
     [HideInInspector] public int LongBoost;
 
+    private int combinedStrength;
+    private ForwardSpeedMultiplier FSM;
+
+    [SerializeField] float DurationDivider;
+    [SerializeField] float SizeDivider;
+    [SerializeField] float SpeedDivider;
+
     void Start()
     {
         PM = GetComponent<PlayerMovement>();
+        FSM = GetComponent<ForwardSpeedMultiplier>();
     }
 
     void Update()
     {
-        if (!abilityHasSpawned && PM.isGrounded) Debug.Log("ability");
-        if (!abilityHasSpawned && FirstTrickIndex != 0 && PM.isGrounded) SpawnAbility();
+        if (Input.GetKeyDown("x"))
+        {
+            SpawnAbility();
+            Debug.Log("ability");
+        }
+    }
+
+    public void OnPlayerLand()
+    {
+        if (!abilityHasSpawned && FirstTrickIndex != 0)
+        {
+            SpawnAbility();
+        }
     }
 
     public void SpawnAbility()
     {
         abilityHasSpawned = true;
         abilityBuffer = Instantiate(abilityPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
-        abilityTimeLeft = abilityDuration;
 
-        SetAbilityStrength();
-    }
-
-    public void SpawnAbilityFailed()
-    {
-        abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityFailedPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
-        abilityTimeLeft = abilityDuration;
-    }
-
-    void SetAbilityStrength()
-    {
-        int combinedStrength = 0;
+        combinedStrength = 0;
 
         combinedStrength += (ShortBoost * 1);
         combinedStrength += (MediumBoost * 2);
         combinedStrength += (LongBoost * 3);
 
+        float newDuration = combinedStrength / DurationDivider;
+        float newSize = combinedStrength / SizeDivider;
+        float newSpeed = combinedStrength / SpeedDivider;
+
         switch (FirstTrickIndex)
         {
             case 1:
                 // Fireball speed boost
+                FSM.SetForwardSpeedMultiplier("name", newSpeed, new SpeedMultiplierCurve());
+                abilityBuffer.transform.localScale = new Vector3(transform.localScale.x * newSize, transform.localScale.y * newSize, transform.localScale.z * newSize);
+                // abilityBuffer.GetComponent<BounceShroom>();
                 break;
 
             case 2:
@@ -67,6 +80,15 @@ public class TrickAbilitySystem : MonoBehaviour
                 // Bounce shroom
                 break;
         }
+
+        abilityTimeLeft = abilityDuration / newDuration;
+    }
+
+    public void SpawnAbilityFailed()
+    {
+        abilityHasSpawned = true;
+        abilityBuffer = Instantiate(abilityFailedPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityTimeLeft = abilityDuration;
     }
 
     void DespawnAbility()
