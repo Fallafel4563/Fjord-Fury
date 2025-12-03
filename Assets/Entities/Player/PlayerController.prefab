@@ -4900,7 +4900,6 @@ Transform:
   m_Children:
   - {fileID: 4805101058444081956}
   - {fileID: 7575265241815793949}
-  - {fileID: 7175479993356115419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2834201662640471548
@@ -4950,7 +4949,7 @@ MonoBehaviour:
   splineCart: {fileID: 8965506563597239976}
   playerMovement: {fileID: 2060630186251258410}
   playerCamera: {fileID: 8851560557099016440}
-  playerRespawn: {fileID: 9171877306139766730}
+  playerRespawn: {fileID: 8721748571526581582}
   boatMovementAnims: {fileID: 5031827103774947155}
   trickComboSystem: {fileID: 3401553776943726406}
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
@@ -5225,72 +5224,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4805101058444081956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5327165719451054092
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7175479993356115419}
-  - component: {fileID: 9171877306139766730}
-  m_Layer: 0
-  m_Name: RespawnSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7175479993356115419
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5327165719451054092}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5007536021592668373}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9171877306139766730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5327165719451054092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9613584d1c5810c7192a9ce129bc314b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeDuration: 0.5
-  RespawnStarted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnRespawnStarted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  RespawnFinished:
-    m_PersistentCalls:
-      m_Calls: []
-  playerMovement: {fileID: 0}
-  playerCamera: {fileID: 0}
-  splineCart: {fileID: 0}
 --- !u!1 &6421745550217031441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5308,6 +5241,7 @@ GameObject:
   - component: {fileID: 7040633805338777643}
   - component: {fileID: 9054204099485319101}
   - component: {fileID: 2784234024063253971}
+  - component: {fileID: 8721748571526581582}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5418,7 +5352,7 @@ MonoBehaviour:
   airSteerSpeed: 10
   fallSpeed: 50
   quickfallSpeed: 75
-  airSteerRotSpeed: 0.5
+  airSteerRotSpeed: 75
   airVelocity: {x: 0, y: 0, z: 0}
   jumpPower: 15
   Jumped:
@@ -5651,8 +5585,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceOffset: 3
   splineCart: {fileID: 0}
+  playerMovement: {fileID: 0}
   forwardSpeedMultiplier: {fileID: 0}
   sphere: {fileID: 0}
+--- !u!114 &8721748571526581582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613584d1c5810c7192a9ce129bc314b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 0.5
+  RespawnStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  RespawnFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  playerMovement: {fileID: 0}
+  playerCamera: {fileID: 0}
+  splineCart: {fileID: 0}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
