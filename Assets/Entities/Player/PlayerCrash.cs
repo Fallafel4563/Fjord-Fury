@@ -67,12 +67,13 @@ public class PlayerCrash : MonoBehaviour
                 //float percetnageSpeedDifference = (speedDifference / average) * 100f;
                 OnPlayerCrash.Invoke();
 
+                GameObject particle = Instantiate(VFX, transform.position+direction,Quaternion.identity); 
+                particle.transform.localScale = Vector3.one * bumpVelocity.magnitude;
+                Destroy(particle, 2f);
             }
 
 
            
-
-           // Instantiate(VFX); 
             //collisionForce = other.impulse.magnitude;
            // bumpDistance = bumpForceMultiplier; //* //collisionForce;
             //Vector3 direction = (other.transform.position-transform.position).normalized;
