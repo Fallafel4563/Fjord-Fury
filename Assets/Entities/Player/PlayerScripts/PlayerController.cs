@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
         playerObstacleCollisions.trickComboSystem = trickComboSystem;
 
         curveSpeedOffset.splineCart = splineCart;
+        curveSpeedOffset.playerMovement = playerMovement;
         curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
