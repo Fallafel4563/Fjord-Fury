@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("General")]
     public float baseForwardSpeed = 40f;
 
+    [HideInInspector] public bool clampXAxis = true;
     [HideInInspector] public bool wasLastTrackRail = false;
     [HideInInspector] public float currentForwardSpeed = 40f;
     [HideInInspector] public float overrideSpeed = 40f;
@@ -147,6 +148,10 @@ public class PlayerMovement : MonoBehaviour
             splineCart.Spline = mainTrack.track;
             // Set the new positoin of the cart
             splineCart.SplinePosition = distanceInfo.distance;
+        }
+        else
+        {
+            lastMainTrackDistance = distanceWhenJumped;
         }
     }
 
@@ -318,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position += airVelocity * Time.deltaTime;
 
         // Rotate boat when steering
-        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed, transform.up);
+        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed * Time.deltaTime, transform.up);
         // Lerp the rotation that was set when jumping (also when falling off the track)
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }
@@ -334,6 +339,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public float timeSinceJump;
     [HideInInspector] public float distanceWhenJumped;
+    [HideInInspector] public float lastMainTrackDistance;
     [HideInInspector] Vector3 positionWhenJumped;
 
 
@@ -374,7 +380,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void LandedOnTrack(SplineTrack splineTrack)
+    public void LandedOnTrack(SplineTrack splineTrack)
     {
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
@@ -453,20 +459,5 @@ public class PlayerMovement : MonoBehaviour
 
         AttachToTrack(currentTrack.isCircle);
     }
-
-    #endregion
-
-
-    #region Drifting
-
-    [Header("Drifting")]
-    public float driftSpeed = 0f;
-
-    private void StartDrift()
-    {
-        //
-    }
-
-
 #endregion
 }
