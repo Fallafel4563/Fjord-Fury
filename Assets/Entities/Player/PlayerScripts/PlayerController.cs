@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TrickComboSystem trickComboSystem;
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
     [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
-    [SerializeField] private GameObject skins;
     [SerializeField] private CurveSpeedOffset curveSpeedOffset;
+    [SerializeField] private GameObject skins;
 
     [HideInInspector] public int selectedCharacter = 0;
 
