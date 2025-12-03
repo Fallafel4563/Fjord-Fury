@@ -48,7 +48,7 @@ public class CurveSpeedOffset : MonoBehaviour
         float boatRadius = Vector3.Distance(transform.position, circleCenter);
         float speedOffsetMultiplier = splineCartRadius / boatRadius;
 
-        Debug.Log(speedOffsetMultiplier);
+        //Debug.Log(speedOffsetMultiplier);
 
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("Track Position Multiplier", speedOffsetMultiplier);
 
@@ -68,13 +68,13 @@ public class CurveSpeedOffset : MonoBehaviour
         Vector3 v1 = currentPoint - previousPoint;
         Vector3 v2 = nextPoint - previousPoint;
 
-        Debug.LogFormat("v1 {0}, v2 {1}", v1, v2);
+        //Debug.LogFormat("v1 {0}, v2 {1}", v1, v2);
 
         float v1v1 = Vector3.Dot(v1, v1);
         float v2v2 = Vector3.Dot(v2, v2);
         float v1v2 = Vector3.Dot(v1, v2);
 
-        Debug.LogFormat("v1v1 {0}, v2v2 {1}, v1v2 {2}", v1v1, v2v2, v1v2);
+        //Debug.LogFormat("v1v1 {0}, v2v2 {1}, v1v2 {2}", v1v1, v2v2, v1v2);
 
         float b = 0.5f / (v1v1 * v2v2 - v1v2 * v1v2);
         float k1 = b * v2v2 * (v1v1 - v1v2);
@@ -84,7 +84,7 @@ public class CurveSpeedOffset : MonoBehaviour
         if (float.IsNaN(b) || float.IsInfinity(b) || Mathf.Abs(b) > 1000f)
             return Vector3.zero;
 
-        Debug.LogFormat("b {0}, k1 {1}, k2 {2}", b, k1, k2);
+        //Debug.LogFormat("b {0}, k1 {1}, k2 {2}", b, k1, k2);
 
         Vector3 circleCenter = previousPoint + v1 * k1 + v2 * k2;
         return circleCenter;
