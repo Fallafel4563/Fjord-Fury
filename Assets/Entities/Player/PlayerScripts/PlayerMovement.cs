@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     // Input variables
     [HideInInspector] public bool jumpInput;
-    [HideInInspector] public bool driftInput;
     [HideInInspector] public float forwardInput;
     [HideInInspector] public float steerInput;
     [HideInInspector] public bool dontChangeMainTrack = false;
@@ -207,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Stop the boat from going off the sides of the track
         // Divided by 2 since the end of the width is only half of the width
-        if (Mathf.Abs(transform.localPosition.x) > (currentTrack.width / 2f))
+        if (Mathf.Abs(transform.localPosition.x) > (currentTrack.width / 2f) && clampXAxis)
         {
             float sidewaysPos = Mathf.Sign(transform.localPosition.x) * (currentTrack.width / 2.0f);
             // Apply sideways limit

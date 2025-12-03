@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
     [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
     [SerializeField] private CurveSpeedOffset curveSpeedOffset;
+    [SerializeField] private DriftSystem driftSystem;
     [SerializeField] private GameObject skins;
 
     [HideInInspector] public int selectedCharacter = 0;
@@ -91,6 +92,9 @@ public class PlayerController : MonoBehaviour
         curveSpeedOffset.playerMovement = playerMovement;
         curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
+        driftSystem.playerMovement = playerMovement;
+        driftSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
+
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
 
         SetActiveSkin();
@@ -136,6 +140,7 @@ public class PlayerController : MonoBehaviour
         // Send input data to boat movement
         playerMovement.steerInput = steerInput;
         playerCamera.steerInput = steerInput;
+        driftSystem.steerInput = steerInput;
     }
 
 
@@ -153,7 +158,14 @@ public class PlayerController : MonoBehaviour
     private void OnDrift(InputValue inputValue)
     {
         driftInput = inputValue.Get<float>() > 0.5f;
-        playerMovement.driftInput = driftInput;
+        if (driftInput == true)
+        {
+            driftSystem.StartDrift();
+        }
+        else
+        {
+            driftSystem.EndDrift();
+        }
     }
 
 
