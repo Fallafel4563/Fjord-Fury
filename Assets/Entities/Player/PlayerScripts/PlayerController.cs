@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
     [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
     [SerializeField] private GameObject skins;
+    [SerializeField] private CurveSpeedOffset curveSpeedOffset;
 
     [HideInInspector] public int selectedCharacter = 0;
 
@@ -77,6 +78,9 @@ public class PlayerController : MonoBehaviour
 
         playerObstacleCollisions.playerMovement = playerMovement;
         playerObstacleCollisions.trickComboSystem = trickComboSystem;
+
+        curveSpeedOffset.splineCart = splineCart;
+        curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
 
