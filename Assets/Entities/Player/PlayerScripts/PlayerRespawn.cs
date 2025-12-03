@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class PlayerRespawn : MonoBehaviour
 {
     public float fadeDuration = 0.5f;
+    public float defaultRespawnOffset = 50f;
     private float globalDeathYPosition = -200f;
     public UnityEvent RespawnStarted;
     public UnityEvent RespawnFinished;
@@ -27,35 +28,49 @@ public class PlayerRespawn : MonoBehaviour
         // Trigger backup respawn
         if (transform.position.y < globalDeathYPosition && !respawnActive)
         {
-            TriggerRespawn(playerMovement.mainTrack);
+            TriggerRespawn(playerMovement.mainTrack, defaultRespawnOffset, true);
         }
     }
 
 
-    public void TriggerRespawn(SplineTrack respawnTrack)
+    public void TriggerRespawn(SplineTrack respawnTrack, float respawnOffset, bool forceMainTrack)
     {
+        Debug.Log("RESPAWN STARTED");
         respawnActive = true;
         playerCamera.isRespawning = true;
         RespawnStarted.Invoke();
 
-        StartCoroutine(RespawnFade(respawnTrack));
+        StartCoroutine(RespawnFade(respawnTrack, respawnOffset, forceMainTrack));
     }
 
 
-    private IEnumerator RespawnFade(SplineTrack respawnTrack)
+    private IEnumerator RespawnFade(SplineTrack respawnTrack, float respawnOffset, bool forceMainTrack)
     {
         RespawnFadeInStarted?.Invoke(fadeDuration);
         // Wait for fade in
         yield return new WaitForSeconds(fadeDuration);
 
-        // Stop player movement
-        playerMovement.enabled = false;
+        Debug.Log("RESET POS");
 
         // Reset boat position
-        TrackDistanceInfo distanceInfo = respawnTrack.GetDistanceInfoFromPosition(transform.position);
-        transform.position = distanceInfo.nearestSplinePos;
-        // Make the boat land on the track
-        playerMovement.LandedOnTrack(respawnTrack);
+        if (forceMainTrack)
+        {
+            playerMovement.LandedOnTrack(playerMovement.mainTrack);
+            transform.localPosition = Vector3.zero;
+
+            splineCart.SplinePosition = playerMovement.lastMainTrackDistance - respawnOffset;
+        }
+        else
+        {
+            TrackDistanceInfo distanceInfo = respawnTrack.GetDistanceInfoFromPosition(transform.position);
+            transform.position = distanceInfo.nearestSplinePos;
+            // Make the boat land on the track
+            playerMovement.LandedOnTrack(respawnTrack);
+            splineCart.SplinePosition = distanceInfo.distance - respawnOffset;
+        }
+
+        // Stop player movement
+        playerMovement.enabled = false;
         // Stop the spline cart from moving again (Is enabled when the boat lands on a track)
         splineCart.AutomaticDolly.Enabled = false;
 
@@ -73,12 +88,10 @@ public class PlayerRespawn : MonoBehaviour
 
     private void FinishRespawn()
     {
+        Debug.Log("RESPAWN ENDED");
         respawnActive = false;
         // Reset player stuff
         playerMovement.enabled = true;
-        //playerMovement.airVelocity = Vector3.zero;
-        //playerMovement.wasLastTrackRail = false;
-        //playerMovement.SetOverrideSpeed(playerMovement.currentTrack.overrideSpeed);
 
         // Re-enable spline cart
         splineCart.AutomaticDolly.Enabled = true;

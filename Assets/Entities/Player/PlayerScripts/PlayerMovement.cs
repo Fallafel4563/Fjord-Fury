@@ -148,6 +148,10 @@ public class PlayerMovement : MonoBehaviour
             // Set the new positoin of the cart
             splineCart.SplinePosition = distanceInfo.distance;
         }
+        else
+        {
+            lastMainTrackDistance = distanceWhenJumped;
+        }
     }
 
 
@@ -334,6 +338,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public float timeSinceJump;
     [HideInInspector] public float distanceWhenJumped;
+    [HideInInspector] public float lastMainTrackDistance;
     [HideInInspector] Vector3 positionWhenJumped;
 
 
