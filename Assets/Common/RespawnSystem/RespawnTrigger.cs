@@ -6,6 +6,13 @@ public class RespawnTrigger : MonoBehaviour
     [SerializeField] private SplineTrack respawnTrack;
 
 
+    private void Start()
+    {
+        if (TryGetComponent(out MeshRenderer meshRenderer))
+            meshRenderer.enabled = false;
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerRespawn playerRespawn))
