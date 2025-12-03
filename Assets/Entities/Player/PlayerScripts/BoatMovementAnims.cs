@@ -4,6 +4,7 @@ public class BoatMovementAnims : MonoBehaviour
 {
     [HideInInspector] public PlayerMovement playerMovement;
     public TrickComboSystem trickComboSystem;
+
     
 
     [Header("General")]
@@ -24,6 +25,8 @@ public class BoatMovementAnims : MonoBehaviour
             GroundedAnim();
         else
             AirborneAnim();
+
+        
     }
 
 
@@ -39,12 +42,14 @@ public class BoatMovementAnims : MonoBehaviour
         newRotation.x = 0f;
         // Yaw
         float yFrom = newRotation.y;
-        float yTo = playerMovement.steerInput * playerMovement.steerSpeed * 2f + playerMovement.dashTime * playerMovement.dashDirection * 200f * groundTilt;
+        float yTo = playerMovement.steerInput * playerMovement.steerSpeed * groundTilt;
         newRotation.y = Mathf.LerpAngle(yFrom, yTo, Time.deltaTime * 5f);
         // Roll
         newRotation.z = Mathf.LerpAngle(newRotation.z, -playerMovement.steerInput * playerMovement.steerSpeed, Time.deltaTime * 5f);
         // Apply rotation
         transform.localEulerAngles = newRotation;
+
+        trickComboSystem.animator.SetBool("Grinding", playerMovement.currentTrack.isCircle);
     }
 
 
@@ -65,12 +70,14 @@ public class BoatMovementAnims : MonoBehaviour
         newRotation.x = Mathf.Clamp(newRotation.x, -89f, 89f);
         // Yaw
         float yFrom = newRotation.y;
-        float yTo = playerMovement.steerInput * playerMovement.steerSpeed * 2f + playerMovement.dashTime * playerMovement.dashDirection * 200f * airTilt;
+        float yTo = playerMovement.steerInput * playerMovement.steerSpeed * airTilt;
         newRotation.y = Mathf.LerpAngle(yFrom, yTo, Time.deltaTime * 5f);
         // Roll
-        newRotation.z = playerMovement.isDashing ? newRotation.z + 400f * playerMovement.dashDirection * Time.deltaTime : Mathf.LerpAngle(newRotation.z, -playerMovement.steerInput * playerMovement.steerSpeed, Time.deltaTime * 5f);
+        newRotation.z = Mathf.LerpAngle(newRotation.z, -playerMovement.steerInput * playerMovement.steerSpeed, Time.deltaTime * 5f);
         // Apply rotation
         transform.localEulerAngles = newRotation;
+
+        trickComboSystem.animator.SetBool("Grinding", false);
     }
 
     public void TrickAnim()
