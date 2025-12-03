@@ -10,7 +10,6 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float rotLerpSpeed = 7.5f;
     [SerializeField] private float desiredOffsetLerpSpeed = 5f;
     [SerializeField] private Vector3 rotationOffset = new(0f, 1.25f, 5f);
-    [SerializeField] private Vector3 respawnOffset = new(0f, 4f, -7f);
 
 
     [Header("Grounded")]
@@ -36,8 +35,9 @@ public class PlayerCamera : MonoBehaviour
 
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-    private CinemachineBrain cinemachineBrain;
-    private CinemachineCamera cinemachineCamera;
+    [HideInInspector] public Camera activeCamera;
+    [HideInInspector] public CinemachineCamera cinemachineCamera;
+    [HideInInspector] public CinemachineBrain cinemachineBrain;
 
 
 
@@ -46,14 +46,12 @@ public class PlayerCamera : MonoBehaviour
         // Get component references
         cinemachineCamera = GetComponent<CinemachineCamera>();
         cinemachineBrain = GetComponentInChildren<CinemachineBrain>();
+        activeCamera = GetComponentInChildren<Camera>();
     }
 
 
     private void Start()
     {
-        playerMovement = trackingTarget.GetComponent<PlayerMovement>();
-        forwardSpeedMultiplier = trackingTarget.GetComponent<ForwardSpeedMultiplier>();
-
         // Set default values
         cinemachineCamera.Target.TrackingTarget = trackingTarget;
 
