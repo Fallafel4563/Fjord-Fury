@@ -71,7 +71,6 @@ public class PlayerRespawn : MonoBehaviour
         // Reset player stuff
         playerMovement.enabled = true;
         playerMovement.airVelocity = Vector3.zero;
-        playerMovement.isDashing = false;
         playerMovement.wasLastTrackRail = false;
         playerMovement.SetOverrideSpeed(playerMovement.currentTrack.overrideSpeed);
 
