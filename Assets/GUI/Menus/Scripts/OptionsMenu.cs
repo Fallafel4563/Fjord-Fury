@@ -5,16 +5,11 @@ using System.Collections.Generic;
 
 public class SettingsMenu : MonoBehaviour
 {
-    //HOW TO ADD IT BOTH MENU AND PAUSE MENU?
-
     #region Properties
 
-    [SerializeField] GameObject tabSelection;
-    [SerializeField] GameObject controlsTab;
-    [SerializeField] GameObject displayTab;
-    [SerializeField] GameObject accessibilityTab;
-    [SerializeField] GameObject audioTab;
-    [SerializeField] GameObject settings;
+    [SerializeField] GameObject optionsMenu;
+    [SerializeField] GameObject startMenu;
+    [SerializeField] GameObject controls;    
 
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown; 
@@ -23,8 +18,7 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //LOAD PLAYER PREFS
-    #region PLayerPrefs
+    #region PLayerPrefs     
 
     void Start()
     {
@@ -82,68 +76,29 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //SELECT WHICH SETTINGS YOU WANT TO CHANGE
-    #region  TabSelectionButtons
+    public void OnExitOptionsButton()
+    {
+        optionsMenu.SetActive(false);
+        startMenu.SetActive(true);
+    }
 
-    //Open controls tab
-    //Closes tab tab selection
+    #region Controls
+    
+    //show panel with image of controls
     public void OnControlsButton()
     {
-        tabSelection.SetActive(false);
-        controlsTab.SetActive(true);
+        controls.SetActive(true);
     }
 
-    //Open display tab
-    //Closes tab selection
-    public void OnDisplayButton()
+    public void OnExitControlsButton()
     {
-        tabSelection.SetActive(false);
-        displayTab.SetActive(true);
+        controls.SetActive(false);
     }
-
-    //Open Accesibility tab
-    //Closes tab selection
-    public void OnAccessibilityButton()
-    {
-        tabSelection.SetActive(false);
-        accessibilityTab.SetActive(true);
-    }
-
-    //Open audio tab
-    //Closes tab selection
-    public void OnAudioButton()
-    {
-        tabSelection.SetActive(false);
-        audioTab.SetActive(true);
-    }
-
-    //Close settings
-    public void OnCloseSettingsButton()
-    {
-        settings.SetActive(false);
-    }
-
+    
     #endregion
 
-    //CONTROLS TAB
-    #region Controls    
-
-    public void OnCloseControls()
-    {
-        controlsTab.SetActive(false);
-    }
-
-    #endregion
-
-    //DISPLAY TAB
     #region Display
 
-    public void OnCloseDisplay()
-    {
-        displayTab.SetActive(false);
-        tabSelection.SetActive(true);
-    }
-   
     #region Display; Fullscreen toggle
 
 //    public void SetFullscreen (bool isFullscreen)
@@ -164,9 +119,10 @@ public class SettingsMenu : MonoBehaviour
 
     #region  Display; Set graphics quality
 
-    //to change quality go to edit > project settings > quality
-    //for now there low, medium and high quality
-    //The quality settings there are not defined yet
+//to change quality go to edit > project settings > quality
+//for now there low, medium and high quality
+//The quality settings there are not defined yet
+
 //    public void SetQuality (int qualityIndex)
 //    {
 //        QualitySettings.SetQualityLevel(qualityIndex);
@@ -222,18 +178,8 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //ACCESSIBILITY TAB
     #region  Accessibility
 
-        public void OnCloseAccessibility()
-        {
-            accessibilityTab.SetActive(false);
-            tabSelection.SetActive(true);
-        }
-
-    //Subtitles??
-
-    //TBA
     #region Screen shake
 
     public void OnShakeToggleButton()
@@ -243,15 +189,7 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //TBA
-    #region Text size
 
-    public void OnTextSizeButton()
-    {
-
-    }
-
-    #endregion
 
     #endregion
 
@@ -260,11 +198,6 @@ public class SettingsMenu : MonoBehaviour
     //AUDIO TAB
     #region Audio
 
-    public void OnCloseAudio()
-    {
-        audioTab.SetActive(false);
-        tabSelection.SetActive(true);
-    }
     //Master volume
     public void SetVolume(float volume)
     {
