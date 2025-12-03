@@ -374,7 +374,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void LandedOnTrack(SplineTrack splineTrack)
+    public void LandedOnTrack(SplineTrack splineTrack)
     {
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
