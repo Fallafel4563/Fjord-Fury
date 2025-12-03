@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("General")]
     public float baseForwardSpeed = 40f;
 
+    [HideInInspector] public bool clampXAxis = true;
     [HideInInspector] public bool wasLastTrackRail = false;
     [HideInInspector] public float currentForwardSpeed = 40f;
     [HideInInspector] public float overrideSpeed = 40f;
@@ -458,20 +459,5 @@ public class PlayerMovement : MonoBehaviour
 
         AttachToTrack(currentTrack.isCircle);
     }
-
-    #endregion
-
-
-    #region Drifting
-
-    [Header("Drifting")]
-    public float driftSpeed = 0f;
-
-    private void StartDrift()
-    {
-        //
-    }
-
-
 #endregion
 }

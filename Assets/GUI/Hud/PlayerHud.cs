@@ -42,4 +42,16 @@ public class PlayerHud : MonoBehaviour
     {
         trickScoreText.text = score;
     }
+
+
+    public void OnRespawnFadeInStarted(float fadeDuration)
+    {
+        //
+    }
+
+    
+    public void OnRespawnFadeOutStarted(float fadeDuration)
+    {
+        //
+    }
 }
