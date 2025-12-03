@@ -5008,6 +5008,7 @@ MonoBehaviour:
   trickComboSystem: {fileID: 3401553776943726406}
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
   playerObstacleCollisions: {fileID: 7040633805338777643}
+  curveSpeedOffset: {fileID: 0}
 --- !u!1 &3283433894581042231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,9 +5808,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a797e64eb6eed4ca17fc7a837d7b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bumpForceMultiplier: 20
-  bumpDistance: 25
-  bumpHeight: 1
+  bumpForceMultiplier: 300
+  bumpDistance: 0
+  bumpHeight: 30
   VFX: {fileID: 0}
   playerMovement: {fileID: 0}
 --- !u!1 &6454330232883850996

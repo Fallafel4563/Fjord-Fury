@@ -14,8 +14,8 @@ public class PlayerCrash : MonoBehaviour
     private float collisionForce;
     [HideInInspector] public PlayerMovement playerMovement;
     
-   
-    void Start()
+    private bool wasGroundedLastFrame;
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -23,6 +23,7 @@ public class PlayerCrash : MonoBehaviour
     
     void Update()
     {
+        wasGroundedLastFrame = playerMovement.isGrounded;
     }
 
     void OnTriggerEnter(Collider other)
@@ -31,7 +32,7 @@ public class PlayerCrash : MonoBehaviour
         {
             Debug.Log("Works");
             PlayerMovement otherPlayerMovement = otherBoat.playerMovement;
-            if(playerMovement != null)
+            if(playerMovement != null && wasGroundedLastFrame)
             {
                 float forwardSpeed = playerMovement.currentForwardSpeed;
                 Debug.Log("The current speed" + forwardSpeed);
@@ -39,13 +40,14 @@ public class PlayerCrash : MonoBehaviour
                 Vector3 HorizontalSpeed = playerMovement.HorizontalVelocity;
                 Debug.Log("Horizontal speed" + HorizontalSpeed);
 
-               Vector3 bumpVelocity = (otherPlayerMovement.HorizontalVelocity - HorizontalSpeed ) * 20 * bumpForceMultiplier;  //bumpForceMultiplier;
+               Vector3 bumpVelocity = (otherPlayerMovement.HorizontalVelocity - HorizontalSpeed ) * bumpForceMultiplier;
+               bumpVelocity[1] = 1f;  //bumpForceMultiplier;
                // Vector3 bumpVelocity = new Vector3(HorizontalSpeed.x * bumpForceMultiplier + 1, HorizontalSpeed.magnitude * bumpForceMultiplier, forwardSpeed);
                Vector3 direction = (otherPlayerMovement.transform.position - transform.position).normalized;
                //otherPlayerMovement.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpVelocity.magnitude, ForceMode.Impulse);
-
+            
                 otherPlayerMovement.DetachFromCart();
-                otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight) * bumpVelocity.magnitude);
+                otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight));
 
                // otherPlayerMovement.airVelocity = bumpVelocity;
                 //StartCoroutine(SetBump(otherPlayerMovement, bumpVelocity));
