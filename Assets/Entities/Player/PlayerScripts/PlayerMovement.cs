@@ -318,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position += airVelocity * Time.deltaTime;
 
         // Rotate boat when steering
-        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed, transform.up);
+        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed * Time.deltaTime, transform.up);
         // Lerp the rotation that was set when jumping (also when falling off the track)
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }

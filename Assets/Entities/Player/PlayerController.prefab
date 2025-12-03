@@ -5418,7 +5418,7 @@ MonoBehaviour:
   airSteerSpeed: 10
   fallSpeed: 50
   quickfallSpeed: 75
-  airSteerRotSpeed: 0.5
+  airSteerRotSpeed: 75
   airVelocity: {x: 0, y: 0, z: 0}
   jumpPower: 15
   Jumped:
@@ -5651,6 +5651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceOffset: 3
   splineCart: {fileID: 0}
+  playerMovement: {fileID: 0}
   forwardSpeedMultiplier: {fileID: 0}
   sphere: {fileID: 0}
 --- !u!1 &6454330232883850996
