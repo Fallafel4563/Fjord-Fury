@@ -13,9 +13,10 @@ public class PlayerCrash : MonoBehaviour
     public GameObject VFX;
     private float collisionForce;
     [HideInInspector] public PlayerMovement playerMovement;
+    public UnityEvent OnPlayerCrash;
     
-   
-    void Start()
+    private bool wasGroundedLastFrame;
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -23,6 +24,7 @@ public class PlayerCrash : MonoBehaviour
     
     void Update()
     {
+        wasGroundedLastFrame = playerMovement.isGrounded;
     }
 
     void OnTriggerEnter(Collider other)
@@ -31,7 +33,7 @@ public class PlayerCrash : MonoBehaviour
         {
             Debug.Log("Works");
             PlayerMovement otherPlayerMovement = otherBoat.playerMovement;
-            if(playerMovement != null)
+            if(playerMovement != null && wasGroundedLastFrame)
             {
                 float forwardSpeed = playerMovement.currentForwardSpeed;
                 Debug.Log("The current speed" + forwardSpeed);
@@ -39,35 +41,39 @@ public class PlayerCrash : MonoBehaviour
                 Vector3 HorizontalSpeed = playerMovement.HorizontalVelocity;
                 Debug.Log("Horizontal speed" + HorizontalSpeed);
 
-               Vector3 bumpVelocity = (otherPlayerMovement.HorizontalVelocity - HorizontalSpeed ) * 20 * bumpForceMultiplier;  //bumpForceMultiplier;
+               Vector3 bumpVelocity = ((otherPlayerMovement.HorizontalVelocity - HorizontalSpeed )* bumpForceMultiplier + Vector3.forward *(otherPlayerMovement.currentForwardSpeed-forwardSpeed)) ;
+               bumpVelocity[1] = 1f;  //bumpForceMultiplier;
                // Vector3 bumpVelocity = new Vector3(HorizontalSpeed.x * bumpForceMultiplier + 1, HorizontalSpeed.magnitude * bumpForceMultiplier, forwardSpeed);
                Vector3 direction = (otherPlayerMovement.transform.position - transform.position).normalized;
                //otherPlayerMovement.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpVelocity.magnitude, ForceMode.Impulse);
-
+            
                 otherPlayerMovement.DetachFromCart();
-                otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight) * bumpVelocity.magnitude);
+                otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight * forwardSpeed/30));
+               
 
                // otherPlayerMovement.airVelocity = bumpVelocity;
                 //StartCoroutine(SetBump(otherPlayerMovement, bumpVelocity));
 
 
                 //HorizontalSpeed * bumpForceMultiplier + 1;
-                float speed1 = forwardSpeed;
-                float speed2 = playerMovement.currentForwardSpeed;
-                float average = (speed1 + speed2) / 2f;
+                //float speed1 = forwardSpeed;
+                //float speed2 = playerMovement.currentForwardSpeed;
+                //float average = (speed1 + speed2) / 2f;
                 //speed1 = forwardSpeed;
                 //speed2 = playerMovement.currentForwardSpeed;
                 //forwardSpeed - other.forwardSpeed / ((forwardSpeed - other.forwardSpeed / 2f)) * 100f;
                 //Compare with forwardSpeed of other boat, find % difference in speed, forward speed multiplier
-                float speedDifference = MathF.Abs(speed1 - speed2);
-                float percetnageSpeedDifference = (speedDifference / average) * 100f;
+                //float speedDifference = MathF.Abs(speed1 - speed2);
+                //float percetnageSpeedDifference = (speedDifference / average) * 100f;
+                OnPlayerCrash.Invoke();
 
+                GameObject particle = Instantiate(VFX, transform.position+direction,Quaternion.identity); 
+                particle.transform.localScale = Vector3.one * bumpVelocity.magnitude;
+                Destroy(particle, 2f);
             }
 
 
            
-
-           // Instantiate(VFX); 
             //collisionForce = other.impulse.magnitude;
            // bumpDistance = bumpForceMultiplier; //* //collisionForce;
             //Vector3 direction = (other.transform.position-transform.position).normalized;
