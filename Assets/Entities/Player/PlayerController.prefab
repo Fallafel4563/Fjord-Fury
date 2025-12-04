@@ -5373,18 +5373,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Jump
-          m_BoolArgument: 0
-        m_CallState: 2
   timeSinceJump: 0
   distanceWhenJumped: 0
   lastMainTrackDistance: 0
@@ -5401,18 +5389,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Land
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1576481360580890928}
@@ -5455,9 +5431,14 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   forwardSpeedMultiplier: {fileID: 0}
   boatMovementAnims: {fileID: 0}
+  performingTrick: 0
   combo: 0
   trickScore: 0
-  performingTrick: 0
+  trickIndex: 0
+  firstTrickIndex: 0
+  barIndex: 0
+  speedValue: 0
+  inputBufferDuration: 0.2
   ImmediateComboBoostCurve:
     holdTime: 3
     startCurve:
@@ -5509,23 +5490,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   inputBuffer: 0
-  inputBufferDefault: 0.2
-  boostDuration: 5
-  speedValue: 0
-  trickList:
-  - 360Spin
-  - Backflip
-  - Kickflip
-  - Heelflip
-  - Hardflip
-  trickIndex: 0
-  trickName: 
-  FailedTrick:
-    m_PersistentCalls:
-      m_Calls: []
-  SucceededTrick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2504890653146001464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5558,7 +5522,19 @@ MonoBehaviour:
   crashDuration: 3
   HitObstacle:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnHitObstacle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerMovement: {fileID: 0}
   trickComboSystem: {fileID: 0}
 --- !u!114 &9054204099485319101
@@ -5622,7 +5598,19 @@ MonoBehaviour:
         m_CallState: 2
   RespawnFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3401553776943726406}
+        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
+        m_MethodName: OnRespawnStarted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerMovement: {fileID: 0}
   playerCamera: {fileID: 0}
   splineCart: {fileID: 0}

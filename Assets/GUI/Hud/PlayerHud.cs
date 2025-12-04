@@ -6,6 +6,8 @@ public class PlayerHud : MonoBehaviour
     public TMP_Text playerIndexText;
     public TMP_Text trickTricksText;
     public TMP_Text trickScoreText;
+    public BoostMeter boostMeter;
+
 
     private Canvas canvas;
 
@@ -13,13 +15,6 @@ public class PlayerHud : MonoBehaviour
     private void Awake()
     {
         canvas = GetComponent<Canvas>();
-    }
-
-
-    private void Start()
-    {
-        UpdateTricksText("");
-        TrickScoreUpdated("");
     }
 
 
@@ -32,15 +27,16 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    public void UpdateTricksText(string tricks)
+
+    public void UpdateBoostMeterVisibility(bool visible)
     {
-        trickTricksText.text = tricks;
+        boostMeter.gameObject.SetActive(visible);
     }
 
 
-    public void TrickScoreUpdated(string score)
+    public void UpdateBoostMeter(int i, int a, int x)
     {
-        trickScoreText.text = score;
+        boostMeter.OnUpdateBoostMeter(i, a, x);
     }
 
 
