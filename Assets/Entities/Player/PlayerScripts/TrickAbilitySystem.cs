@@ -33,11 +33,13 @@ public class TrickAbilitySystem : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown("x"))
         {
             SpawnAbility();
             Debug.Log("ability");
         }
+        */
     }
 
     public void OnPlayerLand()
@@ -67,9 +69,9 @@ public class TrickAbilitySystem : MonoBehaviour
         {
             case 1:
                 // Fireball speed boost
-                FSM.SetForwardSpeedMultiplier("name", newSpeed, new SpeedMultiplierCurve());
-                abilityBuffer.transform.localScale = new Vector3(transform.localScale.x * newSize, transform.localScale.y * newSize, transform.localScale.z * newSize);
-                // abilityBuffer.GetComponent<BounceShroom>();
+                /// FSM.SetForwardSpeedMultiplier("name", newSpeed, new SpeedMultiplierCurve());
+                /// abilityBuffer.transform.localScale = new Vector3(transform.localScale.x * newSize, transform.localScale.y * newSize, transform.localScale.z * newSize);
+                /// abilityBuffer.GetComponent<BounceShroom>();
                 break;
 
             case 2:

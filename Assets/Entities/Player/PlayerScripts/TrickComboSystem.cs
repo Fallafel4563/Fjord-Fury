@@ -155,7 +155,6 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Show boost particles
 
         SucceededTrick.Invoke();
-        Debug.Log("succeed");
     }
 
 
