@@ -90,6 +90,6 @@ public class BoatMovementAnims : MonoBehaviour
 
     public void OnTrickAnimFinished()
     {
-        trickComboSystem.OnTrickAnimationFinished();
+        trickComboSystem.OnTrickCompleted();
     }
 }
