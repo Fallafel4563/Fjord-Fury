@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
         // Connect events to hud
         if (playerHud)
         {
+            trickComboSystem.UpdateBoostMeterVisibility += playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter += playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter += playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction += playerHud.boostMeter.OnResetTrickReaction;
+
             playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
         }
@@ -51,6 +56,11 @@ public class PlayerController : MonoBehaviour
         // Disconnect events from hud
         if (playerHud)
         {
+            trickComboSystem.UpdateBoostMeterVisibility -= playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter -= playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter -= playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction -= playerHud.boostMeter.OnResetTrickReaction;
+
             playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
         }

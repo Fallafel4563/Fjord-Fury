@@ -18,25 +18,21 @@ public class TrickComboSystem : MonoBehaviour
     [HideInInspector] public int trickScore = 0;
     [HideInInspector] public int trickIndex = 0;
     [HideInInspector] public int firstTrickIndex = 0;
+    [HideInInspector] public int barIndex = 0;
 
-
+    [HideInInspector] public float speedValue = 0f;
     private int shortBoost = 0;
     private int mediumBoost = 0;
     private int longBoost = 0;
-    [HideInInspector] public float speedValue = 0f;
-
 
     public float inputBufferDuration = 0.2f;
-    [HideInInspector] public float inputBuffer = 0f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
-
-
-    private List<string> trickActiveList = new List<string> {"Mushroom charged", "Ram Charaged", "Tornado charged"};
-    private List<string> trickNumberList = new List<string> {"Imp-pressive", "Trolltastic", "Untrollable", "Trolldracular", "Hobgoblike", "Orgewhelming"};
-
+    [HideInInspector] public float inputBuffer = 0f;
 
     public Action<bool> UpdateBoostMeterVisibility;
-    public Action UpdateBoostMeter;
+    public Action<int, int, int> UpdateBoostMeter;
+    public Action ResetBoostMeter;
+    public Action ResetTrickReaction;
 
 
     private void Update()
@@ -75,7 +71,7 @@ public class TrickComboSystem : MonoBehaviour
     {
         performingTrick = true;
         // TODO: Send trick sound to FMOD
-        // TODO: Activate animation for trick
+        boatMovementAnims.TrickAnim();
 
         //performingTrick = true;
         //combo++;
@@ -119,7 +115,8 @@ public class TrickComboSystem : MonoBehaviour
 
     public void OnTrickCompleted()
     {
-        if (combo == 0)
+        Debug.LogFormat("First {0}, Combo {1}", firstTrickIndex, combo);
+        if (combo == 0 || firstTrickIndex == 0)
         {
             UpdateBoostMeterVisibility.Invoke(true);
             firstTrickIndex = trickIndex;
@@ -144,6 +141,10 @@ public class TrickComboSystem : MonoBehaviour
                 break;
         }
 
+        barIndex++;
+        if (barIndex >= 3)
+            barIndex = 0;
+
         if (combo == 3)
         {
             // TODO: Send ability ready sound to FMOD
@@ -153,7 +154,8 @@ public class TrickComboSystem : MonoBehaviour
             // TODO: Send Add charge sound to FMOD
         }
 
-        UpdateBoostMeter?.Invoke();
+        Debug.LogFormat("First {0}, Combo {1}, Bar {2}", firstTrickIndex, combo, barIndex);
+        UpdateBoostMeter?.Invoke(firstTrickIndex, combo, barIndex);
     }
 
 
@@ -207,7 +209,7 @@ public class TrickComboSystem : MonoBehaviour
         trickScore = 0;
         performingTrick = false;
 
-        // TODO: Set trick reaction text to ""
+        ResetTrickReaction?.Invoke();
 
         ResetSystemValues();
 
@@ -224,8 +226,9 @@ public class TrickComboSystem : MonoBehaviour
         longBoost = 0;
         combo = 0;
         trickIndex = 0;
+        barIndex = 0;
 
-        // TODO: Reset boost bar
+        ResetBoostMeter?.Invoke();
     }
 
 
