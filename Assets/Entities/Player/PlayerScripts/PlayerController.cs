@@ -41,7 +41,11 @@ public class PlayerController : MonoBehaviour
         // Connect events to hud
         if (playerHud)
         {
-            trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+            trickComboSystem.UpdateBoostMeterVisibility += playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter += playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter += playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction += playerHud.boostMeter.OnResetTrickReaction;
+
             playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
         }
@@ -52,7 +56,11 @@ public class PlayerController : MonoBehaviour
         // Disconnect events from hud
         if (playerHud)
         {
-            trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
+            trickComboSystem.UpdateBoostMeterVisibility -= playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter -= playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter -= playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction -= playerHud.boostMeter.OnResetTrickReaction;
+
             playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
         }
@@ -159,19 +167,20 @@ public class PlayerController : MonoBehaviour
 
     public void OnShortTrick()
     {
-        //
+        trickComboSystem.ActivateTrick(1);
     }
 
 
     public void OnMediumTrick()
     {
-        trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
+        trickComboSystem.ActivateTrick(2);
     }
 
 
     public void OnLongTrick()
     {
-        //
+        trickComboSystem.ActivateTrick(3);
     }
+
 #endregion
 }
