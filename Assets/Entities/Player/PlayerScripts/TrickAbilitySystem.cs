@@ -21,6 +21,7 @@ public class TrickAbilitySystem : MonoBehaviour
     private int combinedStrength;
     private ForwardSpeedMultiplier FSM;
 
+    [Header("Strength dividers")]
     [SerializeField] float DurationDivider;
     [SerializeField] float SizeDivider;
     [SerializeField] float SpeedDivider;
