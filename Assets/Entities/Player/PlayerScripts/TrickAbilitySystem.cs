@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TrickAbilitySystem : MonoBehaviour
 {
@@ -21,9 +22,15 @@ public class TrickAbilitySystem : MonoBehaviour
     private int combinedStrength;
     private ForwardSpeedMultiplier FSM;
 
-    [SerializeField] float DurationDivider;
-    [SerializeField] float SizeDivider;
-    [SerializeField] float SpeedDivider;
+    [Header("Ability strength dividers")]
+    [SerializeField] private float DurationDivider;
+    [SerializeField] private float SizeDivider;
+    [SerializeField] private float SpeedDivider;
+
+    [Header("Input stuff for debugging")]
+    [SerializeField] private InputActionReference shortTrick;
+    [SerializeField] private InputActionReference mediumTrick;
+    [SerializeField] private InputActionReference longTrick;
 
     void Start()
     {
@@ -31,17 +38,24 @@ public class TrickAbilitySystem : MonoBehaviour
         FSM = GetComponent<ForwardSpeedMultiplier>();
     }
 
-    void Update()
+    void OnEnabled()
     {
-        if (Input.GetKeyDown("x"))
-        {
-            SpawnAbility();
-            Debug.Log("ability");
-        }
+        shortTrick.action.started += OnPlayerLand;
+        mediumTrick.action.started += OnPlayerLand;
+        longTrick.action.started += OnPlayerLand;
     }
 
-    public void OnPlayerLand()
+    void OnDisabled()
     {
+        shortTrick.action.started -= OnPlayerLand;
+        mediumTrick.action.started -= OnPlayerLand;
+        longTrick.action.started -= OnPlayerLand;
+    }
+
+    public void OnPlayerLand(InputAction.CallbackContext obj)
+    {
+        Debug.Log("OnPlayerLand()");
+
         if (!abilityHasSpawned && FirstTrickIndex != 0)
         {
             SpawnAbility();
@@ -50,6 +64,8 @@ public class TrickAbilitySystem : MonoBehaviour
 
     public void SpawnAbility()
     {
+        Debug.Log("SpawnAbility()");
+
         abilityHasSpawned = true;
         abilityBuffer = Instantiate(abilityPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 
