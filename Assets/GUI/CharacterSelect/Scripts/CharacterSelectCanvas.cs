@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LowLevel;
 using UnityEngine.SceneManagement;
 
 public class CharacterSelectCanvas : MonoBehaviour
 {
+    [SerializeField] private NextSceneLoading nextSceneLoading;
     [SerializeField] private GameObject allPlayersReadyBanner;
     [SerializeField] private List<GameObject> characterSelectPositions = new();
 
@@ -97,7 +97,7 @@ public class CharacterSelectCanvas : MonoBehaviour
         {
             // Give the multiplayer spawn information about which player chose what character
             MultiplayerPlayerSpawner.players = playerChoiceDict;
-            SceneManager.LoadScene("Level 1 fjord");
+            nextSceneLoading.LoadSceneCoroutine();
         }
     }
 }
