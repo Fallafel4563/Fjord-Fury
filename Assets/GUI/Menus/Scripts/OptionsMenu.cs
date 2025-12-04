@@ -9,7 +9,10 @@ public class SettingsMenu : MonoBehaviour
 
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject startMenu;
-    [SerializeField] GameObject controls;    
+    [SerializeField] GameObject controlsTab;
+    [SerializeField] GameObject displayTab;        
+    [SerializeField] GameObject audioTab;
+    [SerializeField] GameObject accessibilityTab;
 
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown; 
@@ -17,6 +20,14 @@ public class SettingsMenu : MonoBehaviour
     Resolution[] resolutions;
 
     #endregion
+
+
+    public void OnExitOptionsButton()
+    {
+        optionsMenu.SetActive(false);
+        startMenu.SetActive(true);
+    }
+
 
     #region PLayerPrefs     
 
@@ -76,28 +87,30 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    public void OnExitOptionsButton()
-    {
-        optionsMenu.SetActive(false);
-        startMenu.SetActive(true);
-    }
-
-    #region Controls
-    
-    //show panel with image of controls
-    public void OnControlsButton()
-    {
-        controls.SetActive(true);
-    }
-
-    public void OnExitControlsButton()
-    {
-        controls.SetActive(false);
-    }
-    
-    #endregion
 
     #region Display
+
+    #region DisplayTabs
+
+    public void ToAudioFromDisplay()
+    {
+        displayTab.SetActive(false);
+        audioTab.SetActive(true);
+    }
+
+    public void ToControlsFromDisplay()
+    {
+        displayTab.SetActive(false);
+        controlsTab.SetActive(true);
+    }
+
+    public void ToAccessibilityFromDisplay()
+    {
+        displayTab.SetActive(false);
+        accessibilityTab.SetActive(true);
+    }
+
+    #endregion
 
     #region Display; Fullscreen toggle
 
@@ -178,7 +191,108 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
+    //DOES THIS WORK WITH FMOD??
+    //IT DOES NOT
+    //AUDIO TAB
+    #region Audio
+
+    #region Audio tabs
+
+    public void fromAudioToDisplay()
+    {
+        audioTab.SetActive(false);
+        displayTab.SetActive(true);
+
+    }
+
+    public void fromAudioToControls()
+    {
+        audioTab.SetActive(false);
+        controlsTab.SetActive(true);
+    }
+
+    public void fromAudioToAccessibility()
+    {
+        audioTab.SetActive(false);
+        accessibilityTab.SetActive(true);
+    }
+
+    #endregion
+
+    #region Master volume
+    //Master volume
+    //public void SetVolume(float volume)
+    //{
+    //    audioMixer.SetFloat("volume", volume);
+    //}
+
+    //Music volume
+
+    //SFX volume
+
+    //Dialouge volume
+
+    #endregion
+
+    #region Music volume
+
+    #endregion
+
+    #region SFX volume
+
+    #endregion
+
+    #endregion
+
+
+    #region Controls
+    
+    public void fromControlsToDisplay()
+    {
+        controlsTab.SetActive(false);
+        displayTab.SetActive(true);
+
+    }
+
+    public void fromControlsToAudio()
+    {
+        controlsTab.SetActive(false);
+        audioTab.SetActive(true);
+    }
+
+    public void fromControlsToAccessibility()
+    {
+        controlsTab.SetActive(false);
+        accessibilityTab.SetActive(true);
+    }
+
+    #endregion
+
+
     #region  Accessibility
+
+    #region Accessibility tabs
+
+    public void fromAccessibilityToDisplay()
+    {
+        accessibilityTab.SetActive(false);
+        displayTab.SetActive(true);
+
+    }
+
+    public void fromAccessibilityToAudio()
+    {
+        accessibilityTab.SetActive(false);
+        audioTab.SetActive(true);
+    }
+
+    public void fromAccessibilityToControls()
+    {
+        accessibilityTab.SetActive(false);
+        controlsTab.SetActive(true);
+    }
+
+    #endregion
 
     #region Screen shake
 
@@ -189,26 +303,14 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
+    #region Motion blur
 
-
-    #endregion
-
-    //DOES THIS WORK WITH FMOD??
-    //IT DOES NOT
-    //AUDIO TAB
-    #region Audio
-
-    //Master volume
-    public void SetVolume(float volume)
+    public void OnMotionBlurToggleButton()
     {
-        audioMixer.SetFloat("volume", volume);
+
     }
 
-    //Music volume
-
-    //SFX volume
-
-    //Dialouge volume
+    #endregion
 
     #endregion
 

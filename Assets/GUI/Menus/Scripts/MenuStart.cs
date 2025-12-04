@@ -15,6 +15,7 @@ public class MenuStart : MonoBehaviour
 
     #endregion
 
+
     #region Play
 
     // Takes you to screen selecting how many players
@@ -26,7 +27,7 @@ public class MenuStart : MonoBehaviour
 
     public void OnStartButton()
     {
-        SceneManager.LoadScene("Level 1 fjord");
+        SceneManager.LoadScene("CharacterSelectExampleScene");
     }
     #endregion
 
@@ -35,11 +36,16 @@ public class MenuStart : MonoBehaviour
     
     // Takes you to options screen
     public void OnOptionsButton()
-    {
+    {   
         startMenu.SetActive(false);
         optionsMenu.SetActive(true);
     }
 
+    public void OnCloseOptionsButton()
+    {
+        optionsMenu.SetActive(false);
+        startMenu.SetActive(true);        
+    }
     #endregion
 
 
@@ -72,4 +78,7 @@ public class MenuStart : MonoBehaviour
 
     #endregion
 
+
+    //have always show mouse when active
+    //show selected image as cursor
 }   
