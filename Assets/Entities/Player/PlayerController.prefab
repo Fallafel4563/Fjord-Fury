@@ -4958,6 +4958,37 @@ MonoBehaviour:
   curveSpeedOffset: {fileID: 2784234024063253971}
   skins: {fileID: 2259313785944379738}
   selectedCharacter: 0
+--- !u!1 &2654282616135075135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4995832374184306347}
+  m_Layer: 0
+  m_Name: Ability spawn point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4995832374184306347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654282616135075135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 49.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8497310814354721785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3283433894581042231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,6 +5269,7 @@ GameObject:
   - component: {fileID: 4125074992363956026}
   - component: {fileID: 2060630186251258410}
   - component: {fileID: 3401553776943726406}
+  - component: {fileID: 313032546338608432}
   - component: {fileID: 2504890653146001464}
   - component: {fileID: 7040633805338777643}
   - component: {fileID: 9054204099485319101}
@@ -5265,6 +5297,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5850184161569201863}
+  - {fileID: 4995832374184306347}
   m_Father: {fileID: 4805101058444081956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &653341406667092455
@@ -5431,6 +5464,7 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   forwardSpeedMultiplier: {fileID: 0}
   boatMovementAnims: {fileID: 0}
+  trickAbilitySystem: {fileID: 313032546338608432}
   performingTrick: 0
   combo: 0
   trickScore: 0
@@ -5490,6 +5524,32 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   inputBuffer: 0
+--- !u!114 &313032546338608432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8a5c11371817142b9687474085bbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityPrefabs:
+  - {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+  - {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+  - {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+  abilityFailedPrefabs: []
+  AbilitySpawnPoint: {fileID: 4995832374184306347}
+  abilityDuration: 0
+  FirstTrickIndex: 0
+  ShortBoost: 0
+  MediumBoost: 0
+  LongBoost: 0
+  DurationDivider: 0
+  SizeDivider: 0
+  SpeedDivider: 0
 --- !u!114 &2504890653146001464
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,30 +43,25 @@ public class TrickAbilitySystem : MonoBehaviour
         */
     }
 
-    public void OnPlayerLand()
+    public void SpawnAbility(int firstTrick, int shortBoost, int mediumBoost, int longBoost)
     {
-        if (!abilityHasSpawned && FirstTrickIndex != 0)
-        {
-            SpawnAbility();
-        }
-    }
+        Debug.Log("SpawnAbility");
 
-    public void SpawnAbility()
-    {
         abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        return;
 
         combinedStrength = 0;
 
-        combinedStrength += (ShortBoost * 1);
-        combinedStrength += (MediumBoost * 2);
-        combinedStrength += (LongBoost * 3);
+        combinedStrength += (shortBoost * 1);
+        combinedStrength += (mediumBoost * 2);
+        combinedStrength += (longBoost * 3);
 
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;
         float newSpeed = combinedStrength / SpeedDivider;
 
-        switch (FirstTrickIndex)
+        switch (firstTrick)
         {
             case 1:
                 // Fireball speed boost
