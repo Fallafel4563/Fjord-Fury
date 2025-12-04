@@ -41,12 +41,6 @@ public class TrickComboSystem : MonoBehaviour
     public Action<string> TrickScoreUpdated;
 
 
-    // FIX: These are only here for because we don't have animations implemented yet
-    private float tmp_trickDuration = 0.5f;
-    private float tmp_trickTime = 0f;
-
-
-
     private void Update()
     {
         // Reduce inputBuffer time
@@ -67,16 +61,6 @@ public class TrickComboSystem : MonoBehaviour
             boostValue -= Time.deltaTime;
             if (boostValue <= 0f)
                 EndComboBoost();
-        }
-
-        // Fix: Finish trick after a short while (Replace with an event in the animation system that is triggered when a trick animation has finished)
-        if (tmp_trickTime > 0)
-        {
-            tmp_trickTime -= Time.deltaTime;
-            if (tmp_trickTime <= 0)
-            {
-                OnTrickAnimationFinished();
-            }
         }
     }
 
@@ -114,9 +98,6 @@ public class TrickComboSystem : MonoBehaviour
             tableOfTricks[currentTrickName] += 1;
         else
             tableOfTricks.Add(currentTrickName, 0);
-
-        //
-        tmp_trickTime = tmp_trickDuration;
 
         // Get the long tricks name
         trickName = GetTrickName();

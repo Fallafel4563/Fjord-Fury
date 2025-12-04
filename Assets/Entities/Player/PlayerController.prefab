@@ -5242,6 +5242,7 @@ GameObject:
   - component: {fileID: 9054204099485319101}
   - component: {fileID: 2784234024063253971}
   - component: {fileID: 8721748571526581582}
+  - component: {fileID: 961602446303370989}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5338,6 +5339,7 @@ MonoBehaviour:
   isJumping: 0
   crashing: 0
   baseForwardSpeed: 40
+  clampXAxis: 1
   wasLastTrackRail: 0
   currentForwardSpeed: 40
   overrideSpeed: 0
@@ -5436,7 +5438,6 @@ MonoBehaviour:
           m_StringArgument: LandAnim
           m_BoolArgument: 0
         m_CallState: 2
-  driftSpeed: 0
 --- !u!114 &3401553776943726406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5624,6 +5625,26 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   playerCamera: {fileID: 0}
   splineCart: {fileID: 0}
+--- !u!114 &961602446303370989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a797e64eb6eed4ca17fc7a837d7b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bumpForceMultiplier: 150
+  bumpDistance: 0
+  bumpHeight: 15
+  VFX: {fileID: 6565798704953161563, guid: c4ac7620eadeec245abd94b082ce6257, type: 3}
+  playerMovement: {fileID: 0}
+  OnPlayerCrash:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,7 +5936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1746654310787607633, guid: d09a8b1899a2d9849b8ef56e9677981b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -6185,7 +6206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6d84828286513da4ba9bf50ffde15a3f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2400143401217904245, guid: 6d84828286513da4ba9bf50ffde15a3f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
