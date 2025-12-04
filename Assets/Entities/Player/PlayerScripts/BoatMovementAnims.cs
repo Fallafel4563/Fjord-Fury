@@ -87,4 +87,9 @@ public class BoatMovementAnims : MonoBehaviour
         trickComboSystem.animator.SetTrigger("Regular Trick");
         
     }
+
+    public void OnTrickAnimFinished()
+    {
+        trickComboSystem.OnTrickAnimationFinished();
+    }
 }
