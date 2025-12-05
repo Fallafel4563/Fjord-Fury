@@ -5244,6 +5244,7 @@ GameObject:
   - component: {fileID: 2784234024063253971}
   - component: {fileID: 8721748571526581582}
   - component: {fileID: 961602446303370989}
+  - component: {fileID: 1630408635394340986}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Player
@@ -5316,7 +5317,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &2060630186251258410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5337,7 +5338,6 @@ MonoBehaviour:
   steerInput: 0
   dontChangeMainTrack: 0
   isGrounded: 1
-  isJumping: 0
   crashing: 0
   baseForwardSpeed: 40
   clampXAxis: 1
@@ -5353,11 +5353,13 @@ MonoBehaviour:
   circleTrackSteerSpeed: 7.5
   frontBackOffsetLimit: 3
   airSteerSpeed: 10
-  fallSpeed: 50
+  fallSpeed: 25
   quickfallSpeed: 75
   airSteerRotSpeed: 75
   airVelocity: {x: 0, y: 0, z: 0}
   jumpPower: 15
+  gildeStopUpwardsVelMult: 0.5
+  maxGlideDuration: 2
   Jumped:
     m_PersistentCalls:
       m_Calls:
@@ -5373,6 +5375,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isGliding: 0
+  canGlide: 1
+  glideTimer: 0
   timeSinceJump: 0
   distanceWhenJumped: 0
   lastMainTrackDistance: 0
@@ -5415,6 +5420,9 @@ MonoBehaviour:
           m_StringArgument: LandAnim
           m_BoolArgument: 0
         m_CallState: 2
+  groundPoundFallSpeed: 750
+  canGroundPound: 1
+  startedGroundPound: 0
 --- !u!114 &3401553776943726406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5557,7 +5565,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2db7f9d920d754e428bcb296df19e102, type: 3}
   m_Name: 
@@ -5634,6 +5642,30 @@ MonoBehaviour:
   OnPlayerCrash:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1630408635394340986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c973965c377a1ad4cbb8efa236db97e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeedMultiplier: {fileID: 0}
+  speedMultiplier: 0
+  speedIncrease: 0.001
+  maxSpeed: 1.5
+  baseSpeed: 1
+  slipStreamTimer: 0
+  slipStreamMaxTimer: 3
+  startTimer: 0
+  startThreshold: 3
+  TriggerSphere: {fileID: 8047555153375976637, guid: 3a912efc4f792ae489ef876554cf8c8b, type: 3}
+  spawnTime: 0
+  spawnThreshold: 1
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
