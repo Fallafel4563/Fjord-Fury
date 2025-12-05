@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: All players ready
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,13 +92,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06140983, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.93710685, g: 0.81361765, b: 0.11492808, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 3821833131852952941}
   - component: {fileID: 4042620058372947120}
   - component: {fileID: 5135288754487943922}
+  - component: {fileID: 4198558657913448455}
   m_Layer: 5
   m_Name: CharacterSelectCanvas
   m_TagString: Untagged
@@ -500,12 +501,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f47c7afbd4408d880b43596b4a4cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSceneLoading: {fileID: 4198558657913448455}
   allPlayersReadyBanner: {fileID: 7391612894811194731}
   characterSelectPositions:
   - {fileID: 7211284212836123974}
   - {fileID: 3905325986952782398}
   - {fileID: 2453843476163950094}
   - {fileID: 8899719977908287570}
+--- !u!114 &4198558657913448455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681634659714743013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d029f974c20bb4089904a66ae1cbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneToLoad: Level 1 fjord
 --- !u!1 &8899719977908287570
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,6 +649,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterSelectJoinPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -735,6 +770,30 @@ PrefabInstance:
     - target: {fileID: 877895517382126227, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
       propertyPath: m_Name
       value: CharacterSelectJoinPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontStyle
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -838,6 +897,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterSelectJoinPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -939,6 +1018,30 @@ PrefabInstance:
     - target: {fileID: 877895517382126227, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
       propertyPath: m_Name
       value: CharacterSelectJoinPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontStyle
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
+    - target: {fileID: 5412356844300497895, guid: 281c6287f8d91ba06b6afa752bf79f05, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
