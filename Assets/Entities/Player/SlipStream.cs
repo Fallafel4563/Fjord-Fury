@@ -24,7 +24,6 @@ public class SlipStream : MonoBehaviour
    
     void Update()
     {
-        //speedMultiplier = playerMovement.forwardSpeedMultiplier;
         
         if (slipStreamTimer > 0)
         {
@@ -66,20 +65,20 @@ public class SlipStream : MonoBehaviour
 
         if (slipStream == true)
         {
-            if (speedMultiplier < maxSpeed)
+            if (speedMultiplier + 1 < maxSpeed)
             {
                 speedMultiplier += speedIncrease;
-                forwardSpeedMultiplier.SetForwardSpeedMultiplier("SlipStream", speedMultiplier +1);
+                forwardSpeedMultiplier.SetForwardSpeedMultiplier("SlipStream", speedMultiplier + 1);
                 
             }
         }
         else
         {
             
-            if (slipStream == false && speedMultiplier > baseSpeed)
+            if (slipStream == false && speedMultiplier + 1 > baseSpeed)
             {
                 speedMultiplier -= speedIncrease / 2;
-                forwardSpeedMultiplier.SetForwardSpeedMultiplier("SlipStream", speedMultiplier -1);
+                forwardSpeedMultiplier.SetForwardSpeedMultiplier("SlipStream", speedMultiplier + 1);
                 
             }
         }
