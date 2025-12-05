@@ -68,30 +68,33 @@ public class SpeedMultiplier
             float activeTime = time - timeOnStart;
 
             // When the start curve ends
-            float startCurveTime = multiplierCurve.startCurve.keys.Last().time;
-            // When the hold time ends
-            float endCurveTime = startCurveTime + multiplierCurve.holdTime;
-            // When to remove the speed multiplier
-            float deleteCurveTime = endCurveTime + multiplierCurve.endCurve.keys.Last().time;
-
-            if (activeTime < startCurveTime)
+            if (multiplierCurve.startCurve.keys.Count() > 0 && multiplierCurve.endCurve.keys.Count() > 0)
             {
-                float returnValue = Mathf.Lerp(1, value, multiplierCurve.startCurve.Evaluate(activeTime));
-                //Debug.LogFormat("Start curve value {0}, value {1}", returnValue, value);
-                return returnValue;
+                float startCurveTime = multiplierCurve.startCurve.keys.Last().time;
+                // When the hold time ends
+                float endCurveTime = startCurveTime + multiplierCurve.holdTime;
+                // When to remove the speed multiplier
+                float deleteCurveTime = endCurveTime + multiplierCurve.endCurve.keys.Last().time;
+    
+                if (activeTime < startCurveTime)
+                {
+                    float returnValue = Mathf.Lerp(1, value, multiplierCurve.startCurve.Evaluate(activeTime));
+                    //Debug.LogFormat("Start curve value {0}, value {1}", returnValue, value);
+                    return returnValue;
+                }
+                else if (activeTime < endCurveTime && activeTime > startCurveTime)
+                {
+                    return value;
+                }
+                else if (activeTime < deleteCurveTime && activeTime > endCurveTime)
+                {
+                    float returnValue = Mathf.Lerp(1, value, multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime)));
+                    //Debug.LogFormat("End curve value {0}, value {1}", returnValue, value);
+                    return returnValue;
+                }
+                else
+                    shouldDelete = true;
             }
-            else if (activeTime < endCurveTime && activeTime > startCurveTime)
-            {
-                return value;
-            }
-            else if (activeTime < deleteCurveTime && activeTime > endCurveTime)
-            {
-                float returnValue = Mathf.Lerp(1, value, multiplierCurve.endCurve.Evaluate(Mathf.Abs(endCurveTime - activeTime)));
-                //Debug.LogFormat("End curve value {0}, value {1}", returnValue, value);
-                return returnValue;
-            }
-            else
-                shouldDelete = true;
         }
         return value;
     }
