@@ -12,7 +12,7 @@ public class LevelStart : MonoBehaviour
     private int countdownImageIndex = 0;
     private List<PlayerController> players = new();
 
-    private Action<Sprite> UpdateCountDownImage;
+    public static Action<Sprite> UpdateCountDownImage;
 
 
     private void Start()
