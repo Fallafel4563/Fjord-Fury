@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
         playerObstacleCollisions.playerMovement = playerMovement;
         playerObstacleCollisions.trickComboSystem = trickComboSystem;
+        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
         curveSpeedOffset.splineCart = splineCart;
         curveSpeedOffset.playerMovement = playerMovement;
