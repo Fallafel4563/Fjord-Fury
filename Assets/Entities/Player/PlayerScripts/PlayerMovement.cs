@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     // State variables
     [HideInInspector] public bool isGrounded = true;
-    [HideInInspector] public bool crashing = false;
 
 
     private void Start()
@@ -32,12 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Update the current forward speed
-
-        float crashMult = 1f;
-        if (forwardSpeedMultiplier.GetForwardSpeedMultiplier("HitObstacle") != null)
-            crashMult = 0.5f;
-
-        currentForwardSpeed = overrideSpeed * forwardSpeedMultiplier.GetTotalMultiplierValue() * crashMult;
+        currentForwardSpeed = overrideSpeed * forwardSpeedMultiplier.GetTotalMultiplierValue();
 
         // Get the current steer speed based on the ground state of the boat
         steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;

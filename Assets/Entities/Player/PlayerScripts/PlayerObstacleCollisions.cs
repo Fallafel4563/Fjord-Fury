@@ -1,118 +1,72 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerObstacleCollisions : MonoBehaviour
 {
-    public float defaultSlowDownValue = 0.5f;
-    public float defaultUpwardsForce = 10f;
-    public float defaultKnockbackForce = 30f;
     public float invulnerableDuration = 3f;
-    public int maxCrashes = 3;
-    public float crashDuration = 3f;
-    public UnityEvent HitObstacle;
+    // TODO: Invulnerable shader
+    [HideInInspector] public bool invulnerable = false;
 
+    [HideInInspector] public bool ramBoostActive = false;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public TrickComboSystem trickComboSystem;
+    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
 
-    private bool invulnerable = false;
-    private float invulnerableTimer = 0f;
+    // TODO: Crash sound
+    // TODO: Ethereal sound
 
-    private int crashCounter = 0;
-    private float crashTimer = 0f;
-
+    public UnityEvent HitObstacle;
 
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        // End invulnerable after a short duration
-        if (invulnerable)
+        if (other.TryGetComponent(out Obstacle obstacle))
         {
-            invulnerableTimer -= Time.deltaTime;
-            if (invulnerableTimer <= 0f)
-                EndInvulnerable();
-        }
-
-        // Reset crash counter after a short duration
-        if (crashTimer >= 0f)
-        {
-            crashTimer -= Time.deltaTime;
-            if (crashTimer <= 0f)
+            if (!invulnerable && (!obstacle.causeHarm || obstacle.owner != transform))
             {
-                crashCounter = 0;
-                playerMovement.crashing = false;
+                Crash(obstacle);
             }
         }
     }
 
 
-
-    private void OnTriggerEnter(Collider other)
+    private void Crash(Obstacle obstacle)
     {
-        if (other.tag == "Obstacles" && invulnerable == false)
+        obstacle.OnPlayerCrashed();
+        if (ramBoostActive && obstacle.owner == null)
+            return;
+        
+        if (obstacle.bounceHeight > 0f)
         {
-            Crash(other);
+            playerMovement.DetachFromCart();
+            playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
         }
-    }
+
+        if (!obstacle.causeHarm)
+            return;
+
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("CrashBoost", obstacle.crashSpeedMultiplier, obstacle.crashSpeedMultiplierCurve);
+
+        if (trickComboSystem.performingTrick)
+            trickComboSystem.FailTrick();
 
 
-    private void Crash(Collider other)
-    {
-        JumpBoatBackwards(other);
-
-        crashCounter++;
-        if (crashCounter >= maxCrashes)
-            StartInvulnerable();
+        // TODO: Play crash sound
+        StartCoroutine(ActivateInvulnerable());
 
         HitObstacle.Invoke();
     }
 
 
-    private void JumpBoatBackwards(Collider other)
-    {
-        // Get knockback force
-        float knockbackFroce = defaultKnockbackForce;
-        float upwardsForce = defaultUpwardsForce;
-        if (other.TryGetComponent(out Obstacle obstacle))
-        {
-            upwardsForce = obstacle.upwardsForce;
-            knockbackFroce = obstacle.knockbackFroce;
-        }
-
-
-        if (playerMovement.isGrounded)
-            // Make the player airborne
-            playerMovement.DetachFromCart();
-
-        const float KNOCKBACK_OFFSET = 25f;
-        float trackLength = playerMovement.currentTrack.track.Spline.GetLength();
-        // Get the knockback direction
-        Vector3 behindSplinePos = playerMovement.currentTrack.track.EvaluatePosition((playerMovement.distanceWhenJumped - KNOCKBACK_OFFSET) / trackLength);
-        Vector3 knockbackDir = (behindSplinePos - transform.position).normalized;
-        playerMovement.airVelocity = knockbackDir * knockbackFroce;
-        // Apply an additional upwards force
-        playerMovement.airVelocity += playerMovement.transform.up * upwardsForce;
-        playerMovement.crashing = true;
-
-        // Fail trick when hitting an obstacle
-        if (trickComboSystem.performingTrick)
-            trickComboSystem.FailTrick();
-    }
-
-
-    private void StartInvulnerable()
+    private IEnumerator ActivateInvulnerable()
     {
         invulnerable = true;
-        invulnerableTimer = invulnerableDuration;
         // TODO: Enable invulnerable shader
-        Debug.Log("invulnerable == true");
-    }
 
+        yield return new WaitForSeconds(invulnerableDuration);
 
-    private void EndInvulnerable()
-    {
         invulnerable = false;
         // TODO: Disable invulnerable shader
-        Debug.Log("invulnerable == false");
-        crashCounter = 0;
     }
 }
