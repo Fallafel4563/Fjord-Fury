@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Internal References")]
-    [SerializeField] private CinemachineSplineCart splineCart;
+    public CinemachineSplineCart splineCart;
     public PlayerMovement playerMovement;
     public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
@@ -41,7 +41,11 @@ public class PlayerController : MonoBehaviour
         // Connect events to hud
         if (playerHud)
         {
-            trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+            trickComboSystem.UpdateBoostMeterVisibility += playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter += playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter += playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction += playerHud.boostMeter.OnResetTrickReaction;
+
             playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
         }
@@ -52,7 +56,11 @@ public class PlayerController : MonoBehaviour
         // Disconnect events from hud
         if (playerHud)
         {
-            trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
+            trickComboSystem.UpdateBoostMeterVisibility -= playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter -= playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter -= playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction -= playerHud.boostMeter.OnResetTrickReaction;
+
             playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
         }
@@ -113,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
 #region Input
     [Header("Input")]
+    [HideInInspector] public bool inputEnabled = true;
     private float forwardInput;
     private float steerInput;
     private bool jumpInput;
@@ -122,6 +131,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnForward(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         // Get input
         forwardInput = inputValue.Get<float>();
         // Send input data to boat movement
@@ -131,6 +143,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnSteer(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         // Get input data
         steerInput = inputValue.Get<float>();
         // Send input data to boat movement
@@ -141,6 +156,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         jumpInput = inputValue.Get<float>() > 0.5f;
         playerMovement.jumpInput = jumpInput;
         if (jumpInput == true)
@@ -152,6 +170,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrift(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         driftInput = inputValue.Get<float>() > 0.5f;
         playerMovement.driftInput = driftInput;
     }
@@ -159,19 +180,29 @@ public class PlayerController : MonoBehaviour
 
     public void OnShortTrick()
     {
-        //
+        if (!inputEnabled)
+            return;
+        
+        trickComboSystem.ActivateTrick(1);
     }
 
 
     public void OnMediumTrick()
     {
-        trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
+        if (!inputEnabled)
+            return;
+        
+        trickComboSystem.ActivateTrick(2);
     }
 
 
     public void OnLongTrick()
     {
-        //
+        if (!inputEnabled)
+            return;
+        
+        trickComboSystem.ActivateTrick(3);
     }
+
 #endregion
 }

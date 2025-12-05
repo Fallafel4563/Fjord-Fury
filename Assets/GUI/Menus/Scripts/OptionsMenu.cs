@@ -5,16 +5,14 @@ using System.Collections.Generic;
 
 public class SettingsMenu : MonoBehaviour
 {
-    //HOW TO ADD IT BOTH MENU AND PAUSE MENU?
-
     #region Properties
 
-    [SerializeField] GameObject tabSelection;
+    [SerializeField] GameObject optionsMenu;
+    [SerializeField] GameObject startMenu;
     [SerializeField] GameObject controlsTab;
-    [SerializeField] GameObject displayTab;
-    [SerializeField] GameObject accessibilityTab;
+    [SerializeField] GameObject displayTab;        
     [SerializeField] GameObject audioTab;
-    [SerializeField] GameObject settings;
+    [SerializeField] GameObject accessibilityTab;
 
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown; 
@@ -23,8 +21,15 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //LOAD PLAYER PREFS
-    #region PLayerPrefs
+
+    public void OnExitOptionsButton()
+    {
+        optionsMenu.SetActive(false);
+        startMenu.SetActive(true);
+    }
+
+
+    #region PLayerPrefs     
 
     void Start()
     {
@@ -82,68 +87,31 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //SELECT WHICH SETTINGS YOU WANT TO CHANGE
-    #region  TabSelectionButtons
 
-    //Open controls tab
-    //Closes tab tab selection
-    public void OnControlsButton()
-    {
-        tabSelection.SetActive(false);
-        controlsTab.SetActive(true);
-    }
+    #region Display
 
-    //Open display tab
-    //Closes tab selection
-    public void OnDisplayButton()
-    {
-        tabSelection.SetActive(false);
-        displayTab.SetActive(true);
-    }
+    #region DisplayTabs
 
-    //Open Accesibility tab
-    //Closes tab selection
-    public void OnAccessibilityButton()
+    public void ToAudioFromDisplay()
     {
-        tabSelection.SetActive(false);
-        accessibilityTab.SetActive(true);
-    }
-
-    //Open audio tab
-    //Closes tab selection
-    public void OnAudioButton()
-    {
-        tabSelection.SetActive(false);
+        displayTab.SetActive(false);
         audioTab.SetActive(true);
     }
 
-    //Close settings
-    public void OnCloseSettingsButton()
-    {
-        settings.SetActive(false);
-    }
-
-    #endregion
-
-    //CONTROLS TAB
-    #region Controls    
-
-    public void OnCloseControls()
-    {
-        controlsTab.SetActive(false);
-    }
-
-    #endregion
-
-    //DISPLAY TAB
-    #region Display
-
-    public void OnCloseDisplay()
+    public void ToControlsFromDisplay()
     {
         displayTab.SetActive(false);
-        tabSelection.SetActive(true);
+        controlsTab.SetActive(true);
     }
-   
+
+    public void ToAccessibilityFromDisplay()
+    {
+        displayTab.SetActive(false);
+        accessibilityTab.SetActive(true);
+    }
+
+    #endregion
+
     #region Display; Fullscreen toggle
 
 //    public void SetFullscreen (bool isFullscreen)
@@ -164,9 +132,10 @@ public class SettingsMenu : MonoBehaviour
 
     #region  Display; Set graphics quality
 
-    //to change quality go to edit > project settings > quality
-    //for now there low, medium and high quality
-    //The quality settings there are not defined yet
+//to change quality go to edit > project settings > quality
+//for now there low, medium and high quality
+//The quality settings there are not defined yet
+
 //    public void SetQuality (int qualityIndex)
 //    {
 //        QualitySettings.SetQualityLevel(qualityIndex);
@@ -222,18 +191,109 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //ACCESSIBILITY TAB
+    //DOES THIS WORK WITH FMOD??
+    //IT DOES NOT
+    //AUDIO TAB
+    #region Audio
+
+    #region Audio tabs
+
+    public void fromAudioToDisplay()
+    {
+        audioTab.SetActive(false);
+        displayTab.SetActive(true);
+
+    }
+
+    public void fromAudioToControls()
+    {
+        audioTab.SetActive(false);
+        controlsTab.SetActive(true);
+    }
+
+    public void fromAudioToAccessibility()
+    {
+        audioTab.SetActive(false);
+        accessibilityTab.SetActive(true);
+    }
+
+    #endregion
+
+    #region Master volume
+    //Master volume
+    //public void SetVolume(float volume)
+    //{
+    //    audioMixer.SetFloat("volume", volume);
+    //}
+
+    //Music volume
+
+    //SFX volume
+
+    //Dialouge volume
+
+    #endregion
+
+    #region Music volume
+
+    #endregion
+
+    #region SFX volume
+
+    #endregion
+
+    #endregion
+
+
+    #region Controls
+    
+    public void fromControlsToDisplay()
+    {
+        controlsTab.SetActive(false);
+        displayTab.SetActive(true);
+
+    }
+
+    public void fromControlsToAudio()
+    {
+        controlsTab.SetActive(false);
+        audioTab.SetActive(true);
+    }
+
+    public void fromControlsToAccessibility()
+    {
+        controlsTab.SetActive(false);
+        accessibilityTab.SetActive(true);
+    }
+
+    #endregion
+
+
     #region  Accessibility
 
-        public void OnCloseAccessibility()
-        {
-            accessibilityTab.SetActive(false);
-            tabSelection.SetActive(true);
-        }
+    #region Accessibility tabs
 
-    //Subtitles??
+    public void fromAccessibilityToDisplay()
+    {
+        accessibilityTab.SetActive(false);
+        displayTab.SetActive(true);
 
-    //TBA
+    }
+
+    public void fromAccessibilityToAudio()
+    {
+        accessibilityTab.SetActive(false);
+        audioTab.SetActive(true);
+    }
+
+    public void fromAccessibilityToControls()
+    {
+        accessibilityTab.SetActive(false);
+        controlsTab.SetActive(true);
+    }
+
+    #endregion
+
     #region Screen shake
 
     public void OnShakeToggleButton()
@@ -243,39 +303,14 @@ public class SettingsMenu : MonoBehaviour
 
     #endregion
 
-    //TBA
-    #region Text size
+    #region Motion blur
 
-    public void OnTextSizeButton()
+    public void OnMotionBlurToggleButton()
     {
 
     }
 
     #endregion
-
-    #endregion
-
-    //DOES THIS WORK WITH FMOD??
-    //IT DOES NOT
-    //AUDIO TAB
-    #region Audio
-
-    public void OnCloseAudio()
-    {
-        audioTab.SetActive(false);
-        tabSelection.SetActive(true);
-    }
-    //Master volume
-    public void SetVolume(float volume)
-    {
-        audioMixer.SetFloat("volume", volume);
-    }
-
-    //Music volume
-
-    //SFX volume
-
-    //Dialouge volume
 
     #endregion
 
