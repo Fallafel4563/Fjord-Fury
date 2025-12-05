@@ -9,15 +9,22 @@ public class PlayerController : MonoBehaviour
     [Header("External References")]
     public SplineTrack mainTrack;
 
+    [HideInInspector] public PlayerHud playerHud;
+
 
     [Header("Internal References")]
     [SerializeField] private CinemachineSplineCart splineCart;
     public PlayerMovement playerMovement;
-    [SerializeField] private PlayerCamera playerCamera;
+    public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
     [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
+    [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
+    [SerializeField] private CurveSpeedOffset curveSpeedOffset;
+    [SerializeField] private GameObject skins;
 
+    [HideInInspector] public int selectedCharacter = 0;
 
     private PlayerInput playerInput;
 
@@ -29,17 +36,49 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Set references on children
+    private void OnEnable()
+    {
+        // Connect events to hud
+        if (playerHud)
+        {
+            trickComboSystem.UpdateBoostMeterVisibility += playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter += playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter += playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction += playerHud.boostMeter.OnResetTrickReaction;
+
+            playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
+            playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
+        }
+    }
+
+    private void OnDisable()
+    {
+        // Disconnect events from hud
+        if (playerHud)
+        {
+            trickComboSystem.UpdateBoostMeterVisibility -= playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter -= playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter -= playerHud.boostMeter.OnResetBoostMeter;
+            trickComboSystem.ResetTrickReaction -= playerHud.boostMeter.OnResetTrickReaction;
+
+            playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
+            playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
+        }
+    }
+
+
+    // Set references on different systems
     private void Start()
     {
         splineCart.Spline = mainTrack.track;
 
         playerMovement.splineCart = splineCart;
         playerMovement.mainTrack = mainTrack;
+        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
-        playerCamera.trackingTarget = playerMovement.transform;
         playerCamera.playerMovement = playerMovement;
-        playerCamera.forwardSpeedMultiplier = trickComboSystem.forwardSpeedMultiplier;
+        playerCamera.trackingTarget = playerMovement.transform;
+        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
 
         playerRespawn.splineCart = splineCart;
@@ -47,19 +86,45 @@ public class PlayerController : MonoBehaviour
         playerRespawn.playerCamera = playerCamera;
 
         boatMovementAnims.playerMovement = playerMovement;
+        boatMovementAnims.trickComboSystem = trickComboSystem;
 
         trickComboSystem.playerMovement = playerMovement;
+        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
+        trickComboSystem.boatMovementAnims = boatMovementAnims;
+
+        playerObstacleCollisions.playerMovement = playerMovement;
+        playerObstacleCollisions.trickComboSystem = trickComboSystem;
+
+        curveSpeedOffset.splineCart = splineCart;
+        curveSpeedOffset.playerMovement = playerMovement;
+        curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
+
+        playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
+
+        SetActiveSkin();
+    }
+
+
+    private void SetActiveSkin()
+    {
+        // Hide all skins
+        for (int i = 0; i < skins.transform.childCount; i++)
+        {
+            skins.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        // Enable the selected character skin
+        skins.transform.GetChild(selectedCharacter).gameObject.SetActive(true);
     }
 
 
 
 #region Input
     [Header("Input")]
-    [SerializeField] private float dashDoubleTapTiming = 0.2f;
-
     private float forwardInput;
     private float steerInput;
     private bool jumpInput;
+    private bool driftInput;
 
 
 
@@ -93,21 +158,28 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnTrick()
+    private void OnDrift(InputValue inputValue)
     {
-        trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
+        driftInput = inputValue.Get<float>() > 0.5f;
+        playerMovement.driftInput = driftInput;
     }
 
 
-    public void OnLeftDash()
+    public void OnShortTrick()
     {
-        playerMovement.DashLeft();
+        trickComboSystem.ActivateTrick(1);
     }
 
 
-    public void OnRightDash()
+    public void OnMediumTrick()
     {
-        playerMovement.DashRight();
+        trickComboSystem.ActivateTrick(2);
+    }
+
+
+    public void OnLongTrick()
+    {
+        trickComboSystem.ActivateTrick(3);
     }
 
 #endregion

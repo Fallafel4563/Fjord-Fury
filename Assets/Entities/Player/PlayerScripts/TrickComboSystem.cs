@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.Utilities;
 
 public class TrickComboSystem : MonoBehaviour
 {
@@ -10,47 +12,33 @@ public class TrickComboSystem : MonoBehaviour
     [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
     [HideInInspector] public BoatMovementAnims boatMovementAnims;
 
+
+    [HideInInspector] public bool performingTrick = false;
     [HideInInspector] public int combo = 0;
     [HideInInspector] public int trickScore = 0;
-    [HideInInspector] public bool performingTrick = false;
-
-    private int currentScore = 0;
-
-
-    public SpeedMultiplierCurve comboMultiplierCurve;
-    [HideInInspector] public float inputBuffer = 0f;
-    [HideInInspector] public float inputBufferDefault = 0.2f;
-
-
-    [HideInInspector] public float boostTime = 0f;
-    [HideInInspector] public float speedValue = 0f;
-
-
-    public List<string> trickList = new();
     [HideInInspector] public int trickIndex = 0;
-    [HideInInspector] public string trickName = "";
-    [HideInInspector] public Dictionary<string, int> tableOfTricks = new();
+    [HideInInspector] public int firstTrickIndex = 0;
+    [HideInInspector] public int barIndex = 0;
 
-    private string[] numberList = new string[] {"", "Double", "Trollple", "Quadtrollple", "Quintrollple", "Sextrollple", "Trolltastic", "Trolltacular"};
+    [HideInInspector] public float speedValue = 0f;
+    private int shortBoost = 0;
+    private int mediumBoost = 0;
+    private int longBoost = 0;
+
+    public float inputBufferDuration = 0.2f;
+    public SpeedMultiplierCurve ImmediateComboBoostCurve;
+    [HideInInspector] public float inputBuffer = 0f;
+
+    public Action<bool> UpdateBoostMeterVisibility;
+    public Action<int, int, int> UpdateBoostMeter;
+    public Action ResetBoostMeter;
+    public Action ResetTrickReaction;
 
 
-    private List<string> tricks = new();
-
-    public UnityEvent FailedTrick;
-    public UnityEvent SucceededTrick;
-
-    private float tmp_trickDuration = 0.5f;
-    private float tmp_trickTime = 0f;
-
-
-
-    private void Awake()
+    private void Start()
     {
-        forwardSpeedMultiplier = GetComponent<ForwardSpeedMultiplier>();
-
-        boatMovementAnims = GetComponentInChildren<BoatMovementAnims>();
+        UpdateBoostMeterVisibility?.Invoke(false);
     }
-
 
 
     private void Update()
@@ -61,168 +49,230 @@ public class TrickComboSystem : MonoBehaviour
             inputBuffer -= Time.deltaTime;
         }
 
-        // Start trick when pressing 
+        // Start trick
         if (inputBuffer > 0f && !performingTrick && !playerMovement.isGrounded)
         {
-            StartTrick(false);
+            StartTrick();
         }
 
-        if (tmp_trickTime > 0)
-        {
-            tmp_trickTime -= Time.deltaTime;
-            if (tmp_trickTime <= 0)
-            {
-                OnTrickAnimationFinished();
-            }
-        }
 
-        // Get the long tricks name
-        trickName = GetTrickName();
+        //if (boostValue > 0 && playerMovement.isGrounded)
+        //{
+        //    boostValue -= Time.deltaTime;
+        //    if (boostValue <= 0f)
+        //        EndComboBoost();
+        //}
     }
 
 
-    private void StartTrick(bool dashTrick)
+
+    public void ActivateTrick(int trick)
     {
-        inputBuffer = 0f;
+        trickIndex = trick;
+        inputBuffer = inputBufferDuration;
+    }
+
+
+    private void StartTrick()
+    {
         performingTrick = true;
+        // TODO: Send trick sound to FMOD
+        boatMovementAnims.TrickAnim();
+
+        //performingTrick = true;
+        //combo++;
+
+        //// TODO: Set boost meters high value to bost time (UI)
+        //// TODO: Set boost meters value to boost time (UI)
+        //boostValue = boostDuration;
+
+        //// TODO: Player trick sound
+
+        //string currentTrickName;
+        //if (dashTrick)
+        //{
+        //    // TODO: Trigger "Left/Right Dodge trick" animator event
+        //    trickScore += 20;
+
+        //    currentTrickName = "Dodge";
+        //}
+        //else
+        //{
+        //    trickScore += 10;
+
+        //    trickIndex = UnityEngine.Random.Range(0, trickList.Count);
+        //    currentTrickName = trickList[trickIndex];
+        //    boatMovementAnims.TrickAnim();
+        //}
+
+        //if (tableOfTricks.ContainsKey(currentTrickName))
+        //    tableOfTricks[currentTrickName] += 1;
+        //else
+        //    tableOfTricks.Add(currentTrickName, 0);
+
+        //// Get the long tricks name
+        //trickName = GetTrickName();
+
+        //// DONE: Update score text to show trickScore + "x" + combo
+        //TrickScoreUpdated?.Invoke(string.Format("{0} x {1}", trickScore, combo));
+        //Debug.LogFormat("Speed value {0}, Speed mult {1}", speedValue, forwardSpeedMultiplier.GetTotalMultiplierValue());
+    }
+
+
+    public void OnTrickCompleted()
+    {
+        Debug.LogFormat("First {0}, Combo {1}", firstTrickIndex, combo);
+        if (combo == 0 || firstTrickIndex == 0)
+        {
+            UpdateBoostMeterVisibility.Invoke(true);
+            firstTrickIndex = trickIndex;
+        }
+
         combo++;
 
-        string newTrickName = "";
-        // Dash trick
-        if (dashTrick)
-        {
-            trickScore = 20;
-            newTrickName = "Dodge";
-        }
-        else // Regular trick
-        {
-            trickScore = 10;
-            // Get random trick from trick list
-            trickIndex = Random.Range(0, trickList.Count);
-            newTrickName = trickList[trickIndex];
-            boatMovementAnims.TrickAnim();
-        }
-        
+        trickScore += 10 * trickIndex;
 
-        if (tableOfTricks.ContainsKey(newTrickName))
+        performingTrick = false;
+
+        switch (trickIndex)
         {
-            tableOfTricks[newTrickName] += 1;
+            case 1:
+                shortBoost++;
+                break;
+            case 2:
+                mediumBoost++;
+                break;
+            case 3:
+                longBoost++;
+                break;
+        }
+
+        barIndex++;
+        if (barIndex >= 3)
+            barIndex = 0;
+
+        if (combo == 3)
+        {
+            // TODO: Send ability ready sound to FMOD
         }
         else
         {
-            tableOfTricks.Add(newTrickName, 0);
+            // TODO: Send Add charge sound to FMOD
         }
 
-        // Play trick animation
-        //animator.SetInteger("Trick Index", trickIndex);
-        //animator.SetTrigger("Regular Trick");
-
-        //
-        tmp_trickTime = tmp_trickDuration;
+        Debug.LogFormat("First {0}, Combo {1}, Bar {2}", firstTrickIndex, combo, barIndex);
+        UpdateBoostMeter?.Invoke(firstTrickIndex, combo, barIndex);
     }
 
 
-    private void FailTrick()
+    public void FailTrick()
     {
-        combo = 0;
-        currentScore = 0;
-        boostTime = 0f;
-        performingTrick = false;
-        //TODO: Set trick text to "
-        tableOfTricks.Clear();
-        //TODO: Play failed trick sound
-        //TODO: Set boost meter value to 0
-        //TODO: Stop playing boost sound
-        //animator.SetTrigger("Failed Trick");
-        FailedTrick.Invoke();
+        EndComboBoost();
+        // TODO: Trigger failed trick sound
+        // TODO: Set animator trigget for failing trick
     }
 
 
     private void SucceedTrick()
     {
-        currentScore = combo * trickScore;
-        //TODO: Send score to ScoreSystem
+        speedValue += trickScore * combo / 300f;
 
-        boostTime += currentScore / 100f;
-        //TODO: Set boost meter's high value to boost time
-        //TODO: Set boost meter's value to boost time
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + speedValue, ImmediateComboBoostCurve);
 
-        speedValue += currentScore / 100f;
-
-        currentScore = 0;
-        combo = 0;
-        tableOfTricks.Clear();
-
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ComboBoost", speedValue, comboMultiplierCurve);
-
-        // While boosting
-        //TODO: Play boost sound
-        //TODO: Increase fov
-        //TODO: Set boost meter's value to boost time
-        //TODO: Spawn particles
-        SucceededTrick.Invoke();
-    }
-
-
-
-    // Get the long text that will be displayed on the boost bar
-    private string GetTrickName()
-    {
-        string tricksName = "";
-        for (int i = 0; i < tableOfTricks.Count; i++)
+        if (combo >= 3)
         {
-            var item = tableOfTricks.ElementAt(i);
-            string key = item.Key;
-            int value = item.Value;
-
-            string number = numberList[value];
-            tricksName += number + " " + key + ",";
+            // TODO: Send ability activation to FMOD
+            // TODO: Send ability success to ability system
+                // First Trick index
+                // Short boost
+                // Medium boost
+                // Long boost
         }
-        return tricksName;
+        else if (combo < 3)
+        {
+            // TODO: Send ability failed to active to FMOD
+            // TODO: Send fail ability to ability system
+                // First trick index
+        }
+
+        UpdateBoostMeterVisibility?.Invoke(false);
+
+        ResetSystemValues();
+
+        // TODO: Something about ImmediateComboBoost.GetLength()
+
+        // TODO: Start playing the boost sound
+        // TODO: Add camera shake when boosting
+        // TODO: Show boost particles
     }
 
 
-
-    public void OnDashed()
+    private void EndComboBoost()
     {
-        if (!playerMovement.isGrounded)
-            StartTrick(true);
-    }
-
-
-    public void OnTrickAnimationFinished()
-    {
+        UpdateBoostMeterVisibility?.Invoke(false);
+        speedValue = 0f;
+        combo = 0;
+        trickScore = 0;
         performingTrick = false;
-        Debug.Log(trickName);
+
+        ResetTrickReaction?.Invoke();
+
+        ResetSystemValues();
+
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f, ImmediateComboBoostCurve);
+
+        // TODO: Stop playing sound
     }
 
+
+    private void ResetSystemValues()
+    {
+        shortBoost = 0;
+        mediumBoost = 0;
+        longBoost = 0;
+        combo = 0;
+        trickIndex = 0;
+        barIndex = 0;
+
+        ResetBoostMeter?.Invoke();
+    }
 
 
     public void OnLanded()
     {
+        // Fail trick when landing while performing a trick
         if (performingTrick)
-        {
             FailTrick();
-        }
         else if (combo > 0)
-        {
             SucceedTrick();
-        }
-
-        // Reset stuff
-        tricks.Clear();
     }
 
 
-    public void OnJumped()
+    public void OnHitObstacle()
     {
-        //
+        FailTrick();
     }
 
 
     public void OnRespawnStarted()
     {
-        // Fail trick when respawning
         FailTrick();
     }
+
+
+    // Get the long text that will be displayed on the boost bar
+    //private string GetTrickName()
+    //{
+    //    string tricksName = "";
+    //    for (int i = 0; i < tableOfTricks.Count; i++)
+    //    {
+    //        var item = tableOfTricks.ElementAt(i);
+    //        string key = item.Key;
+    //        int value = item.Value;
+    //
+    //        string number = numberList[value];
+    //        tricksName += number + " " + key + ",";
+    //    }
+    //    return tricksName;
+    //}
 }
