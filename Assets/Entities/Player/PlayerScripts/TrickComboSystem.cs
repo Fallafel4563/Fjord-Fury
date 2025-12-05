@@ -36,6 +36,12 @@ public class TrickComboSystem : MonoBehaviour
     public Action ResetTrickReaction;
 
 
+    private void Start()
+    {
+        UpdateBoostMeterVisibility?.Invoke(false);
+    }
+
+
     private void Update()
     {
         // Reduce inputBuffer time
