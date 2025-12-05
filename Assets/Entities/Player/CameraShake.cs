@@ -21,8 +21,8 @@ public class CameraShake : MonoBehaviour
         
     }
 
-    public void PlayCameraShake;
+    public void CameraShakeEnable()
     {
-
+        
     }
 }
