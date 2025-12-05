@@ -273,6 +273,8 @@ public class PlayerMovement : MonoBehaviour
     private void GroundResetStuff()
     {
         airVelocity = Vector3.zero;
+        canGroundPound = true;
+        startedGroundPound = false;
         ResetJumping();
     }
 
@@ -309,21 +311,29 @@ public class PlayerMovement : MonoBehaviour
 
         // Get gravity
         float gravity = fallSpeed + quickfallSpeed;
+        // Add groundpound fall speed when starting ground pound
+        if (startedGroundPound)
+            gravity += groundPoundFallSpeed;
         // Slow down fallspeed when starting glide
-        if (isGliding)
+        else if (isGliding)
             gravity = fallSpeed;
-        
         
         // Stop glding when releasing the jump button
         if (isGliding && !jumpInput)
+        {
             isGliding = false;
+            GlideStopped.Invoke();
+        }
 
         // Stop glide after a short duration
         if (!canGlide)
         {
             glideTimer -= Time.deltaTime;
             if (glideTimer <= 0f)
+            {
                 isGliding = false;
+                GlideStopped.Invoke();
+            }
         }
 
         // Apply gravity
@@ -348,6 +358,8 @@ public class PlayerMovement : MonoBehaviour
     public float gildeStopUpwardsVelMult = 0.5f;
     public float maxGlideDuration = 2f;
     public UnityEvent Jumped;
+    public UnityEvent GlideStarted;
+    public UnityEvent GlideStopped;
 
     [HideInInspector] public bool isGliding = false;
     [HideInInspector] public bool canGlide = true;
@@ -376,7 +388,7 @@ public class PlayerMovement : MonoBehaviour
             // Invoke events
             Jumped.Invoke();
         }
-        else if (canGlide) // Start glide if in the air
+        else if (canGlide && !startedGroundPound) // Start glide if in the air
         {
             canGlide = false;
             isGliding = true;
@@ -386,14 +398,17 @@ public class PlayerMovement : MonoBehaviour
             // NOTE: It's not jumping when this happens, it might look like it does, but that is just the camera catching up to the boat
             float upwardsForce = Vector3.Dot(transform.up, airVelocity);
             airVelocity -= transform.up * upwardsForce * gildeStopUpwardsVelMult;
+            GlideStarted.Invoke();
         }
     }
 
 
     private void ResetJumping()
     {
-        canGlide = true;
+        if (isGliding)
+            GlideStopped.Invoke();
         isGliding = false;
+        canGlide = true;
         timeSinceJump = 0f;
     }
 
@@ -486,5 +501,35 @@ public class PlayerMovement : MonoBehaviour
 
         AttachToTrack(currentTrack.isCircle);
     }
+    #endregion
+
+
+    #region Drift
+    [Header("Drift")]
+    public float groundPoundFallSpeed = 50f;
+    [HideInInspector] public bool canGroundPound = true;
+    [HideInInspector] public bool startedGroundPound = false;
+    public UnityEvent GroundpoundStarted;
+
+    public void StartDrift()
+    {
+        if (isGrounded)
+        {
+            // Drift
+        }
+        else if (canGroundPound)
+        {
+            canGroundPound = false;
+            startedGroundPound = true;
+            if (isGliding)
+            {
+                isGliding = false;
+                GlideStopped.Invoke();
+            }
+            GroundpoundStarted.Invoke();
+        }
+    }
+
+
 #endregion
 }
