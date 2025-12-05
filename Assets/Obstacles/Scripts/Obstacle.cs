@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public bool causeHarm = false;
+    public bool causeHarm = true;
     public bool destructOnCrash = false;
     public float bounceHeight = 0f;
     public float crashSpeedMultiplier = 0.5f;
