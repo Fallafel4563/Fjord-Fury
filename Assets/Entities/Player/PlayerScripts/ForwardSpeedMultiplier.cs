@@ -31,7 +31,6 @@ public class ForwardSpeedMultiplier : MonoBehaviour
     {
         if (forwardSpeedMultipliers.ContainsKey(name))
         {
-            Debug.LogFormat("{0} Speed mult is {1}", name, GetForwardSpeedMultiplier(name).value);
             if (multiplierCurve != null)
             {
                 if (multiplierCurve.startCurve.keys.Count() > 0)
