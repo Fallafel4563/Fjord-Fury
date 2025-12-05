@@ -12,6 +12,13 @@ public class Ability : MonoBehaviour
 
     [SerializeField] float _speed;
 
+    [SerializeField] float _temporarryDurationVariable;
+
+    void Start()
+    {
+        Destroy(gameObject, _temporarryDurationVariable);
+    }
+
     public void ConfigurateMyself(float position, float XPosition)
     {
         //_spline = GetComponent<CinemachineSplineCart>();
