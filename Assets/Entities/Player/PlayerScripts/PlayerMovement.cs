@@ -6,19 +6,18 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform circleRotParent;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+
     // Input variables
     [HideInInspector] public bool jumpInput;
+    [HideInInspector] public bool driftInput;
     [HideInInspector] public float forwardInput;
     [HideInInspector] public float steerInput;
     [HideInInspector] public bool dontChangeMainTrack = false;
 
     // State variables
     [HideInInspector] public bool isGrounded = true;
-    [HideInInspector] public bool isJumping = false;
-    [HideInInspector] public bool isDashing = false;
-
-    public Transform circleRotParent;
-
 
 
     private void Start()
@@ -31,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Update the current forward speed
+        currentForwardSpeed = overrideSpeed * forwardSpeedMultiplier.GetTotalMultiplierValue();
+
         // Get the current steer speed based on the ground state of the boat
         steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
@@ -58,10 +60,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("General")]
     public float baseForwardSpeed = 40f;
 
+    [HideInInspector] public bool clampXAxis = true;
     [HideInInspector] public bool wasLastTrackRail = false;
     [HideInInspector] public float currentForwardSpeed = 40f;
     [HideInInspector] public float overrideSpeed = 40f;
     [HideInInspector] public float steerSpeed;
+    [HideInInspector] public Vector3 HorizontalVelocity;
     [HideInInspector]public CinemachineSplineCart splineCart;
     [HideInInspector] public SplineTrack mainTrack;
     [HideInInspector] public SplineTrack currentTrack;
@@ -70,13 +74,8 @@ public class PlayerMovement : MonoBehaviour
     // Seering that is applied when not on a circle track
     private void NonCicleSteering()
     {
-        // Apply steering
-        if (isDashing)
-            // Apply dashing steering if dashing
-            transform.position += transform.right * dashDirection * dashForce * dashTime * Time.deltaTime;
-        else
-            // Apply normal steering if not dashing
-            transform.position += transform.right * steerInput * steerSpeed * Time.deltaTime;
+        HorizontalVelocity = transform.right * steerInput * steerSpeed * Time.deltaTime;
+        transform.position += HorizontalVelocity;
     }
 
 
@@ -100,23 +99,25 @@ public class PlayerMovement : MonoBehaviour
 
     public void DetachFromCart()
     {
+        if (isGrounded)
+            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping (But only when grounded)
+            airVelocity = transform.forward * currentForwardSpeed;
+
         // Reset stuff
-        isDashing = false;
         isGrounded = false;
         timeSinceJump = 0f;
 
-        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
-        airVelocity = transform.forward * currentForwardSpeed;
 
         // Save position and distance when the boat jumped
         positionWhenJumped = transform.position;
         distanceWhenJumped = splineCart.SplinePosition;
         // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
         // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
-        // FIX: I have tested it and it seems to get the right rotation when jumping off a cricle track when upside down or sideways,
-        // FIX: but it doesn't get the right rotation when jumping off a slope on a raod track or when jumping off from the top of a circle track
-        desiredAirRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
-        
+        // CREDITS: Steego - https://discussions.unity.com/t/align-up-direction-with-normal-while-retaining-look-direction/852614/3
+        bool areParallel = Mathf.Approximately(Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up)), 1f);
+        Vector3 newForward = areParallel ? Vector3.up : Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        desiredAirRotation = Quaternion.LookRotation(newForward, Vector3.up);
+
         // Stop the splineCart
         splineCart.AutomaticDolly.Enabled = false;
 
@@ -141,13 +142,17 @@ public class PlayerMovement : MonoBehaviour
             // Set the new positoin of the cart
             splineCart.SplinePosition = distanceInfo.distance;
         }
+        else
+        {
+            lastMainTrackDistance = distanceWhenJumped;
+        }
     }
 
 
-    public void SetOverrideSpeed(float newOverRideSpeed)
+    public void SetOverrideSpeed(float newOverrideSpeed)
     {
-        if (newOverRideSpeed > 0f)
-            overrideSpeed = newOverRideSpeed;
+        if (newOverrideSpeed > 0f)
+            overrideSpeed = newOverrideSpeed;
         else
             overrideSpeed = baseForwardSpeed;
     }
@@ -262,9 +267,9 @@ public class PlayerMovement : MonoBehaviour
     private void GroundResetStuff()
     {
         airVelocity = Vector3.zero;
+        canGroundPound = true;
+        startedGroundPound = false;
         ResetJumping();
-        // Only reset dashing when grounded
-        DashCooldown();
     }
 
 
@@ -277,6 +282,8 @@ public class PlayerMovement : MonoBehaviour
     public float airSteerSpeed = 10f;
     public float fallSpeed = 50f;
     public float quickfallSpeed = 75f;
+    // How it should rotate when steering in the air
+    public float airSteerRotSpeed = 0.5f;
 
     [HideInInspector] public Vector3 airVelocity = Vector3.zero;
 
@@ -297,20 +304,41 @@ public class PlayerMovement : MonoBehaviour
             airVelocity += transform.forward * currentForwardSpeed * Time.deltaTime;
 
         // Get gravity
-        float gravity = fallSpeed;
-        // Add quickfall speed if the player is no longer holding the jump key
-        if (!jumpInput && !isJumping)
+        float gravity = fallSpeed + quickfallSpeed;
+        // Add groundpound fall speed when starting ground pound
+        if (startedGroundPound)
+            gravity += groundPoundFallSpeed;
+        // Slow down fallspeed when starting glide
+        else if (isGliding)
+            gravity = fallSpeed;
+        
+        // Stop glding when releasing the jump button
+        if (isGliding && !jumpInput)
         {
-            isJumping = false;
-            gravity = fallSpeed + quickfallSpeed;
+            isGliding = false;
+            GlideStopped.Invoke();
         }
+
+        // Stop glide after a short duration
+        if (!canGlide)
+        {
+            glideTimer -= Time.deltaTime;
+            if (glideTimer <= 0f)
+            {
+                isGliding = false;
+                GlideStopped.Invoke();
+            }
+        }
+
         // Apply gravity
         airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
 
         // Apply air velocity
         transform.position += airVelocity * Time.deltaTime;
 
-        // Lerpt the rotation that was set when jumping (also when falling off the track)
+        // Rotate boat when steering
+        desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed * Time.deltaTime, transform.up);
+        // Lerp the rotation that was set when jumping (also when falling off the track)
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }
 
@@ -320,29 +348,33 @@ public class PlayerMovement : MonoBehaviour
 
 #region Jumping
     [Header("Jumping")]
-    public int maxJumps = 1;
     public float jumpPower = 15f;
+    public float gildeStopUpwardsVelMult = 0.5f;
+    public float maxGlideDuration = 2f;
     public UnityEvent Jumped;
+    public UnityEvent GlideStarted;
+    public UnityEvent GlideStopped;
 
+    [HideInInspector] public bool isGliding = false;
+    [HideInInspector] public bool canGlide = true;
+    [HideInInspector] public float glideTimer = 0f;
     [HideInInspector] public float timeSinceJump;
     [HideInInspector] public float distanceWhenJumped;
+    [HideInInspector] public float lastMainTrackDistance;
     [HideInInspector] Vector3 positionWhenJumped;
 
-    private int jumpsLeft;
-
-    // Invoke events
-    
 
     public void Jump()
     {
-        if (jumpsLeft > 0)
+        if (isGrounded)
         {
             // Detach the boat form the spline cart
             DetachFromCart();
 
-            // Reduce how many jumps the boat has left
-            jumpsLeft--;
-
+            // Stop all upwards velocity
+            float upwardsVel = Vector3.Dot(airVelocity, transform.up);
+            airVelocity -= transform.up * upwardsVel;
+            // Set the upwards air velocity to be the equal to jump power
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity += transform.up * jumpPower;
 
@@ -350,14 +382,28 @@ public class PlayerMovement : MonoBehaviour
             // Invoke events
             Jumped.Invoke();
         }
+        else if (canGlide && !startedGroundPound) // Start glide if in the air
+        {
+            canGlide = false;
+            isGliding = true;
+            glideTimer = maxGlideDuration;
+
+            // Slowdown the upwards velcocity and reduce falling velocity when starting the gilde
+            // NOTE: It's not jumping when this happens, it might look like it does, but that is just the camera catching up to the boat
+            float upwardsForce = Vector3.Dot(transform.up, airVelocity);
+            airVelocity -= transform.up * upwardsForce * gildeStopUpwardsVelMult;
+            GlideStarted.Invoke();
+        }
     }
 
-    
+
     private void ResetJumping()
     {
-        isJumping = false;
+        if (isGliding)
+            GlideStopped.Invoke();
+        isGliding = false;
+        canGlide = true;
         timeSinceJump = 0f;
-        jumpsLeft = maxJumps;
     }
 
 #endregion
@@ -370,7 +416,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void LandedOnTrack(SplineTrack splineTrack)
+    public void LandedOnTrack(SplineTrack splineTrack)
     {
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
@@ -382,7 +428,6 @@ public class PlayerMovement : MonoBehaviour
         TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
 
         // Reset  stuff
-        dashTime = 0f;
         isGrounded = true;
 
         // Update current and main track
@@ -450,63 +495,35 @@ public class PlayerMovement : MonoBehaviour
 
         AttachToTrack(currentTrack.isCircle);
     }
-
-#endregion
-
+    #endregion
 
 
-#region Dashing
-    [Header("Dashing")]
-    public float dashForce = 100f;
-    public float dashDuration = 0.3f;
-    public float dashDirection = 0f;
-    public UnityEvent DashedLeft;
-    public UnityEvent DashedRight;
+    #region Drift
+    [Header("Drift")]
+    public float groundPoundFallSpeed = 50f;
+    [HideInInspector] public bool canGroundPound = true;
+    [HideInInspector] public bool startedGroundPound = false;
+    public UnityEvent GroundpoundStarted;
 
-    [HideInInspector] public float dashTime;
-
-
-
-    public void DashLeft()
+    public void StartDrift()
     {
-        if (!isDashing)
+        if (isGrounded)
         {
-            isDashing = true;
-            dashTime = dashDuration;
-            dashDirection = -1f;
-            DashedLeft.Invoke();
+            // Drift
+        }
+        else if (canGroundPound)
+        {
+            canGroundPound = false;
+            startedGroundPound = true;
+            if (isGliding)
+            {
+                isGliding = false;
+                GlideStopped.Invoke();
+            }
+            GroundpoundStarted.Invoke();
         }
     }
 
-
-    public void DashRight()
-    {
-        if (!isDashing)
-        {
-            isDashing = true;
-            dashTime = dashDuration;
-            dashDirection = 1f;
-            DashedRight.Invoke();
-        }
-    }
-
-
-    private void DashCooldown()
-    {
-        // Dash cooldown
-        // Stop dashing when dashTime is less or equal to 0
-        if (dashTime <= 0f)
-        {
-            isDashing = false;
-            dashTime = 0f;
-        }
-        // Reduce dashTime when dashing
-        else
-        {
-            dashTime -= Time.deltaTime;
-            dashTime = Mathf.Max(dashTime, 0f);
-        }
-    }
 
 #endregion
 }

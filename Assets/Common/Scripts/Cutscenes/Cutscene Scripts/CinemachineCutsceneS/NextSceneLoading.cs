@@ -6,8 +6,10 @@ public class NextSceneLoading : MonoBehaviour
 {
     public string SceneToLoad;
     bool loading = false;
+    public int playerCount;
     public void LoadSceneCoroutine()
     {
+        playerCount++;
         if (!loading)
         {
         StartCoroutine(LoadNextScene());
@@ -24,7 +26,7 @@ public class NextSceneLoading : MonoBehaviour
 
          while (!asyncLoad.isDone)
          {
-            if (asyncLoad.progress >= 0.9f)
+            if (asyncLoad.progress >= 0.9f && playerCount >= MultiplayerPlayerSpawner.playerCount)
             {
                 asyncLoad.allowSceneActivation = true;
                 
