@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     // State variables
     [HideInInspector] public bool isGrounded = true;
-    [HideInInspector] public bool isJumping = false;
     [HideInInspector] public bool crashing = false;
 
 
@@ -309,13 +308,24 @@ public class PlayerMovement : MonoBehaviour
             airVelocity += transform.forward * currentForwardSpeed * Time.deltaTime;
 
         // Get gravity
-        float gravity = fallSpeed;
-        // Add quickfall speed if the player is no longer holding the jump key
-        if (!jumpInput && !isJumping)
+        float gravity = fallSpeed + quickfallSpeed;
+        // Slow down fallspeed when starting glide
+        if (isGliding)
+            gravity = fallSpeed;
+        
+        
+        // Stop glding when releasing the jump button
+        if (isGliding && !jumpInput)
+            isGliding = false;
+
+        // Stop glide after a short duration
+        if (!canGlide)
         {
-            isJumping = false;
-            gravity = fallSpeed + quickfallSpeed;
+            glideTimer -= Time.deltaTime;
+            if (glideTimer <= 0f)
+                isGliding = false;
         }
+
         // Apply gravity
         airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
 
@@ -335,8 +345,13 @@ public class PlayerMovement : MonoBehaviour
 #region Jumping
     [Header("Jumping")]
     public float jumpPower = 15f;
+    public float gildeStopUpwardsVelMult = 0.5f;
+    public float maxGlideDuration = 2f;
     public UnityEvent Jumped;
 
+    [HideInInspector] public bool isGliding = false;
+    [HideInInspector] public bool canGlide = true;
+    [HideInInspector] public float glideTimer = 0f;
     [HideInInspector] public float timeSinceJump;
     [HideInInspector] public float distanceWhenJumped;
     [HideInInspector] public float lastMainTrackDistance;
@@ -361,12 +376,24 @@ public class PlayerMovement : MonoBehaviour
             // Invoke events
             Jumped.Invoke();
         }
+        else if (canGlide) // Start glide if in the air
+        {
+            canGlide = false;
+            isGliding = true;
+            glideTimer = maxGlideDuration;
+
+            // Slowdown the upwards velcocity and reduce falling velocity when starting the gilde
+            // NOTE: It's not jumping when this happens, it might look like it does, but that is just the camera catching up to the boat
+            float upwardsForce = Vector3.Dot(transform.up, airVelocity);
+            airVelocity -= transform.up * upwardsForce * gildeStopUpwardsVelMult;
+        }
     }
 
-    
+
     private void ResetJumping()
     {
-        isJumping = false;
+        canGlide = true;
+        isGliding = false;
         timeSinceJump = 0f;
     }
 
