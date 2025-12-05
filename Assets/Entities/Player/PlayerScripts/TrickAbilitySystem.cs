@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class TrickAbilitySystem : MonoBehaviour
 {
@@ -21,10 +22,12 @@ public class TrickAbilitySystem : MonoBehaviour
     private int combinedStrength;
     private ForwardSpeedMultiplier FSM;
 
+    [SerializeField] private CinemachineSplineCart splineCart;
+
     [Header("Strength dividers")]
-    [SerializeField] float DurationDivider;
-    [SerializeField] float SizeDivider;
-    [SerializeField] float SpeedDivider;
+    [SerializeField] private float DurationDivider;
+    [SerializeField] private float SizeDivider;
+    [SerializeField] private float SpeedDivider;
 
     void Start()
     {
@@ -45,10 +48,11 @@ public class TrickAbilitySystem : MonoBehaviour
 
     public void SpawnAbility(int firstTrick, int shortBoost, int mediumBoost, int longBoost)
     {
-        Debug.Log("SpawnAbility");
+        Debug.Log("SpawnAbility " + firstTrick);
 
         abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        ConfigureAbility(abilityBuffer);
         return;
 
         combinedStrength = 0;
@@ -80,6 +84,14 @@ public class TrickAbilitySystem : MonoBehaviour
         }
 
         abilityTimeLeft = abilityDuration / newDuration;
+    }
+
+    void ConfigureAbility(GameObject buffer)
+    {
+        Ability a = abilityBuffer.GetComponent<Ability>();
+        a.Track = PM.mainTrack;//GetComponentInParent<PlayerController>().mainTrack;
+        // a.Track = GetComponentInParent<PlayerController>().mainTrack;
+        a.ConfigurateMyself(splineCart.SplinePosition);
     }
 
     public void SpawnAbilityFailed()

@@ -147,7 +147,7 @@ public class TrickComboSystem : MonoBehaviour
         }
         else if (combo < 3)
         {
-            trickAbilitySystem.SpawnAbility(1, 1, 1, 1);
+            trickAbilitySystem.SpawnAbility(firstTrickIndex, shortBoost, mediumBoost, longBoost);
             // TODO: Send ability failed to active to FMOD
             // TODO: Send fail ability to ability system
                 // First trick index
