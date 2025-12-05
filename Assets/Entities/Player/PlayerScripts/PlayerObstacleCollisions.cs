@@ -23,7 +23,7 @@ public class PlayerObstacleCollisions : MonoBehaviour
     {
         if (other.TryGetComponent(out Obstacle obstacle))
         {
-            if (!invulnerable && (!obstacle.causeHarm || obstacle.owner != transform))
+            if (!invulnerable && (!obstacle.causeHarm || obstacle.owner != this.transform))
             {
                 Crash(obstacle);
             }
