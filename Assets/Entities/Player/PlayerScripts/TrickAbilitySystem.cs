@@ -92,6 +92,7 @@ public class TrickAbilitySystem : MonoBehaviour
         a.Track = PM.mainTrack;//GetComponentInParent<PlayerController>().mainTrack;
         // a.Track = GetComponentInParent<PlayerController>().mainTrack;
         a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x);
+        abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 
     public void SpawnAbilityFailed()
