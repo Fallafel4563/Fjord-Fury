@@ -11,6 +11,7 @@ public class TrickComboSystem : MonoBehaviour
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
     [HideInInspector] public BoatMovementAnims boatMovementAnims;
+    [SerializeField] private TrickAbilitySystem trickAbilitySystem;
 
 
     [HideInInspector] public bool performingTrick = false;
@@ -78,44 +79,6 @@ public class TrickComboSystem : MonoBehaviour
         performingTrick = true;
         // TODO: Send trick sound to FMOD
         boatMovementAnims.TrickAnim();
-
-        //performingTrick = true;
-        //combo++;
-
-        //// TODO: Set boost meters high value to bost time (UI)
-        //// TODO: Set boost meters value to boost time (UI)
-        //boostValue = boostDuration;
-
-        //// TODO: Player trick sound
-
-        //string currentTrickName;
-        //if (dashTrick)
-        //{
-        //    // TODO: Trigger "Left/Right Dodge trick" animator event
-        //    trickScore += 20;
-
-        //    currentTrickName = "Dodge";
-        //}
-        //else
-        //{
-        //    trickScore += 10;
-
-        //    trickIndex = UnityEngine.Random.Range(0, trickList.Count);
-        //    currentTrickName = trickList[trickIndex];
-        //    boatMovementAnims.TrickAnim();
-        //}
-
-        //if (tableOfTricks.ContainsKey(currentTrickName))
-        //    tableOfTricks[currentTrickName] += 1;
-        //else
-        //    tableOfTricks.Add(currentTrickName, 0);
-
-        //// Get the long tricks name
-        //trickName = GetTrickName();
-
-        //// DONE: Update score text to show trickScore + "x" + combo
-        //TrickScoreUpdated?.Invoke(string.Format("{0} x {1}", trickScore, combo));
-        //Debug.LogFormat("Speed value {0}, Speed mult {1}", speedValue, forwardSpeedMultiplier.GetTotalMultiplierValue());
     }
 
 
@@ -190,6 +153,7 @@ public class TrickComboSystem : MonoBehaviour
         }
         else if (combo < 3)
         {
+            trickAbilitySystem.SpawnAbility(firstTrickIndex, shortBoost, mediumBoost, longBoost);
             // TODO: Send ability failed to active to FMOD
             // TODO: Send fail ability to ability system
                 // First trick index

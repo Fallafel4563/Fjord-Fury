@@ -33,6 +33,35 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
+
+        splineCart.Spline = mainTrack.track;
+
+        playerMovement.splineCart = splineCart;
+        playerMovement.mainTrack = mainTrack;
+        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
+
+        playerCamera.playerMovement = playerMovement;
+        playerCamera.trackingTarget = playerMovement.transform;
+        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
+
+        playerRespawn.splineCart = splineCart;
+        playerRespawn.playerMovement = playerMovement;
+        playerRespawn.playerCamera = playerCamera;
+
+        boatMovementAnims.playerMovement = playerMovement;
+        boatMovementAnims.trickComboSystem = trickComboSystem;
+
+        trickComboSystem.playerMovement = playerMovement;
+        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
+        trickComboSystem.boatMovementAnims = boatMovementAnims;
+
+        playerObstacleCollisions.playerMovement = playerMovement;
+        playerObstacleCollisions.trickComboSystem = trickComboSystem;
+        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
+
+        curveSpeedOffset.splineCart = splineCart;
+        curveSpeedOffset.playerMovement = playerMovement;
+        curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
     }
 
 
@@ -70,36 +99,7 @@ public class PlayerController : MonoBehaviour
     // Set references on different systems
     private void Start()
     {
-        splineCart.Spline = mainTrack.track;
-
-        playerMovement.splineCart = splineCart;
-        playerMovement.mainTrack = mainTrack;
-        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        playerCamera.playerMovement = playerMovement;
-        playerCamera.trackingTarget = playerMovement.transform;
-        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
-
-        playerRespawn.splineCart = splineCart;
-        playerRespawn.playerMovement = playerMovement;
-        playerRespawn.playerCamera = playerCamera;
-
-        boatMovementAnims.playerMovement = playerMovement;
-        boatMovementAnims.trickComboSystem = trickComboSystem;
-
-        trickComboSystem.playerMovement = playerMovement;
-        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
-        trickComboSystem.boatMovementAnims = boatMovementAnims;
-
-        playerObstacleCollisions.playerMovement = playerMovement;
-        playerObstacleCollisions.trickComboSystem = trickComboSystem;
-        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        curveSpeedOffset.splineCart = splineCart;
-        curveSpeedOffset.playerMovement = playerMovement;
-        curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
 
         SetActiveSkin();
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
 #region Input
     [Header("Input")]
-    [HideInInspector] public bool inputEnabled = true;
+    public bool inputEnabled = true;
     private float forwardInput;
     private float steerInput;
     private bool jumpInput;
