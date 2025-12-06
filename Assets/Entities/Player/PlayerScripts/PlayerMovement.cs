@@ -471,14 +471,35 @@ public class PlayerMovement : MonoBehaviour
 
         // Get how far the boat is in the x position (but we don't know if it's to the left or right)
         float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
+
         // Check if the boat landed on the right or left side
-        Vector3 directionToPlayer = transform.position - distanceInfo.nearestSplinePos;
-        float rightDirDot = Vector3.Dot(transform.right, directionToPlayer);
-        // If rightDirDot is greater than 0 then the boat landed on the right side of the track
-        if (rightDirDot < 0)
+        const float DEBUG_DRAW_DURATION = 60f;
+        Vector3 splinePosToPlayerDir = transform.position - distanceInfo.nearestSplinePos;
+        Debug.DrawLine(transform.position, distanceInfo.nearestSplinePos, Color.red, DEBUG_DRAW_DURATION);
+
+        Vector3 splineUpwardsDirection = currentTrack.track.EvaluateUpVector(distanceInfo.normalizedDistance);
+        Debug.DrawLine(distanceInfo.nearestSplinePos, distanceInfo.nearestSplinePos + splineUpwardsDirection * 10f, Color.green, DEBUG_DRAW_DURATION);
+
+        Vector3 sideCross = Vector3.Cross(splineUpwardsDirection, splinePosToPlayerDir);
+        Debug.DrawLine(transform.position, transform.position + sideCross, Color.yellow, DEBUG_DRAW_DURATION);
+
+        Vector3 splineTagent = currentTrack.track.EvaluateTangent(distanceInfo.normalizedDistance);
+        Debug.DrawLine(distanceInfo.nearestSplinePos, distanceInfo.nearestSplinePos + splineTagent.normalized * 10f, Color.magenta, DEBUG_DRAW_DURATION);
+
+        // Compare side corss to spline tangent to see which side the player landed on
+        bool landedOnTheLeftSide = Vector3.Dot(sideCross, splineTagent.normalized) > 0;
+        if (landedOnTheLeftSide)
+        {
+            Debug.Log("Landed on the left side");
             xPosition *= -1f;
+        }
+        else
+        {
+            Debug.Log("Landed on the right side");
+        }
         // Set new boat position
         transform.localPosition = new Vector3(xPosition, 0f, 0F);
+        //Debug.Break();
     }
 
 
