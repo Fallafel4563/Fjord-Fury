@@ -121,7 +121,6 @@ public class SpeedMultiplier
             {
                 // Stop multiplers from being permanent if there isn't a valid start or end curve
                 float holdTimeEnd = multiplierCurve.holdTime;
-                Debug.LogFormat("Hold time {0}, End time {1}, Active time {2}", multiplierCurve.holdTime, holdTimeEnd, activeTime);
                 if (activeTime < holdTimeEnd)
                     return value;
                 else

@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("External References")]
     public SplineTrack mainTrack;
-
     [HideInInspector] public PlayerHud playerHud;
 
 
@@ -30,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
 
 
+    // Set references on different systems
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Set references on different systems
+    // Additional setup on systems
     private void Start()
     {
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
