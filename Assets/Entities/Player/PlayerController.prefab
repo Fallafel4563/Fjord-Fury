@@ -5244,7 +5244,7 @@ GameObject:
   - component: {fileID: 8721748571526581582}
   - component: {fileID: 961602446303370989}
   - component: {fileID: 1630408635394340986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boat
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5332,22 +5332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleRotParent: {fileID: 7394530659016896994}
   forwardSpeedMultiplier: {fileID: 0}
-  jumpInput: 0
-  driftInput: 0
-  forwardInput: 0
-  steerInput: 0
-  dontChangeMainTrack: 0
-  isGrounded: 1
   baseForwardSpeed: 40
-  clampXAxis: 1
-  wasLastTrackRail: 0
-  currentForwardSpeed: 40
-  overrideSpeed: 0
-  steerSpeed: 0
-  HorizontalVelocity: {x: 0, y: 0, z: 0}
-  splineCart: {fileID: 0}
-  mainTrack: {fileID: 0}
-  currentTrack: {fileID: 0}
   groundSteerSpeed: 15
   circleTrackSteerSpeed: 7.5
   frontBackOffsetLimit: 3
@@ -5355,37 +5340,18 @@ MonoBehaviour:
   fallSpeed: 25
   quickfallSpeed: 75
   airSteerRotSpeed: 75
-  airVelocity: {x: 0, y: 0, z: 0}
   jumpPower: 15
   gildeStopUpwardsVelMult: 0.5
   maxGlideDuration: 2
   Jumped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnJumped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   GlideStarted:
     m_PersistentCalls:
       m_Calls: []
   GlideStopped:
     m_PersistentCalls:
       m_Calls: []
-  isGliding: 0
-  canGlide: 1
-  glideTimer: 0
-  timeSinceJump: 0
-  distanceWhenJumped: 0
-  lastMainTrackDistance: 0
   Landed:
     m_PersistentCalls:
       m_Calls:
@@ -5425,9 +5391,90 @@ MonoBehaviour:
           m_StringArgument: LandAnim
           m_BoolArgument: 0
         m_CallState: 2
+  minDriftBoostTime: 0.5
+  diftSlowdownMultipler: 0.8
+  driftRotationMultipler: 0.3
+  driftMaxRotation: 30
+  dirftMinRotation: 10
+  sidewaysDriftForce: 10
+  driftLayter:
+    serializedVersion: 2
+    m_Bits: 1
+  releaseBoostCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.80055064
+      outSlope: 0.80055064
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07676513
+    - serializedVersion: 3
+      time: 3
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  driftReleaseMultiplerCurve:
+    holdTime: 3
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   groundPoundFallSpeed: 750
-  canGroundPound: 1
-  startedGroundPound: 0
   GroundpoundStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -5599,7 +5646,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2db7f9d920d754e428bcb296df19e102, type: 3}
   m_Name: 
@@ -5683,7 +5730,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c973965c377a1ad4cbb8efa236db97e4, type: 3}
   m_Name: 
