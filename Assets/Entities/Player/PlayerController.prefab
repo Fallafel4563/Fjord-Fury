@@ -5343,16 +5343,10 @@ MonoBehaviour:
   fallSpeed: 25
   quickfallSpeed: 75
   airSteerRotSpeed: 50
+  resetAirRotationSpeed: 10
+  maxJumps: 2
   jumpPower: 15
-  gildeStopUpwardsVelMult: 0.5
-  maxGlideDuration: 2
   Jumped:
-    m_PersistentCalls:
-      m_Calls: []
-  GlideStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  GlideStopped:
     m_PersistentCalls:
       m_Calls: []
   Landed:
@@ -5402,13 +5396,13 @@ MonoBehaviour:
   sidewaysDriftForce: 10
   driftLayter:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 17
   releaseBoostCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0.80055064
       outSlope: 0.80055064
       tangentMode: 0
@@ -5417,7 +5411,7 @@ MonoBehaviour:
       outWeight: 0.07676513
     - serializedVersion: 3
       time: 3
-      value: 2
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5733,7 +5727,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c973965c377a1ad4cbb8efa236db97e4, type: 3}
   m_Name: 
@@ -5764,7 +5758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 17
   playerMovement: {fileID: 0}
 --- !u!1 &6454330232883850996
 GameObject:
