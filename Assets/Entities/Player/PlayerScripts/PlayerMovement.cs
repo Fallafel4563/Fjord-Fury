@@ -376,8 +376,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded)
+        if (isGrounded || isDrifting)
         {
+            if (isDrifting)
+                EndDrift();
             // Detach the boat form the spline cart
             DetachFromCart();
 
@@ -387,7 +389,6 @@ public class PlayerMovement : MonoBehaviour
             // Set the upwards air velocity to be the equal to jump power
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity += transform.up * jumpPower;
-
 
             // Invoke events
             Jumped.Invoke();
@@ -515,6 +516,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void LandOnCircleTrack(TrackDistanceInfo distanceInfo)
     {
+        if (isDrifting)
+            EndDrift();
         // Reattach the circle rot to the SplineCart
         circleRotParent.parent = splineCart.transform;
         circleRotParent.localPosition = Vector3.zero;
@@ -653,9 +656,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void EndDrift()
     {
+        positionWhenJumped = transform.position;
+        distanceWhenJumped = currentTrack.GetDistanceInfoFromPosition(transform.position).distance;
+        splineCart.SplinePosition = distanceWhenJumped;
+
         isDrifting = false;
         // Land on track when still "on" a track
-        if (driftRayHittingGround)
+        if (driftRayHittingGround && !jumpInput)
         {
             LandedOnTrack(currentTrack);
         }
