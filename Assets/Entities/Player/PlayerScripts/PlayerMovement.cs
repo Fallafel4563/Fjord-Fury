@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Splines;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -10,13 +12,14 @@ public class PlayerMovement : MonoBehaviour
     public ForwardSpeedMultiplier forwardSpeedMultiplier;
 
     // Input variables
-    [HideInInspector] public bool jumpInput;
-    [HideInInspector] public float forwardInput;
-    [HideInInspector] public float steerInput;
-    [HideInInspector] public bool dontChangeMainTrack = false;
+    public bool jumpInput { get; set; }
+    public bool driftInput { get; set; }
+    public float forwardInput { get; set; }
+    public float steerInput { get; set; }
+    public bool dontChangeMainTrack { get; set; } = false;
 
     // State variables
-    [HideInInspector] public bool isGrounded = true;
+    public bool isGrounded { get; set; } = true;
 
 
     private void Start()
@@ -35,7 +38,9 @@ public class PlayerMovement : MonoBehaviour
         // Get the current steer speed based on the ground state of the boat
         steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
-        if (isGrounded)
+        if (isDrifting)
+            ApplyDriftingMovement();
+        else if (isGrounded && !isDrifting)
             ApplyGroundMovement();
         else
             ApplyAirMovement();
@@ -44,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack))
+        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting)
         {
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
@@ -55,19 +60,19 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-#region General
+    #region General
     [Header("General")]
     public float baseForwardSpeed = 40f;
 
-    [HideInInspector] public bool clampXAxis = true;
-    [HideInInspector] public bool wasLastTrackRail = false;
-    [HideInInspector] public float currentForwardSpeed = 40f;
-    [HideInInspector] public float overrideSpeed = 40f;
-    [HideInInspector] public float steerSpeed;
-    [HideInInspector] public Vector3 HorizontalVelocity;
-    [HideInInspector]public CinemachineSplineCart splineCart;
-    [HideInInspector] public SplineTrack mainTrack;
-    [HideInInspector] public SplineTrack currentTrack;
+    public bool clampXAxis { get; set; } = true;
+    public bool wasLastTrackRail { get; set; } = false;
+    public float currentForwardSpeed { get; set; } = 40f;
+    public float overrideSpeed { get; set; } = 40f;
+    public float steerSpeed { get; set; }
+    public Vector3 HorizontalVelocity { get; set; }
+    public CinemachineSplineCart splineCart { get; set; }
+    public SplineTrack mainTrack { get; set; }
+    public SplineTrack currentTrack { get; set; }
 
 
     // Seering that is applied when not on a circle track
@@ -112,10 +117,7 @@ public class PlayerMovement : MonoBehaviour
         distanceWhenJumped = splineCart.SplinePosition;
         // Get the rotation the boat should have when in the air. The boat will lerp it's current rotation to this rotation when airborne
         // This is done to avoid having the boat "ignore" gravity if it's facing upwards when jumping (since it adds force in the direction the boat is facing when airborne)
-        // CREDITS: Steego - https://discussions.unity.com/t/align-up-direction-with-normal-while-retaining-look-direction/852614/3
-        bool areParallel = Mathf.Approximately(Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up)), 1f);
-        Vector3 newForward = areParallel ? Vector3.up : Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        desiredAirRotation = Quaternion.LookRotation(newForward, Vector3.up);
+        desiredAirRotation = GetRotationFromNewUpVector(Vector3.up);
 
         // Stop the splineCart
         splineCart.AutomaticDolly.Enabled = false;
@@ -157,11 +159,20 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-#endregion
+    // CREDITS: Steego - https://discussions.unity.com/t/align-up-direction-with-normal-while-retaining-look-direction/852614/3
+    private Quaternion GetRotationFromNewUpVector(Vector3 newUp)
+    {
+        bool areParallel = Mathf.Approximately(Mathf.Abs(Vector3.Dot(transform.forward, newUp)), 1f);
+        Vector3 newForward = areParallel ? newUp : Vector3.ProjectOnPlane(transform.forward, newUp).normalized;
+        return Quaternion.LookRotation(newForward, newUp);
+    }
+
+
+    #endregion
 
 
 
-#region Grounded
+    #region Grounded
     [Header("Grounded")]
     public float groundSteerSpeed = 15f;
     public float circleTrackSteerSpeed = 7.5f;
@@ -272,11 +283,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-#endregion
+    #endregion
 
 
 
-#region Airborne
+    #region Airborne
     [Header("Airborne")]
     public float airSteerSpeed = 10f;
     public float fallSpeed = 50f;
@@ -284,7 +295,7 @@ public class PlayerMovement : MonoBehaviour
     // How it should rotate when steering in the air
     public float airSteerRotSpeed = 0.5f;
 
-    [HideInInspector] public Vector3 airVelocity = Vector3.zero;
+    public Vector3 airVelocity { get; set; } = Vector3.zero;
 
     //NOTE: This can also be used to set the rotation of the boat when drifting. Just remember to change the name
     private Quaternion desiredAirRotation;
@@ -310,7 +321,7 @@ public class PlayerMovement : MonoBehaviour
         // Slow down fallspeed when starting glide
         else if (isGliding)
             gravity = fallSpeed;
-        
+
         // Stop glding when releasing the jump button
         if (isGliding && !jumpInput)
         {
@@ -341,11 +352,11 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
     }
 
-#endregion
+    #endregion
 
 
 
-#region Jumping
+    #region Jumping
     [Header("Jumping")]
     public float jumpPower = 15f;
     public float gildeStopUpwardsVelMult = 0.5f;
@@ -354,13 +365,13 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent GlideStarted;
     public UnityEvent GlideStopped;
 
-    [HideInInspector] public bool isGliding = false;
-    [HideInInspector] public bool canGlide = true;
-    [HideInInspector] public float glideTimer = 0f;
-    [HideInInspector] public float timeSinceJump;
-    [HideInInspector] public float distanceWhenJumped;
-    [HideInInspector] public float lastMainTrackDistance;
-    [HideInInspector] Vector3 positionWhenJumped;
+    public bool isGliding { get; private set; } = false;
+    public bool canGlide { get; private set; } = true;
+    public float glideTimer { get; private set; } = 0f;
+    public float timeSinceJump { get; set; }
+    public float distanceWhenJumped { get; set; }
+    public float lastMainTrackDistance { get; set; }
+    public Vector3 positionWhenJumped { get; set; }
 
 
     public void Jump()
@@ -520,16 +531,39 @@ public class PlayerMovement : MonoBehaviour
 
     #region Drift
     [Header("Drift")]
+    public float minDriftBoostTime = 0.5f;
+    public float diftSlowdownMultipler = 0.8f;
+    private float driftRotationMultipler = 0.3f;
+    private float driftMaxRotation = 30f;
+    private float dirftMinRotation = 20f;
+    // TODO: Dirft start trail
+    // TODO: Drift boost trail
+    // TODO: Super boost trail
+    public LayerMask driftLayter;
+    public AnimationCurve releaseBoostCurve;
+    public SpeedMultiplierCurve driftReleaseMultiplerCurve;
+    public bool isDrifting { get; private set; } = false;
+    public bool driftRayHittingGround { get; private set; } = false;
+
+    private float driftTimePassed;
+    private float boostTimePassed;
+    private float currentRotation;
+    private float rotationOffset;
+    private int driftDirection;
+
+
+    [Header("Groundpound")]
     public float groundPoundFallSpeed = 50f;
-    [HideInInspector] public bool canGroundPound = true;
-    [HideInInspector] public bool startedGroundPound = false;
+    public bool canGroundPound { get; private set; } = true;
+    public bool startedGroundPound { get; private set; } = false;
+
     public UnityEvent GroundpoundStarted;
 
     public void StartDrift()
     {
-        if (isGrounded)
+        if (isGrounded && Mathf.Abs(steerInput) > 0f)
         {
-            // Drift
+            InitiateDrift();
         }
         else if (canGroundPound)
         {
@@ -542,6 +576,115 @@ public class PlayerMovement : MonoBehaviour
             }
             GroundpoundStarted.Invoke();
         }
+    }
+
+
+    private void InitiateDrift()
+    {
+        isDrifting = true;
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drifting", diftSlowdownMultipler);
+
+        driftTimePassed = 0f;
+        boostTimePassed = 0f;
+        driftDirection = (int)Mathf.Sign(steerInput);
+        currentRotation = transform.localEulerAngles.y;
+
+        DetachFromCart();
+        // TODO: Enable drift start trail
+    }
+
+
+    private void ApplyDriftingMovement()
+    {
+        RaycastHit raycastHit;
+        Debug.DrawLine(transform.position + transform.up * 2f, transform.position + -transform.up * 5f, Color.black, 60f);
+        if (Physics.Raycast(transform.position + transform.up * 2f, -transform.up, out raycastHit, 5f, driftLayter))
+        {
+            driftRayHittingGround = true;
+            
+            float lerpTarget = (dirftMinRotation + driftMaxRotation / 2f);
+            if (Mathf.Approximately(steerInput, driftDirection))
+            {
+                lerpTarget = driftMaxRotation;
+                Debug.Log("Max rotation");
+            }
+            else if (Mathf.Approximately(steerInput, driftDirection * -1f))
+            {
+                Debug.Log("Min rotation");
+                lerpTarget = dirftMinRotation;
+            }
+
+            rotationOffset = Mathf.LerpAngle(rotationOffset, lerpTarget, 5f * Time.deltaTime);
+
+            // TODO: Rotate hodel holder
+
+            currentRotation += rotationOffset * driftRotationMultipler * Time.deltaTime;
+
+            // Align the boats rotation with the spline normal
+            // Get the "normal" of the spline. (Using the splines up vector is smoother than the meshes normal)
+            TrackDistanceInfo distanceInfo = currentTrack.GetDistanceInfoFromPosition(transform.position);
+            Vector3 splineNormal = currentTrack.track.Spline.EvaluateUpVector(distanceInfo.normalizedDistance);
+            desiredAirRotation = GetRotationFromNewUpVector(splineNormal);
+            // Apply rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 15f * Time.deltaTime);
+
+            // Move boat forwards
+            transform.position = raycastHit.point + (transform.forward * currentForwardSpeed * Time.deltaTime);
+
+            driftTimePassed += Time.deltaTime;
+            if (driftTimePassed > minDriftBoostTime)
+            {
+                // TODO: Enable boost trail
+                // TODO: Disable drift start trail
+                boostTimePassed += Time.deltaTime;
+            }
+        }
+        else
+        {
+            driftRayHittingGround = false;
+            EndDrift();
+        }
+    }
+
+
+    public void EndDrift()
+    {
+        isDrifting = false;
+        // Land on track when still "on" a track
+        if (driftRayHittingGround)
+        {
+            LandedOnTrack(currentTrack);
+        }
+        else
+        {
+            desiredAirRotation = GetRotationFromNewUpVector(Vector3.up);
+        }
+
+        EndDriftBoost();
+        if (minDriftBoostTime < driftTimePassed)
+        {
+            StartCoroutine(ApplyDriftBoost());
+        }
+    }
+
+
+    private void EndDriftBoost()
+    {
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drifting", 1f);
+        
+        // TODO: Disable boost trail
+        // TODO: Disable drift start trail
+    }
+
+
+    private IEnumerator ApplyDriftBoost()
+    {
+        Debug.Log("Start drift boost");
+        // TODO: Enable super boost trail
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drift Release Boost", releaseBoostCurve.Evaluate(boostTimePassed), driftReleaseMultiplerCurve);
+        yield return new WaitForSeconds(driftReleaseMultiplerCurve.GetLength());
+        // TODO: Disable super boost trail
+        Debug.Log("End drift boost");
     }
 
 
