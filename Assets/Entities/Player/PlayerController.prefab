@@ -5244,6 +5244,7 @@ GameObject:
   - component: {fileID: 8721748571526581582}
   - component: {fileID: 961602446303370989}
   - component: {fileID: 1630408635394340986}
+  - component: {fileID: 1029006160235610832}
   m_Layer: 6
   m_Name: Boat
   m_TagString: Player
@@ -5317,7 +5318,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 1
 --- !u!114 &2060630186251258410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5646,7 +5647,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2db7f9d920d754e428bcb296df19e102, type: 3}
   m_Name: 
@@ -5730,7 +5731,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c973965c377a1ad4cbb8efa236db97e4, type: 3}
   m_Name: 
@@ -5747,6 +5748,21 @@ MonoBehaviour:
   TriggerSphere: {fileID: 8047555153375976637, guid: 3a912efc4f792ae489ef876554cf8c8b, type: 3}
   spawnTime: 0
   spawnThreshold: 1
+--- !u!114 &1029006160235610832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad53d40e47d63c2a91054a8cd657f8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
