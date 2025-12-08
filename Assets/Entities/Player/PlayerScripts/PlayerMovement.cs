@@ -17,7 +17,12 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool dontChangeMainTrack = false;
 
     // State variables
+<<<<<<< HEAD
     [HideInInspector] public bool isGrounded = true;
+=======
+    public bool isGrounded { get; set; } = true;
+    public Vector3 oldPosition;
+>>>>>>> origin/production
 
 
     private void Start()
@@ -25,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         currentTrack = mainTrack;
         // Set the players movement speed to be the tracks override speed
         SetOverrideSpeed(mainTrack.overrideSpeed);
+
+        oldPosition = transform.position;
     }
 
 
@@ -40,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             ApplyGroundMovement();
         else
             ApplyAirMovement();
+
+        oldPosition = transform.position;
     }
 
 
@@ -546,5 +555,125 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+<<<<<<< HEAD
+=======
+    private void InitiateDrift()
+    {
+        isDrifting = true;
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drifting", diftSlowdownMultipler);
+
+        driftTimePassed = 0f;
+        boostTimePassed = 0f;
+        driftDirection = (int)Mathf.Sign(steerInput);
+        currentRotation = transform.localEulerAngles.y;
+
+        DetachFromCart();
+        // TODO: Enable drift start trail
+    }
+
+
+    private void ApplyDriftingMovement()
+    {
+        RaycastHit raycastHit;
+        Debug.DrawLine(transform.position + transform.up * 2f, transform.position + -transform.up * 5f, Color.black, 60f);
+        if (Physics.Raycast(transform.position + transform.up * 2f, -transform.up, out raycastHit, 5f, driftLayter))
+        {
+            driftRayHittingGround = true;
+            
+            float lerpTarget = dirftMinRotation + driftMaxRotation / 2f;
+            if (Mathf.Approximately(steerInput, driftDirection))
+            {
+                lerpTarget = driftMaxRotation;
+                Debug.Log("Max rotation");
+            }
+            else if (Mathf.Approximately(steerInput, driftDirection * -1f))
+            {
+                Debug.Log("Min rotation");
+                lerpTarget = dirftMinRotation;
+            }
+
+            rotationOffset = Mathf.LerpAngle(rotationOffset, lerpTarget, 5f * Time.deltaTime);
+
+            // TODO: Rotate hodel holder
+
+            currentRotation = Mathf.LerpAngle(currentRotation, (lerpTarget / 5f) * driftDirection, 5f * Time.deltaTime);
+
+            // Align the boats rotation with the spline normal
+            // Get the "normal" of the spline. (Using the splines up vector is smoother than the meshes normal)
+            TrackDistanceInfo distanceInfo = currentTrack.GetDistanceInfoFromPosition(transform.position);
+            Vector3 splineNormal = currentTrack.track.Spline.EvaluateUpVector(distanceInfo.normalizedDistance);
+            desiredAirRotation = GetRotationFromNewUpVector(splineNormal);
+            desiredAirRotation *= Quaternion.AngleAxis(currentRotation, splineNormal);
+            // Apply rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 15f * Time.deltaTime);
+
+            // Move boat forwards
+            Vector3 forwardMovement = transform.forward * currentForwardSpeed * Time.deltaTime;
+            Vector3 sidewaysMovement = -transform.right * driftDirection * sidewaysDriftForce * Time.deltaTime;
+            transform.position = raycastHit.point + forwardMovement + sidewaysMovement;
+
+            driftTimePassed += Time.deltaTime;
+            if (driftTimePassed > minDriftBoostTime)
+            {
+                // TODO: Enable boost trail
+                // TODO: Disable drift start trail
+                boostTimePassed += Time.deltaTime;
+            }
+        }
+        else
+        {
+            driftRayHittingGround = false;
+            EndDrift();
+        }
+    }
+
+
+    public void EndDrift()
+    {
+        positionWhenJumped = transform.position;
+        distanceWhenJumped = currentTrack.GetDistanceInfoFromPosition(transform.position).distance;
+        splineCart.SplinePosition = distanceWhenJumped;
+
+        isDrifting = false;
+        // Land on track when still "on" a track
+        if (driftRayHittingGround && !jumpInput)
+        {
+            LandedOnTrack(currentTrack);
+        }
+        else
+        {
+            desiredAirRotation = GetRotationFromNewUpVector(Vector3.up);
+            airVelocity = transform.forward * currentForwardSpeed;
+        }
+
+        EndDriftBoost();
+        if (minDriftBoostTime < driftTimePassed)
+        {
+            StartCoroutine(ApplyDriftBoost());
+        }
+    }
+
+
+    private void EndDriftBoost()
+    {
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drifting", 1f);
+        
+        // TODO: Disable boost trail
+        // TODO: Disable drift start trail
+    }
+
+
+    private IEnumerator ApplyDriftBoost()
+    {
+        Debug.Log("Start drift boost");
+        // TODO: Enable super boost trail
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drift Release Boost", releaseBoostCurve.Evaluate(boostTimePassed), driftReleaseMultiplerCurve);
+        yield return new WaitForSeconds(driftReleaseMultiplerCurve.GetLength());
+        // TODO: Disable super boost trail
+        Debug.Log("End drift boost");
+    }
+
+
+>>>>>>> origin/production
 #endregion
 }
