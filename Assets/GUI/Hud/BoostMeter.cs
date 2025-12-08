@@ -24,7 +24,6 @@ public class BoostMeter : MonoBehaviour
 
     public void OnUpdateBoostMeter(int firstTrickIndex, int combo, int barIndex)
     {
-        Debug.Log(firstTrickIndex);
         boostMeterIcon.sprite = abilityIcons[firstTrickIndex - 1];
 
         if (combo == 3)
