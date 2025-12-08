@@ -8,11 +8,11 @@ public class Ability : MonoBehaviour
     public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
     [SerializeField] private GameObject _art;
-    [SerializeField] bool _isConected = true;
+    [SerializeField] private bool _isConected = true;
 
-    [SerializeField] float _speed;
+    [SerializeField] private float _speed;
 
-    [SerializeField] float _temporarryDurationVariable;
+    [SerializeField] private float _temporarryDurationVariable;
 
     void Start()
     {
@@ -21,11 +21,15 @@ public class Ability : MonoBehaviour
 
     public void ConfigurateMyself(float position, float XPosition)
     {
+        if (_spline != null)
+        {
+            _spline.Spline = Track.track;
+            _spline.SplinePosition = (position + 5f);
+            _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+        }
         //_spline = GetComponent<CinemachineSplineCart>();
-        _spline.Spline = Track.track;//GetComponent<SplineContainer>();
-       // _spline.Spline = Track.GetComponent<SplineContainer>();
-        _spline.SplinePosition = (position + 5f);
-        _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+        //GetComponent<SplineContainer>();
+        // _spline.Spline = Track.GetComponent<SplineContainer>();
     }
 
     void Update()
@@ -33,13 +37,11 @@ public class Ability : MonoBehaviour
         if (_spline.SplinePosition > Track.track.Spline.GetLength()-1 && _isConected)
         {
             _isConected = false;
-            //Detach function
             _spline.enabled = false;
         }
 
         if (!_isConected)
         {
-            Debug.Log("It worked");
             transform.position += transform.forward * _speed * Time.deltaTime;
         }
     }

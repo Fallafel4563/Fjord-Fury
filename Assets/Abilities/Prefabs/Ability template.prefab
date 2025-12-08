@@ -233,9 +233,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowDownValue: 0.5
-  upwardsForce: 15
-  knockbackFroce: 30
+  causeHarm: 1
+  destructOnCrash: 0
+  bounceHeight: 0
+  crashSpeedMultiplier: 0.5
+  crashSpeedMultiplierCurve:
+    holdTime: 0
+    startCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  owner: {fileID: 0}
 --- !u!1 &1667566665649690103
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,10 +538,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Track: {fileID: 0}
-  _spline: {fileID: 0}
+  _spline: {fileID: 5704743019344172549}
   _art: {fileID: 1628463512576927024}
   _isConected: 1
   _speed: 0
+  _temporarryDurationVariable: 10
 --- !u!114 &5704743019344172549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +550,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8255245760220296071}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 450f466b666a79a4698f2b19a5c87c03, type: 3}
   m_Name: 

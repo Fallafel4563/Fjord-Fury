@@ -782,6 +782,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5704743019344172549, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: AutomaticDolly.Method
+      value: 502373648584409195
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704743019344172549, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: 'managedReferences[502373648584409195]'
+      value: Unity.Cinemachine Unity.Cinemachine.SplineAutoDolly/FixedSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704743019344172549, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: managedReferences[502373648584409195].Speed
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_Name
       value: Fireball tackle

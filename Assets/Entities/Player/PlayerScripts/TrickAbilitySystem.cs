@@ -53,6 +53,7 @@ public class TrickAbilitySystem : MonoBehaviour
         abilityHasSpawned = true;
         abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
         ConfigureAbility(abilityBuffer);
+        Debug.Log(firstTrick);
         return;
 
         combinedStrength = 0;
