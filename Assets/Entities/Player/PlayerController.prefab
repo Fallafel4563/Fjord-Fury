@@ -4953,6 +4953,7 @@ MonoBehaviour:
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
   playerObstacleCollisions: {fileID: 7040633805338777643}
   curveSpeedOffset: {fileID: 2784234024063253971}
+  lagSpikeSaftey: {fileID: 1029006160235610832}
   skins: {fileID: 2259313785944379738}
   selectedCharacter: 0
   inputEnabled: 1
@@ -5333,14 +5334,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleRotParent: {fileID: 7394530659016896994}
   forwardSpeedMultiplier: {fileID: 0}
+  oldPosition: {x: 0, y: 0, z: 0}
   baseForwardSpeed: 40
   groundSteerSpeed: 15
   circleTrackSteerSpeed: 7.5
   frontBackOffsetLimit: 3
-  airSteerSpeed: 10
+  airSteerSpeed: 15
   fallSpeed: 25
   quickfallSpeed: 75
-  airSteerRotSpeed: 75
+  airSteerRotSpeed: 50
   jumpPower: 15
   gildeStopUpwardsVelMult: 0.5
   maxGlideDuration: 2
@@ -5406,7 +5408,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0.80055064
       outSlope: 0.80055064
       tangentMode: 0
@@ -5415,7 +5417,7 @@ MonoBehaviour:
       outWeight: 0.07676513
     - serializedVersion: 3
       time: 3
-      value: 2
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5763,6 +5765,7 @@ MonoBehaviour:
   raycastLayer:
     serializedVersion: 2
     m_Bits: 1
+  playerMovement: {fileID: 0}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0

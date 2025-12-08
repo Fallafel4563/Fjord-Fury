@@ -3,6 +3,7 @@ using UnityEngine;
 public class LagSpikeSaftey : MonoBehaviour
 {
     public LayerMask raycastLayer;
+    public PlayerMovement playerMovement;
 
     private Vector3 oldPosition;
 
@@ -20,7 +21,7 @@ public class LagSpikeSaftey : MonoBehaviour
         Debug.DrawLine(oldPosition, transform.position + transform.up, Color.black, 60f);
         if (Physics.Raycast(oldPosition, -rayDirection.normalized, out raycastHit, rayDirection.magnitude, raycastLayer))
         {
-            Debug.LogFormat("Hit {0}", raycastHit.collider.gameObject.name);
+            playerMovement.airVelocity = Vector3.zero;
             transform.position = raycastHit.point;
         }
 

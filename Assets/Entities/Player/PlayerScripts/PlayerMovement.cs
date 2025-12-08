@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     // State variables
     public bool isGrounded { get; set; } = true;
+    public Vector3 oldPosition;
 
 
     private void Start()
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
         currentTrack = mainTrack;
         // Set the players movement speed to be the tracks override speed
         SetOverrideSpeed(mainTrack.overrideSpeed);
+
+        oldPosition = transform.position;
     }
 
 
@@ -44,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             ApplyGroundMovement();
         else
             ApplyAirMovement();
+
+        oldPosition = transform.position;
     }
 
 
@@ -110,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
         // Reset stuff
         isGrounded = false;
         timeSinceJump = 0f;
+        jumpsLeft--;
 
 
         // Save position and distance when the boat jumped
@@ -294,6 +300,7 @@ public class PlayerMovement : MonoBehaviour
     public float quickfallSpeed = 75f;
     // How it should rotate when steering in the air
     public float airSteerRotSpeed = 0.5f;
+    public float resetAirRotationSpeed = 10f;
 
     public Vector3 airVelocity { get; set; } = Vector3.zero;
 
@@ -318,27 +325,6 @@ public class PlayerMovement : MonoBehaviour
         // Add groundpound fall speed when starting ground pound
         if (startedGroundPound)
             gravity += groundPoundFallSpeed;
-        // Slow down fallspeed when starting glide
-        else if (isGliding)
-            gravity = fallSpeed;
-
-        // Stop glding when releasing the jump button
-        if (isGliding && !jumpInput)
-        {
-            isGliding = false;
-            GlideStopped.Invoke();
-        }
-
-        // Stop glide after a short duration
-        if (!canGlide)
-        {
-            glideTimer -= Time.deltaTime;
-            if (glideTimer <= 0f)
-            {
-                isGliding = false;
-                GlideStopped.Invoke();
-            }
-        }
 
         // Apply gravity
         airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
@@ -349,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
         // Rotate boat when steering
         desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed * Time.deltaTime, transform.up);
         // Lerp the rotation that was set when jumping (also when falling off the track)
-        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, resetAirRotationSpeed * Time.deltaTime);
     }
 
     #endregion
@@ -358,16 +344,11 @@ public class PlayerMovement : MonoBehaviour
 
     #region Jumping
     [Header("Jumping")]
+    public int maxJumps = 2;
     public float jumpPower = 15f;
-    public float gildeStopUpwardsVelMult = 0.5f;
-    public float maxGlideDuration = 2f;
     public UnityEvent Jumped;
-    public UnityEvent GlideStarted;
-    public UnityEvent GlideStopped;
 
-    public bool isGliding { get; private set; } = false;
-    public bool canGlide { get; private set; } = true;
-    public float glideTimer { get; private set; } = 0f;
+    public int jumpsLeft { get; private set; }
     public float timeSinceJump { get; set; }
     public float distanceWhenJumped { get; set; }
     public float lastMainTrackDistance { get; set; }
@@ -376,10 +357,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded || isDrifting)
+        if (isGrounded || isDrifting || jumpsLeft > 0 && !startedGroundPound)
         {
             if (isDrifting)
                 EndDrift();
+            
             // Detach the boat form the spline cart
             DetachFromCart();
 
@@ -393,28 +375,13 @@ public class PlayerMovement : MonoBehaviour
             // Invoke events
             Jumped.Invoke();
         }
-        else if (canGlide && !startedGroundPound) // Start glide if in the air
-        {
-            canGlide = false;
-            isGliding = true;
-            glideTimer = maxGlideDuration;
-
-            // Slowdown the upwards velcocity and reduce falling velocity when starting the gilde
-            // NOTE: It's not jumping when this happens, it might look like it does, but that is just the camera catching up to the boat
-            float upwardsForce = Vector3.Dot(transform.up, airVelocity);
-            airVelocity -= transform.up * upwardsForce * gildeStopUpwardsVelMult;
-            GlideStarted.Invoke();
-        }
     }
 
 
     private void ResetJumping()
     {
-        if (isGliding)
-            GlideStopped.Invoke();
-        isGliding = false;
-        canGlide = true;
         timeSinceJump = 0f;
+        jumpsLeft = maxJumps;
     }
 
 #endregion
@@ -500,14 +467,8 @@ public class PlayerMovement : MonoBehaviour
         // Compare side corss to spline tangent to see which side the player landed on
         bool landedOnTheLeftSide = Vector3.Dot(sideCross, splineTagent.normalized) > 0;
         if (landedOnTheLeftSide)
-        {
-            Debug.Log("Landed on the left side");
             xPosition *= -1f;
-        }
-        else
-        {
-            Debug.Log("Landed on the right side");
-        }
+        
         // Set new boat position
         transform.localPosition = new Vector3(xPosition, 0f, 0F);
         //Debug.Break();
@@ -573,11 +534,6 @@ public class PlayerMovement : MonoBehaviour
         {
             canGroundPound = false;
             startedGroundPound = true;
-            if (isGliding)
-            {
-                isGliding = false;
-                GlideStopped.Invoke();
-            }
             GroundpoundStarted.Invoke();
         }
     }
@@ -656,25 +612,34 @@ public class PlayerMovement : MonoBehaviour
 
     public void EndDrift()
     {
+        TrackDistanceInfo distanceInfo = currentTrack.GetDistanceInfoFromPosition(transform.position);
         positionWhenJumped = transform.position;
-        distanceWhenJumped = currentTrack.GetDistanceInfoFromPosition(transform.position).distance;
-        splineCart.SplinePosition = distanceWhenJumped;
+        distanceWhenJumped = distanceInfo.distance;
+        splineCart.SplinePosition = distanceInfo.distance;
+
+        float trackDirMult = 1f;
 
         isDrifting = false;
         // Land on track when still "on" a track
         if (driftRayHittingGround && !jumpInput)
         {
+            // Scale drift based on how much the player is facing the splines forward direction
+            Vector3 trackForward = currentTrack.track.EvaluateTangent(distanceInfo.normalizedDistance);
+            trackDirMult = Vector3.Dot(transform.forward, trackForward.normalized);
+            trackDirMult = Mathf.Clamp(trackDirMult, 0f, 1f);
             LandedOnTrack(currentTrack);
         }
         else
         {
             desiredAirRotation = GetRotationFromNewUpVector(Vector3.up);
+            airVelocity = transform.forward * currentForwardSpeed;
         }
 
+        StopAllCoroutines();
         EndDriftBoost();
         if (minDriftBoostTime < driftTimePassed)
         {
-            StartCoroutine(ApplyDriftBoost());
+            StartCoroutine(ApplyDriftBoost(trackDirMult));
         }
     }
 
@@ -688,14 +653,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private IEnumerator ApplyDriftBoost()
+    private IEnumerator ApplyDriftBoost(float trackDirMult)
     {
-        Debug.Log("Start drift boost");
         // TODO: Enable super boost trail
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drift Release Boost", releaseBoostCurve.Evaluate(boostTimePassed), driftReleaseMultiplerCurve);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drift Release Boost", 1f + (releaseBoostCurve.Evaluate(boostTimePassed) * trackDirMult), driftReleaseMultiplerCurve);
         yield return new WaitForSeconds(driftReleaseMultiplerCurve.GetLength());
         // TODO: Disable super boost trail
-        Debug.Log("End drift boost");
     }
 
 
