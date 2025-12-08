@@ -505,14 +505,8 @@ public class PlayerMovement : MonoBehaviour
         // Compare side corss to spline tangent to see which side the player landed on
         bool landedOnTheLeftSide = Vector3.Dot(sideCross, splineTagent.normalized) > 0;
         if (landedOnTheLeftSide)
-        {
-            Debug.Log("Landed on the left side");
             xPosition *= -1f;
-        }
-        else
-        {
-            Debug.Log("Landed on the right side");
-        }
+        
         // Set new boat position
         transform.localPosition = new Vector3(xPosition, 0f, 0F);
         //Debug.Break();
@@ -661,14 +655,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void EndDrift()
     {
+        TrackDistanceInfo distanceInfo = currentTrack.GetDistanceInfoFromPosition(transform.position);
         positionWhenJumped = transform.position;
-        distanceWhenJumped = currentTrack.GetDistanceInfoFromPosition(transform.position).distance;
-        splineCart.SplinePosition = distanceWhenJumped;
+        distanceWhenJumped = distanceInfo.distance;
+        splineCart.SplinePosition = distanceInfo.distance;
+
+        float trackDirMult = 1f;
 
         isDrifting = false;
         // Land on track when still "on" a track
         if (driftRayHittingGround && !jumpInput)
         {
+            // Scale drift based on how much the player is facing the splines forward direction
+            Vector3 trackForward = currentTrack.track.EvaluateTangent(distanceInfo.normalizedDistance);
+            trackDirMult = Vector3.Dot(transform.forward, trackForward.normalized);
+            trackDirMult = Mathf.Clamp(trackDirMult, 0f, 1f);
             LandedOnTrack(currentTrack);
         }
         else
@@ -680,7 +681,7 @@ public class PlayerMovement : MonoBehaviour
         EndDriftBoost();
         if (minDriftBoostTime < driftTimePassed)
         {
-            StartCoroutine(ApplyDriftBoost());
+            StartCoroutine(ApplyDriftBoost(trackDirMult));
         }
     }
 
@@ -694,14 +695,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private IEnumerator ApplyDriftBoost()
+    private IEnumerator ApplyDriftBoost(float trackDirMult)
     {
-        Debug.Log("Start drift boost");
         // TODO: Enable super boost trail
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drift Release Boost", releaseBoostCurve.Evaluate(boostTimePassed), driftReleaseMultiplerCurve);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Drift Release Boost", 1f + (releaseBoostCurve.Evaluate(boostTimePassed) * trackDirMult), driftReleaseMultiplerCurve);
         yield return new WaitForSeconds(driftReleaseMultiplerCurve.GetLength());
         // TODO: Disable super boost trail
-        Debug.Log("End drift boost");
     }
 
 
