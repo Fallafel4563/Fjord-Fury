@@ -65,8 +65,8 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
     {
         // Get the 
-        desiredPosOffset = (playerMovement.isGrounded || playerMovement.isDrifting) ? groundPosOffset : airPosOffset;
-        posLerpSpeed = (playerMovement.isGrounded || playerMovement.isDrifting) ? groundPosLerpSpeed : airPosLerpSpeed;
+        desiredPosOffset = playerMovement.isGrounded ? groundPosOffset : airPosOffset;
+        posLerpSpeed = playerMovement.isGrounded ? groundPosLerpSpeed : airPosLerpSpeed;
 
         // Get the true position offset
         desiredPosOffset.x = steerInput;

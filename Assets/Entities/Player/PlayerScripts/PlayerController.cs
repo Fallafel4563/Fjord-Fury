@@ -176,10 +176,7 @@ public class PlayerController : MonoBehaviour
         
         driftInput = inputValue.Get<float>() > 0.5f;
         playerMovement.driftInput = driftInput;
-        if (driftInput && !playerMovement.isDrifting)
-            playerMovement.StartDrift();
-        else if (playerMovement.isDrifting)
-            playerMovement.EndDrift();
+        playerMovement.StartDrift();
     }
 
 

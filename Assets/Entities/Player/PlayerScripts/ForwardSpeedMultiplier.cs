@@ -137,8 +137,4 @@ public class SpeedMultiplierCurve
     public float holdTime = 3f;
     public AnimationCurve startCurve;
     public AnimationCurve endCurve;
-    public float GetLength()
-    {
-        return holdTime + startCurve.keys.Last().time + endCurve.keys.Last().time;
-    }
 }
