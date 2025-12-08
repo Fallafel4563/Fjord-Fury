@@ -533,9 +533,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Drift")]
     public float minDriftBoostTime = 0.5f;
     public float diftSlowdownMultipler = 0.8f;
-    private float driftRotationMultipler = 0.3f;
-    private float driftMaxRotation = 30f;
-    private float dirftMinRotation = 20f;
+    public float driftRotationMultipler = 0.3f;
+    public float driftMaxRotation = 30f;
+    public float dirftMinRotation = 10f;
+    public float sidewaysDriftForce = 20f;
     // TODO: Dirft start trail
     // TODO: Drift boost trail
     // TODO: Super boost trail
@@ -561,7 +562,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartDrift()
     {
-        if (isGrounded && Mathf.Abs(steerInput) > 0f)
+        if (isGrounded && Mathf.Abs(steerInput) > 0f && !currentTrack.isCircle)
         {
             InitiateDrift();
         }
@@ -602,7 +603,7 @@ public class PlayerMovement : MonoBehaviour
         {
             driftRayHittingGround = true;
             
-            float lerpTarget = (dirftMinRotation + driftMaxRotation / 2f);
+            float lerpTarget = dirftMinRotation + driftMaxRotation / 2f;
             if (Mathf.Approximately(steerInput, driftDirection))
             {
                 lerpTarget = driftMaxRotation;
@@ -618,18 +619,21 @@ public class PlayerMovement : MonoBehaviour
 
             // TODO: Rotate hodel holder
 
-            currentRotation += rotationOffset * driftRotationMultipler * Time.deltaTime;
+            currentRotation = Mathf.LerpAngle(currentRotation, (lerpTarget / 5f) * driftDirection, 5f * Time.deltaTime);
 
             // Align the boats rotation with the spline normal
             // Get the "normal" of the spline. (Using the splines up vector is smoother than the meshes normal)
             TrackDistanceInfo distanceInfo = currentTrack.GetDistanceInfoFromPosition(transform.position);
             Vector3 splineNormal = currentTrack.track.Spline.EvaluateUpVector(distanceInfo.normalizedDistance);
             desiredAirRotation = GetRotationFromNewUpVector(splineNormal);
+            desiredAirRotation *= Quaternion.AngleAxis(currentRotation, splineNormal);
             // Apply rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 15f * Time.deltaTime);
 
             // Move boat forwards
-            transform.position = raycastHit.point + (transform.forward * currentForwardSpeed * Time.deltaTime);
+            Vector3 forwardMovement = transform.forward * currentForwardSpeed * Time.deltaTime;
+            Vector3 sidewaysMovement = -transform.right * driftDirection * sidewaysDriftForce * Time.deltaTime;
+            transform.position = raycastHit.point + forwardMovement + sidewaysMovement;
 
             driftTimePassed += Time.deltaTime;
             if (driftTimePassed > minDriftBoostTime)

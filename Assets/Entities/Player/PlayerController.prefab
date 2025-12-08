@@ -5382,19 +5382,7 @@ MonoBehaviour:
   maxGlideDuration: 2
   Jumped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnJumped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   GlideStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -5442,6 +5430,10 @@ MonoBehaviour:
         m_CallState: 2
   minDriftBoostTime: 0.5
   diftSlowdownMultipler: 0.8
+  driftRotationMultipler: 0.3
+  driftMaxRotation: 30
+  dirftMinRotation: 10
+  sidewaysDriftForce: 10
   driftLayter:
     serializedVersion: 2
     m_Bits: 1
@@ -5450,16 +5442,16 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+      value: 1
+      inSlope: 0.80055064
+      outSlope: 0.80055064
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.07676513
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 3
+      value: 2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
