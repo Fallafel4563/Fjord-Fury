@@ -635,6 +635,7 @@ public class PlayerMovement : MonoBehaviour
             airVelocity = transform.forward * currentForwardSpeed;
         }
 
+        StopAllCoroutines();
         EndDriftBoost();
         if (minDriftBoostTime < driftTimePassed)
         {
