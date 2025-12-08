@@ -10,8 +10,8 @@ public class Ability : MonoBehaviour
     [SerializeField] private GameObject _art;
     [SerializeField] private bool _isConected = true;
 
-    [SerializeField] private float _speed;
-
+    [SerializeField] private float _offSplineSpeed;
+    [SerializeField] private float _spawnOffset = 5f;
     [SerializeField] private float _temporarryDurationVariable;
 
     void Start()
@@ -19,12 +19,12 @@ public class Ability : MonoBehaviour
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition)
+    public void ConfigurateMyself(float position, float XPosition)//, float speed)
     {
         if (_spline != null)
         {
             _spline.Spline = Track.track;
-            _spline.SplinePosition = (position + 5f);
+            _spline.SplinePosition = (position + _spawnOffset);
             _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
         //_spline = GetComponent<CinemachineSplineCart>();
@@ -42,7 +42,7 @@ public class Ability : MonoBehaviour
 
         if (!_isConected)
         {
-            transform.position += transform.forward * _speed * Time.deltaTime;
+            transform.position += transform.forward * _offSplineSpeed * Time.deltaTime;
         }
     }
 }

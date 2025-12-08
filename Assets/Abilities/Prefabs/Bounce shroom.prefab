@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 446c426feb880544c98ea848a3b465d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,6 +180,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: _spawnOffset
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_Name
       value: Bounce shroom
@@ -228,6 +248,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9053705082680532183, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_Height
+      value: 4.8214173
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053705082680532183, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_Radius
+      value: 1.2236693
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053705082680532183, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: m_Center.y
+      value: 0.41350675
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -264,3 +296,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1afa6810c9865ba44baf3c46ee164b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BouncePower: 35

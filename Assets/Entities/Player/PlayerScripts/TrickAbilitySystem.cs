@@ -52,6 +52,7 @@ public class TrickAbilitySystem : MonoBehaviour
 
         abilityHasSpawned = true;
         abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        // Set up the abilityBuffer ref
         ConfigureAbility(abilityBuffer);
         Debug.Log(firstTrick);
         return;
@@ -87,11 +88,12 @@ public class TrickAbilitySystem : MonoBehaviour
         abilityTimeLeft = abilityDuration / newDuration;
     }
 
+    // Supply the ability with all data of where it's suppost to spawn
     void ConfigureAbility(GameObject buffer)
     {
         Ability a = abilityBuffer.GetComponent<Ability>();
-        a.Track = PM.mainTrack;//GetComponentInParent<PlayerController>().mainTrack;
-        // a.Track = GetComponentInParent<PlayerController>().mainTrack;
+        a.Track = PM.mainTrack;
+
         a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x);
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
