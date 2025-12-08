@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
     [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
     [SerializeField] private CurveSpeedOffset curveSpeedOffset;
-    [SerializeField] private DriftSystem driftSystem;
     [SerializeField] private GameObject skins;
 
     [HideInInspector] public int selectedCharacter = 0;
@@ -153,7 +152,6 @@ public class PlayerController : MonoBehaviour
         // Send input data to boat movement
         playerMovement.steerInput = steerInput;
         playerCamera.steerInput = steerInput;
-        driftSystem.steerInput = steerInput;
     }
 
 
