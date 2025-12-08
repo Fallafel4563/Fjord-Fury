@@ -18,7 +18,7 @@ public class BounceShroom : MonoBehaviour
 }
 
 /*
-public void ShroomBounce(float bouncePower)
+    public void ShroomBounce(float bouncePower)
     {
         // Detach the boat form the spline cart
         DetachFromCart();
