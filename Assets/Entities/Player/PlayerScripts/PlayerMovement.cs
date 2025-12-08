@@ -357,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded || isDrifting || jumpsLeft > 0)
+        if (isGrounded || isDrifting || jumpsLeft > 0 && !startedGroundPound)
         {
             if (isDrifting)
                 EndDrift();
