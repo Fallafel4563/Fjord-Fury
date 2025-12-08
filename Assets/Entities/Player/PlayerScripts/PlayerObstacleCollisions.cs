@@ -48,9 +48,9 @@ public class PlayerObstacleCollisions : MonoBehaviour
 
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("CrashBoost", obstacle.crashSpeedMultiplier, obstacle.crashSpeedMultiplierCurve);
 
+        // This is completely redundant since the HitObstacle event is connected to the trick and combo system
         if (trickComboSystem.performingTrick)
             trickComboSystem.FailTrick();
-
 
         // TODO: Play crash sound
         StartCoroutine(ActivateInvulnerable());
