@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
         // Reset stuff
         isGrounded = false;
         timeSinceJump = 0f;
+        jumpsLeft--;
 
 
         // Save position and distance when the boat jumped
@@ -299,6 +300,7 @@ public class PlayerMovement : MonoBehaviour
     public float quickfallSpeed = 75f;
     // How it should rotate when steering in the air
     public float airSteerRotSpeed = 0.5f;
+    public float resetAirRotationSpeed = 10f;
 
     public Vector3 airVelocity { get; set; } = Vector3.zero;
 
@@ -323,27 +325,6 @@ public class PlayerMovement : MonoBehaviour
         // Add groundpound fall speed when starting ground pound
         if (startedGroundPound)
             gravity += groundPoundFallSpeed;
-        // Slow down fallspeed when starting glide
-        else if (isGliding)
-            gravity = fallSpeed;
-
-        // Stop glding when releasing the jump button
-        if (isGliding && !jumpInput)
-        {
-            isGliding = false;
-            GlideStopped.Invoke();
-        }
-
-        // Stop glide after a short duration
-        if (!canGlide)
-        {
-            glideTimer -= Time.deltaTime;
-            if (glideTimer <= 0f)
-            {
-                isGliding = false;
-                GlideStopped.Invoke();
-            }
-        }
 
         // Apply gravity
         airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
@@ -354,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
         // Rotate boat when steering
         desiredAirRotation *= Quaternion.AngleAxis(steerInput * airSteerRotSpeed * Time.deltaTime, transform.up);
         // Lerp the rotation that was set when jumping (also when falling off the track)
-        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, 5f * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredAirRotation, resetAirRotationSpeed * Time.deltaTime);
     }
 
     #endregion
@@ -363,16 +344,11 @@ public class PlayerMovement : MonoBehaviour
 
     #region Jumping
     [Header("Jumping")]
+    public int maxJumps = 2;
     public float jumpPower = 15f;
-    public float gildeStopUpwardsVelMult = 0.5f;
-    public float maxGlideDuration = 2f;
     public UnityEvent Jumped;
-    public UnityEvent GlideStarted;
-    public UnityEvent GlideStopped;
 
-    public bool isGliding { get; private set; } = false;
-    public bool canGlide { get; private set; } = true;
-    public float glideTimer { get; private set; } = 0f;
+    public int jumpsLeft { get; private set; }
     public float timeSinceJump { get; set; }
     public float distanceWhenJumped { get; set; }
     public float lastMainTrackDistance { get; set; }
@@ -381,10 +357,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded || isDrifting)
+        if (isGrounded || isDrifting || jumpsLeft > 0)
         {
             if (isDrifting)
                 EndDrift();
+            
             // Detach the boat form the spline cart
             DetachFromCart();
 
@@ -398,28 +375,13 @@ public class PlayerMovement : MonoBehaviour
             // Invoke events
             Jumped.Invoke();
         }
-        else if (canGlide && !startedGroundPound) // Start glide if in the air
-        {
-            canGlide = false;
-            isGliding = true;
-            glideTimer = maxGlideDuration;
-
-            // Slowdown the upwards velcocity and reduce falling velocity when starting the gilde
-            // NOTE: It's not jumping when this happens, it might look like it does, but that is just the camera catching up to the boat
-            float upwardsForce = Vector3.Dot(transform.up, airVelocity);
-            airVelocity -= transform.up * upwardsForce * gildeStopUpwardsVelMult;
-            GlideStarted.Invoke();
-        }
     }
 
 
     private void ResetJumping()
     {
-        if (isGliding)
-            GlideStopped.Invoke();
-        isGliding = false;
-        canGlide = true;
         timeSinceJump = 0f;
+        jumpsLeft = maxJumps;
     }
 
 #endregion
@@ -572,11 +534,6 @@ public class PlayerMovement : MonoBehaviour
         {
             canGroundPound = false;
             startedGroundPound = true;
-            if (isGliding)
-            {
-                isGliding = false;
-                GlideStopped.Invoke();
-            }
             GroundpoundStarted.Invoke();
         }
     }
