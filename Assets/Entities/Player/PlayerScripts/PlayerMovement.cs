@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     // State variables
     public bool isGrounded { get; set; } = true;
+    public Vector3 oldPosition;
 
 
     private void Start()
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
         currentTrack = mainTrack;
         // Set the players movement speed to be the tracks override speed
         SetOverrideSpeed(mainTrack.overrideSpeed);
+
+        oldPosition = transform.position;
     }
 
 
@@ -44,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             ApplyGroundMovement();
         else
             ApplyAirMovement();
+
+        oldPosition = transform.position;
     }
 
 
@@ -669,6 +674,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             desiredAirRotation = GetRotationFromNewUpVector(Vector3.up);
+            airVelocity = transform.forward * currentForwardSpeed;
         }
 
         EndDriftBoost();
