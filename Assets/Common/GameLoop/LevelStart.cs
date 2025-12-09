@@ -77,6 +77,8 @@ public class LevelStart : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        if (!this.enabled) return;
+
         PlayerController playerController = playerInput.GetComponent<PlayerController>();
         playerController.splineCart.AutomaticDolly.Enabled = false;
         playerController.inputEnabled = false;
