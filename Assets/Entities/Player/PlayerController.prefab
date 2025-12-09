@@ -6157,15 +6157,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6215,9 +6215,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4e5a4ee85f1ac6c4f96a1a4dd3dd7317, type: 2}
+    - target: {fileID: 98711950272329592, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
       propertyPath: m_Name
       value: Wings
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 0386de16a1c8bf048bad3241de2ca221, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
