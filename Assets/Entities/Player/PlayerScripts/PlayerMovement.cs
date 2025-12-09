@@ -347,6 +347,7 @@ public class PlayerMovement : MonoBehaviour
     public int maxJumps = 2;
     public float jumpPower = 15f;
     public UnityEvent Jumped;
+    public UnityEvent DoubleJumped;
 
     public int jumpsLeft { get; private set; }
     public float timeSinceJump { get; set; }
@@ -357,8 +358,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+
         if (isGrounded || isDrifting || jumpsLeft > 0 && !startedGroundPound)
         {
+            if (!isGrounded && !isDrifting)
+            {
+                Debug.Log("Double jump");
+                DoubleJumped.Invoke();
+            }
+
             if (isDrifting)
                 EndDrift();
             
