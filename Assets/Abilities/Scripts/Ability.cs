@@ -38,6 +38,11 @@ public class Ability : MonoBehaviour
         {
             _isConected = false;
             _spline.enabled = false;
+            Debug.Log("nowork");
+        }
+        else
+        {
+            Debug.Log("work");
         }
 
         if (!_isConected)
