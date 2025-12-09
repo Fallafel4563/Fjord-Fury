@@ -47,14 +47,13 @@ public class PlayerCamera : MonoBehaviour
         cinemachineCamera = GetComponent<CinemachineCamera>();
         cinemachineBrain = GetComponentInChildren<CinemachineBrain>();
         activeCamera = GetComponentInChildren<Camera>();
+        // Set default values
+        cinemachineCamera.Target.TrackingTarget = trackingTarget;
     }
 
 
     private void Start()
     {
-        // Set default values
-        cinemachineCamera.Target.TrackingTarget = trackingTarget;
-
         posOffset = groundPosOffset;
         desiredPosOffset = groundPosOffset;
         posLerpSpeed = groundPosLerpSpeed;
@@ -91,7 +90,8 @@ public class PlayerCamera : MonoBehaviour
     private void SetCameraPosition()
     {
         Vector3 xOffset = trackingTarget.right * posOffset.x;
-        Vector3 yOffset = trackingTarget.up * posOffset.y;
+        float upwardsVel = Vector3.Dot(transform.up, playerMovement.airVelocity.normalized);
+        Vector3 yOffset = trackingTarget.up * (posOffset.y - (Mathf.Clamp(upwardsVel, -1f, 0f) * 5f));
         Vector3 zOffset = -trackingTarget.forward * posOffset.z;
         // Get the position the camera wants to be at
         Vector3 desiredPosition = trackingTarget.position + xOffset + yOffset + zOffset;

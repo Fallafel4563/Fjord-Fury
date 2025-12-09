@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
     [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
     [SerializeField] private CurveSpeedOffset curveSpeedOffset;
+    [SerializeField] private LagSpikeSaftey lagSpikeSaftey;
     [SerializeField] private GameObject skins;
 
     [HideInInspector] public int selectedCharacter = 0;
@@ -62,6 +63,8 @@ public class PlayerController : MonoBehaviour
         curveSpeedOffset.splineCart = splineCart;
         curveSpeedOffset.playerMovement = playerMovement;
         curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
+
+        lagSpikeSaftey.playerMovement = playerMovement;
     }
 
 
