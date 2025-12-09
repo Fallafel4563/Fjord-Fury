@@ -13,6 +13,7 @@ public class PlayerCrash : MonoBehaviour
     public GameObject VFX;
     private float collisionForce;
     [HideInInspector] public PlayerMovement playerMovement;
+    public CameraShakeSorter cameraShakeSorter;
    // [HideInInspector] public CameraShake cameraShake;
     public UnityEvent OnPlayerCrash;
     public bool cameraShakeToggle;
