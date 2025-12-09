@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -63,7 +64,7 @@ public class LevelStart : MonoBehaviour
 
     private void StartRace()
     {
-        UpdateCountDownImage?.Invoke(countdownImages[countdownImageIndex]);
+        UpdateCountDownImage?.Invoke(countdownImages.Last());
 
         for (int i = 0; i < players.Count; i++)
         {
