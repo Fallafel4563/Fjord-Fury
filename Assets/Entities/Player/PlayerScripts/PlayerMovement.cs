@@ -356,6 +356,22 @@ public class PlayerMovement : MonoBehaviour
     public float lastMainTrackDistance { get; set; }
     public Vector3 positionWhenJumped { get; set; }
 
+    public void ShroomBounce(float bouncePower)
+    {
+        // Detach the boat form the spline cart
+        DetachFromCart();
+
+        // Stop all upwards velocity
+        float upwardsVel = Vector3.Dot(airVelocity, transform.up);
+        airVelocity -= transform.up * upwardsVel;
+        // Set the upwards air velocity to be the equal to jump power
+        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
+        airVelocity += transform.up * bouncePower;
+
+
+        // Invoke events
+        Jumped.Invoke();
+    }
 
     public void Jump()
     {

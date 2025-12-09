@@ -146,6 +146,7 @@ public class TrickComboSystem : MonoBehaviour
                 // Short boost
                 // Medium boost
                 // Long boost
+            trickAbilitySystem.SpawnAbility(firstTrickIndex, shortBoost, mediumBoost, longBoost);
         }
         else if (combo < 3)
         {
