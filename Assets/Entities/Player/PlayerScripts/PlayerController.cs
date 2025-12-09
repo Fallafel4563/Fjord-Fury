@@ -16,12 +16,7 @@ public class PlayerController : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
-    [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
-    [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
-    [SerializeField] private CurveSpeedOffset curveSpeedOffset;
-    [SerializeField] private LagSpikeSaftey lagSpikeSaftey;
     [SerializeField] private GameObject skins;
 
     public int selectedCharacter { get; set; } = 0;
@@ -36,37 +31,8 @@ public class PlayerController : MonoBehaviour
     {   
         playerInput = GetComponent<PlayerInput>();
 
-        playerMovement.playerController = this;
         splineCart.Spline = mainTrack.track;
-
-        playerMovement.splineCart = splineCart;
         playerMovement.mainTrack = mainTrack;
-        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        playerCamera.playerMovement = playerMovement;
-        playerCamera.trackingTarget = playerMovement.transform;
-        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        playerRespawn.splineCart = splineCart;
-        playerRespawn.playerMovement = playerMovement;
-        playerRespawn.playerCamera = playerCamera;
-
-        boatMovementAnims.playerMovement = playerMovement;
-        boatMovementAnims.trickComboSystem = trickComboSystem;
-
-        trickComboSystem.playerMovement = playerMovement;
-        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
-        trickComboSystem.boatMovementAnims = boatMovementAnims;
-
-        playerObstacleCollisions.playerMovement = playerMovement;
-        playerObstacleCollisions.trickComboSystem = trickComboSystem;
-        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        curveSpeedOffset.splineCart = splineCart;
-        curveSpeedOffset.playerMovement = playerMovement;
-        curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        lagSpikeSaftey.playerMovement = playerMovement;
     }
 
 
