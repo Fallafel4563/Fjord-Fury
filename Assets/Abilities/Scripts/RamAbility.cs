@@ -1,16 +1,25 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class RamAbility : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    PlayerMovement PM;
+    public float Duration;
+
+    public void StartAbility()
     {
-        
+        StartCoroutine(abilityBoost());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator abilityBoost()
     {
-        
+        float originalSpeed = PM.baseForwardSpeed;
+        PM.baseForwardSpeed *= 2f;
+
+        yield return new WaitForSeconds(Duration);
+
+        PM.baseForwardSpeed = originalSpeed;
+        Destroy(gameObject);
     }
 }

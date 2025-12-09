@@ -94,7 +94,7 @@ public class TrickAbilitySystem : MonoBehaviour
         Ability a = abilityBuffer.GetComponent<Ability>();
         a.Track = PM.mainTrack;
 
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x);
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform);
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 

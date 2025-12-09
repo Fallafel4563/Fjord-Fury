@@ -540,10 +540,84 @@ MonoBehaviour:
   Track: {fileID: 0}
   _spline: {fileID: 5704743019344172549}
   _art: {fileID: 1628463512576927024}
-  _isConected: 1
-  _offSplineSpeed: 0
+  _offSplineSpeed: 140
   _spawnOffset: 5
   _temporarryDurationVariable: 10
+  CrashSpeedMultiplier: 0
+  CrashSpeedMultiplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.5819025
+      outSlope: 0.5819025
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.09087954
+      value: 1.052883
+      inSlope: 0.00018724661
+      outSlope: 0.00018724661
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.7766467
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.24043635
+      value: 1.0497242
+      inSlope: 0.00018480906
+      outSlope: 0.00018480906
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9946872
+      value: 1.0503342
+      inSlope: 0.0008005974
+      outSlope: 0.0008005974
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  CrashSound: {fileID: 0}
+  CauseHarm: 0
+  DestructOnCrash: 0
+  DestructParticles: {fileID: 0}
+  Instantiator: {fileID: 0}
+  BounceHeight: 0
+  MaxSize: 0
+  LifeSpan: 0
+  MultiplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.014865261
+      value: 1.0109681
+      inSlope: -0.023877058
+      outSlope: -0.023877058
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.8834929
+    - serializedVersion: 3
+      time: 1.0260141
+      value: -0.040594082
+      inSlope: -2.2828681
+      outSlope: -2.2828681
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11716562
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &5704743019344172549
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,27 +5,55 @@ using UnityEngine.Splines;
 
 public class Ability : MonoBehaviour
 {
-    public SplineTrack Track;
+    [HideInInspector] public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
     [SerializeField] private GameObject _art;
-    [SerializeField] private bool _isConected = true;
+    private bool _isConected = true;
 
-    [SerializeField] private float _offSplineSpeed;
+    private float _offSplineSpeed = 140f;
     [SerializeField] private float _spawnOffset = 5f;
     [SerializeField] private float _temporarryDurationVariable;
 
+    [SerializeField] private RamAbility RA;
+
+
+
+    [Header("Ability implementaation")]
+    [SerializeField] private float CrashSpeedMultiplier;
+    [SerializeField] private AnimationCurve CrashSpeedMultiplierCurve;
+    [SerializeField] private AudioSource CrashSound;
+    [SerializeField] private bool CauseHarm;
+    [SerializeField] private bool DestructOnCrash;
+    [SerializeField] private GameObject DestructParticles;
+    [SerializeField] private GameObject Instantiator;
+    [SerializeField] private float BounceHeight;
+
+    [SerializeField] private float MaxSize;
+    [SerializeField] private float LifeSpan;
+    [SerializeField] private AnimationCurve MultiplierCurve;
+
     void Start()
     {
+        RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition)//, float speed)
+    public void ConfigurateMyself(float position, float XPosition, Transform player)//, float speed)
     {
         if (_spline != null)
         {
             _spline.Spline = Track.track;
             _spline.SplinePosition = (position + _spawnOffset);
             _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+        }
+
+        if (RA != null)
+        {
+            _spline.enabled = false;
+            transform.rotation = player.rotation;
+            transform.position = player.position;
+            transform.SetParent(player);
+            RA.StartAbility();
         }
         //_spline = GetComponent<CinemachineSplineCart>();
         //GetComponent<SplineContainer>();
@@ -38,11 +66,9 @@ public class Ability : MonoBehaviour
         {
             _isConected = false;
             _spline.enabled = false;
-            Debug.Log("nowork");
         }
         else
         {
-            Debug.Log("work");
         }
 
         if (!_isConected)
