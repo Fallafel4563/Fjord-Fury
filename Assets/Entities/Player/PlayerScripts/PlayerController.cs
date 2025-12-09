@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("External References")]
     public SplineTrack mainTrack;
-
     [HideInInspector] public PlayerHud playerHud;
 
 
@@ -17,51 +16,23 @@ public class PlayerController : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
-    [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
-    [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
-    [SerializeField] private CurveSpeedOffset curveSpeedOffset;
     [SerializeField] private GameObject skins;
 
-    [HideInInspector] public int selectedCharacter = 0;
+    public int selectedCharacter { get; set; } = 0;
+    public int playerIndex { get; private set; }
 
     private PlayerInput playerInput;
 
 
 
+    // Set references on different systems
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
 
         splineCart.Spline = mainTrack.track;
-
-        playerMovement.splineCart = splineCart;
         playerMovement.mainTrack = mainTrack;
-        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        playerCamera.playerMovement = playerMovement;
-        playerCamera.trackingTarget = playerMovement.transform;
-        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        playerRespawn.splineCart = splineCart;
-        playerRespawn.playerMovement = playerMovement;
-        playerRespawn.playerCamera = playerCamera;
-
-        boatMovementAnims.playerMovement = playerMovement;
-        boatMovementAnims.trickComboSystem = trickComboSystem;
-
-        trickComboSystem.playerMovement = playerMovement;
-        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
-        trickComboSystem.boatMovementAnims = boatMovementAnims;
-
-        playerObstacleCollisions.playerMovement = playerMovement;
-        playerObstacleCollisions.trickComboSystem = trickComboSystem;
-        playerObstacleCollisions.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        curveSpeedOffset.splineCart = splineCart;
-        curveSpeedOffset.playerMovement = playerMovement;
-        curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
     }
 
 
@@ -96,7 +67,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Set references on different systems
+    // Additional setup on systems
     private void Start()
     {
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
@@ -176,7 +147,10 @@ public class PlayerController : MonoBehaviour
         
         driftInput = inputValue.Get<float>() > 0.5f;
         playerMovement.driftInput = driftInput;
-        playerMovement.StartDrift();
+        if (driftInput && !playerMovement.isDrifting)
+            playerMovement.StartDrift();
+        else if (playerMovement.isDrifting)
+            playerMovement.EndDrift();
     }
 
 

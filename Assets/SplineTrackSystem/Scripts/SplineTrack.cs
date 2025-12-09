@@ -54,6 +54,7 @@ public class SplineTrack : MonoBehaviour
 
         TrackDistanceInfo trackDistanceInfo = new();
         trackDistanceInfo.distance = distance;
+        trackDistanceInfo.normalizedDistance = distance / track[0].GetLength();
         trackDistanceInfo.nearestSplinePos = new Vector3(nearestPos.x, nearestPos.y, nearestPos.z) + transform.position;
         return trackDistanceInfo;
     }
@@ -63,5 +64,6 @@ public class SplineTrack : MonoBehaviour
     public struct TrackDistanceInfo
     {
         public float distance;
+        public float normalizedDistance;
         public Vector3 nearestSplinePos;
     }

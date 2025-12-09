@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BoatMovementAnims : MonoBehaviour
 {
-    [HideInInspector] public PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;
     public TrickComboSystem trickComboSystem;
 
     
@@ -92,5 +92,11 @@ public class BoatMovementAnims : MonoBehaviour
     {
         if (trickComboSystem.performingTrick)
             trickComboSystem.OnTrickCompleted();
+    }
+
+
+    public void OnDoubleJump()
+    {
+        trickComboSystem.animator.SetTrigger("DoubleJump");
     }
 }

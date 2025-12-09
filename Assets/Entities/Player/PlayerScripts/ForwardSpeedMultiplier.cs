@@ -31,8 +31,13 @@ public class ForwardSpeedMultiplier : MonoBehaviour
     {
         if (forwardSpeedMultipliers.ContainsKey(name))
         {
+            // Don't restart the multipler curve form the beginning startCruve if the new speed multipler allready exists
+            // Rather skip the start curve and go directly to the hold value
             if (multiplierCurve != null)
             {
+                if (multiplierCurve.startCurve == null)
+                    return;
+                
                 if (multiplierCurve.startCurve.keys.Count() > 0)
                     forwardSpeedMultipliers[name].timeOffset = multiplierCurve.startCurve.keys.Last().time;
             }
@@ -86,9 +91,13 @@ public class SpeedMultiplier
             // How long the curve has been active for
             activeTime = time - timeOnStart + timeOffset;
 
-            // When the start curve ends
+            if (multiplierCurve.startCurve == null || multiplierCurve.endCurve == null)
+                return value;
+
+            // Make sure the speedmultier curves has points that it can use
             if (multiplierCurve.startCurve.keys.Count() > 0 && multiplierCurve.endCurve.keys.Count() > 0)
             {
+                // When the start curve ends
                 float startCurveTime = multiplierCurve.startCurve.keys.Last().time;
                 // When the hold time ends
                 float endCurveTime = startCurveTime + multiplierCurve.holdTime;
@@ -114,6 +123,15 @@ public class SpeedMultiplier
                 else
                     shouldDelete = true;
             }
+            else
+            {
+                // Stop multiplers from being permanent if there isn't a valid start or end curve
+                float holdTimeEnd = multiplierCurve.holdTime;
+                if (activeTime < holdTimeEnd)
+                    return value;
+                else
+                    shouldDelete = true;
+            }
         }
         return value;
     }
@@ -122,7 +140,11 @@ public class SpeedMultiplier
 [Serializable]
 public class SpeedMultiplierCurve
 {
-    public float holdTime;
+    public float holdTime = 3f;
     public AnimationCurve startCurve;
     public AnimationCurve endCurve;
+    public float GetLength()
+    {
+        return holdTime + startCurve.keys.Last().time + endCurve.keys.Last().time;
+    }
 }
