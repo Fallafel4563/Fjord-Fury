@@ -75,8 +75,6 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        if (playerInput.playerIndex > playerCount - 1)
-            return;
         Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
         // Spawn hud

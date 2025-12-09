@@ -12,9 +12,9 @@ public class PlayerRespawn : MonoBehaviour
     public UnityEvent RespawnStarted;
     public UnityEvent RespawnFinished;
 
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public PlayerCamera playerCamera;
-    [HideInInspector] public CinemachineSplineCart splineCart;
+    public PlayerMovement playerMovement;
+    public PlayerCamera playerCamera;
+    public CinemachineSplineCart splineCart;
 
     private bool respawnActive = false;
 
