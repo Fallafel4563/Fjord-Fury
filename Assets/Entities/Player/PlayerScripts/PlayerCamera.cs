@@ -47,14 +47,13 @@ public class PlayerCamera : MonoBehaviour
         cinemachineCamera = GetComponent<CinemachineCamera>();
         cinemachineBrain = GetComponentInChildren<CinemachineBrain>();
         activeCamera = GetComponentInChildren<Camera>();
+        // Set default values
+        cinemachineCamera.Target.TrackingTarget = trackingTarget;
     }
 
 
     private void Start()
     {
-        // Set default values
-        cinemachineCamera.Target.TrackingTarget = trackingTarget;
-
         posOffset = groundPosOffset;
         desiredPosOffset = groundPosOffset;
         posLerpSpeed = groundPosLerpSpeed;
