@@ -35,6 +35,9 @@ public class ForwardSpeedMultiplier : MonoBehaviour
             // Rather skip the start curve and go directly to the hold value
             if (multiplierCurve != null)
             {
+                if (multiplierCurve.startCurve == null)
+                    return;
+                
                 if (multiplierCurve.startCurve.keys.Count() > 0)
                     forwardSpeedMultipliers[name].timeOffset = multiplierCurve.startCurve.keys.Last().time;
             }
@@ -87,6 +90,9 @@ public class SpeedMultiplier
         {
             // How long the curve has been active for
             activeTime = time - timeOnStart + timeOffset;
+
+            if (multiplierCurve.startCurve == null || multiplierCurve.endCurve == null)
+                return value;
 
             // Make sure the speedmultier curves has points that it can use
             if (multiplierCurve.startCurve.keys.Count() > 0 && multiplierCurve.endCurve.keys.Count() > 0)
