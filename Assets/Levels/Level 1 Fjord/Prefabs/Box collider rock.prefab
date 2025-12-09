@@ -50,9 +50,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b07c92f3b9c2d3940a2e7aff7f5363e2, type: 3}
       propertyPath: m_Name
-      value: SharpRock_02
+      value: Box collider rock
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b07c92f3b9c2d3940a2e7aff7f5363e2, type: 3}
+      propertyPath: m_TagString
+      value: Obstacles
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: b07c92f3b9c2d3940a2e7aff7f5363e2, type: 3}
       propertyPath: m_TagString
       value: Obstacles
       objectReference: {fileID: 0}
@@ -63,6 +67,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: b07c92f3b9c2d3940a2e7aff7f5363e2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4322786118235359825}
+    - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: b07c92f3b9c2d3940a2e7aff7f5363e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6426249544057203296}
   m_SourcePrefab: {fileID: 100100000, guid: b07c92f3b9c2d3940a2e7aff7f5363e2, type: 3}
 --- !u!1 &251917487077387925 stripped
 GameObject:
@@ -90,3 +97,70 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8188477, y: 3.7816234, z: 1.1219482}
   m_Center: {x: -0.01751709, y: 0.88557076, z: 0.14007568}
+--- !u!114 &6426249544057203296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251917487077387925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  causeHarm: 1
+  destructOnCrash: 1
+  bounceHeight: 0
+  crashSpeedMultiplier: 0.5
+  crashSpeedMultiplierCurve:
+    holdTime: 3
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  owner: {fileID: 0}
