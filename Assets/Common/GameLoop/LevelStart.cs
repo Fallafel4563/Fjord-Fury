@@ -13,6 +13,7 @@ public class LevelStart : MonoBehaviour
     private int countdownImageIndex = 0;
     private List<PlayerController> players = new();
 
+    public static Action<float> LevelStarted;
     public static Action<Sprite> UpdateCountDownImage;
 
 
@@ -65,14 +66,13 @@ public class LevelStart : MonoBehaviour
     private void StartRace()
     {
         UpdateCountDownImage?.Invoke(countdownImages.Last());
+        LevelStarted?.Invoke(Time.time);
 
         for (int i = 0; i < players.Count; i++)
         {
             players[i].inputEnabled = true;
             players[i].splineCart.AutomaticDolly.Enabled = true;
         }
-
-        Debug.Log("GO!");
     }
 
 

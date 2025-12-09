@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CurveSpeedOffset curveSpeedOffset;
     [SerializeField] private GameObject skins;
 
-    [HideInInspector] public int selectedCharacter = 0;
+    public int selectedCharacter { get; set; } = 0;
+    public int playerIndex { get; private set; }
 
     private PlayerInput playerInput;
 
@@ -33,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
+
+        playerMovement.playerController = this;
     }
 
 
@@ -99,6 +102,7 @@ public class PlayerController : MonoBehaviour
         curveSpeedOffset.playerMovement = playerMovement;
         curveSpeedOffset.forwardSpeedMultiplier = forwardSpeedMultiplier;
 
+        playerIndex = playerInput.playerIndex;
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
 
         SetActiveSkin();

@@ -2,11 +2,13 @@ using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 
 public class PlayerMovement : MonoBehaviour
 {
     public Transform circleRotParent;
+    public PlayerController playerController;
     public ForwardSpeedMultiplier forwardSpeedMultiplier;
 
     // Input variables
