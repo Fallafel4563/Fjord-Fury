@@ -113,5 +113,6 @@ public class CharacterSelectOptions : MonoBehaviour
 public struct PlayerSelectInfo
 {
     public int characterIndex;
+    public float totalTimeSpent;
     public InputDevice inputDevice;
 }
