@@ -6,20 +6,24 @@ public class RamAbility : MonoBehaviour
 {
     PlayerMovement PM;
     public float Duration;
+    [SerializeField] private float speedValue;
 
-    public void StartAbility()
+    public SpeedMultiplierCurve ImmediateComboBoostCurve;
+
+    public void StartAbility(ForwardSpeedMultiplier forwardSpeedMultiplier)
     {
-        StartCoroutine(abilityBoost());
+        StartCoroutine(abilityBoost(forwardSpeedMultiplier));
     }
 
-    IEnumerator abilityBoost()
+    IEnumerator abilityBoost(ForwardSpeedMultiplier forwardSpeedMultiplier)
     {
-        float originalSpeed = PM.baseForwardSpeed;
-        PM.baseForwardSpeed *= 2f;
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + speedValue, ImmediateComboBoostCurve);
+
+        Debug.Log("Start ram");
 
         yield return new WaitForSeconds(Duration);
 
-        PM.baseForwardSpeed = originalSpeed;
+        Debug.Log("End ram");
         Destroy(gameObject);
     }
 }

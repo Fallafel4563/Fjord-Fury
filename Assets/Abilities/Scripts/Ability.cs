@@ -16,6 +16,8 @@ public class Ability : MonoBehaviour
 
     [SerializeField] private RamAbility RA;
 
+    [SerializeField] int trickNumberRecuired;
+
 
 
     [Header("Ability implementaation")]
@@ -38,8 +40,10 @@ public class Ability : MonoBehaviour
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player)//, float speed)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, ForwardSpeedMultiplier forwardSpeedMultiplier, int comboCount)//, float speed)
     {
+        if (comboCount < trickNumberRecuired) return;
+
         if (_spline != null)
         {
             _spline.Spline = Track.track;
@@ -53,7 +57,8 @@ public class Ability : MonoBehaviour
             transform.rotation = player.rotation;
             transform.position = player.position;
             transform.SetParent(player);
-            RA.StartAbility();
+            RA.StartAbility(forwardSpeedMultiplier);
+            _art.transform.localPosition = new Vector3(0f, 0f, 0f);
         }
         //_spline = GetComponent<CinemachineSplineCart>();
         //GetComponent<SplineContainer>();
