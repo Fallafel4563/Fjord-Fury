@@ -13,12 +13,18 @@ public class PlayerCrash : MonoBehaviour
     public GameObject VFX;
     private float collisionForce;
     [HideInInspector] public PlayerMovement playerMovement;
+   // [HideInInspector] public CameraShake cameraShake;
     public UnityEvent OnPlayerCrash;
+    public bool cameraShakeToggle;
+    public CinemachineCollisionImpulseSource impulseSource;
     
     private bool wasGroundedLastFrame;
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        //cameraShake = GetComponent<CameraShake>();
+        cameraShakeToggle = false;
+        impulseSource = GetComponent<CinemachineCollisionImpulseSource>();
     }
 
     
@@ -49,6 +55,10 @@ public class PlayerCrash : MonoBehaviour
             
                 otherPlayerMovement.DetachFromCart();
                 otherPlayerMovement.airVelocity += direction * bumpVelocity.magnitude + ((Vector3.up * bumpHeight * forwardSpeed/30));
+
+                cameraShakeToggle = true;
+                CameraShakeEnable();
+                Debug.Log("CameraShake set to true");
                
 
                // otherPlayerMovement.airVelocity = bumpVelocity;
@@ -86,5 +96,18 @@ public class PlayerCrash : MonoBehaviour
         yield return new WaitForEndOfFrame();
         boat.DetachFromCart();
         boat.airVelocity = bump;
+    }
+
+    public void CameraShakeEnable()
+    {
+        if (cameraShakeToggle == true)
+        {
+            //shakeGroup.transform.localScale = new Vector3(shakeViolence, shakeViolence, shakeViolence);
+            //CameraAnimationStart();
+            impulseSource.GenerateImpulse();
+            
+            Debug.Log("CameraShake Enabled");
+            
+        }
     }
 }
