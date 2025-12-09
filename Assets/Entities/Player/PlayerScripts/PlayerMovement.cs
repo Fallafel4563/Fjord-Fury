@@ -8,6 +8,8 @@ using UnityEngine.Splines;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerController playerController;
+    public CinemachineSplineCart splineCart;
     public Transform circleRotParent;
     public ForwardSpeedMultiplier forwardSpeedMultiplier;
 
@@ -75,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
     public float overrideSpeed { get; set; } = 40f;
     public float steerSpeed { get; set; }
     public Vector3 HorizontalVelocity { get; set; }
-    public CinemachineSplineCart splineCart { get; set; }
     public SplineTrack mainTrack { get; set; }
     public SplineTrack currentTrack { get; set; }
 

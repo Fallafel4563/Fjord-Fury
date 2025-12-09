@@ -14,6 +14,6 @@ public class ScaleParticlesBasedOnSpeed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        particleSystem.startLifetime = playerMovement.currentForwardSpeed / 30f;
+        particleSystem.startLifetime = playerMovement.currentForwardSpeed / 40f;
     }
 }
