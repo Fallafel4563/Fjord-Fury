@@ -7,7 +7,7 @@ public class TrickComboSystem : MonoBehaviour
     public PlayerMovement playerMovement;
     public ForwardSpeedMultiplier forwardSpeedMultiplier;
     public BoatMovementAnims boatMovementAnims;
-    private TrickAbilitySystem trickAbilitySystem;
+    public TrickAbilitySystem trickAbilitySystem;
 
 
     public bool performingTrick { get; set; } = false;
