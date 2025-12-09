@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 492201478471945602}
   - component: {fileID: 9018328636378274389}
   - component: {fileID: 3768676886933495487}
+  - component: {fileID: 8299552924632480306}
   m_Layer: 0
   m_Name: WaterSpray
   m_TagString: Untagged
@@ -240,7 +241,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.26
+      scalar: 1.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -293,7 +294,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15.65
+      scalar: 15.08
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4958,6 +4959,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8299552924632480306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930691827343099361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e730e51361c892f4f8a2aeb9b84a37ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 2060630186251258410}
+  particleSystem: {fileID: 9018328636378274389}
 --- !u!1 &3283433894581042231
 GameObject:
   m_ObjectHideFlags: 0
