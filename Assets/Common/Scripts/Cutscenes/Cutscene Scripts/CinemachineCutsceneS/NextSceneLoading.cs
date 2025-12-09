@@ -26,7 +26,7 @@ public class NextSceneLoading : MonoBehaviour
 
          while (!asyncLoad.isDone)
          {
-            if (asyncLoad.progress >= 0.9f && playerCount >= MultiplayerPlayerSpawner.playerCount)
+            if (asyncLoad.progress >= 0.9f)
             {
                 asyncLoad.allowSceneActivation = true;
                 

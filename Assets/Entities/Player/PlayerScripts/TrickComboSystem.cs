@@ -4,27 +4,27 @@ using UnityEngine;
 public class TrickComboSystem : MonoBehaviour
 {
     public Animator animator;
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [HideInInspector] public BoatMovementAnims boatMovementAnims;
-    [SerializeField] private TrickAbilitySystem trickAbilitySystem;
+    public PlayerMovement playerMovement;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    public BoatMovementAnims boatMovementAnims;
+    private TrickAbilitySystem trickAbilitySystem;
 
 
-    [HideInInspector] public bool performingTrick = false;
-    [HideInInspector] public int combo = 0;
-    [HideInInspector] public int trickScore = 0;
-    [HideInInspector] public int trickIndex = 0;
-    [HideInInspector] public int firstTrickIndex = 0;
-    [HideInInspector] public int barIndex = 0;
+    public bool performingTrick { get; set; } = false;
+    public int combo { get; set; } = 0;
+    public int trickScore { get; set; } = 0;
+    public int trickIndex { get; set; } = 0;
+    public int firstTrickIndex { get; set; } = 0;
+    public int barIndex { get; set; } = 0;
 
-    [HideInInspector] public float speedValue = 0f;
+    public float speedValue{ get; set; } = 0f;
     private int shortBoost = 0;
     private int mediumBoost = 0;
     private int longBoost = 0;
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
-    [HideInInspector] public float inputBuffer = 0f;
+    public float inputBuffer { get; set; } = 0f;
 
     public Action<bool> UpdateBoostMeterVisibility;
     public Action<int, int, int> UpdateBoostMeter;
