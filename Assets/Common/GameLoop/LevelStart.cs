@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,8 +18,21 @@ public class LevelStart : MonoBehaviour
     public static Action<Sprite> UpdateCountDownImage;
 
 
-    private void Start()
+    public IEnumerator StartCountdown()
     {
+        // Wait for a so that all players have spawned
+        yield return new WaitForEndOfFrame();
+        // Stop all players
+        for (int i = 0; i < PlayerInput.all.Count; i++)
+        {
+            PlayerController playerController = PlayerInput.all[i].GetComponent<PlayerController>();
+            playerController.splineCart.AutomaticDolly.Enabled = false;
+            playerController.inputEnabled = false;
+
+            players.Add(playerController);
+        }
+
+        // Start countdown
         raceCountdownTime = raceCountdownDuration + 1f;
     }
 
@@ -62,7 +76,6 @@ public class LevelStart : MonoBehaviour
     }
 
 
-
     private void StartRace()
     {
         UpdateCountDownImage?.Invoke(countdownImages.Last());
@@ -76,14 +89,14 @@ public class LevelStart : MonoBehaviour
     }
 
 
-    public void OnPlayerJoined(PlayerInput playerInput)
-    {
-        if (!this.enabled) return;
-
-        PlayerController playerController = playerInput.GetComponent<PlayerController>();
-        playerController.splineCart.AutomaticDolly.Enabled = false;
-        playerController.inputEnabled = false;
-
-        players.Add(playerController);
-    }
+    //public void OnPlayerJoined(PlayerInput playerInput)
+    //{
+    //    if (!this.enabled) return;
+    //
+    //    PlayerController playerController = playerInput.GetComponent<PlayerController>();
+    //    playerController.splineCart.AutomaticDolly.Enabled = false;
+    //    playerController.inputEnabled = false;
+    //
+    //    players.Add(playerController);
+    //}
 }
