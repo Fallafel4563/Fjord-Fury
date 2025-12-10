@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4944d9a8391c64e9daf14f74e9717d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCount: 1
   mainTrack: {fileID: 699867314}
   playerPrefab: {fileID: 2626241439106697378, guid: f668a56e80eb94378b2cd439c333d4bd, type: 3}
   hudPrefab: {fileID: 6264349540536386738, guid: 37f7cfff3e496797585080e78e1ff0f5, type: 3}
@@ -34822,8 +34823,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b84721ea4f4ad3e439c78f73fadf1d64, type: 3}
---- !u!4 &1089786808 stripped
-Transform:
+--- !u!224 &1089786808 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
   m_PrefabInstance: {fileID: 1350177835}
   m_PrefabAsset: {fileID: 0}
@@ -39899,8 +39900,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1089786808}
   - {fileID: 564714002}
+  - {fileID: 1089786808}
   m_Father: {fileID: 1509856601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
