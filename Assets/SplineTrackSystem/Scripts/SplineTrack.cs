@@ -7,18 +7,19 @@ using UnityEngine.Splines;
 [RequireComponent(typeof(SplineExtrude), typeof(MeshCollider))]
 public class SplineTrack : MonoBehaviour
 {
+    public bool isCircle = false;
+    public bool shouldRespawnOnTrack = true;
+    public bool jumpOffAtEnd = false;
+    public float overrideSpeed = 0f;
+
+
     [Header("Track settings")]
     public float width = 1f;
-    [SerializeField] private float multiplier = 1f;
     // Sets how many segments per unit the spline extruder should have
     [SerializeField] private float segmentsPerUnit = 0.5f;
     [HideInInspector] public SplineContainer track;
     private SplineExtrude extruder;
-
-
-    [Header("Grind Rail Settings")]
-    public bool IsGrindRail;
-    public float overrideSpeed;
+    public trackType trailType;
 
 
     [Header("Spline Events")]
@@ -28,21 +29,17 @@ public class SplineTrack : MonoBehaviour
     public UnityEvent<GameObject> OnBoatReachedEnd;
 
 
-    void Start()
-    {
-        //Get spline component and component to extrude spline mesh
-        track = GetComponent<SplineContainer>();
-        extruder = GetComponent<SplineExtrude>();
-    }
-
-
     // This function is called when editing values in the inspector
     private void OnValidate()
     {
+        // Get the spline container component
+        if (track == null)
+            track = GetComponent<SplineContainer>();
         // Get the spline extrude component
-        extruder = GetComponent<SplineExtrude>();
+        if (extruder == null)
+            extruder = GetComponent<SplineExtrude>();
         // Update the radius when editing the width or multiplier
-        extruder.Radius = width * multiplier;
+        extruder.Radius = width;
         extruder.SegmentsPerUnit = segmentsPerUnit;
         extruder.Rebuild();
     }
@@ -56,6 +53,7 @@ public class SplineTrack : MonoBehaviour
 
         TrackDistanceInfo trackDistanceInfo = new();
         trackDistanceInfo.distance = distance;
+        trackDistanceInfo.normalizedDistance = distance / track[0].GetLength();
         trackDistanceInfo.nearestSplinePos = new Vector3(nearestPos.x, nearestPos.y, nearestPos.z) + transform.position;
         return trackDistanceInfo;
     }
@@ -65,5 +63,6 @@ public class SplineTrack : MonoBehaviour
     public struct TrackDistanceInfo
     {
         public float distance;
+        public float normalizedDistance;
         public Vector3 nearestSplinePos;
     }
