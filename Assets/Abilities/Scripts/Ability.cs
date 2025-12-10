@@ -5,27 +5,64 @@ using UnityEngine.Splines;
 
 public class Ability : MonoBehaviour
 {
-    public SplineTrack Track;
+    [HideInInspector] public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
     [SerializeField] private GameObject _art;
-    [SerializeField] bool _isConected = true;
+    private bool _isConected = true;
 
-    [SerializeField] float _speed;
+    private float _offSplineSpeed = 140f;
+    [SerializeField] private float _spawnOffset = 5f;
+    [SerializeField] private float _temporarryDurationVariable;
 
-    [SerializeField] float _temporarryDurationVariable;
+    [SerializeField] private RamAbility RA;
+
+    [SerializeField] int trickNumberRecuired;
+
+
+
+    [Header("Ability implementaation")]
+    [SerializeField] private float CrashSpeedMultiplier;
+    [SerializeField] private AnimationCurve CrashSpeedMultiplierCurve;
+    [SerializeField] private AudioSource CrashSound;
+    [SerializeField] private bool CauseHarm;
+    [SerializeField] private bool DestructOnCrash;
+    [SerializeField] private GameObject DestructParticles;
+    [SerializeField] private GameObject Instantiator;
+    [SerializeField] private float BounceHeight;
+
+    [SerializeField] private float MaxSize;
+    [SerializeField] private float LifeSpan;
+    [SerializeField] private AnimationCurve MultiplierCurve;
 
     void Start()
     {
+        RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, ForwardSpeedMultiplier forwardSpeedMultiplier, int comboCount)//, float speed)
     {
+        if (comboCount < trickNumberRecuired) return;
+
+        if (_spline != null)
+        {
+            _spline.Spline = Track.track;
+            _spline.SplinePosition = (position + _spawnOffset);
+            _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+        }
+
+        if (RA != null)
+        {
+            _spline.enabled = false;
+            transform.rotation = player.rotation;
+            transform.position = player.position;
+            transform.SetParent(player);
+            RA.StartAbility(forwardSpeedMultiplier);
+            _art.transform.localPosition = new Vector3(0f, 0f, 0f);
+        }
         //_spline = GetComponent<CinemachineSplineCart>();
-        _spline.Spline = Track.track;//GetComponent<SplineContainer>();
-       // _spline.Spline = Track.GetComponent<SplineContainer>();
-        _spline.SplinePosition = (position + 5f);
-        _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+        //GetComponent<SplineContainer>();
+        // _spline.Spline = Track.GetComponent<SplineContainer>();
     }
 
     void Update()
@@ -33,14 +70,15 @@ public class Ability : MonoBehaviour
         if (_spline.SplinePosition > Track.track.Spline.GetLength()-1 && _isConected)
         {
             _isConected = false;
-            //Detach function
             _spline.enabled = false;
+        }
+        else
+        {
         }
 
         if (!_isConected)
         {
-            Debug.Log("It worked");
-            transform.position += transform.forward * _speed * Time.deltaTime;
+            transform.position += transform.forward * _offSplineSpeed * Time.deltaTime;
         }
     }
 }

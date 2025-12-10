@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 1;
+    public int playerCount = 1;
     public static Dictionary<int, PlayerSelectInfo> players = new();
 
     [SerializeField] private SplineTrack mainTrack;
@@ -33,28 +33,27 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
                 var item = players.ElementAt(i);
                 playerInputManager.JoinPlayer(item.Key, item.Key, pairWithDevice: item.Value.inputDevice);
             }
-            Debug.Log("Spawned players");
+
+            playerCount = players.Count;
+            LevelEndTrigger.playerCount = playerCount;
             return;
         }
 
-        // Spawn players when testing a level in editor
+        // Spawn players when testing a level in the editor
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
+            // Add an entry to the players dict
+            PlayerSelectInfo playerSelectInfo = new()
+            {
+                characterIndex = 0,
+                totalTimeSpent = 0f,
+                inputDevice = InputSystem.devices[0],
+            };
+            players.Add(playerIndex, playerSelectInfo);
+
             playerInputManager.JoinPlayer(playerIndex, playerIndex);
-            //continue;
-            //if (playerIndex == 0)
-            //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: InputSystem.devices[0]);
-            //    //playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: [InputSystem.devices[0], InputSystem.devices[1]]);
-            //else
-            //    Debug.LogFormat("Player {0}", playerIndex);
-            //continue;
-            // Pair player with game pad, if it exists
-            //if (Gamepad.all.Count > playerIndex)
-            //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[playerIndex]);
-            //// Pair player with keyboard if there's no gamepad
-            //else
-            //    playerInputManager.JoinPlayer(playerIndex, playerIndex);
         }
+        LevelEndTrigger.playerCount = playerCount;
     }
 
 
