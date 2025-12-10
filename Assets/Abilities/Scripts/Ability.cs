@@ -34,14 +34,18 @@ public class Ability : MonoBehaviour
     [SerializeField] private float LifeSpan;
     [SerializeField] private AnimationCurve MultiplierCurve;
 
+    ForwardSpeedMultiplier _forwardSpeedMultiplier;
+
     void Start()
     {
         RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, ForwardSpeedMultiplier forwardSpeedMultiplier, int comboCount)//, float speed)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, ForwardSpeedMultiplier forwardSpeedMultiplier, int comboCount, float strength)//, float speed)
     {
+        _forwardSpeedMultiplier = forwardSpeedMultiplier;
+
         if (comboCount < trickNumberRecuired) return;
 
         if (_spline != null)
@@ -57,12 +61,30 @@ public class Ability : MonoBehaviour
             transform.rotation = player.rotation;
             transform.position = player.position;
             transform.SetParent(player);
-            RA.StartAbility(forwardSpeedMultiplier);
             _art.transform.localPosition = new Vector3(0f, 0f, 0f);
         }
         //_spline = GetComponent<CinemachineSplineCart>();
         //GetComponent<SplineContainer>();
         // _spline.Spline = Track.GetComponent<SplineContainer>();
+
+        SetStrenght(strength);
+    }
+
+    void SetStrenght(float strength)
+    {
+        Debug.Log(strength);
+
+        if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
+        _art.GetComponent<BounceShroom>().BouncePower *= strength;
+
+        if (RA != null) SetRamStrength(strength);
+
+        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly) autoDolly.Speed = 1f;// *= (strength / 2);
+    }
+
+    void SetRamStrength(float strength)
+    {
+        RA.StartAbility(strength, _forwardSpeedMultiplier);
     }
 
     void Update()
