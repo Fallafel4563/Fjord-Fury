@@ -5628,6 +5628,9 @@ MonoBehaviour:
   GroundpoundStarted:
     m_PersistentCalls:
       m_Calls: []
+  GroundpoundEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3401553776943726406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5696,6 +5699,24 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  TrickSucceed:
+    m_PersistentCalls:
+      m_Calls: []
+  TrickFalied:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 934489117240917153}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FailTrick
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2204905582488818726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5712,7 +5733,8 @@ MonoBehaviour:
   - {fileID: 5936356114467601268, guid: 24560e7e031ee5a42a28676505700f2f, type: 3}
   - {fileID: 8693354933828015517, guid: ab86fbdc2cd18d64f85334155dc48aad, type: 3}
   - {fileID: 7117134235439422471, guid: 30fbff3c3557ab44892dd2f5fedade7a, type: 3}
-  abilityFailedPrefabs: []
+  abilityFailedPrefabs:
+  - {fileID: 0}
   AbilitySpawnPoint: {fileID: 6617996798823095572}
   abilityDuration: 0
   FirstTrickIndex: 0
@@ -5751,33 +5773,12 @@ MonoBehaviour:
   trickComboSystem: {fileID: 3401553776943726406}
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
   playerMovement: {fileID: 2060630186251258410}
-  HitObstacle:
+  HitObstacleOnGround:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnHitObstacle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 934489117240917153}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: CrashGround
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  HitObstacleInAir:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &9054204099485319101
 MonoBehaviour:
   m_ObjectHideFlags: 0
