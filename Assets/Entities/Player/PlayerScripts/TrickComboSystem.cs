@@ -96,13 +96,13 @@ public class TrickComboSystem : MonoBehaviour
         switch (trickIndex)
         {
             case 1:
-                shortBoost++;
+                longBoost++;
                 break;
             case 2:
                 mediumBoost++;
                 break;
             case 3:
-                longBoost++;
+                shortBoost++;
                 break;
         }
 
