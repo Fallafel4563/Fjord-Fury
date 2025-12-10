@@ -5352,6 +5352,8 @@ GameObject:
   - component: {fileID: 1029006160235610832}
   - component: {fileID: 1504235594064537195}
   - component: {fileID: 4018155119764228489}
+  - component: {fileID: 8640734045535247295}
+  - component: {fileID: 6621495460309796560}
   m_Layer: 6
   m_Name: Boat
   m_TagString: Player
@@ -5984,6 +5986,43 @@ MonoBehaviour:
   UseImpactDirection: 0
   ScaleImpactWithMass: 0
   ScaleImpactWithSpeed: 1
+--- !u!114 &8640734045535247295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 795c6f1e690e0ac4bb4c0eb3ef1ee780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 2834201662640471548}
+  placementText: {fileID: 0}
+  placementSuffixes:
+  - st
+  - nd
+  - rd
+  - th
+  splineDistance: {fileID: 0}
+  distanceAlongTrack: 0
+--- !u!114 &6621495460309796560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe33fa8635ca6b44a96c81be193626f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 8497310814354721785}
+  coordinateDelay: 50
+  distanceAlongSpline: 0
+  distanceBetween0and1: 0
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
