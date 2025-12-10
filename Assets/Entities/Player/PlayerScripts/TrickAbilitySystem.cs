@@ -51,15 +51,21 @@ public class TrickAbilitySystem : MonoBehaviour
         Debug.Log("SpawnAbility " + firstTrick);
 
         abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
-        ConfigureAbility(abilityBuffer);
-        return;
-
+        int comboCount = 0;
         combinedStrength = 0;
 
         combinedStrength += (shortBoost * 1);
         combinedStrength += (mediumBoost * 2);
         combinedStrength += (longBoost * 3);
+
+        comboCount += shortBoost;
+        comboCount += mediumBoost;
+        comboCount += longBoost;
+
+        abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        // Set up the abilityBuffer ref
+        ConfigureAbility(abilityBuffer, comboCount);
+        Debug.Log(firstTrick);
 
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;
@@ -86,12 +92,13 @@ public class TrickAbilitySystem : MonoBehaviour
         abilityTimeLeft = abilityDuration / newDuration;
     }
 
-    void ConfigureAbility(GameObject buffer)
+    // Supply the ability with all data of where it's suppost to spawn
+    void ConfigureAbility(GameObject buffer, int comboCount)
     {
         Ability a = abilityBuffer.GetComponent<Ability>();
-        a.Track = PM.mainTrack;//GetComponentInParent<PlayerController>().mainTrack;
-        // a.Track = GetComponentInParent<PlayerController>().mainTrack;
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x);
+        a.Track = PM.mainTrack;
+
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, GetComponent<ForwardSpeedMultiplier>(), comboCount);
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 
