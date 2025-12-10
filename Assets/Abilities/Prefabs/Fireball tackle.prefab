@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8316405496215310015}
-  - component: {fileID: 253324493601613913}
   - component: {fileID: 7112995921599929565}
   - component: {fileID: 1475554834245548358}
+  - component: {fileID: 2544085983790384663}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -28,35 +28,12 @@ Transform:
   m_GameObject: {fileID: 3873478786215498157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 5.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 289905874174397494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &253324493601613913
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3873478786215498157}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.134075
-  m_Height: 7.433693
-  m_Direction: 2
-  m_Center: {x: 0, y: -0.17379403, z: 2.2038841}
 --- !u!54 &7112995921599929565
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,6 +92,27 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   owner: {fileID: 0}
+--- !u!65 &2544085983790384663
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873478786215498157}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.618004, y: 4.4548073, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &735641479276373530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 10
-  speedValue: 1
+  speedValue: 1.5
   ImmediateComboBoostCurve:
     holdTime: 3
     startCurve:

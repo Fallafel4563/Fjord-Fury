@@ -74,10 +74,12 @@ public class Ability : MonoBehaviour
     {
         Debug.Log(strength);
 
-        _art.transform.localScale = new Vector3(strength, strength, strength);
+        if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
         _art.GetComponent<BounceShroom>().BouncePower *= strength;
 
         if (RA != null) SetRamStrength(strength);
+
+        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly) autoDolly.Speed = 1f;// *= (strength / 2);
     }
 
     void SetRamStrength(float strength)
