@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TrickComboSystem : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class TrickComboSystem : MonoBehaviour
     public Action<int, int, int> UpdateBoostMeter;
     public Action ResetBoostMeter;
     public Action ResetTrickReaction;
+
+    public UnityEvent TrickSucceed;
+    public UnityEvent TrickFalied;
 
 
     private void Start()
@@ -129,6 +133,8 @@ public class TrickComboSystem : MonoBehaviour
         EndComboBoost();
         // TODO: Trigger failed trick sound
         // TODO: Set animator trigget for failing trick
+
+        TrickFalied.Invoke();
     }
 
 
@@ -165,6 +171,8 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Start playing the boost sound
         // TODO: Add camera shake when boosting
         // TODO: Show boost particles
+
+        TrickSucceed.Invoke();
     }
 
 

@@ -463,6 +463,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Invoke events
         Landed.Invoke();
+        if (startedGroundPound)
+            GroundpoundEnded.Invoke();
         splineTrack.OnBoatEnter.Invoke(gameObject);
     }
 
@@ -548,6 +550,7 @@ public class PlayerMovement : MonoBehaviour
     public bool startedGroundPound { get; private set; } = false;
 
     public UnityEvent GroundpoundStarted;
+    public UnityEvent GroundpoundEnded;
 
     public void StartDrift()
     {
