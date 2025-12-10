@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     // State variables
     public bool isGrounded { get; set; } = true;
+    public bool isRespawning { get; set; } = false;
     public Vector3 oldPosition;
 
 
@@ -56,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting)
+        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
         {
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
@@ -463,6 +464,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Invoke events
         Landed.Invoke();
+        if (startedGroundPound)
+            GroundpoundEnded.Invoke();
         splineTrack.OnBoatEnter.Invoke(gameObject);
     }
 
@@ -548,6 +551,7 @@ public class PlayerMovement : MonoBehaviour
     public bool startedGroundPound { get; private set; } = false;
 
     public UnityEvent GroundpoundStarted;
+    public UnityEvent GroundpoundEnded;
 
     public void StartDrift()
     {
