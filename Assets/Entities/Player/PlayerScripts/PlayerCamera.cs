@@ -25,19 +25,19 @@ public class PlayerCamera : MonoBehaviour
 
 
 
-    [HideInInspector] public bool isRespawning = false;
-    [HideInInspector] public float steerInput;
-    [HideInInspector] public Transform trackingTarget;
+    public bool isRespawning { get; set; } = false;
+    public float steerInput { get; set; }
 
     private Vector3 posLerpSpeed;       // How fast the camera should move towrds the offset position
     private Vector3 posOffset;          // Where the position offset is
     private Vector3 desiredPosOffset;   // Where the position offset wants to be
 
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [HideInInspector] public Camera activeCamera;
-    [HideInInspector] public CinemachineCamera cinemachineCamera;
-    [HideInInspector] public CinemachineBrain cinemachineBrain;
+    public Transform trackingTarget;
+    public PlayerMovement playerMovement;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    public Camera activeCamera { get; set; }
+    public CinemachineCamera cinemachineCamera { get; set; }
+    public CinemachineBrain cinemachineBrain { get; set; }
 
 
 
