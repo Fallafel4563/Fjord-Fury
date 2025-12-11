@@ -3,7 +3,6 @@ using UnityEngine;
 public class RespawnTrigger : MonoBehaviour
 {
     // Should the trigger force the player to respawn in the last main track they thouched
-    [SerializeField] private bool forceMainTrack = false;
     [SerializeField] private float repsawnOffset = 50f;
     // The track the player should respawn on when hitting this trigger
     [SerializeField] private SplineTrack respawnTrack;
@@ -24,7 +23,7 @@ public class RespawnTrigger : MonoBehaviour
             if (playerRespawn.playerMovement.isGrounded)
                 return;
             
-            playerRespawn.TriggerRespawn(respawnTrack, repsawnOffset, forceMainTrack);
+            playerRespawn.TriggerRespawn(respawnTrack, repsawnOffset);
         }
     }
 }

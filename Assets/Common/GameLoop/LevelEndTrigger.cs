@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LevelEndTrigger : MonoBehaviour
 {
-    public static int playerCount = 0;
-
     public string nextLevelToLoad = "";
-    public int playersCompleted = 0;
+
+    public int playersCompleted { get; set; } = 0;
 
     private float levelStartTime;
 
@@ -56,7 +56,7 @@ public class LevelEndTrigger : MonoBehaviour
 
             PlayerReachedLevelEnd?.Invoke(playerIndex, timeSpent);
             playersCompleted++;
-            if (playersCompleted >= playerCount)
+            if (playersCompleted >= PlayerInput.all.Count)
             {
                 AllPlayersCompleted?.Invoke(nextLevelToLoad);
             }

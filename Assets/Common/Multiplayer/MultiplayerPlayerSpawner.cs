@@ -15,11 +15,15 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     [SerializeField] private GameObject hudPrefab;
 
     private PlayerInputManager playerInputManager;
+    private LevelStart levelStart;
 
 
     private void Awake()
     {
         playerInputManager = GetComponent<PlayerInputManager>();
+        playerInputManager.playerPrefab = playerPrefab;
+
+        levelStart = GetComponent<LevelStart>();
     }
 
 
@@ -28,17 +32,31 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         // Spawn players from the character select menu
         if (players.Count > 0)
         {
-            for (int i = 0; i < players.Count; i++)
-            {
-                var item = players.ElementAt(i);
-                playerInputManager.JoinPlayer(item.Key, item.Key, pairWithDevice: item.Value.inputDevice);
-            }
-
-            playerCount = players.Count;
-            LevelEndTrigger.playerCount = playerCount;
-            return;
+            SpawnPlayersFromDict();
+        }
+        else
+        {
+            SpawnPlayersWhenTesting();
         }
 
+        if (levelStart.enabled)
+            StartCoroutine(levelStart.StartCountdown());
+    }
+
+
+    // Spawn players from the players dict
+    private void SpawnPlayersFromDict()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            var item = players.ElementAt(i);
+            playerInputManager.JoinPlayer(item.Key, item.Key, pairWithDevice: item.Value.inputDevice);
+        }
+    }
+
+
+    private void SpawnPlayersWhenTesting()
+    {
         // Spawn players when testing a level in the editor
         for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
         {
@@ -52,23 +70,6 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
             players.Add(playerIndex, playerSelectInfo);
 
             playerInputManager.JoinPlayer(playerIndex, playerIndex);
-        }
-        LevelEndTrigger.playerCount = playerCount;
-    }
-
-
-    private void OnValidate()
-    {
-        // Setup the palyer input manager to have the desired default values
-
-        if (playerInputManager == null)
-        {
-            playerInputManager = GetComponent<PlayerInputManager>();
-            playerInputManager.splitScreen = true;
-        }
-        else if (playerPrefab != null)
-        {
-            playerInputManager.playerPrefab = playerPrefab;
         }
     }
 
@@ -96,24 +97,24 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     }
 
 
-    public void OnPlayerLeft(PlayerInput playerInput)
-    {
-        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
-    }
-
-
     private void SetPlayerPos(PlayerController playerController, PlayerInput playerInput)
     {
         // Set player position
         float trackLeftPos = -(mainTrack.width / 2f);
 
         // Get the offset between players
-        float playersOffset = mainTrack.width / (playerCount + 1);
+        float playersOffset = mainTrack.width / (PlayerInput.all.Count + 1);
 
         // Get the spawn pos of the player
         float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
 
         // Set the spawn pos of the player
         playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
+    }
+
+
+    public void OnPlayerLeft(PlayerInput playerInput)
+    {
+        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
     }
 }
