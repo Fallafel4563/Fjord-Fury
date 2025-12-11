@@ -51,7 +51,7 @@ public class TrickAbilitySystem : MonoBehaviour
         comboCount += mediumBoost;
         comboCount += longBoost;
 
-        abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;

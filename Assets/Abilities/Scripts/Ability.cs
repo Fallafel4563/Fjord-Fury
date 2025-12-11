@@ -80,7 +80,7 @@ public class Ability : MonoBehaviour
         //if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
         OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
         OLSS.SetMaxSize(strength);
-        _art.GetComponent<BounceShroom>().BouncePower *= strength;
+        if (_art.GetComponent<BounceShroom>()) _art.GetComponent<BounceShroom>().BouncePower *= strength;
 
         if (RA != null) SetRamStrength(strength);
 
