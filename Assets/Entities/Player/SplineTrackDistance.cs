@@ -9,7 +9,7 @@ public class SplineTrackDistance : MonoBehaviour
     private SplineContainer[] splineContainer;
     public Transform Player;
     private float3 pointOnSpline;
-    public float coordinateDelay;
+    public float coordinateDelay, distanceAlongSpline, distanceBetween0and1;
    
     void Start()
     {
@@ -35,6 +35,8 @@ public class SplineTrackDistance : MonoBehaviour
         Vector3 offset = splineContainer[0].transform.position;
         pointOnSpline = nearestPointOnSpline + new float3(offset.x,offset.y,offset.z) ;
         Debug.DrawLine(Player.position, pointOnSpline, Color.red);
+        distanceBetween0and1 = t;
+        distanceAlongSpline = t * splineContainer[0].Spline.GetLength();
     }
     
     void OnDrawGizmos()

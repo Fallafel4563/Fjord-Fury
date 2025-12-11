@@ -25,19 +25,19 @@ public class PlayerCamera : MonoBehaviour
 
 
 
-    [HideInInspector] public bool isRespawning = false;
-    [HideInInspector] public float steerInput;
-    [HideInInspector] public Transform trackingTarget;
+    public bool isRespawning { get; set; } = false;
+    public float steerInput { get; set; }
 
     private Vector3 posLerpSpeed;       // How fast the camera should move towrds the offset position
     private Vector3 posOffset;          // Where the position offset is
     private Vector3 desiredPosOffset;   // Where the position offset wants to be
 
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [HideInInspector] public Camera activeCamera;
-    [HideInInspector] public CinemachineCamera cinemachineCamera;
-    [HideInInspector] public CinemachineBrain cinemachineBrain;
+    public Transform trackingTarget;
+    public PlayerMovement playerMovement;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    public Camera activeCamera { get; set; }
+    public CinemachineCamera cinemachineCamera { get; set; }
+    public CinemachineBrain cinemachineBrain { get; set; }
 
 
 
@@ -47,14 +47,13 @@ public class PlayerCamera : MonoBehaviour
         cinemachineCamera = GetComponent<CinemachineCamera>();
         cinemachineBrain = GetComponentInChildren<CinemachineBrain>();
         activeCamera = GetComponentInChildren<Camera>();
+        // Set default values
+        cinemachineCamera.Target.TrackingTarget = trackingTarget;
     }
 
 
     private void Start()
     {
-        // Set default values
-        cinemachineCamera.Target.TrackingTarget = trackingTarget;
-
         posOffset = groundPosOffset;
         desiredPosOffset = groundPosOffset;
         posLerpSpeed = groundPosLerpSpeed;
@@ -65,8 +64,8 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
     {
         // Get the 
-        desiredPosOffset = playerMovement.isGrounded ? groundPosOffset : airPosOffset;
-        posLerpSpeed = playerMovement.isGrounded ? groundPosLerpSpeed : airPosLerpSpeed;
+        desiredPosOffset = (playerMovement.isGrounded || playerMovement.isDrifting) ? groundPosOffset : airPosOffset;
+        posLerpSpeed = (playerMovement.isGrounded || playerMovement.isDrifting) ? groundPosLerpSpeed : airPosLerpSpeed;
 
         // Get the true position offset
         desiredPosOffset.x = steerInput;
@@ -91,7 +90,8 @@ public class PlayerCamera : MonoBehaviour
     private void SetCameraPosition()
     {
         Vector3 xOffset = trackingTarget.right * posOffset.x;
-        Vector3 yOffset = trackingTarget.up * posOffset.y;
+        float upwardsVel = Vector3.Dot(transform.up, playerMovement.airVelocity.normalized);
+        Vector3 yOffset = trackingTarget.up * (posOffset.y - (Mathf.Clamp(upwardsVel, -1f, 0f) * 5f));
         Vector3 zOffset = -trackingTarget.forward * posOffset.z;
         // Get the position the camera wants to be at
         Vector3 desiredPosition = trackingTarget.position + xOffset + yOffset + zOffset;

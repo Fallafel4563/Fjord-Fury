@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class PlayerHud : MonoBehaviour
 {
-    public TMP_Text playerIndexText;
-    public TMP_Text trickTricksText;
-    public TMP_Text trickScoreText;
+    public BoostMeter boostMeter;
+    public GameObject levelEndScreen;
+    public TMP_Text finishedTimeText, placementText;
 
+    private int playerIndex;
     private Canvas canvas;
 
 
@@ -16,30 +17,64 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    private void Start()
+    private void OnEnable()
     {
-        UpdateTricksText("");
-        TrickScoreUpdated("");
+        LevelEndTrigger.PlayerReachedLevelEnd += OnPlayerReachedLevelEnd;
     }
 
 
-    public void SetupHud(int playerIndex, Camera renderCamera)
+    private void OnDisable()
     {
-        playerIndexText.text = string.Format("Player {0}", playerIndex + 1);
+        LevelEndTrigger.PlayerReachedLevelEnd -= OnPlayerReachedLevelEnd;
+    }
+
+
+    private void Start()
+    {
+        levelEndScreen.SetActive(false);
+    }
+
+
+    public void SetupHud(int index, Camera renderCamera)
+    {
+        playerIndex = index;
 
         canvas.worldCamera = renderCamera;
         canvas.planeDistance = 0.5f;
     }
 
 
-    public void UpdateTricksText(string tricks)
+
+    public void UpdateBoostMeterVisibility(bool visible)
     {
-        trickTricksText.text = tricks;
+        boostMeter.gameObject.SetActive(visible);
     }
 
 
-    public void TrickScoreUpdated(string score)
+    public void UpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        trickScoreText.text = score;
+        boostMeter.OnUpdateBoostMeter(updateBoostMeterInfo);
+    }
+
+
+    public void OnRespawnFadeInStarted(float fadeDuration)
+    {
+        //
+    }
+
+    
+    public void OnRespawnFadeOutStarted(float fadeDuration)
+    {
+        //
+    }
+
+
+    private void OnPlayerReachedLevelEnd(int index, float timeSpent)
+    {
+        if (index == playerIndex)
+        {
+            levelEndScreen.SetActive(true);
+            finishedTimeText.text = string.Format("{0} secs", timeSpent);
+        }
     }
 }

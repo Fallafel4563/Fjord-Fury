@@ -8,30 +8,30 @@ public class PlayerController : MonoBehaviour
 {
     [Header("External References")]
     public SplineTrack mainTrack;
-
     [HideInInspector] public PlayerHud playerHud;
 
 
     [Header("Internal References")]
-    [SerializeField] private CinemachineSplineCart splineCart;
+    public CinemachineSplineCart splineCart;
     public PlayerMovement playerMovement;
     public PlayerCamera playerCamera;
     [SerializeField] private PlayerRespawn playerRespawn;
-    [SerializeField] private BoatMovementAnims boatMovementAnims;
     [SerializeField] private TrickComboSystem trickComboSystem;
-    [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
     [SerializeField] private GameObject skins;
 
-    [HideInInspector] public int selectedCharacter = 0;
+    public int selectedCharacter { get; set; } = 0;
 
-    private PlayerInput playerInput;
+    public PlayerInput playerInput { get; private set; }
 
 
 
+    // Set references on different systems
     private void Awake()
     {   
         playerInput = GetComponent<PlayerInput>();
+
+        splineCart.Spline = mainTrack.track;
+        playerMovement.mainTrack = mainTrack;
     }
 
 
@@ -39,45 +39,35 @@ public class PlayerController : MonoBehaviour
     {
         // Connect events to hud
         if (playerHud)
-            trickComboSystem.TrickScoreUpdated += playerHud.TrickScoreUpdated;
+        {
+            trickComboSystem.UpdateBoostMeterVisibility += playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter += playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter += playerHud.boostMeter.OnResetBoostMeter;
+
+            playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
+            playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
+        }
     }
 
     private void OnDisable()
     {
         // Disconnect events from hud
         if (playerHud)
-            trickComboSystem.TrickScoreUpdated -= playerHud.TrickScoreUpdated;
+        {
+            trickComboSystem.UpdateBoostMeterVisibility -= playerHud.UpdateBoostMeterVisibility;
+            trickComboSystem.UpdateBoostMeter -= playerHud.boostMeter.OnUpdateBoostMeter;
+            trickComboSystem.ResetBoostMeter -= playerHud.boostMeter.OnResetBoostMeter;
+
+            playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
+            playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
+        }
     }
 
 
-    // Set references on different systems
+    // Additional setup on systems
     private void Start()
     {
-        splineCart.Spline = mainTrack.track;
-
-        playerMovement.splineCart = splineCart;
-        playerMovement.mainTrack = mainTrack;
-        playerMovement.forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        playerCamera.playerMovement = playerMovement;
-        playerCamera.trackingTarget = playerMovement.transform;
-        playerCamera.forwardSpeedMultiplier = forwardSpeedMultiplier;
         playerCamera.SetUpCameraOutputChannel(playerInput.playerIndex);
-
-        playerRespawn.splineCart = splineCart;
-        playerRespawn.playerMovement = playerMovement;
-        playerRespawn.playerCamera = playerCamera;
-
-        boatMovementAnims.playerMovement = playerMovement;
-        boatMovementAnims.trickComboSystem = trickComboSystem;
-
-        trickComboSystem.playerMovement = playerMovement;
-        trickComboSystem.forwardSpeedMultiplier = forwardSpeedMultiplier;
-        trickComboSystem.boatMovementAnims = boatMovementAnims;
-
-        playerObstacleCollisions.playerMovement = playerMovement;
-        playerObstacleCollisions.trickComboSystem = trickComboSystem;
-
         playerHud.SetupHud(playerInput.playerIndex, playerCamera.activeCamera);
 
         SetActiveSkin();
@@ -100,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
 #region Input
     [Header("Input")]
+    public bool inputEnabled = true;
     private float forwardInput;
     private float steerInput;
     private bool jumpInput;
@@ -109,6 +100,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnForward(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         // Get input
         forwardInput = inputValue.Get<float>();
         // Send input data to boat movement
@@ -118,6 +112,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnSteer(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         // Get input data
         steerInput = inputValue.Get<float>();
         // Send input data to boat movement
@@ -128,6 +125,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         jumpInput = inputValue.Get<float>() > 0.5f;
         playerMovement.jumpInput = jumpInput;
         if (jumpInput == true)
@@ -139,26 +139,43 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrift(InputValue inputValue)
     {
+        if (!inputEnabled)
+            return;
+        
         driftInput = inputValue.Get<float>() > 0.5f;
         playerMovement.driftInput = driftInput;
+        if (driftInput && !playerMovement.isDrifting)
+            playerMovement.StartDrift();
+        else if (playerMovement.isDrifting)
+            playerMovement.EndDrift();
     }
 
 
     public void OnShortTrick()
     {
-        //
+        if (!inputEnabled)
+            return;
+        
+        trickComboSystem.ActivateTrick(0);
     }
 
 
     public void OnMediumTrick()
     {
-        trickComboSystem.inputBuffer = trickComboSystem.inputBufferDefault;
+        if (!inputEnabled)
+            return;
+        
+        trickComboSystem.ActivateTrick(1);
     }
 
 
     public void OnLongTrick()
     {
-        //
+        if (!inputEnabled)
+            return;
+        
+        trickComboSystem.ActivateTrick(2);
     }
+
 #endregion
 }

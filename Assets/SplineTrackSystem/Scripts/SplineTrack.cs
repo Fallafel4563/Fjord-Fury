@@ -15,7 +15,6 @@ public class SplineTrack : MonoBehaviour
 
     [Header("Track settings")]
     public float width = 1f;
-    [SerializeField] private float multiplier = 1f;
     // Sets how many segments per unit the spline extruder should have
     [SerializeField] private float segmentsPerUnit = 0.5f;
     [HideInInspector] public SplineContainer track;
@@ -40,7 +39,7 @@ public class SplineTrack : MonoBehaviour
         if (extruder == null)
             extruder = GetComponent<SplineExtrude>();
         // Update the radius when editing the width or multiplier
-        extruder.Radius = width * multiplier;
+        extruder.Radius = width;
         extruder.SegmentsPerUnit = segmentsPerUnit;
         extruder.Rebuild();
     }
@@ -49,11 +48,11 @@ public class SplineTrack : MonoBehaviour
     public TrackDistanceInfo GetDistanceInfoFromPosition(Vector3 worldPos)
     {
         // Get the point on the track that is closes to worldPos
-        SplineUtility.GetNearestPoint(track[0], worldPos - transform.position, out Unity.Mathematics.float3 nearestPos, out float distance);
-        distance *= track[0].GetLength();
+        SplineUtility.GetNearestPoint(track.Spline, worldPos - transform.position, out Unity.Mathematics.float3 nearestPos, out float distance, 10, 5);
 
         TrackDistanceInfo trackDistanceInfo = new();
-        trackDistanceInfo.distance = distance;
+        trackDistanceInfo.distance = distance * track.Spline.GetLength();
+        trackDistanceInfo.normalizedDistance = distance;
         trackDistanceInfo.nearestSplinePos = new Vector3(nearestPos.x, nearestPos.y, nearestPos.z) + transform.position;
         return trackDistanceInfo;
     }
@@ -63,5 +62,6 @@ public class SplineTrack : MonoBehaviour
     public struct TrackDistanceInfo
     {
         public float distance;
+        public float normalizedDistance;
         public Vector3 nearestSplinePos;
     }

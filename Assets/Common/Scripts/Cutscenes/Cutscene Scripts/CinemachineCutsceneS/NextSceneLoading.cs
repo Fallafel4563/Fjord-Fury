@@ -6,8 +6,10 @@ public class NextSceneLoading : MonoBehaviour
 {
     public string SceneToLoad;
     bool loading = false;
+    public int playerCount;
     public void LoadSceneCoroutine()
     {
+        playerCount++;
         if (!loading)
         {
         StartCoroutine(LoadNextScene());

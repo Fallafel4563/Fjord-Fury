@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -6,77 +7,107 @@ using UnityEngine.Events;
 public class PlayerRespawn : MonoBehaviour
 {
     public float fadeDuration = 0.5f;
-    private float deathYPosition = -100f;
+    public float defaultRespawnOffset = 50f;
+    private float globalDeathYPosition = -200f;
     public UnityEvent RespawnStarted;
     public UnityEvent RespawnFinished;
 
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public PlayerCamera playerCamera;
-    [HideInInspector] public CinemachineSplineCart splineCart;
+    public PlayerMovement playerMovement;
+    public PlayerCamera playerCamera;
+    public CinemachineSplineCart splineCart;
 
     private bool respawnActive = false;
+
+    public Action<float> RespawnFadeInStarted;
+    public Action<float> RespawnFadeOutStarted;
 
 
 
     private void Update()
     {
-        Vector3 relativePos = splineCart.transform.InverseTransformPoint(playerMovement.transform.position);
-        if (!respawnActive && relativePos.y < deathYPosition)
-            StartCoroutine(nameof(TriggerRespawn));
+        // Trigger backup respawn
+        if (transform.position.y < globalDeathYPosition && !respawnActive)
+        {
+            TriggerRespawn(null, defaultRespawnOffset);
+        }
     }
 
 
-    private IEnumerator TriggerRespawn()
+    public void TriggerRespawn(SplineTrack respawnTrack, float respawnOffset)
     {
-        // Reset spline cart
-        StartRespawn();
+        // Don't trigger multiple respawns when the respawn is active
+        if (respawnActive)
+            return;
+        
+        Debug.Log("RESPAWN STARTED");
+        respawnActive = true;
+        playerMovement.isRespawning = true;
+        playerCamera.isRespawning = true;
+        RespawnStarted.Invoke();
+
+        StartCoroutine(RespawnFade(respawnTrack, respawnOffset));
+    }
+
+
+    private IEnumerator RespawnFade(SplineTrack respawnTrack, float respawnOffset)
+    {
+        RespawnFadeInStarted?.Invoke(fadeDuration);
         // Wait for fade in
         yield return new WaitForSeconds(fadeDuration);
 
+        Debug.Log("RESET POS");
+
         // Reset boat position
+        if (!respawnTrack)
+        {
+            playerMovement.LandedOnTrack(playerMovement.mainTrack);
+            transform.localPosition = Vector3.zero;
+            
+            splineCart.SplinePosition = playerMovement.lastMainTrackDistance - respawnOffset;
+            Debug.Log("Main tracks respawn");
+        }
+        else
+        {
+            TrackDistanceInfo distanceInfo = respawnTrack.GetDistanceInfoFromPosition(transform.position);
+            transform.position = distanceInfo.nearestSplinePos;
+            // Make the boat land on the track
+            playerMovement.LandedOnTrack(respawnTrack);
+            
+            splineCart.SplinePosition = distanceInfo.distance - respawnOffset;
+            Vector3 pos = respawnTrack.track.EvaluatePosition(distanceInfo.normalizedDistance);
+            Debug.DrawLine(pos, pos + Vector3.up * 100f, Color.white, 60f);
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        // Stop player movement
         playerMovement.enabled = false;
-        float respawnHeight = 3f;
-        if (playerMovement.currentTrack.isCircle)
-            respawnHeight += playerMovement.currentTrack.width;
-        
-        playerMovement.transform.position = splineCart.transform.position + splineCart.transform.up * respawnHeight;
+        playerMovement.isRespawning = false;
+        // Stop the spline cart from moving again (Is enabled when the boat lands on a track)
+        splineCart.AutomaticDolly.Enabled = false;
+
         // Reset camera
         playerCamera.transform.position = playerCamera.trackingTarget.transform.position;
         playerCamera.isRespawning = false;
 
         // Wait for fade out
+        RespawnFadeOutStarted?.Invoke(fadeDuration);
         yield return new WaitForSeconds(fadeDuration);
         FinishRespawn();
     }
 
 
 
-    public void StartRespawn()
+    private void FinishRespawn()
     {
-        respawnActive = true;
-
-        splineCart.AutomaticDolly.Enabled = false;
-        // Respawn the palyer 50 units behind where they jumped off the track
-        splineCart.SplinePosition = playerMovement.distanceWhenJumped - 50f;
-
-        playerCamera.isRespawning = true;
-
-        RespawnStarted.Invoke();
-    }
-
-
-
-    public void FinishRespawn()
-    {
+        Debug.Log("RESPAWN ENDED");
+        respawnActive = false;
         // Reset player stuff
         playerMovement.enabled = true;
-        playerMovement.airVelocity = Vector3.zero;
-        playerMovement.wasLastTrackRail = false;
-        playerMovement.SetOverrideSpeed(playerMovement.currentTrack.overrideSpeed);
 
+        // Re-enable spline cart
         splineCart.AutomaticDolly.Enabled = true;
 
-        respawnActive = false;
         RespawnFinished.Invoke();
     }
 }
