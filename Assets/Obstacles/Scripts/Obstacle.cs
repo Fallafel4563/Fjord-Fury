@@ -7,6 +7,8 @@ public class Obstacle : MonoBehaviour
     public float bounceHeight = 0f;
     public float crashSpeedMultiplier = 0.5f;
     public SpeedMultiplierCurve crashSpeedMultiplierCurve;
+    
+    public GameObject explosion;
     // TODO: Crash sound
     // TODO: Crash particles
     [HideInInspector] public Transform owner;
@@ -18,6 +20,7 @@ public class Obstacle : MonoBehaviour
         if (destructOnCrash)
         {
             Debug.Log("ASD");
+
             Destroy(this.gameObject);
             // TODO: Play crash particles
         }

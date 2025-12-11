@@ -12,9 +12,9 @@ public class PlayerRespawn : MonoBehaviour
     public UnityEvent RespawnStarted;
     public UnityEvent RespawnFinished;
 
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public PlayerCamera playerCamera;
-    [HideInInspector] public CinemachineSplineCart splineCart;
+    public PlayerMovement playerMovement;
+    public PlayerCamera playerCamera;
+    public CinemachineSplineCart splineCart;
 
     private bool respawnActive = false;
 
@@ -28,23 +28,28 @@ public class PlayerRespawn : MonoBehaviour
         // Trigger backup respawn
         if (transform.position.y < globalDeathYPosition && !respawnActive)
         {
-            TriggerRespawn(playerMovement.mainTrack, defaultRespawnOffset, true);
+            TriggerRespawn(null, defaultRespawnOffset);
         }
     }
 
 
-    public void TriggerRespawn(SplineTrack respawnTrack, float respawnOffset, bool forceMainTrack)
+    public void TriggerRespawn(SplineTrack respawnTrack, float respawnOffset)
     {
+        // Don't trigger multiple respawns when the respawn is active
+        if (respawnActive)
+            return;
+        
         Debug.Log("RESPAWN STARTED");
         respawnActive = true;
+        playerMovement.isRespawning = true;
         playerCamera.isRespawning = true;
         RespawnStarted.Invoke();
 
-        StartCoroutine(RespawnFade(respawnTrack, respawnOffset, forceMainTrack));
+        StartCoroutine(RespawnFade(respawnTrack, respawnOffset));
     }
 
 
-    private IEnumerator RespawnFade(SplineTrack respawnTrack, float respawnOffset, bool forceMainTrack)
+    private IEnumerator RespawnFade(SplineTrack respawnTrack, float respawnOffset)
     {
         RespawnFadeInStarted?.Invoke(fadeDuration);
         // Wait for fade in
@@ -53,7 +58,7 @@ public class PlayerRespawn : MonoBehaviour
         Debug.Log("RESET POS");
 
         // Reset boat position
-        if (forceMainTrack)
+        if (!respawnTrack)
         {
             playerMovement.LandedOnTrack(playerMovement.mainTrack);
             transform.localPosition = Vector3.zero;
@@ -69,8 +74,12 @@ public class PlayerRespawn : MonoBehaviour
             splineCart.SplinePosition = distanceInfo.distance - respawnOffset;
         }
 
+        Debug.LogFormat("Respawn distance {0}", splineCart.SplinePosition);
+        yield return new WaitForEndOfFrame();
+
         // Stop player movement
         playerMovement.enabled = false;
+        playerMovement.isRespawning = false;
         // Stop the spline cart from moving again (Is enabled when the boat lands on a track)
         splineCart.AutomaticDolly.Enabled = false;
 

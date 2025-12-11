@@ -186,7 +186,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -233,9 +233,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowDownValue: 0.5
-  upwardsForce: 15
-  knockbackFroce: 30
+  causeHarm: 1
+  destructOnCrash: 0
+  bounceHeight: 0
+  crashSpeedMultiplier: 0.5
+  crashSpeedMultiplierCurve:
+    holdTime: 0
+    startCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  owner: {fileID: 0}
 --- !u!1 &1667566665649690103
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2686245785772676993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -522,10 +538,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Track: {fileID: 0}
-  _spline: {fileID: 0}
+  _spline: {fileID: 5704743019344172549}
   _art: {fileID: 1628463512576927024}
-  _isConected: 1
-  _speed: 0
+  _spawnOffset: 5
+  _temporarryDurationVariable: 10
+  RA: {fileID: 0}
+  trickNumberRecuired: 1
+  CrashSpeedMultiplier: 0
+  CrashSpeedMultiplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.5819025
+      outSlope: 0.5819025
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.09087954
+      value: 1.052883
+      inSlope: 0.00018724661
+      outSlope: 0.00018724661
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.7766467
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.24043635
+      value: 1.0497242
+      inSlope: 0.00018480906
+      outSlope: 0.00018480906
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9946872
+      value: 1.0503342
+      inSlope: 0.0008005974
+      outSlope: 0.0008005974
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  CrashSound: {fileID: 0}
+  CauseHarm: 0
+  DestructOnCrash: 0
+  DestructParticles: {fileID: 0}
+  Instantiator: {fileID: 0}
+  BounceHeight: 0
+  MaxSize: 0
+  LifeSpan: 0
+  MultiplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.014865261
+      value: 1.0109681
+      inSlope: -0.023877058
+      outSlope: -0.023877058
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.8834929
+    - serializedVersion: 3
+      time: 1.0260141
+      value: -0.040594082
+      inSlope: -2.2828681
+      outSlope: -2.2828681
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11716562
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &5704743019344172549
 MonoBehaviour:
   m_ObjectHideFlags: 0

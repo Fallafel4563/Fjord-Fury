@@ -15,7 +15,6 @@ public class SplineTrack : MonoBehaviour
 
     [Header("Track settings")]
     public float width = 1f;
-    [SerializeField] private float multiplier = 1f;
     // Sets how many segments per unit the spline extruder should have
     [SerializeField] private float segmentsPerUnit = 0.5f;
     [HideInInspector] public SplineContainer track;
@@ -40,7 +39,7 @@ public class SplineTrack : MonoBehaviour
         if (extruder == null)
             extruder = GetComponent<SplineExtrude>();
         // Update the radius when editing the width or multiplier
-        extruder.Radius = width * multiplier;
+        extruder.Radius = width;
         extruder.SegmentsPerUnit = segmentsPerUnit;
         extruder.Rebuild();
     }
