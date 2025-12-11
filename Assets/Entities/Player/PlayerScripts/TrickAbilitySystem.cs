@@ -72,10 +72,10 @@ public class TrickAbilitySystem : MonoBehaviour
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 
-    public void SpawnAbilityFailed()
+    public void SpawnAbilityFailed(int firstTrick)
     {
         abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityFailedPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityFailedPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
         abilityTimeLeft = abilityDuration;
     }
 
