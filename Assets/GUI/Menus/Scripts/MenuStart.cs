@@ -29,6 +29,11 @@ public class MenuStart : MonoBehaviour
     {
         SceneManager.LoadScene("CharacterSelectExampleScene");
     }
+
+    public void onStartValhallaButton()
+    {
+        SceneManager.LoadScene("ValhallaCharacterSelect");
+    }
     #endregion
 
 
