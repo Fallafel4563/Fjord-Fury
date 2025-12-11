@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec7c8d5fb770214b8e41cd33a16dfa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSize: 3
+  MaxSize: 1
   ScalingCurve:
     serializedVersion: 2
     m_Curve:
@@ -309,6 +309,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  Parent: {fileID: 8255245760220296071}
 --- !u!1 &1667566665649690103
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +602,7 @@ MonoBehaviour:
   _temporarryDurationVariable: 10
   RA: {fileID: 0}
   trickNumberRecuired: 1
+  OLSS: {fileID: 0}
   CrashSpeedMultiplier: 0
   CrashSpeedMultiplierCurve:
     serializedVersion: 2

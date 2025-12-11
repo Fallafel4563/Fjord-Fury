@@ -4,7 +4,7 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
 {
     public float MaxSize;
     [SerializeField] private AnimationCurve ScalingCurve;
-
+    [SerializeField] private GameObject Parent;
     float animationTime;
 
     public void SetMaxSize(float maxSize)
@@ -16,12 +16,14 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
     void Update()
     {
         animationTime += Time.deltaTime;
-        function();
+        Scaling();
 
-        if (animationTime > ScalingCurve.length) Destroy(gameObject);
+        //Destroy parent if the ScalingCurve has reached its end
+        if (animationTime > ScalingCurve.length) Destroy(Parent);
     }
 
-    void function()
+    //Set the new size of the art based on the ScalingCurve
+    void Scaling()
     {
         float size = MaxSize * ScalingCurve.Evaluate(animationTime);
         transform.localScale = new Vector3(size, size, size);

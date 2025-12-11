@@ -259,7 +259,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: causeHarm
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1afa6810c9865ba44baf3c46ee164b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BouncePower: 0
+  BouncePower: 9
 --- !u!65 &318189201022766993
 BoxCollider:
   m_ObjectHideFlags: 0
