@@ -7,6 +7,7 @@ public class PlayerCamera : MonoBehaviour
     // How fast to lerp between truePosOffset and desiredPosOffset
     [SerializeField] private float minFov = 65f;
     [SerializeField] private float maxFov = 90f;
+    [SerializeField] private float fovLerpSpeed = 4f;
     [SerializeField] private float rotLerpSpeed = 7.5f;
     [SerializeField] private float desiredOffsetLerpSpeed = 5f;
     [SerializeField] private Vector3 rotationOffset = new(0f, 1.25f, 5f);
@@ -97,10 +98,8 @@ public class PlayerCamera : MonoBehaviour
         Vector3 desiredPosition = trackingTarget.position + xOffset + yOffset + zOffset;
 
         // Move camrea to desired position
-        float xPos = Mathf.Lerp(transform.position.x, desiredPosition.x, posLerpSpeed.x * Time.deltaTime);
         float yPos = Mathf.Lerp(transform.position.y, desiredPosition.y, posLerpSpeed.y * Time.deltaTime);
-        float zPos = Mathf.Lerp(transform.position.z, desiredPosition.z, posLerpSpeed.z * Time.deltaTime);
-        transform.position = new(xPos, yPos, zPos);
+        transform.position = new(desiredPosition.x, yPos, desiredPosition.z);
     }
 
 
@@ -132,15 +131,27 @@ public class PlayerCamera : MonoBehaviour
 
     private void UpdateFovBasedOnSpeed()
     {
+        if (forwardSpeedMultiplier.GetForwardSpeedMultiplier("ImmediateComboBoost") == null)
+            return;
+        
         // Get the difference between the max fov and the min fov
         float fovDiff = maxFov - minFov;
         // How much more fov to add to the min value. Difference * speed multiplier
-        float additionalFov = fovDiff * (forwardSpeedMultiplier.GetTotalMultiplierValue() - 1f);
+        float additionalFov = fovDiff * (forwardSpeedMultiplier.GetForwardSpeedMultiplier("ImmediateComboBoost").value - 1f);
         // Add additional fov to the min to get the desired fov
         float desiredFov = minFov + additionalFov;
         // Clamp fov between min and max
         desiredFov = Mathf.Clamp(desiredFov, minFov, maxFov);
         // Set fov
-        cinemachineCamera.Lens.FieldOfView = desiredFov;
+        cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.Lens.FieldOfView, desiredFov, fovLerpSpeed * Time.deltaTime);
+        //Debug.LogFormat(
+        //    "Desired fov {0}, Current fov {1}, Speed boost value {2}, Min fov {3} Additional fov {4}, Fov diff {5}",
+        //    desiredFov,
+        //    cinemachineCamera.Lens.FieldOfView,
+        //    forwardSpeedMultiplier.GetForwardSpeedMultiplier("ImmediateComboBoost").value - 1f,
+        //    minFov,
+        //    additionalFov,
+        //    fovDiff
+        //);
     }
 }

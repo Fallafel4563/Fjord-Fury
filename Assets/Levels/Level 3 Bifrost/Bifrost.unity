@@ -419,7 +419,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 19698293}
   trailType: 0
@@ -1080,7 +1079,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 0
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 34655721}
   trailType: 0
@@ -1848,7 +1846,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 63929506}
   trailType: 0
@@ -2201,7 +2198,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 64413023}
   trailType: 0
@@ -2880,7 +2876,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 72902902}
   trailType: 0
@@ -6117,7 +6112,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 35
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 170313212}
   trailType: 0
@@ -6631,7 +6625,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 172815313}
   trailType: 0
@@ -7043,7 +7036,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 173594246}
   trailType: 0
@@ -7721,7 +7713,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 179978345}
   trailType: 0
@@ -8019,7 +8010,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 180426538}
   trailType: 0
@@ -8450,6 +8440,112 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181189277}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &182102069
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 464712369}
+    m_Modifications:
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887536196804961208, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_Name
+      value: CoinsCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887536196804961208, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+--- !u!224 &182102070 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 768418150831701247, guid: 614a729df9a025e4aa5f85a3b08da013, type: 3}
+  m_PrefabInstance: {fileID: 182102069}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &185899157
 GameObject:
   m_ObjectHideFlags: 0
@@ -8678,6 +8774,68 @@ Transform:
   - {fileID: 901968376}
   m_Father: {fileID: 1122950783}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &192813518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 464712369}
+    m_Modifications:
+    - target: {fileID: 2485515997100609353, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_Name
+      value: PauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+--- !u!224 &192813519 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
+  m_PrefabInstance: {fileID: 192813518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &193006250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9302,7 +9460,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 197266648}
   trailType: 0
@@ -10217,7 +10374,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 229236018}
   trailType: 0
@@ -10851,7 +11007,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 253623187}
   trailType: 0
@@ -11245,7 +11400,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 35
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 256349887}
   trailType: 0
@@ -12615,7 +12769,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 289776284}
   trailType: 0
@@ -13445,6 +13598,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
   m_PrefabInstance: {fileID: 314854318}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &316120088 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+  m_PrefabInstance: {fileID: 1202352341}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &319809280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14240,7 +14398,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 346587063}
   trailType: 0
@@ -14745,7 +14902,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 361271529}
   trailType: 0
@@ -16572,7 +16728,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 425344008}
   trailType: 0
@@ -17191,7 +17346,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 431974117}
   trailType: 0
@@ -18609,7 +18763,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 460500319}
   trailType: 0
@@ -19016,6 +19169,109 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6f4891aa3f11cf04ba0a3eca764bfd26, type: 3}
   m_PrefabInstance: {fileID: 464308852}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &464712368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464712369}
+  - component: {fileID: 464712372}
+  - component: {fileID: 464712371}
+  - component: {fileID: 464712370}
+  m_Layer: 0
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &464712369
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464712368}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 182102070}
+  - {fileID: 192813519}
+  m_Father: {fileID: 1019837743}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &464712370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464712368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &464712371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464712368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &464712372
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464712368}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!4 &464861127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8080313957110108994, guid: 55cef25efbf88b54499b09fde42f3b36, type: 3}
@@ -19683,7 +19939,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 478638907}
   trailType: 0
@@ -19997,7 +20252,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 479921804}
   trailType: 0
@@ -20255,7 +20509,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 486252700}
   trailType: 0
@@ -21290,7 +21543,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 55
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 510605792}
   trailType: 0
@@ -21767,7 +22019,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 514485439}
   trailType: 0
@@ -22909,7 +23160,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 540261459}
   trailType: 0
@@ -23308,7 +23558,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 544155484}
   trailType: 0
@@ -24488,7 +24737,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 584913032}
   trailType: 0
@@ -25174,7 +25422,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 593180373}
   trailType: 1
@@ -25793,7 +26040,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 0
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 609066882}
   trailType: 0
@@ -27016,7 +27262,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 627171309}
   trailType: 0
@@ -28568,7 +28813,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 35
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 651269513}
   trailType: 0
@@ -28952,7 +29196,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 658386770}
   trailType: 0
@@ -30046,7 +30289,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 681123276}
   trailType: 0
@@ -32392,7 +32634,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 742343342}
   trailType: 0
@@ -32955,7 +33196,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 750054602}
   trailType: 0
@@ -33904,7 +34144,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 772067831}
   trailType: 2
@@ -34444,7 +34683,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 778922845}
   trailType: 0
@@ -34762,7 +35000,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 779498181}
   trailType: 0
@@ -35080,7 +35317,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 786603981}
   trailType: 0
@@ -35481,7 +35717,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 40
   width: 20
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 789356057}
   trailType: 0
@@ -36717,7 +36952,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 822290698}
   trailType: 0
@@ -37041,7 +37275,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 35
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 822671432}
   trailType: 0
@@ -37294,7 +37527,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 823168541}
   trailType: 0
@@ -37835,7 +38067,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 830001515}
   trailType: 0
@@ -38088,7 +38319,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 35
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 832768848}
   trailType: 0
@@ -38610,7 +38840,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 843293965}
   trailType: 0
@@ -39068,7 +39297,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 850391080}
   trailType: 0
@@ -39559,7 +39787,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 854902443}
   trailType: 0
@@ -39817,7 +40044,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 858260604}
   trailType: 0
@@ -40285,7 +40511,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 865383927}
   trailType: 0
@@ -40558,7 +40783,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 869645100}
   trailType: 0
@@ -41625,7 +41849,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 889695281}
   trailType: 0
@@ -42571,7 +42794,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 917416535}
   trailType: 0
@@ -42844,7 +43066,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 924926009}
   trailType: 0
@@ -43607,7 +43828,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 937618144}
   trailType: 0
@@ -44314,7 +44534,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 946081982}
   trailType: 0
@@ -44833,7 +45052,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 35
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 949974315}
   trailType: 0
@@ -45222,7 +45440,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 957022270}
   trailType: 0
@@ -45838,7 +46055,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 965771878}
   trailType: 0
@@ -46246,7 +46462,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 972229268}
   trailType: 0
@@ -47007,7 +47222,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 977421244}
   trailType: 0
@@ -47261,7 +47475,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 979518892}
   trailType: 0
@@ -48838,6 +49051,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1156999924}
+  - {fileID: 464712369}
   - {fileID: 2097552373}
   - {fileID: 1999158300}
   m_Father: {fileID: 0}
@@ -49329,7 +49543,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1030376880}
   trailType: 0
@@ -50623,7 +50836,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1052772736}
   trailType: 0
@@ -50896,7 +51108,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1053547504}
   trailType: 0
@@ -51195,7 +51406,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1054620994}
   trailType: 0
@@ -51858,7 +52068,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1069987697}
   trailType: 0
@@ -52395,7 +52604,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1079211495}
   trailType: 0
@@ -52764,7 +52972,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1083637246}
   trailType: 0
@@ -54063,7 +54270,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1101479555}
   trailType: 0
@@ -54382,7 +54588,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 20
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1104338035}
   trailType: 0
@@ -56187,7 +56392,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1146524293}
   trailType: 0
@@ -57129,7 +57333,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1165282786}
   trailType: 0
@@ -58435,6 +58638,95 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f4891aa3f11cf04ba0a3eca764bfd26, type: 3}
+--- !u!1001 &1202352341
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1241463746}
+    m_Modifications:
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 451.62744
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 55.093643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 223.23212
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 521.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 189
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 718.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.3535852
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.34252995
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.62808686
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.60262567
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 87.751
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 127.036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128546379585182049, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 6.023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835222466593373176, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122338219436954097, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_Name
+      value: RespawnTrigger (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122338219436954097, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597648152843048363, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: respawnTrack
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597648152843048363, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: repsawnOffset
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597648152843048363, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
+      propertyPath: forceMainTrack
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0ffb0facf910044a801eda602d14d99, type: 3}
 --- !u!1001 &1204044210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58762,7 +59054,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1212726520}
   trailType: 0
@@ -59259,7 +59550,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1223454344}
   trailType: 0
@@ -59527,7 +59817,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1224013140}
   trailType: 0
@@ -60695,6 +60984,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 316120088}
   - {fileID: 894059379}
   - {fileID: 1050330405}
   - {fileID: 464205172}
@@ -60942,7 +61232,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1249175747}
   trailType: 0
@@ -61426,7 +61715,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1257178714}
   trailType: 0
@@ -62145,7 +62433,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1275254644}
   trailType: 0
@@ -63472,7 +63759,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1295903577}
   trailType: 0
@@ -63799,7 +64085,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1299327170}
   trailType: 0
@@ -64268,7 +64553,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1302675023}
   trailType: 0
@@ -64521,7 +64805,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1303189223}
   trailType: 0
@@ -65050,7 +65333,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1313134336}
   trailType: 0
@@ -65576,7 +65858,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 55
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1331089779}
   trailType: 0
@@ -66284,7 +66565,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1338404640}
   trailType: 0
@@ -66982,7 +67262,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1359463140}
   trailType: 0
@@ -70135,7 +70414,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1452989356}
   trailType: 0
@@ -72124,7 +72402,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1522906514}
   trailType: 0
@@ -73951,7 +74228,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1573209859}
   trailType: 0
@@ -75094,7 +75370,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1585935176}
   trailType: 0
@@ -75986,7 +76261,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1609032339}
   trailType: 0
@@ -76845,7 +77119,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1631211777}
   trailType: 0
@@ -77098,7 +77371,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1631893803}
   trailType: 0
@@ -77771,7 +78043,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1648479193}
   trailType: 0
@@ -80408,7 +80679,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1707635853}
   trailType: 0
@@ -80982,7 +81252,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1714647933}
   trailType: 0
@@ -84637,7 +84906,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1804165861}
   trailType: 0
@@ -85732,7 +86000,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1830125061}
   trailType: 0
@@ -86537,7 +86804,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1852764486}
   trailType: 0
@@ -87517,7 +87783,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1864161669}
   trailType: 0
@@ -89620,7 +89885,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1916398330}
   trailType: 0
@@ -90358,7 +90622,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1928476506}
   trailType: 0
@@ -91028,7 +91291,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1942091636}
   trailType: 0
@@ -91582,7 +91844,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 0
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1947616343}
   trailType: 0
@@ -92731,7 +92992,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1974511316}
   trailType: 0
@@ -93262,7 +93522,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1978580880}
   trailType: 0
@@ -94479,7 +94738,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1997085528}
   trailType: 0
@@ -94860,10 +95118,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1019837743}
     m_Modifications:
     - target: {fileID: 616039688403345706, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 616039688403345706, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: Event.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -94897,27 +95151,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalScale.y
-      value: 65.05592
+      value: 92.11542
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalScale.z
-      value: 39.327522
+      value: 59.508995
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3091.3
+      value: -3030.9
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 77
+      value: 53.9
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1201.4
+      value: -1316.7
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.968826
+      value: 0.97102344
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalRotation.x
@@ -94925,7 +95179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24774233
+      value: -0.23898432
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalRotation.z
@@ -94937,7 +95191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -28.688
+      value: -27.653
       objectReference: {fileID: 0}
     - target: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -94949,17 +95203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2014648822}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6769884536532488478, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1999158299}
-    - targetCorrespondingSourceObject: {fileID: 6769884536532488478, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1999158301}
   m_SourcePrefab: {fileID: 100100000, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
 --- !u!1 &1999158298 stripped
 GameObject:
@@ -94973,7 +95221,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999158298}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d029f974c20bb4089904a66ae1cbf6, type: 3}
   m_Name: 
@@ -94985,20 +95233,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5975352268450495550, guid: 1d31c79afe5e8f64092bbc6718c0f888, type: 3}
   m_PrefabInstance: {fileID: 1999158297}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1999158301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999158298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9f94c71dc753cfe8b952a3742a264d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextLevelToLoad: valhalla
-  playersCompleted: 0
 --- !u!1001 &2001748222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95263,7 +95497,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2005446537}
   trailType: 0
@@ -95786,114 +96019,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009676314}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2014648821
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2014648822}
-  - component: {fileID: 2014648825}
-  - component: {fileID: 2014648824}
-  - component: {fileID: 2014648823}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2014648822
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014648821}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.019707218, z: -0, w: 0.99980587}
-  m_LocalPosition: {x: 0.21, y: 0, z: 0.001}
-  m_LocalScale: {x: 0.41629383, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1999158300}
-  m_LocalEulerAnglesHint: {x: 0, y: -2.258, z: 0}
---- !u!65 &2014648823
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014648821}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &2014648824
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014648821}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8bb4573d879cbd64882c15b1f2583808, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2014648825
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014648821}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &2016613061
 PrefabInstance:
@@ -96859,7 +96984,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 10
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2049787823}
   trailType: 0
@@ -97183,7 +97307,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2055311888}
   trailType: 0
@@ -97436,7 +97559,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2058452769}
   trailType: 0
@@ -98658,7 +98780,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2088232528}
   trailType: 0
@@ -98972,7 +99093,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2089300486}
   trailType: 0
@@ -99358,7 +99478,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2095169921}
   trailType: 0
@@ -101269,7 +101388,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2136063883}
   trailType: 0
@@ -101749,7 +101867,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2140988301}
   trailType: 0

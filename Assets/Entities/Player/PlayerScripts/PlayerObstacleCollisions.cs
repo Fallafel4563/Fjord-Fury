@@ -16,7 +16,8 @@ public class PlayerObstacleCollisions : MonoBehaviour
     public bool ramBoostActive { get; set; } = false;
 
 
-    public UnityEvent HitObstacle;
+    public UnityEvent HitObstacleOnGround;
+    public UnityEvent HitObstacleInAir;
 
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +56,10 @@ public class PlayerObstacleCollisions : MonoBehaviour
         // TODO: Play crash sound
         StartCoroutine(ActivateInvulnerable());
 
-        HitObstacle.Invoke();
+        if (playerMovement.isGrounded || playerMovement.isDrifting)
+            HitObstacleOnGround.Invoke();
+        else
+            HitObstacleInAir.Invoke();
     }
 
 

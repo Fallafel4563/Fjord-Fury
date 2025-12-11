@@ -1,21 +1,22 @@
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.Rendering;
 
-[ExecuteInEditMode]
 public class BillboardScript : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer sprite;
-    void OnWillRenderObject()
-    {
-        if (sprite != null && Camera.main != null) 
-        /*if (SceneView.currentDrawingSceneView)
-        {    
-          transform.rotation = Camera.current.transform.rotation;
-        }
-        else*/
-        {
-          transform.rotation = Camera.main.transform.rotation;
-        }
-    }
-}
+  private void Awake()
+  {
+    RenderPipelineManager.beginCameraRendering += OnBeginCameraRender;
+	}
 
+
+  private void OnDestroy()
+  {
+    RenderPipelineManager.beginCameraRendering -= OnBeginCameraRender;
+  }
+
+
+	void OnBeginCameraRender(ScriptableRenderContext context, Camera camera)
+  {
+    transform.LookAt(camera.transform.position, camera.transform.up);
+	}
+}

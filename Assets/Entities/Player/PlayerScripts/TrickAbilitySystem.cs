@@ -35,17 +35,6 @@ public class TrickAbilitySystem : MonoBehaviour
         FSM = GetComponent<ForwardSpeedMultiplier>();
     }
 
-    void Update()
-    {
-        /*
-        if (Input.GetKeyDown("x"))
-        {
-            SpawnAbility();
-            Debug.Log("ability");
-        }
-        */
-    }
-
     public void SpawnAbility(int firstTrick, int shortBoost, int mediumBoost, int longBoost)
     {
         Debug.Log("SpawnAbility " + firstTrick);
@@ -62,50 +51,31 @@ public class TrickAbilitySystem : MonoBehaviour
         comboCount += mediumBoost;
         comboCount += longBoost;
 
-        abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
-        // Set up the abilityBuffer ref
-        ConfigureAbility(abilityBuffer, comboCount);
-        Debug.Log(firstTrick);
+        abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;
         float newSpeed = combinedStrength / SpeedDivider;
 
-        switch (firstTrick)
-        {
-            case 1:
-                // Fireball speed boost
-                /// FSM.SetForwardSpeedMultiplier("name", newSpeed, new SpeedMultiplierCurve());
-                /// abilityBuffer.transform.localScale = new Vector3(transform.localScale.x * newSize, transform.localScale.y * newSize, transform.localScale.z * newSize);
-                /// abilityBuffer.GetComponent<BounceShroom>();
-                break;
-
-            case 2:
-                // Tornado
-                break;
-
-            case 3:
-                // Bounce shroom
-                break;
-        }
-
+        // Set up the abilityBuffer ref
+        ConfigureAbility(abilityBuffer, comboCount, combinedStrength);
         abilityTimeLeft = abilityDuration / newDuration;
     }
 
     // Supply the ability with all data of where it's suppost to spawn
-    void ConfigureAbility(GameObject buffer, int comboCount)
+    void ConfigureAbility(GameObject buffer, int comboCount, float strength)
     {
         Ability a = abilityBuffer.GetComponent<Ability>();
         a.Track = PM.mainTrack;
 
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, GetComponent<ForwardSpeedMultiplier>(), comboCount);
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, GetComponent<ForwardSpeedMultiplier>(), comboCount, strength);
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 
-    public void SpawnAbilityFailed()
+    public void SpawnAbilityFailed(int firstTrick)
     {
         abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityFailedPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityFailedPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
         abilityTimeLeft = abilityDuration;
     }
 
