@@ -144,14 +144,14 @@ public class PlayerCamera : MonoBehaviour
         desiredFov = Mathf.Clamp(desiredFov, minFov, maxFov);
         // Set fov
         cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.Lens.FieldOfView, desiredFov, fovLerpSpeed * Time.deltaTime);
-        Debug.LogFormat(
-            "Desired fov {0}, Current fov {1}, Speed boost value {2}, Min fov {3} Additional fov {4}, Fov diff {5}",
-            desiredFov,
-            cinemachineCamera.Lens.FieldOfView,
-            forwardSpeedMultiplier.GetForwardSpeedMultiplier("ImmediateComboBoost").value - 1f,
-            minFov,
-            additionalFov,
-            fovDiff
-        );
+        //Debug.LogFormat(
+        //    "Desired fov {0}, Current fov {1}, Speed boost value {2}, Min fov {3} Additional fov {4}, Fov diff {5}",
+        //    desiredFov,
+        //    cinemachineCamera.Lens.FieldOfView,
+        //    forwardSpeedMultiplier.GetForwardSpeedMultiplier("ImmediateComboBoost").value - 1f,
+        //    minFov,
+        //    additionalFov,
+        //    fovDiff
+        //);
     }
 }
