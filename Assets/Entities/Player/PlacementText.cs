@@ -52,7 +52,7 @@ public class PlacementText : MonoBehaviour
 
        placementText.text =Index + 1 + placementSuffixes[Index];
        placementImage.sprite = placementImages[Index];
-    
+       playerControllerRef.playerHud.SetFirstPlayerShine(Index + 1);    
 
        string firstPlace = placementSuffixes[0]; 
        string secondPlace = placementSuffixes[1]; 

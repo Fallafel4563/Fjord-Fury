@@ -6,9 +6,9 @@ public class PlayerHud : MonoBehaviour
 {
     public BoostMeter boostMeter;
     public GameObject levelEndScreen;
+    public GameObject firstPlaceShine;
     public TMP_Text finishedTimeText, placementText;
     public Image placementImage;
-
     private int playerIndex;
     private Canvas canvas;
 
@@ -78,5 +78,12 @@ public class PlayerHud : MonoBehaviour
             levelEndScreen.SetActive(true);
             finishedTimeText.text = string.Format("{0} secs", timeSpent);
         }
+    }
+
+    public void SetFirstPlayerShine(int playerPlacement)
+    {
+
+        firstPlaceShine.SetActive(playerPlacement == 1);
+    
     }
 }
