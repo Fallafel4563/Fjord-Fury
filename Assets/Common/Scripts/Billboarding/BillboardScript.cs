@@ -17,6 +17,6 @@ public class BillboardScript : MonoBehaviour
 
 	void OnBeginCameraRender(ScriptableRenderContext context, Camera camera)
   {
-    transform.rotation = camera.transform.rotation;
+    transform.LookAt(camera.transform.position, camera.transform.up);
 	}
 }

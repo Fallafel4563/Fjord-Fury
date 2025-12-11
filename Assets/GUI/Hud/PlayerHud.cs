@@ -1,6 +1,5 @@
 using UnityEngine.UI;
 using TMPro;
-using Unity.Collections;
 using UnityEngine;
 
 public class PlayerHud : MonoBehaviour
@@ -54,9 +53,9 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    public void UpdateBoostMeter(int i, int a, int x)
+    public void UpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        boostMeter.OnUpdateBoostMeter(i, a, x);
+        boostMeter.OnUpdateBoostMeter(updateBoostMeterInfo);
     }
 
 
