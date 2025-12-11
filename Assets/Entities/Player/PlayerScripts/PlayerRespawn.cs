@@ -39,7 +39,7 @@ public class PlayerRespawn : MonoBehaviour
         if (respawnActive)
             return;
         
-        Debug.Log("RESPAWN STARTED");
+        Debug.Log("Respawn started");
         respawnActive = true;
         playerMovement.isRespawning = true;
         playerCamera.isRespawning = true;
@@ -55,15 +55,22 @@ public class PlayerRespawn : MonoBehaviour
         // Wait for fade in
         yield return new WaitForSeconds(fadeDuration);
 
-        Debug.Log("RESET POS");
-
         // Reset boat position
         if (!respawnTrack)
         {
             playerMovement.LandedOnTrack(playerMovement.mainTrack);
             transform.localPosition = Vector3.zero;
 
+            yield return new WaitForEndOfFrame();
+
             splineCart.SplinePosition = playerMovement.lastMainTrackDistance - respawnOffset;
+            Debug.LogFormat(
+                "Main track respawn \nSpline length {0} \nLast distance {1} \nOffset {2} \nDesired respawn distance {3} \nActual respawn distance {4} \n",
+                playerMovement.mainTrack.track.Spline.GetLength(), // Length
+                playerMovement.lastMainTrackDistance, // Last distance
+                respawnOffset, // Offset
+                playerMovement.lastMainTrackDistance - respawnOffset, // Desried respawn distance
+                splineCart.SplinePosition); // Actual respawn distance
         }
         else
         {
@@ -71,10 +78,21 @@ public class PlayerRespawn : MonoBehaviour
             transform.position = distanceInfo.nearestSplinePos;
             // Make the boat land on the track
             playerMovement.LandedOnTrack(respawnTrack);
+            transform.localPosition = Vector3.zero;
+
+            yield return new WaitForEndOfFrame();
+
             splineCart.SplinePosition = distanceInfo.distance - respawnOffset;
+            Debug.LogFormat(
+                "Respawn track respawn \nRespawn track name {5} \nRespawn track length {0} \nDistance {1} \nOffset {2} \nDesired respawn distance {3} \nActual respawn distance {4} \n",
+                respawnTrack.track.Spline.GetLength(), // Length
+                distanceInfo.distance, // Distance
+                respawnOffset, // Offset
+                distanceInfo.distance - respawnOffset, // Desried respawn distance
+                splineCart.SplinePosition, // Actual respawn distance
+                respawnTrack.gameObject.name); // Desired respawn track
         }
 
-        Debug.LogFormat("Respawn distance {0}", splineCart.SplinePosition);
         yield return new WaitForEndOfFrame();
 
         // Stop player movement
@@ -97,7 +115,7 @@ public class PlayerRespawn : MonoBehaviour
 
     private void FinishRespawn()
     {
-        Debug.Log("RESPAWN ENDED");
+        Debug.Log("Respawn ended");
         respawnActive = false;
         // Reset player stuff
         playerMovement.enabled = true;

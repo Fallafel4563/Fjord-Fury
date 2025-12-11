@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BounceShroom : MonoBehaviour
 {
-    [SerializeField] private float BouncePower;
+    public float BouncePower;
 
     void OnTriggerEnter(Collider collider)
     {
