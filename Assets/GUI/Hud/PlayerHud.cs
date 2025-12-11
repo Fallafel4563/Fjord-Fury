@@ -6,7 +6,7 @@ public class PlayerHud : MonoBehaviour
 {
     public BoostMeter boostMeter;
     public GameObject levelEndScreen;
-    public TMP_Text finishedTimeText;
+    public TMP_Text finishedTimeText, placementText;
 
     private int playerIndex;
     private Canvas canvas;
