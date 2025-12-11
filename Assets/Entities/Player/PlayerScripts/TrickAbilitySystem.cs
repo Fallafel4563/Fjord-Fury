@@ -51,7 +51,7 @@ public class TrickAbilitySystem : MonoBehaviour
         comboCount += mediumBoost;
         comboCount += longBoost;
 
-        abilityBuffer = Instantiate(abilityPrefabs[firstTrick - 1], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;
@@ -72,10 +72,10 @@ public class TrickAbilitySystem : MonoBehaviour
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 
-    public void SpawnAbilityFailed()
+    public void SpawnAbilityFailed(int firstTrick)
     {
         abilityHasSpawned = true;
-        abilityBuffer = Instantiate(abilityFailedPrefabs[FirstTrickIndex], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
+        abilityBuffer = Instantiate(abilityFailedPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
         abilityTimeLeft = abilityDuration;
     }
 
