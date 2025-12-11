@@ -62,8 +62,9 @@ public class PlayerRespawn : MonoBehaviour
         {
             playerMovement.LandedOnTrack(playerMovement.mainTrack);
             transform.localPosition = Vector3.zero;
-
+            
             splineCart.SplinePosition = playerMovement.lastMainTrackDistance - respawnOffset;
+            Debug.Log("Main tracks respawn");
         }
         else
         {
@@ -71,10 +72,12 @@ public class PlayerRespawn : MonoBehaviour
             transform.position = distanceInfo.nearestSplinePos;
             // Make the boat land on the track
             playerMovement.LandedOnTrack(respawnTrack);
+            
             splineCart.SplinePosition = distanceInfo.distance - respawnOffset;
+            Vector3 pos = respawnTrack.track.EvaluatePosition(distanceInfo.normalizedDistance);
+            Debug.DrawLine(pos, pos + Vector3.up * 100f, Color.white, 60f);
         }
 
-        Debug.LogFormat("Respawn distance {0}", splineCart.SplinePosition);
         yield return new WaitForEndOfFrame();
 
         // Stop player movement
