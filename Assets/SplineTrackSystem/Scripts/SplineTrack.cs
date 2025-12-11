@@ -48,12 +48,11 @@ public class SplineTrack : MonoBehaviour
     public TrackDistanceInfo GetDistanceInfoFromPosition(Vector3 worldPos)
     {
         // Get the point on the track that is closes to worldPos
-        SplineUtility.GetNearestPoint(track[0], worldPos - transform.position, out Unity.Mathematics.float3 nearestPos, out float distance);
-        distance *= track[0].GetLength();
+        SplineUtility.GetNearestPoint(track.Spline, worldPos - transform.position, out Unity.Mathematics.float3 nearestPos, out float distance, 10, 5);
 
         TrackDistanceInfo trackDistanceInfo = new();
-        trackDistanceInfo.distance = distance;
-        trackDistanceInfo.normalizedDistance = distance / track[0].GetLength();
+        trackDistanceInfo.distance = distance * track.Spline.GetLength();
+        trackDistanceInfo.normalizedDistance = distance;
         trackDistanceInfo.nearestSplinePos = new Vector3(nearestPos.x, nearestPos.y, nearestPos.z) + transform.position;
         return trackDistanceInfo;
     }

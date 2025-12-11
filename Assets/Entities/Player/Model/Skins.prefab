@@ -34,6 +34,7 @@ Transform:
   - {fileID: 6856296543777587874}
   - {fileID: 8355146280126637966}
   - {fileID: 1312690305244765913}
+  - {fileID: 7738860141979528485}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &213069410408592323
@@ -486,6 +487,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
   m_PrefabInstance: {fileID: 6389706392502494537}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7849577550520191694
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6440381947398128560}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.13183098
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13183098
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.13183098
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+      propertyPath: m_Name
+      value: Draugr_Ship_Prefab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+--- !u!4 &7738860141979528485 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f9ef6ea863b3f5440805635279aa8b8f, type: 3}
+  m_PrefabInstance: {fileID: 7849577550520191694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8392959537516281957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -641,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8d2d3abe93bfee644902b2e2ee547d8f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
