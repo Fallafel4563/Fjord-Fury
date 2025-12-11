@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BoatMovementAnims : MonoBehaviour
 {
-    [HideInInspector] public PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;
     public TrickComboSystem trickComboSystem;
 
     

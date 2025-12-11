@@ -8,6 +8,8 @@ using UnityEngine.Splines;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerController playerController;
+    public CinemachineSplineCart splineCart;
     public Transform circleRotParent;
     public ForwardSpeedMultiplier forwardSpeedMultiplier;
 
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     // State variables
     public bool isGrounded { get; set; } = true;
+    public bool isRespawning { get; set; } = false;
     public Vector3 oldPosition;
 
 
@@ -54,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting)
+        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
         {
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
@@ -75,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
     public float overrideSpeed { get; set; } = 40f;
     public float steerSpeed { get; set; }
     public Vector3 HorizontalVelocity { get; set; }
-    public CinemachineSplineCart splineCart { get; set; }
     public SplineTrack mainTrack { get; set; }
     public SplineTrack currentTrack { get; set; }
 
@@ -355,6 +357,22 @@ public class PlayerMovement : MonoBehaviour
     public float lastMainTrackDistance { get; set; }
     public Vector3 positionWhenJumped { get; set; }
 
+    public void ShroomBounce(float bouncePower)
+    {
+        // Detach the boat form the spline cart
+        DetachFromCart();
+
+        // Stop all upwards velocity
+        float upwardsVel = Vector3.Dot(airVelocity, transform.up);
+        airVelocity -= transform.up * upwardsVel;
+        // Set the upwards air velocity to be the equal to jump power
+        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
+        airVelocity += transform.up * bouncePower;
+
+
+        // Invoke events
+        Jumped.Invoke();
+    }
 
     public void Jump()
     {
@@ -375,7 +393,8 @@ public class PlayerMovement : MonoBehaviour
 
             // Stop all upwards velocity
             float upwardsVel = Vector3.Dot(airVelocity, transform.up);
-            airVelocity -= transform.up * upwardsVel;
+            if (upwardsVel < 0f)
+                airVelocity -= transform.up * upwardsVel;
             // Set the upwards air velocity to be the equal to jump power
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity += transform.up * jumpPower;
@@ -446,6 +465,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Invoke events
         Landed.Invoke();
+        if (startedGroundPound)
+            GroundpoundEnded.Invoke();
         splineTrack.OnBoatEnter.Invoke(gameObject);
     }
 
@@ -531,6 +552,7 @@ public class PlayerMovement : MonoBehaviour
     public bool startedGroundPound { get; private set; } = false;
 
     public UnityEvent GroundpoundStarted;
+    public UnityEvent GroundpoundEnded;
 
     public void StartDrift()
     {

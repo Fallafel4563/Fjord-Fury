@@ -1,35 +1,39 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TrickComboSystem : MonoBehaviour
 {
     public Animator animator;
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [HideInInspector] public BoatMovementAnims boatMovementAnims;
-    [SerializeField] private TrickAbilitySystem trickAbilitySystem;
+    public PlayerMovement playerMovement;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    public BoatMovementAnims boatMovementAnims;
+    public TrickAbilitySystem trickAbilitySystem;
 
 
-    [HideInInspector] public bool performingTrick = false;
-    [HideInInspector] public int combo = 0;
-    [HideInInspector] public int trickScore = 0;
-    [HideInInspector] public int trickIndex = 0;
-    [HideInInspector] public int firstTrickIndex = 0;
-    [HideInInspector] public int barIndex = 0;
+    public bool performingTrick { get; set; } = false;
+    public int combo { get; set; } = 0;
+    public int trickScore { get; set; } = 0;
+    public int trickIndex { get; set; } = 0;
+    public int firstTrickIndex { get; set; } = 0;
+    public int barIndex { get; set; } = 0;
 
-    [HideInInspector] public float speedValue = 0f;
+    public float speedValue{ get; set; } = 0f;
     private int shortBoost = 0;
     private int mediumBoost = 0;
     private int longBoost = 0;
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
-    [HideInInspector] public float inputBuffer = 0f;
+    public float inputBuffer { get; set; } = 0f;
 
     public Action<bool> UpdateBoostMeterVisibility;
     public Action<int, int, int> UpdateBoostMeter;
     public Action ResetBoostMeter;
     public Action ResetTrickReaction;
+
+    public UnityEvent TrickSucceed;
+    public UnityEvent TrickFalied;
 
 
     private void Start()
@@ -96,13 +100,13 @@ public class TrickComboSystem : MonoBehaviour
         switch (trickIndex)
         {
             case 1:
-                shortBoost++;
+                longBoost++;
                 break;
             case 2:
                 mediumBoost++;
                 break;
             case 3:
-                longBoost++;
+                shortBoost++;
                 break;
         }
 
@@ -129,6 +133,8 @@ public class TrickComboSystem : MonoBehaviour
         EndComboBoost();
         // TODO: Trigger failed trick sound
         // TODO: Set animator trigget for failing trick
+
+        TrickFalied.Invoke();
     }
 
 
@@ -146,6 +152,7 @@ public class TrickComboSystem : MonoBehaviour
                 // Short boost
                 // Medium boost
                 // Long boost
+            trickAbilitySystem.SpawnAbility(firstTrickIndex, shortBoost, mediumBoost, longBoost);
         }
         else if (combo < 3)
         {
@@ -164,6 +171,8 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Start playing the boost sound
         // TODO: Add camera shake when boosting
         // TODO: Show boost particles
+
+        TrickSucceed.Invoke();
     }
 
 

@@ -114,14 +114,8 @@ MonoBehaviour:
   playerMovement: {fileID: 2060630186251258410}
   playerCamera: {fileID: 8851560557099016440}
   playerRespawn: {fileID: 8721748571526581582}
-  boatMovementAnims: {fileID: 5031827103774947155}
   trickComboSystem: {fileID: 3401553776943726406}
-  forwardSpeedMultiplier: {fileID: 2504890653146001464}
-  playerObstacleCollisions: {fileID: 7040633805338777643}
-  curveSpeedOffset: {fileID: 2784234024063253971}
-  lagSpikeSaftey: {fileID: 1029006160235610832}
   skins: {fileID: 2259313785944379738}
-  selectedCharacter: 0
   inputEnabled: 1
 --- !u!1 &2930691827343099361
 GameObject:
@@ -5438,8 +5432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd874aa54e08d4baa65829cb53660f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 8973031623431736701}
+  splineCart: {fileID: 8965506563597239976}
   circleRotParent: {fileID: 7394530659016896994}
-  forwardSpeedMultiplier: {fileID: 0}
+  forwardSpeedMultiplier: {fileID: 2504890653146001464}
   oldPosition: {x: 0, y: 0, z: 0}
   baseForwardSpeed: 40
   groundSteerSpeed: 15
@@ -5632,6 +5628,9 @@ MonoBehaviour:
   GroundpoundStarted:
     m_PersistentCalls:
       m_Calls: []
+  GroundpoundEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3401553776943726406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5645,17 +5644,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 934489117240917153}
-  playerMovement: {fileID: 0}
-  forwardSpeedMultiplier: {fileID: 0}
-  boatMovementAnims: {fileID: 0}
+  playerMovement: {fileID: 2060630186251258410}
+  forwardSpeedMultiplier: {fileID: 2504890653146001464}
+  boatMovementAnims: {fileID: 5031827103774947155}
   trickAbilitySystem: {fileID: 2204905582488818726}
-  performingTrick: 0
-  combo: 0
-  trickScore: 0
-  trickIndex: 0
-  firstTrickIndex: 0
-  barIndex: 0
-  speedValue: 0
   inputBufferDuration: 0.2
   ImmediateComboBoostCurve:
     holdTime: 3
@@ -5707,7 +5699,24 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  inputBuffer: 0
+  TrickSucceed:
+    m_PersistentCalls:
+      m_Calls: []
+  TrickFalied:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 934489117240917153}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FailTrick
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2204905582488818726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5721,10 +5730,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityPrefabs:
+  - {fileID: 5936356114467601268, guid: 24560e7e031ee5a42a28676505700f2f, type: 3}
+  - {fileID: 8693354933828015517, guid: ab86fbdc2cd18d64f85334155dc48aad, type: 3}
   - {fileID: 7117134235439422471, guid: 30fbff3c3557ab44892dd2f5fedade7a, type: 3}
-  - {fileID: 7117134235439422471, guid: 30fbff3c3557ab44892dd2f5fedade7a, type: 3}
-  - {fileID: 7117134235439422471, guid: 30fbff3c3557ab44892dd2f5fedade7a, type: 3}
-  abilityFailedPrefabs: []
+  abilityFailedPrefabs:
+  - {fileID: 0}
   AbilitySpawnPoint: {fileID: 6617996798823095572}
   abilityDuration: 0
   FirstTrickIndex: 0
@@ -5760,26 +5770,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnerableDuration: 3
-  invulnerable: 0
-  ramBoostActive: 0
-  playerMovement: {fileID: 0}
-  trickComboSystem: {fileID: 0}
-  forwardSpeedMultiplier: {fileID: 0}
-  HitObstacle:
+  trickComboSystem: {fileID: 3401553776943726406}
+  forwardSpeedMultiplier: {fileID: 2504890653146001464}
+  playerMovement: {fileID: 2060630186251258410}
+  HitObstacleOnGround:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3401553776943726406}
-        m_TargetAssemblyTypeName: TrickComboSystem, Assembly-CSharp
-        m_MethodName: OnHitObstacle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  HitObstacleInAir:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &9054204099485319101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5806,9 +5805,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceOffset: 3
-  splineCart: {fileID: 0}
-  playerMovement: {fileID: 0}
-  forwardSpeedMultiplier: {fileID: 0}
+  splineCart: {fileID: 8965506563597239976}
+  playerMovement: {fileID: 2060630186251258410}
+  forwardSpeedMultiplier: {fileID: 2504890653146001464}
   sphere: {fileID: 0}
 --- !u!114 &8721748571526581582
 MonoBehaviour:
@@ -5854,9 +5853,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  playerMovement: {fileID: 0}
-  playerCamera: {fileID: 0}
-  splineCart: {fileID: 0}
+  playerMovement: {fileID: 2060630186251258410}
+  playerCamera: {fileID: 8851560557099016440}
+  splineCart: {fileID: 8965506563597239976}
 --- !u!114 &961602446303370989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5931,7 +5930,7 @@ MonoBehaviour:
   raycastLayer:
     serializedVersion: 2
     m_Bits: 16
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 2060630186251258410}
 --- !u!114 &1504235594064537195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6131,14 +6130,9 @@ MonoBehaviour:
   groundPosLerpSpeed: {x: 7.5, y: 7.5, z: 7.5}
   airPosOffset: {x: 0, y: 1, z: 4}
   airPosLerpSpeed: {x: 10, y: 10, z: 10}
-  isRespawning: 0
-  steerInput: 0
-  trackingTarget: {fileID: 0}
-  playerMovement: {fileID: 0}
-  forwardSpeedMultiplier: {fileID: 0}
-  activeCamera: {fileID: 0}
-  cinemachineCamera: {fileID: 0}
-  cinemachineBrain: {fileID: 0}
+  trackingTarget: {fileID: 8497310814354721785}
+  playerMovement: {fileID: 2060630186251258410}
+  forwardSpeedMultiplier: {fileID: 2504890653146001464}
 --- !u!1 &7306347809328879205
 GameObject:
   m_ObjectHideFlags: 0
@@ -6215,7 +6209,7 @@ ParticleSystem:
   m_GameObject: {fileID: 8538565762872039103}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 2.75
+  simulationSpeed: 3.5
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -6399,8 +6393,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.6462264, g: 0.8955185, b: 1, a: 1}
-        key1: {r: 0.43867922, g: 0.9131009, b: 1, a: 0}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 1, g: 1, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6408,7 +6402,7 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 31871
+        ctime1: 43315
         ctime2: 65535
         ctime3: 0
         ctime4: 0
@@ -6424,7 +6418,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
       minGradient:
@@ -11054,7 +11048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea361c9416a7919e8a79d6170ec8be7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 2060630186251258410}
   trickComboSystem: {fileID: 3401553776943726406}
   lerpSpeed: 1
   groundTilt: 5
