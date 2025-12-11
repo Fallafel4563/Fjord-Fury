@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject skins;
 
     public int selectedCharacter { get; set; } = 0;
-    public int playerIndex { get; private set; }
 
-    private PlayerInput playerInput;
+    public PlayerInput playerInput { get; private set; }
 
 
 
