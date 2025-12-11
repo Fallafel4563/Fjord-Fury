@@ -393,7 +393,8 @@ public class PlayerMovement : MonoBehaviour
 
             // Stop all upwards velocity
             float upwardsVel = Vector3.Dot(airVelocity, transform.up);
-            airVelocity -= transform.up * upwardsVel;
+            if (upwardsVel < 0f)
+                airVelocity -= transform.up * upwardsVel;
             // Set the upwards air velocity to be the equal to jump power
             // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
             airVelocity += transform.up * jumpPower;
