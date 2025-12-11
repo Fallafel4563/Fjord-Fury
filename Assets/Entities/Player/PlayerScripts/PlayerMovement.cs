@@ -110,9 +110,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void DetachFromCart()
     {
-        if (isGrounded)
-            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping (But only when grounded)
-            airVelocity = transform.forward * currentForwardSpeed;
+        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping (But only when grounded)
+        airVelocity = transform.forward * currentForwardSpeed;
 
         // Reset stuff
         isGrounded = false;

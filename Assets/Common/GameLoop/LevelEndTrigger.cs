@@ -42,7 +42,7 @@ public class LevelEndTrigger : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerMovement playerMovement))
         {
-            int playerIndex = playerMovement.playerController.playerIndex;
+            int playerIndex = playerMovement.playerController.playerInput.playerIndex;
             float timeSpent = Time.time - levelStartTime;
 
             // Modify the data in the players dict
