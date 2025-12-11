@@ -84,7 +84,8 @@ public class Ability : MonoBehaviour
 
         if (RA != null) SetRamStrength(strength);
 
-        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly) Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
+        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
+            Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
     }
 
     void SetRamStrength(float strength)
