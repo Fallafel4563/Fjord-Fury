@@ -168,7 +168,7 @@ public class TrickComboSystem : MonoBehaviour
 
     private void SucceedTrick()
     {
-        //TriggerAbility();
+        TriggerAbility();
         TriggerComboBoost();
 
         TrickSucceed.Invoke();
@@ -184,7 +184,7 @@ public class TrickComboSystem : MonoBehaviour
         }
         else
         {
-            trickAbilitySystem.SpawnAbilityFailed(firstTrickIndex);
+            //trickAbilitySystem.SpawnAbilityFailed(firstTrickIndex);
         }
 
         UpdateBoostMeterVisibility?.Invoke(false);
