@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel.Design;
 using NUnit.Framework.Internal;
 using Unity.Cinemachine;
-using Unity.Cinemachine.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
