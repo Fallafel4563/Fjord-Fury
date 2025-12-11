@@ -1,3 +1,4 @@
+using UnityEngine.UI;
 using TMPro;
 using Unity.Collections;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class PlayerHud : MonoBehaviour
     public BoostMeter boostMeter;
     public GameObject levelEndScreen;
     public TMP_Text finishedTimeText, placementText;
+    public Image placementImage;
 
     private int playerIndex;
     private Canvas canvas;
