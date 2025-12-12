@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputManager))]
 public class MultiplayerPlayerSpawner : MonoBehaviour
 {
-    public static int playerCount = 1;
+    public int playerCount = 1;
     public static Dictionary<int, PlayerSelectInfo> players = new();
 
     [SerializeField] private SplineTrack mainTrack;
@@ -15,11 +15,15 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     [SerializeField] private GameObject hudPrefab;
 
     private PlayerInputManager playerInputManager;
+    private LevelStart levelStart;
 
 
     private void Awake()
     {
         playerInputManager = GetComponent<PlayerInputManager>();
+        playerInputManager.playerPrefab = playerPrefab;
+
+        levelStart = GetComponent<LevelStart>();
     }
 
 
@@ -28,48 +32,44 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
         // Spawn players from the character select menu
         if (players.Count > 0)
         {
-            for (int i = 0; i < players.Count; i++)
-            {
-                var item = players.ElementAt(i);
-                playerInputManager.JoinPlayer(item.Key, item.Key, pairWithDevice: item.Value.inputDevice);
-            }
-            Debug.Log("Spawned players");
-            return;
+            SpawnPlayersFromDict();
+        }
+        else
+        {
+            SpawnPlayersWhenTesting();
         }
 
-        // Spawn players when testing a level in editor
-        for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
+        if (levelStart.enabled)
+            StartCoroutine(levelStart.StartCountdown());
+    }
+
+
+    // Spawn players from the players dict
+    private void SpawnPlayersFromDict()
+    {
+        for (int i = 0; i < players.Count; i++)
         {
-            playerInputManager.JoinPlayer(playerIndex, playerIndex);
-            //continue;
-            //if (playerIndex == 0)
-            //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: InputSystem.devices[0]);
-            //    //playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevices: [InputSystem.devices[0], InputSystem.devices[1]]);
-            //else
-            //    Debug.LogFormat("Player {0}", playerIndex);
-            //continue;
-            // Pair player with game pad, if it exists
-            //if (Gamepad.all.Count > playerIndex)
-            //    playerInputManager.JoinPlayer(playerIndex, playerIndex, pairWithDevice: Gamepad.all[playerIndex]);
-            //// Pair player with keyboard if there's no gamepad
-            //else
-            //    playerInputManager.JoinPlayer(playerIndex, playerIndex);
+            var item = players.ElementAt(i);
+            playerInputManager.JoinPlayer(item.Key, item.Key, pairWithDevice: item.Value.inputDevice);
         }
     }
 
 
-    private void OnValidate()
+    private void SpawnPlayersWhenTesting()
     {
-        // Setup the palyer input manager to have the desired default values
+        // Spawn players when testing a level in the editor
+        for (int playerIndex = 0; playerIndex < playerCount; playerIndex++)
+        {
+            // Add an entry to the players dict
+            PlayerSelectInfo playerSelectInfo = new()
+            {
+                characterIndex = 0,
+                totalTimeSpent = 0f,
+                inputDevice = InputSystem.devices[0],
+            };
+            players.Add(playerIndex, playerSelectInfo);
 
-        if (playerInputManager == null)
-        {
-            playerInputManager = GetComponent<PlayerInputManager>();
-            playerInputManager.splitScreen = true;
-        }
-        else if (playerPrefab != null)
-        {
-            playerInputManager.playerPrefab = playerPrefab;
+            playerInputManager.JoinPlayer(playerIndex, playerIndex);
         }
     }
 
@@ -97,24 +97,24 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     }
 
 
-    public void OnPlayerLeft(PlayerInput playerInput)
-    {
-        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
-    }
-
-
     private void SetPlayerPos(PlayerController playerController, PlayerInput playerInput)
     {
         // Set player position
         float trackLeftPos = -(mainTrack.width / 2f);
 
         // Get the offset between players
-        float playersOffset = mainTrack.width / (playerCount + 1);
+        float playersOffset = mainTrack.width / (PlayerInput.all.Count + 1);
 
         // Get the spawn pos of the player
         float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
 
         // Set the spawn pos of the player
         playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
+    }
+
+
+    public void OnPlayerLeft(PlayerInput playerInput)
+    {
+        Debug.LogFormat("Player {0} left", playerInput.playerIndex);
     }
 }

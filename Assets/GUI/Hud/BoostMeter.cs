@@ -6,14 +6,9 @@ using UnityEngine.UI;
 public class BoostMeter : MonoBehaviour
 {
     public Image boostMeterIcon;
-    public TMP_Text trickReaction;
     public List<Image> barSections = new();
     public List<Color> colorPalette = new();
-
     public List<Sprite> abilityIcons = new();
-
-    private List<string> trickActiveList = new List<string> {"Mushroom charged", "Ram Charaged", "Tornado charged"};
-    private List<string> trickNumberList = new List<string> {"Imp-pressive", "Trolltastic", "Untrollable", "Trolldracular", "Hobgoblike", "Orgewhelming"};
 
 
     private void Start()
@@ -22,26 +17,20 @@ public class BoostMeter : MonoBehaviour
     }
 
 
-    public void OnUpdateBoostMeter(int firstTrickIndex, int combo, int barIndex)
+    public void OnUpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        boostMeterIcon.sprite = abilityIcons[firstTrickIndex - 1];
-
-        if (combo == 3)
+        Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Bar {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.barIndex);
+        if (updateBoostMeterInfo.combo < updateBoostMeterInfo.abilityActivationThreshold)
         {
-            trickReaction.text = trickActiveList[firstTrickIndex - 1];
+            boostMeterIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex];
         }
-
-        if (combo >= 4)
+        else if (updateBoostMeterInfo.combo >= updateBoostMeterInfo.abilityActivationThreshold)
         {
-            int indexToUse = combo - 4;
-            if (indexToUse >= trickNumberList.Count)
-                indexToUse = trickNumberList.Count - 1;
-            trickReaction.text = trickNumberList[indexToUse];
+            boostMeterIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex + 3];
         }
-
-        Image sectionToChange = barSections[barIndex];
+        Image sectionToChange = barSections[updateBoostMeterInfo.barIndex];
         int currentColorIndex = colorPalette.IndexOf(sectionToChange.color);
-        if (currentColorIndex < colorPalette.Count - 1)
+        if (currentColorIndex < colorPalette.Count)
             sectionToChange.color = colorPalette[currentColorIndex + 1];
     }
 
@@ -54,10 +43,13 @@ public class BoostMeter : MonoBehaviour
             barSections[i].color = colorPalette[0];
         }
     }
+}
 
 
-    public void OnResetTrickReaction()
-    {
-        trickReaction.text = "";
-    }
+public struct UpdateBoostMeterInfo
+{
+    public int combo;
+    public int barIndex;
+    public int firstTrickIndex;
+    public int abilityActivationThreshold;
 }

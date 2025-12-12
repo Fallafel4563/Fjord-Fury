@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2996765124551583669}
   - component: {fileID: 4231398327092283328}
   - component: {fileID: 7878558771631354955}
+  - component: {fileID: 2115268432470500127}
   m_Layer: 0
   m_Name: Beaver dam
   m_TagString: Obstacles
@@ -140,6 +141,73 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0837169, y: 0.8594103, z: 7.492319}
   m_Center: {x: -1.594518, y: 3.3277202, z: -5.3802176}
+--- !u!114 &2115268432470500127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398192862111087540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  causeHarm: 1
+  destructOnCrash: 0
+  bounceHeight: 0
+  crashSpeedMultiplier: 0.5
+  crashSpeedMultiplierCurve:
+    holdTime: 0
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.15000153
+        value: 0.99523926
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.002380371
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  owner: {fileID: 0}
 --- !u!1001 &140857271681706119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +272,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 89678457a13c3c545a1ba16cce142e62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -274,6 +346,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (5)
@@ -352,6 +428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 89678457a13c3c545a1ba16cce142e62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -414,6 +494,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (8)
@@ -480,6 +564,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (9)
@@ -554,6 +642,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 25.675
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (1)
@@ -632,6 +724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 89678457a13c3c545a1ba16cce142e62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -694,6 +790,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (6)
@@ -772,6 +872,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 89678457a13c3c545a1ba16cce142e62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -834,6 +938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 30d38dc893d54ad47a03e2ce21fb6bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -908,6 +1016,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 30d38dc893d54ad47a03e2ce21fb6bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -978,6 +1090,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (3)
@@ -1040,6 +1156,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -19.12
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (2)
@@ -1106,6 +1226,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (7)
@@ -1172,6 +1296,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 30d38dc893d54ad47a03e2ce21fb6bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1234,6 +1362,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 30d38dc893d54ad47a03e2ce21fb6bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1304,6 +1436,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01 (4)
@@ -1382,6 +1518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 89678457a13c3c545a1ba16cce142e62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1444,6 +1584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 89678457a13c3c545a1ba16cce142e62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1518,6 +1662,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drift_Log_02 1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3656752416954055805, guid: 30d38dc893d54ad47a03e2ce21fb6bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1576,6 +1724,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 59.231
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
     - target: {fileID: 919132149155446097, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
       propertyPath: m_Name
       value: DriftWood_01

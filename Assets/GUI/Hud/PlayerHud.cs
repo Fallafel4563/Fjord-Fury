@@ -1,14 +1,15 @@
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
 public class PlayerHud : MonoBehaviour
 {
-    public TMP_Text playerIndexText;
-    public TMP_Text trickTricksText;
-    public TMP_Text trickScoreText;
     public BoostMeter boostMeter;
-
-
+    public GameObject levelEndScreen;
+    public GameObject firstPlaceShine;
+    public TMP_Text finishedTimeText, placementText;
+    public Image placementImage;
+    private int playerIndex;
     private Canvas canvas;
 
 
@@ -18,9 +19,27 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    public void SetupHud(int playerIndex, Camera renderCamera)
+    private void OnEnable()
     {
-        playerIndexText.text = string.Format("Player {0}", playerIndex + 1);
+        LevelEndTrigger.PlayerReachedLevelEnd += OnPlayerReachedLevelEnd;
+    }
+
+
+    private void OnDisable()
+    {
+        LevelEndTrigger.PlayerReachedLevelEnd -= OnPlayerReachedLevelEnd;
+    }
+
+
+    private void Start()
+    {
+        levelEndScreen.SetActive(false);
+    }
+
+
+    public void SetupHud(int index, Camera renderCamera)
+    {
+        playerIndex = index;
 
         canvas.worldCamera = renderCamera;
         canvas.planeDistance = 0.5f;
@@ -34,9 +53,9 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    public void UpdateBoostMeter(int i, int a, int x)
+    public void UpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        boostMeter.OnUpdateBoostMeter(i, a, x);
+        boostMeter.OnUpdateBoostMeter(updateBoostMeterInfo);
     }
 
 
@@ -49,5 +68,22 @@ public class PlayerHud : MonoBehaviour
     public void OnRespawnFadeOutStarted(float fadeDuration)
     {
         //
+    }
+
+
+    private void OnPlayerReachedLevelEnd(int index, float timeSpent)
+    {
+        if (index == playerIndex)
+        {
+            levelEndScreen.SetActive(true);
+            finishedTimeText.text = string.Format("{0} secs", timeSpent);
+        }
+    }
+
+    public void SetFirstPlayerShine(int playerPlacement)
+    {
+
+        firstPlaceShine.SetActive(playerPlacement == 1);
+    
     }
 }

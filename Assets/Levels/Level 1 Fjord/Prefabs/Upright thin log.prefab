@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6097683735593614716}
   - component: {fileID: 4671769206803483231}
   - component: {fileID: 6902190761133916912}
+  - component: {fileID: 7260102969898921854}
   m_Layer: 0
   m_Name: Upright thin log
   m_TagString: Obstacles
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3033667219593020291, guid: 5f2245eeb38419e438c2cb589ba1b722, type: 3}
+  - {fileID: -7756771015291502139, guid: b299eeb6e98687b44aa00d5d2e1d1d28, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,3 +109,70 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.4777265, y: 0.4145891, z: 7.045455}
   m_Center: {x: -0.045621894, y: 0.26882416, z: 0.04423428}
+--- !u!114 &7260102969898921854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813894909990676563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  causeHarm: 1
+  destructOnCrash: 0
+  bounceHeight: 15
+  crashSpeedMultiplier: 0.5
+  crashSpeedMultiplierCurve:
+    holdTime: 2
+    startCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    endCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.15000153
+        value: 0.99523926
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.002380371
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  owner: {fileID: 0}

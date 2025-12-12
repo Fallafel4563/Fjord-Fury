@@ -5,18 +5,19 @@ using UnityEngine.Events;
 public class PlayerObstacleCollisions : MonoBehaviour
 {
     public float invulnerableDuration = 3f;
+    public TrickComboSystem trickComboSystem;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    public PlayerMovement playerMovement;
     // TODO: Invulnerable shader
-    [HideInInspector] public bool invulnerable = false;
-
-    [HideInInspector] public bool ramBoostActive = false;
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public TrickComboSystem trickComboSystem;
-    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-
     // TODO: Crash sound
     // TODO: Ethereal sound
 
-    public UnityEvent HitObstacle;
+    public bool invulnerable { get; set; } = false;
+    public bool ramBoostActive { get; set; } = false;
+
+
+    public UnityEvent HitObstacleOnGround;
+    public UnityEvent HitObstacleInAir;
 
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +56,10 @@ public class PlayerObstacleCollisions : MonoBehaviour
         // TODO: Play crash sound
         StartCoroutine(ActivateInvulnerable());
 
-        HitObstacle.Invoke();
+        if (playerMovement.isGrounded || playerMovement.isDrifting)
+            HitObstacleOnGround.Invoke();
+        else
+            HitObstacleInAir.Invoke();
     }
 
 

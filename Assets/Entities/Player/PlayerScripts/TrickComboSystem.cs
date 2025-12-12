@@ -1,35 +1,42 @@
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TrickComboSystem : MonoBehaviour
 {
     public Animator animator;
-    [HideInInspector] public PlayerMovement playerMovement;
-    [HideInInspector] public ForwardSpeedMultiplier forwardSpeedMultiplier;
-    [HideInInspector] public BoatMovementAnims boatMovementAnims;
-    [SerializeField] private TrickAbilitySystem trickAbilitySystem;
+    public PlayerMovement playerMovement;
+    public ForwardSpeedMultiplier forwardSpeedMultiplier;
+    public BoatMovementAnims boatMovementAnims;
+    public TrickAbilitySystem trickAbilitySystem;
 
 
-    [HideInInspector] public bool performingTrick = false;
-    [HideInInspector] public int combo = 0;
-    [HideInInspector] public int trickScore = 0;
-    [HideInInspector] public int trickIndex = 0;
-    [HideInInspector] public int firstTrickIndex = 0;
-    [HideInInspector] public int barIndex = 0;
+    public bool performingTrick { get; set; } = false;
+    public float combo { get; set; } = 0f;
+    public int trickScore { get; set; } = 0;
+    public int trickIndex { get; set; } = 0;
+    public int firstTrickIndex { get; set; } = 0;
+    public int barIndex { get; set; } = 3;
 
-    [HideInInspector] public float speedValue = 0f;
-    private int shortBoost = 0;
-    private int mediumBoost = 0;
-    private int longBoost = 0;
+    private int lengthBoost = 0;
+    private int sizeBoost = 0;
+    private int strengthBoost = 0;
+    public int abilityActivationThreshold = 2;
+    public List<string> abilityType = new List<string> { "Shroom", "Whirlwind", "Ram" };
+    public List<string> boostType = new List<string> { "Longer", "Bigger", "Stronger" };
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
-    [HideInInspector] public float inputBuffer = 0f;
+    public float inputBuffer { get; set; } = 0f;
 
     public Action<bool> UpdateBoostMeterVisibility;
-    public Action<int, int, int> UpdateBoostMeter;
+    public Action<UpdateBoostMeterInfo> UpdateBoostMeter;
     public Action ResetBoostMeter;
-    public Action ResetTrickReaction;
+
+    public UnityEvent TrickSucceed;
+    public UnityEvent TrickFalied;
 
 
     private void Start()
@@ -47,7 +54,7 @@ public class TrickComboSystem : MonoBehaviour
         }
 
         // Start trick
-        if (inputBuffer > 0f && !performingTrick && !playerMovement.isGrounded)
+        if (inputBuffer > 0f && !performingTrick && (!playerMovement.isGrounded || (playerMovement.isGrounded && playerMovement.currentTrack.isCircle)))
         {
             StartTrick();
         }
@@ -73,54 +80,79 @@ public class TrickComboSystem : MonoBehaviour
     private void StartTrick()
     {
         performingTrick = true;
-        // TODO: Send trick sound to FMOD
+
+        if (playerMovement.isGrounded && playerMovement.currentTrack.isCircle)
+            RailTrick();
+        else
+            NormalTrick();
+        
         boatMovementAnims.TrickAnim();
     }
 
 
-    public void OnTrickCompleted()
+    private void NormalTrick()
     {
-        Debug.LogFormat("First {0}, Combo {1}", firstTrickIndex, combo);
-        if (combo == 0 || firstTrickIndex == 0)
+        if ((int)combo == 0)
         {
-            UpdateBoostMeterVisibility.Invoke(true);
+            UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.black, transform);
+        }
+        else
+        {
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.black, transform);
         }
 
-        combo++;
-
-        trickScore += 10 * trickIndex;
-
-        performingTrick = false;
+        combo += 1f;
 
         switch (trickIndex)
         {
+            case 0:
+                lengthBoost++;
+                // TODO: Send short trick sound to fmod
+                break;
             case 1:
-                shortBoost++;
+                sizeBoost++;
+                // TODO: Send medium trick sound to fmod
                 break;
             case 2:
-                mediumBoost++;
-                break;
-            case 3:
-                longBoost++;
+                strengthBoost++;
+                // TODO: Send long trick sound to fmod
                 break;
         }
 
         barIndex++;
         if (barIndex >= 3)
             barIndex = 0;
-
-        if (combo == 3)
+        
+        if ((int)combo == abilityActivationThreshold)
         {
-            // TODO: Send ability ready sound to FMOD
+            // TODO: Send ability ready to fmod
         }
         else
         {
-            // TODO: Send Add charge sound to FMOD
+            // TODO: Send ability charge to fmod
         }
 
-        Debug.LogFormat("First {0}, Combo {1}, Bar {2}", firstTrickIndex, combo, barIndex);
-        UpdateBoostMeter?.Invoke(firstTrickIndex, combo, barIndex);
+        UpdateBoostMeterInfo updateBoostMeterInfo = new();
+        updateBoostMeterInfo.combo = (int)combo;
+        updateBoostMeterInfo.barIndex = barIndex;
+        updateBoostMeterInfo.firstTrickIndex = firstTrickIndex;
+        updateBoostMeterInfo.abilityActivationThreshold = abilityActivationThreshold;
+        UpdateBoostMeter?.Invoke(updateBoostMeterInfo);
+
+        // TODO: Send trick sound to FMOD
+    }
+
+    private void RailTrick()
+    {
+        combo = 0.5f;
+    }
+
+
+    public void OnTrickCompleted()
+    {
+        performingTrick = false;
     }
 
 
@@ -129,70 +161,64 @@ public class TrickComboSystem : MonoBehaviour
         EndComboBoost();
         // TODO: Trigger failed trick sound
         // TODO: Set animator trigget for failing trick
+
+        TrickFalied.Invoke();
     }
 
 
     private void SucceedTrick()
     {
-        speedValue += trickScore * combo / 300f;
+        TriggerAbility();
+        TriggerComboBoost();
 
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + speedValue, ImmediateComboBoostCurve);
+        TrickSucceed.Invoke();
+        UpdateBoostMeterVisibility?.Invoke(false);
+    }
 
-        if (combo >= 3)
+
+    private void TriggerAbility()
+    {
+        if ((int)combo >= abilityActivationThreshold)
         {
             // TODO: Send ability activation to FMOD
-            // TODO: Send ability success to ability system
-                // First Trick index
-                // Short boost
-                // Medium boost
-                // Long boost
+            trickAbilitySystem.SpawnAbility(firstTrickIndex, lengthBoost, sizeBoost, strengthBoost);
         }
-        else if (combo < 3)
+        else
         {
-            trickAbilitySystem.SpawnAbility(firstTrickIndex, shortBoost, mediumBoost, longBoost);
-            // TODO: Send ability failed to active to FMOD
-            // TODO: Send fail ability to ability system
-                // First trick index
+            //trickAbilitySystem.SpawnAbilityFailed(firstTrickIndex);
         }
+    }
 
-        UpdateBoostMeterVisibility?.Invoke(false);
 
+    private void TriggerComboBoost()
+    {
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + combo / 3, ImmediateComboBoostCurve);
         ResetSystemValues();
 
-        // TODO: Something about ImmediateComboBoost.GetLength()
-
-        // TODO: Start playing the boost sound
-        // TODO: Add camera shake when boosting
-        // TODO: Show boost particles
+        // TODO: Fov, camera shake, 
     }
 
 
     private void EndComboBoost()
     {
-        UpdateBoostMeterVisibility?.Invoke(false);
-        speedValue = 0f;
-        combo = 0;
-        trickScore = 0;
         performingTrick = false;
-
-        ResetTrickReaction?.Invoke();
-
+        trickScore = 0;
         ResetSystemValues();
+        UpdateBoostMeterVisibility?.Invoke(false);
 
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f, ImmediateComboBoostCurve);
 
-        // TODO: Stop playing sound
+        // TODO: Stop boost playing sound
     }
 
 
     private void ResetSystemValues()
     {
-        shortBoost = 0;
-        mediumBoost = 0;
-        longBoost = 0;
+        lengthBoost = 0;
+        sizeBoost = 0;
+        strengthBoost = 0;
+        barIndex = 3;
         combo = 0;
-        trickIndex = 0;
-        barIndex = 0;
 
         ResetBoostMeter?.Invoke();
     }
