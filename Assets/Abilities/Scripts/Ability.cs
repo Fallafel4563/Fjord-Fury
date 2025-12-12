@@ -5,7 +5,7 @@ using UnityEngine.Splines;
 
 public class Ability : MonoBehaviour
 {
-    [HideInInspector] public SplineTrack Track;
+    public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
     [SerializeField] private GameObject _art;
     [SerializeField] private GameObject _artParticles;
@@ -17,9 +17,10 @@ public class Ability : MonoBehaviour
 
     [SerializeField] private RamAbility RA;
 
-    [SerializeField] int trickNumberRecuired;
+    //[SerializeField] int trickNumberRecuired;
 
     [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
+    [SerializeField] private Obstacle O;
 
 
 
@@ -42,22 +43,30 @@ public class Ability : MonoBehaviour
     void Start()
     {
         OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
+        O = GetComponentInChildren<Obstacle>();
         RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, ForwardSpeedMultiplier forwardSpeedMultiplier, int comboCount, float strength)//, float speed)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/)
     {
-        _forwardSpeedMultiplier = forwardSpeedMultiplier;
+        _spline = GetComponent<CinemachineSplineCart>();
+        //_spline.Spline = Track.GetComponent<SplineContainer>();
 
-        if (comboCount < trickNumberRecuired) return;
+        // Set strength through the ObstacleLifetimeScalingSystem
+        OLSS.LifeTime = shortBoost;
+        OLSS.MaxSize = mediumBoost;
+        if (O != null) O.bounceHeight = longBoost;
 
         if (_spline != null)
         {
-            _spline.Spline = Track.track;
+            if (Track != null) _spline.Spline = Track.track;
             _spline.SplinePosition = (position + _spawnOffset);
             _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
+
+        /*
+        _forwardSpeedMultiplier = forwardSpeedMultiplier;
 
         if (RA != null)
         {
@@ -67,11 +76,12 @@ public class Ability : MonoBehaviour
             transform.SetParent(player);
             _art.transform.localPosition = new Vector3(0f, 0f, 0f);
         }
+        */
         //_spline = GetComponent<CinemachineSplineCart>();
         //GetComponent<SplineContainer>();
-        // _spline.Spline = Track.GetComponent<SplineContainer>();
+        //_spline.Spline = Track.GetComponent<SplineContainer>();
 
-        SetStrenght(strength);
+        //SetStrenght(1f);
     }
 
     void SetStrenght(float strength)
@@ -94,6 +104,7 @@ public class Ability : MonoBehaviour
         RA.StartAbility(strength, _forwardSpeedMultiplier);
     }
 
+    /*
     void Update()
     {
         if (_spline.SplinePosition > Track.track.Spline.GetLength()-1 && _isConected)
@@ -101,13 +112,11 @@ public class Ability : MonoBehaviour
             _isConected = false;
             _spline.enabled = false;
         }
-        else
-        {
-        }
 
         if (!_isConected)
         {
             transform.position += transform.forward * _offSplineSpeed * Time.deltaTime;
         }
     }
+    */
 }

@@ -3,9 +3,12 @@ using UnityEngine;
 public class ObstacleLifetimeScalingSystem : MonoBehaviour
 {
     public float MaxSize;
+
     [SerializeField] private AnimationCurve ScalingCurve;
-    [SerializeField] private GameObject Parent;
+    public float LifeTime;
     float animationTime;
+
+    [SerializeField] private GameObject Parent;
 
     public void SetMaxSize(float maxSize)
     {
@@ -15,8 +18,10 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
 
     void Update()
     {
-        animationTime += Time.deltaTime;
         Scaling();
+
+        // Set the time based on the scalingCurve and the Lifetime
+        animationTime += Time.deltaTime * LifeTime;
 
         //Destroy parent if the ScalingCurve has reached its end
         if (animationTime > ScalingCurve.length) Destroy(Parent);

@@ -97,6 +97,7 @@ public class TrickComboSystem : MonoBehaviour
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
             WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.black, transform);
+            //Debug.Log("test test test");
         }
         else
         {

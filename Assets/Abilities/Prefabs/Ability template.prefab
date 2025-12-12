@@ -280,7 +280,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
+      time: 0.2
       value: 1
       inSlope: 0.0003941046
       outSlope: 0.0003941046
@@ -289,7 +289,7 @@ MonoBehaviour:
       inWeight: 0.6084541
       outWeight: 1
     - serializedVersion: 3
-      time: 5
+      time: 0.6
       value: 1
       inSlope: -0.0006721799
       outSlope: -0.0006721799
@@ -298,7 +298,7 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 0.4586799
     - serializedVersion: 3
-      time: 6
+      time: 1
       value: 0
       inSlope: -2.509393
       outSlope: -2.509393
@@ -309,6 +309,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  LifeTime: 0
   Parent: {fileID: 8255245760220296071}
 --- !u!1 &1667566665649690103
 GameObject:
@@ -602,8 +603,8 @@ MonoBehaviour:
   _spawnOffset: 5
   _temporarryDurationVariable: 999
   RA: {fileID: 0}
-  trickNumberRecuired: 1
   OLSS: {fileID: 435845071350575578}
+  O: {fileID: 904230956227653597}
   CrashSpeedMultiplier: 0
   CrashSpeedMultiplierCurve:
     serializedVersion: 2
