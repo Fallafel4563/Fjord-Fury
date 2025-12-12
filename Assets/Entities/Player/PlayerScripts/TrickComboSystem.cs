@@ -24,8 +24,8 @@ public class TrickComboSystem : MonoBehaviour
     private int sizeBoost = 0;
     private int strengthBoost = 0;
     public int abilityActivationThreshold = 2;
-    public List<string> abilityType = new List<string> { "Shroom", "Whirlwind", "Ram" };
-    public List<string> boostType = new List<string> { "Longer", "Bigger", "Stronger" };
+    public List<string> abilityType = new List<string> { "SHROOM", "WHIRLWIND", "RAM" };
+    public List<string> boostType = new List<string> { "LONGER", "BIGGER", "STRONGER" };
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
@@ -96,11 +96,11 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
         }
 
         combo += 1f;
