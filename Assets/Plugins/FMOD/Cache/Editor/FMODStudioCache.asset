@@ -1,5 +1,300 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8675449941027491027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Level_A.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Level_A.bank
+  Name: Level_A
+  StudioPath: bank:/Levels/Level_A
+  lastModified: 639010659485052468
+  FileSizes:
+  - Name: Desktop
+    Value: 506
+  Exists: 1
+--- !u!114 &-8356175747711281233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ability/Ability_Use_Mushroom
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ability/Ability_Use_Mushroom
+  Guid:
+    Data1: 616120683
+    Data2: 1122003339
+    Data3: 1784960929
+    Data4: 1043878863
+  Banks:
+  - {fileID: 7765825464659674030}
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 200
+--- !u!114 &-7463200368595903830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Crash/Player_Bumping
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Crash/Player_Bumping
+  Guid:
+    Data1: -20623705
+    Data2: 1129849257
+    Data3: -1190965059
+    Data4: -491314935
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7368362825611815551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Level_B.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Level_B.bank
+  Name: Level_B
+  StudioPath: bank:/Levels/Level_B
+  lastModified: 639010659485052468
+  FileSizes:
+  - Name: Desktop
+    Value: 506
+  Exists: 1
+--- !u!114 &-6150142292519967134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rail_Material_handler/ApplyReverb
+  m_EditorClassIdentifier: 
+  Name: ApplyReverb
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 4250284656
+    data2: 4220046517
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-4171344167850206292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/SailSpeed/SPEED
+  m_EditorClassIdentifier: 
+  Name: SPEED
+  StudioPath: 
+  Min: 0
+  Max: 1000
+  Default: 0
+  ID:
+    data1: 1284845167
+    data2: 3521998802
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-3538581129933353090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ability/Tornado_Spin
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ability/Tornado_Spin
+  Guid:
+    Data1: -2062969627
+    Data2: 1100347191
+    Data3: 1157174710
+    Data4: 392562973
+  Banks:
+  - {fileID: 7765825464659674030}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2715
+--- !u!114 &-3472730782107587619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Music.bank
+  Name: Music
+  StudioPath: bank:/Core_systems/Music
+  lastModified: 639010659485077627
+  FileSizes:
+  - Name: Desktop
+    Value: 506
+  Exists: 1
+--- !u!114 &-3223675464213410490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Vehicles/SailSpeed
+  m_EditorClassIdentifier: 
+  Path: event:/Vehicles/SailSpeed
+  Guid:
+    Data1: 1000623774
+    Data2: 1264018649
+    Data3: 260316312
+    Data4: 447151053
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -4171344167850206292}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 179564
+--- !u!114 &-2084557944592520557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639010659485067539
+  FileSizes:
+  - Name: Desktop
+    Value: 1248
+  Exists: 1
+--- !u!114 &-1498400911331975943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ability/Ability_Ready
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ability/Ability_Ready
+  Guid:
+    Data1: 1816039578
+    Data2: 1121985293
+    Data3: -583832679
+    Data4: 937740125
+  Banks:
+  - {fileID: 7765825464659674030}
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 360
+--- !u!114 &-103511206074937351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Grinding/Rail_grind
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Grinding/Rail_grind
+  Guid:
+    Data1: -2058995393
+    Data2: 1117828021
+    Data3: -976822400
+    Data4: -1489922866
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 9128365047208772382}
+  - {fileID: 3281552732463965885}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,10 +307,431 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks: []
-  EditorEvents: []
-  EditorParameters: []
-  MasterBanks: []
-  StringsBanks: []
-  cacheTime: 0
-  cacheVersion: 131634
+  EditorBanks:
+  - {fileID: 7154641747444871622}
+  - {fileID: 7765825464659674030}
+  - {fileID: 727166132789400573}
+  - {fileID: -8675449941027491027}
+  - {fileID: -7368362825611815551}
+  - {fileID: -2084557944592520557}
+  - {fileID: -3472730782107587619}
+  - {fileID: 3902923494383873952}
+  EditorEvents:
+  - {fileID: 1270920743254693239}
+  - {fileID: 8030796195863264550}
+  - {fileID: -8356175747711281233}
+  - {fileID: -1498400911331975943}
+  - {fileID: 5973765987343494989}
+  - {fileID: -3538581129933353090}
+  - {fileID: -103511206074937351}
+  - {fileID: 9013313096202739193}
+  - {fileID: 228143264967728809}
+  - {fileID: 5007941209520599310}
+  - {fileID: -3223675464213410490}
+  - {fileID: -7463200368595903830}
+  - {fileID: 4737834588968780619}
+  EditorParameters:
+  - {fileID: 1699618133108037387}
+  MasterBanks:
+  - {fileID: -2084557944592520557}
+  StringsBanks:
+  - {fileID: 7154641747444871622}
+  cacheVersion: 131857
+  cacheTime: 639010659485077627
+  SerializableEventsDict:
+  - key: event:/SFX/Ability/Ability_Ram
+    index: 0
+  - key: event:/SFX/Ability/Ability_Tornado
+    index: 1
+  - key: event:/SFX/Ability/Ability_Use_Mushroom
+    index: 2
+  - key: event:/SFX/Ability/Ability_Ready
+    index: 3
+  - key: event:/SFX/Ability/Ability_Mushroom_bounce
+    index: 4
+  - key: event:/SFX/Ability/Tornado_Spin
+    index: 5
+  - key: event:/SFX/Grinding/Rail_grind
+    index: 6
+  - key: event:/SFX/Crash/Hit_Obj_Metal
+    index: 7
+  - key: event:/SFX/Crash/Hit_Obj_Rock
+    index: 8
+  - key: event:/SFX/Grinding/Rail_Material_handler
+    index: 9
+  - key: event:/Vehicles/SailSpeed
+    index: 10
+  - key: event:/SFX/Crash/Player_Bumping
+    index: 11
+  - key: event:/SFX/Crash/Hit_Obj_Wood
+    index: 12
+--- !u!114 &228143264967728809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Crash/Hit_Obj_Rock
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Crash/Hit_Obj_Rock
+  Guid:
+    Data1: -1621022096
+    Data2: 1138776132
+    Data3: 137639063
+    Data4: -1816274012
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &727166132789400573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Global_sfx.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Global_sfx.bank
+  Name: Global_sfx
+  StudioPath: bank:/Core_systems/Global_sfx
+  lastModified: 639010659485042488
+  FileSizes:
+  - Name: Desktop
+    Value: 6724768
+  Exists: 1
+--- !u!114 &1270920743254693239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ability/Ability_Ram
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ability/Ability_Ram
+  Guid:
+    Data1: -2047907021
+    Data2: 1208106126
+    Data3: 279164055
+    Data4: -42092145
+  Banks:
+  - {fileID: 7765825464659674030}
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3000
+--- !u!114 &1699618133108037387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/SPEED
+  m_EditorClassIdentifier: 
+  Name: SPEED
+  StudioPath: parameter:/SPEED
+  Min: 0
+  Max: 1000
+  Default: 0
+  ID:
+    data1: 1284845167
+    data2: 3521998802
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &3272870758480391634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rail_Material_handler/Rail_Material
+  m_EditorClassIdentifier: 
+  Name: Rail_Material
+  StudioPath: 
+  Min: 0
+  Max: 4.5
+  Default: 0
+  ID:
+    data1: 4043675733
+    data2: 3205039202
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3281552732463965885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rail_grind/Rail_Material
+  m_EditorClassIdentifier: 
+  Name: Rail_Material
+  StudioPath: 
+  Min: 0
+  Max: 4.5
+  Default: 0
+  ID:
+    data1: 4043675733
+    data2: 3205039202
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3902923494383873952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/UI.bank
+  Name: UI
+  StudioPath: bank:/Core_systems/UI
+  lastModified: 639010659485077627
+  FileSizes:
+  - Name: Desktop
+    Value: 506
+  Exists: 1
+--- !u!114 &4737834588968780619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Crash/Hit_Obj_Wood
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Crash/Hit_Obj_Wood
+  Guid:
+    Data1: 71595760
+    Data2: 1187925355
+    Data3: 598690954
+    Data4: 125909166
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5007941209520599310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Grinding/Rail_Material_handler
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Grinding/Rail_Material_handler
+  Guid:
+    Data1: -1225935976
+    Data2: 1199149661
+    Data3: -985785727
+    Data4: -1363795075
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -6150142292519967134}
+  - {fileID: 3272870758480391634}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5973765987343494989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ability/Ability_Mushroom_bounce
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ability/Ability_Mushroom_bounce
+  Guid:
+    Data1: 2061466815
+    Data2: 1130939734
+    Data3: -1449376348
+    Data4: 933086371
+  Banks:
+  - {fileID: 7765825464659674030}
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7154641747444871622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639010659485077627
+  FileSizes:
+  - Name: Desktop
+    Value: 1816
+  Exists: 1
+--- !u!114 &7765825464659674030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Abilites.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/Build/Desktop/Abilites.bank
+  Name: Abilites
+  StudioPath: bank:/Core_systems/Abilites
+  lastModified: 639010659484227313
+  FileSizes:
+  - Name: Desktop
+    Value: 98432
+  Exists: 1
+--- !u!114 &8030796195863264550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ability/Ability_Tornado
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ability/Ability_Tornado
+  Guid:
+    Data1: 916930126
+    Data2: 1315809249
+    Data3: -1373197136
+    Data4: -1558900655
+  Banks:
+  - {fileID: 7765825464659674030}
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &9013313096202739193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Crash/Hit_Obj_Metal
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Crash/Hit_Obj_Metal
+  Guid:
+    Data1: -175450032
+    Data2: 1116608974
+    Data3: 573050807
+    Data4: -2144833158
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &9128365047208772382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rail_grind/ApplyReverb
+  m_EditorClassIdentifier: 
+  Name: ApplyReverb
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 4250284656
+    data2: 4220046517
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
