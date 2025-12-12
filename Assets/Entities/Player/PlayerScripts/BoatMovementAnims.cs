@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BoatMovementAnims : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public TrickComboSystem trickComboSystem;
+    public UnityEvent TrickAnimFinishedFX;
 
     
 
@@ -85,6 +87,7 @@ public class BoatMovementAnims : MonoBehaviour
         // Play trick animation
         trickComboSystem.animator.SetInteger("Trick Index", trickComboSystem.trickIndex);
         trickComboSystem.animator.SetTrigger("Regular Trick");
+
         
     }
 
@@ -92,6 +95,8 @@ public class BoatMovementAnims : MonoBehaviour
     {
         if (trickComboSystem.performingTrick)
             trickComboSystem.OnTrickCompleted();
+        
+        TrickAnimFinishedFX.Invoke();
     }
 
 
