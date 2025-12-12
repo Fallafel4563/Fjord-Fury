@@ -9,6 +9,6 @@ public class WorldText : MonoBehaviour
     public void SetUpText(string text, Color color)
     {
         textAsset.text = text;
-        textAsset.color = color;
+        textAsset.color = Color.white;
     }
 }
