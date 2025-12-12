@@ -8,6 +8,7 @@ public class Ability : MonoBehaviour
     [HideInInspector] public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
     [SerializeField] private GameObject _art;
+    [SerializeField] private GameObject _artParticles;
     private bool _isConected = true;
 
     private float _offSplineSpeed = 140f;
@@ -17,6 +18,8 @@ public class Ability : MonoBehaviour
     [SerializeField] private RamAbility RA;
 
     [SerializeField] int trickNumberRecuired;
+
+    [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
 
 
 
@@ -38,6 +41,7 @@ public class Ability : MonoBehaviour
 
     void Start()
     {
+        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
         RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
@@ -74,12 +78,15 @@ public class Ability : MonoBehaviour
     {
         Debug.Log(strength);
 
-        if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
-        _art.GetComponent<BounceShroom>().BouncePower *= strength;
+        if (_artParticles != null) _artParticles.transform.localScale = new Vector3(strength, strength, strength);
+        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
+        OLSS.SetMaxSize(strength);
+        if (_art.GetComponent<BounceShroom>()) _art.GetComponent<BounceShroom>().BouncePower *= strength;
 
         if (RA != null) SetRamStrength(strength);
 
-        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly) autoDolly.Speed = 1f;// *= (strength / 2);
+        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
+            Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
     }
 
     void SetRamStrength(float strength)

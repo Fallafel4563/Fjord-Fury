@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 9053705082680532183}
   - component: {fileID: 2170645974499090941}
   - component: {fileID: 904230956227653597}
+  - component: {fileID: 435845071350575578}
   m_Layer: 0
   m_Name: Art
   m_TagString: Untagged
@@ -251,7 +252,64 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  explosion: {fileID: 0}
   owner: {fileID: 0}
+--- !u!114 &435845071350575578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628463512576927024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec7c8d5fb770214b8e41cd33a16dfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSize: 1
+  ScalingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.0003941046
+      outSlope: 0.0003941046
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6084541
+      outWeight: 1
+    - serializedVersion: 3
+      time: 5
+      value: 1
+      inSlope: -0.0006721799
+      outSlope: -0.0006721799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.4586799
+    - serializedVersion: 3
+      time: 6
+      value: 0
+      inSlope: -2.509393
+      outSlope: -2.509393
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13405466
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Parent: {fileID: 8255245760220296071}
 --- !u!1 &1667566665649690103
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,10 +598,12 @@ MonoBehaviour:
   Track: {fileID: 0}
   _spline: {fileID: 5704743019344172549}
   _art: {fileID: 1628463512576927024}
+  _artParticles: {fileID: 0}
   _spawnOffset: 5
-  _temporarryDurationVariable: 10
+  _temporarryDurationVariable: 999
   RA: {fileID: 0}
   trickNumberRecuired: 1
+  OLSS: {fileID: 435845071350575578}
   CrashSpeedMultiplier: 0
   CrashSpeedMultiplierCurve:
     serializedVersion: 2

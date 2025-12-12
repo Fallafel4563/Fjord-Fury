@@ -3,7 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Splines;
+using UnityEngine.UI;
 
 public class PlacementText : MonoBehaviour
 {
@@ -14,17 +14,21 @@ public class PlacementText : MonoBehaviour
     //public SplineTrackDistance distanceSpline;
     public List<string> placementSuffixes = new List<string>();
     public SplineTrackDistance splineDistance;
+    public List<Sprite> placementImages = new List<Sprite>();
+    private Image placementImage;
   
     private int playerIndex;
     public float distanceAlongTrack;
     public static Dictionary<int, float> DistancesAlongSpline = new Dictionary<int, float>();
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {  
         splineDistance = GetComponent<SplineTrackDistance>();
         placementText = playerControllerRef.playerHud.placementText;
-        //distanceSpline = GameObject.FindWithTag("Distance Tracker").GetComponent<SplineContainer>(); 
+
         playerIndex = playerInput.user.index;
+        placementImage = playerControllerRef.playerHud.placementImage;
     }
 
     // Update is called once per frame
@@ -40,19 +44,12 @@ public class PlacementText : MonoBehaviour
         valuesList.Reverse();
 
        int Index = valuesList.IndexOf(splineDistance.distanceAlongSpline);
-       Debug.Log(Index + 1 + placementSuffixes[Index] + " playerIndex " + playerInput.playerIndex);
-
-      // float placement = Index;
-
+      
        placementText.text =Index + 1 + placementSuffixes[Index];
-       string firstPlace = placementSuffixes[0]; 
-       string secondPlace = placementSuffixes[1]; 
-       string thirdPlace = placementSuffixes[2]; 
-       string fourthPlace = placementSuffixes[3]; 
+       placementImage.sprite = placementImages[Index];
+       playerControllerRef.playerHud.SetFirstPlayerShine(Index + 1);    
 
-       //DistancesAlongSpline[ PlayerInput.playerIndex] = distanceAlongTrack;
-       //
-       //placementText = placement + 1 + placementSuffixes[placement];
+      
     }
 
 }

@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
         {
+            Debug.LogFormat("Desired track {0}", splineTrack.name);
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
             if (splineCart)
@@ -110,8 +111,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void DetachFromCart()
     {
-        // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping (But only when grounded)
-        airVelocity = transform.forward * currentForwardSpeed;
+        float verticalVel = Vector3.Dot(transform.up, airVelocity);
+        Vector3 horizontalVel = airVelocity - (transform.up * verticalVel);
+        if (horizontalVel.magnitude > (transform.forward * currentForwardSpeed).magnitude)
+            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping (But only when grounded)
+            airVelocity = transform.forward * horizontalVel.magnitude;
+        else
+            airVelocity = transform.forward * currentForwardSpeed;
 
         // Reset stuff
         isGrounded = false;
@@ -386,17 +392,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (isDrifting)
                 EndDrift();
-            
+
+            float upVel = Vector3.Dot(airVelocity, transform.up);
+
             // Detach the boat form the spline cart
             DetachFromCart();
 
-            // Stop all upwards velocity
-            float upwardsVel = Vector3.Dot(airVelocity, transform.up);
-            if (upwardsVel < 0f)
-                airVelocity -= transform.up * upwardsVel;
-            // Set the upwards air velocity to be the equal to jump power
-            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
-            airVelocity += transform.up * jumpPower;
+            airVelocity += transform.up * (jumpPower + (1f * (upVel > 0f ? upVel : 0f)));
 
             // Invoke events
             Jumped.Invoke();
@@ -460,6 +462,8 @@ public class PlayerMovement : MonoBehaviour
             LandOnCircleTrack(distanceInfo);
         else
             LandOnRoadTrack(distanceInfo);
+        
+        Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
 
 
         // Invoke events
@@ -473,7 +477,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LandOnRoadTrack(TrackDistanceInfo distanceInfo)
     {
-        AttachToTrack(currentTrack.isCircle);
+        AttachToTrack(false);
 
         // Get how far the boat is in the x position (but we don't know if it's to the left or right)
         float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
@@ -505,18 +509,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void LandOnCircleTrack(TrackDistanceInfo distanceInfo)
     {
+        Debug.Log("Landed on circle track");
+        Debug.DrawLine(transform.position, transform.position + transform.up * 10f, Color.white, 60f);
         if (isDrifting)
             EndDrift();
         // Reattach the circle rot to the SplineCart
-        circleRotParent.parent = splineCart.transform;
         circleRotParent.localPosition = Vector3.zero;
+        circleRotParent.parent = splineCart.transform;
 
         Vector3 dirToTrack = transform.position - distanceInfo.nearestSplinePos;
         // Set the rotation of the circle rot parent to match where the boat is landing
         float desiredAngle = Vector3.SignedAngle(Vector3.up, dirToTrack, splineCart.transform.forward);
         circleRotParent.eulerAngles = new(circleRotParent.eulerAngles.x, circleRotParent.eulerAngles.y, desiredAngle);
 
-        AttachToTrack(currentTrack.isCircle);
+        AttachToTrack(true);
     }
     #endregion
 
