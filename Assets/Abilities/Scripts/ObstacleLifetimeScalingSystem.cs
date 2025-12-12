@@ -21,7 +21,7 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
         Scaling();
 
         // Set the time based on the scalingCurve and the Lifetime
-        animationTime += Time.deltaTime * LifeTime;
+        animationTime += Time.deltaTime / LifeTime;
 
         //Destroy parent if the ScalingCurve has reached its end
         if (animationTime > ScalingCurve.length) Destroy(Parent);

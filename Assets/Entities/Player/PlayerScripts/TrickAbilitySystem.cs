@@ -45,8 +45,8 @@ public class TrickAbilitySystem : MonoBehaviour
 
         Ability a = abilityBuffer.GetComponent<Ability>();
 
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost);
         a.Track = PM.mainTrack;
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost);
 
         // Set up the abilityBuffer ref
         //ConfigureAbility(abilityBuffer, comboCount, combinedStrength);

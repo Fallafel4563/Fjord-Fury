@@ -17,8 +17,6 @@ public class Ability : MonoBehaviour
 
     [SerializeField] private RamAbility RA;
 
-    //[SerializeField] int trickNumberRecuired;
-
     [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
     [SerializeField] private Obstacle O;
 
@@ -51,12 +49,14 @@ public class Ability : MonoBehaviour
     public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/)
     {
         _spline = GetComponent<CinemachineSplineCart>();
-        //_spline.Spline = Track.GetComponent<SplineContainer>();
+        _spline.Spline = Track.GetComponent<SplineContainer>();
 
         // Set strength through the ObstacleLifetimeScalingSystem
-        OLSS.LifeTime = shortBoost;
-        OLSS.MaxSize = mediumBoost;
-        if (O != null) O.bounceHeight = longBoost;
+        OLSS.LifeTime = shortBoost + 2;
+        OLSS.MaxSize = mediumBoost + 1;
+        //O.bounceHeight = longBoost + 1;
+
+        if (GetComponentInChildren<BounceShroom>()) GetComponentInChildren<BounceShroom>().BouncePower *= longBoost + 1;
 
         if (_spline != null)
         {
@@ -64,24 +64,6 @@ public class Ability : MonoBehaviour
             _spline.SplinePosition = (position + _spawnOffset);
             _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
-
-        /*
-        _forwardSpeedMultiplier = forwardSpeedMultiplier;
-
-        if (RA != null)
-        {
-            _spline.enabled = false;
-            transform.rotation = player.rotation;
-            transform.position = player.position;
-            transform.SetParent(player);
-            _art.transform.localPosition = new Vector3(0f, 0f, 0f);
-        }
-        */
-        //_spline = GetComponent<CinemachineSplineCart>();
-        //GetComponent<SplineContainer>();
-        //_spline.Spline = Track.GetComponent<SplineContainer>();
-
-        //SetStrenght(1f);
     }
 
     void SetStrenght(float strength)
@@ -104,7 +86,6 @@ public class Ability : MonoBehaviour
         RA.StartAbility(strength, _forwardSpeedMultiplier);
     }
 
-    /*
     void Update()
     {
         if (_spline.SplinePosition > Track.track.Spline.GetLength()-1 && _isConected)
@@ -118,5 +99,4 @@ public class Ability : MonoBehaviour
             transform.position += transform.forward * _offSplineSpeed * Time.deltaTime;
         }
     }
-    */
 }
