@@ -5751,6 +5751,7 @@ GameObject:
   - component: {fileID: 4018155119764228489}
   - component: {fileID: 8640734045535247295}
   - component: {fileID: 6621495460309796560}
+  - component: {fileID: 6361985224999918195}
   m_Layer: 6
   m_Name: Boat
   m_TagString: Player
@@ -5899,6 +5900,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5031827103774947155}
         m_TargetAssemblyTypeName: BoatMovementAnims, Assembly-CSharp
         m_MethodName: OnDoubleJump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6361985224999918195}
+        m_TargetAssemblyTypeName: ControllerVibration, Assembly-CSharp
+        m_MethodName: SoftControllerRumble
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6086,6 +6099,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6361985224999918195}
+        m_TargetAssemblyTypeName: ControllerVibration, Assembly-CSharp
+        m_MethodName: ControllerRumble
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3401553776943726406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6186,6 +6211,18 @@ MonoBehaviour:
           Unity.Cinemachine
         m_MethodName: GenerateImpulseWithForce
         m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.2
+          m_StringArgument: FailTrick
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6361985224999918195}
+        m_TargetAssemblyTypeName: ControllerVibration, Assembly-CSharp
+        m_MethodName: SoftControllerRumble
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6427,6 +6464,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6361985224999918195}
+        m_TargetAssemblyTypeName: ControllerVibration, Assembly-CSharp
+        m_MethodName: ControllerRumble
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   cameraShakeToggle: 0
   impulseSource: {fileID: 0}
 --- !u!114 &1630408635394340986
@@ -6590,6 +6639,22 @@ MonoBehaviour:
   coordinateDelay: 50
   distanceAlongSpline: 0
   distanceBetween0and1: 0
+--- !u!114 &6361985224999918195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421745550217031441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4df4068be96a842a788f172df66459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vibrationDuration: 0.5
+  longVibrationDuration: 0
+  softVibrationDuration: 0.5
+  playerInput: {fileID: 2834201662640471548}
 --- !u!1 &6454330232883850996
 GameObject:
   m_ObjectHideFlags: 0
