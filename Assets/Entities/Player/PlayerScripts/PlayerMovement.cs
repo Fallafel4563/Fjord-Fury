@@ -386,17 +386,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (isDrifting)
                 EndDrift();
-            
+
+            float upVel = Vector3.Dot(airVelocity, transform.up);
+
             // Detach the boat form the spline cart
             DetachFromCart();
 
-            // Stop all upwards velocity
-            float upwardsVel = Vector3.Dot(airVelocity, transform.up);
-            if (upwardsVel < 0f)
-                airVelocity -= transform.up * upwardsVel;
-            // Set the upwards air velocity to be the equal to jump power
-            // Set the air velocity when jumping. Also set the velocity forwads to avoid having the boat stop for a breif moment when jumping
-            airVelocity += transform.up * jumpPower;
+            airVelocity += transform.up * (jumpPower + (1f * (upVel > 0f ? upVel : 0f)));
 
             // Invoke events
             Jumped.Invoke();

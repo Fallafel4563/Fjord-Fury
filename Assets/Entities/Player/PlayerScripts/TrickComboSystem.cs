@@ -172,6 +172,7 @@ public class TrickComboSystem : MonoBehaviour
         TriggerComboBoost();
 
         TrickSucceed.Invoke();
+        UpdateBoostMeterVisibility?.Invoke(false);
     }
 
 
@@ -186,16 +187,12 @@ public class TrickComboSystem : MonoBehaviour
         {
             //trickAbilitySystem.SpawnAbilityFailed(firstTrickIndex);
         }
-
-        UpdateBoostMeterVisibility?.Invoke(false);
     }
 
 
     private void TriggerComboBoost()
     {
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + combo / 3, ImmediateComboBoostCurve);
-
-        UpdateBoostMeterVisibility?.Invoke(false);
         ResetSystemValues();
 
         // TODO: Fov, camera shake, 

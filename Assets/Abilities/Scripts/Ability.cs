@@ -18,6 +18,8 @@ public class Ability : MonoBehaviour
 
     [SerializeField] int trickNumberRecuired;
 
+    [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
+
 
 
     [Header("Ability implementaation")]
@@ -38,6 +40,7 @@ public class Ability : MonoBehaviour
 
     void Start()
     {
+        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
         RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
@@ -74,12 +77,15 @@ public class Ability : MonoBehaviour
     {
         Debug.Log(strength);
 
-        if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
-        _art.GetComponent<BounceShroom>().BouncePower *= strength;
+        //if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
+        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
+        OLSS.SetMaxSize(strength);
+        if (_art.GetComponent<BounceShroom>()) _art.GetComponent<BounceShroom>().BouncePower *= strength;
 
         if (RA != null) SetRamStrength(strength);
 
-        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly) autoDolly.Speed = 1f;// *= (strength / 2);
+        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
+            Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
     }
 
     void SetRamStrength(float strength)
