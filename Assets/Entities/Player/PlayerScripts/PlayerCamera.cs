@@ -11,6 +11,8 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float rotLerpSpeed = 7.5f;
     [SerializeField] private float desiredOffsetLerpSpeed = 5f;
     [SerializeField] private Vector3 rotationOffset = new(0f, 1.25f, 5f);
+    [SerializeField] private float landPosLerpDuration = 0.5f;
+    private float landPosLerpTimer = 0f;
 
 
     [Header("Grounded")]
@@ -71,6 +73,9 @@ public class PlayerCamera : MonoBehaviour
         // Get the true position offset
         desiredPosOffset.x = steerInput;
         posOffset = Vector3.Lerp(posOffset, desiredPosOffset, desiredOffsetLerpSpeed * Time.deltaTime);
+
+        if (landPosLerpTimer > 0f)
+            landPosLerpTimer -= Time.deltaTime;
     }
 
 
@@ -97,9 +102,17 @@ public class PlayerCamera : MonoBehaviour
         // Get the position the camera wants to be at
         Vector3 desiredPosition = trackingTarget.position + xOffset + yOffset + zOffset;
 
+        float landPosLerpProgress = 1f - (landPosLerpTimer / landPosLerpDuration);
+
         // Move camrea to desired position
-        float yPos = Mathf.Lerp(transform.position.y, desiredPosition.y, posLerpSpeed.y * Time.deltaTime);
-        transform.position = new(desiredPosition.x, yPos, desiredPosition.z);
+        float lerpXPos = Mathf.Lerp(transform.position.x, desiredPosition.x, landPosLerpProgress);
+        float lerpYPos = Mathf.Lerp(transform.position.y, desiredPosition.y, posLerpSpeed.y * Time.deltaTime);
+        float lerpZPos = Mathf.Lerp(transform.position.z, desiredPosition.z, landPosLerpProgress);
+
+        float xPos = landPosLerpTimer > 0f ? lerpXPos : desiredPosition.x;
+        float zPos = landPosLerpTimer > 0f ? lerpZPos : desiredPosition.z;
+
+        transform.position = new(xPos, lerpYPos, zPos);
     }
 
 
@@ -153,5 +166,11 @@ public class PlayerCamera : MonoBehaviour
         //    additionalFov,
         //    fovDiff
         //);
+    }
+
+
+    public void OnLanded()
+    {
+        landPosLerpTimer = landPosLerpDuration;
     }
 }
