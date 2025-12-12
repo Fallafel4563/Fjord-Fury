@@ -23,7 +23,7 @@ public class ForwardSpeedMultiplier : MonoBehaviour
             if (value.shouldDelete == true)
                 forwardSpeedMultipliers.Remove(key);
         }
-        return totalSpeedMultiplier;
+        return Mathf.Clamp(totalSpeedMultiplier, 0f, 3f);
     }
 
 

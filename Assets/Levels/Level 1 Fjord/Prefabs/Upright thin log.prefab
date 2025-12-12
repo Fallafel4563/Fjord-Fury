@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   causeHarm: 1
-  destructOnCrash: 0
-  bounceHeight: 15
+  destructOnCrash: 1
+  bounceHeight: 0
   crashSpeedMultiplier: 0.5
   crashSpeedMultiplierCurve:
     holdTime: 2
@@ -175,4 +175,5 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  explosion: {fileID: 0}
   owner: {fileID: 0}
