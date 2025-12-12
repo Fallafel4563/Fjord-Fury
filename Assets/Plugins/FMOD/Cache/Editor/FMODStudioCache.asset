@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Level_A.bank
   Name: Level_A
   StudioPath: bank:/Levels/Level_A
-  lastModified: 639010498265734471
+  lastModified: 639010659485052468
   FileSizes:
   - Name: Desktop
     Value: 506
@@ -90,7 +90,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Level_B.bank
   Name: Level_B
   StudioPath: bank:/Levels/Level_B
-  lastModified: 639010498265843261
+  lastModified: 639010659485052468
   FileSizes:
   - Name: Desktop
     Value: 506
@@ -185,10 +185,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Core_systems/Music
-  lastModified: 639010822080292316
+  lastModified: 639010659485077627
   FileSizes:
   - Name: Desktop
-    Value: 5554336
+    Value: 506
   Exists: 1
 --- !u!114 &-3223675464213410490
 MonoBehaviour:
@@ -233,10 +233,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639010822062192531
+  lastModified: 639010659485067539
   FileSizes:
   - Name: Desktop
-    Value: 1722
+    Value: 1248
   Exists: 1
 --- !u!114 &-1498400911331975943
 MonoBehaviour:
@@ -266,30 +266,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 360
---- !u!114 &-737507660549531208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/FinalStretch
-  m_EditorClassIdentifier: 
-  Name: FinalStretch
-  StudioPath: parameter:/FinalStretch
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3472420584
-    data2: 1645009603
-  Type: 1
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
 --- !u!114 &-103511206074937351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,19 +330,14 @@ MonoBehaviour:
   - {fileID: -3223675464213410490}
   - {fileID: -7463200368595903830}
   - {fileID: 4737834588968780619}
-  - {fileID: 7952102713456585892}
-  - {fileID: 3368801114045583624}
   EditorParameters:
   - {fileID: 1699618133108037387}
-  - {fileID: -737507660549531208}
-  - {fileID: 5759845923719475135}
-  - {fileID: 535485851018632432}
   MasterBanks:
   - {fileID: -2084557944592520557}
   StringsBanks:
   - {fileID: 7154641747444871622}
   cacheVersion: 131857
-  cacheTime: 639010822080292316
+  cacheTime: 639010659485077627
   SerializableEventsDict:
   - key: event:/SFX/Ability/Ability_Ram
     index: 0
@@ -421,30 +392,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &535485851018632432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Music_speed_ratio
-  m_EditorClassIdentifier: 
-  Name: Music_speed_ratio
-  StudioPath: parameter:/Music_speed_ratio
-  Min: 0
-  Max: 1.5
-  Default: 0
-  ID:
-    data1: 791300106
-    data2: 958201534
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
 --- !u!114 &727166132789400573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,34 +407,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Global_sfx.bank
   Name: Global_sfx
   StudioPath: bank:/Core_systems/Global_sfx
-  lastModified: 639010822064348451
+  lastModified: 639010659485042488
   FileSizes:
   - Name: Desktop
-    Value: 6777728
-  Exists: 1
---- !u!114 &877875124946181883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Music Manager/Music_speed_ratio
-  m_EditorClassIdentifier: 
-  Name: Music_speed_ratio
-  StudioPath: 
-  Min: 0
-  Max: 1.5
-  Default: 0
-  ID:
-    data1: 791300106
-    data2: 958201534
-  Type: 0
-  IsGlobal: 1
-  Labels: []
+    Value: 6724768
   Exists: 1
 --- !u!114 &1270920743254693239
 MonoBehaviour:
@@ -589,36 +512,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &3368801114045583624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/Music Manager
-  m_EditorClassIdentifier: 
-  Path: event:/Music/Music Manager
-  Guid:
-    Data1: 1432078853
-    Data2: 1170246998
-    Data3: -1988716152
-    Data4: 1508597488
-  Banks:
-  - {fileID: -3472730782107587619}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 5588276550847355144}
-  - {fileID: 7431779230147277934}
-  - {fileID: 877875124946181883}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &3902923494383873952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,7 +527,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/Core_systems/UI
-  lastModified: 639010498265649735
+  lastModified: 639010659485077627
   FileSizes:
   - Name: Desktop
     Value: 506
@@ -695,54 +588,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &5588276550847355144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Music Manager/FinalStretch
-  m_EditorClassIdentifier: 
-  Name: FinalStretch
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3472420584
-    data2: 1645009603
-  Type: 1
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &5759845923719475135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Parameter 1
-  m_EditorClassIdentifier: 
-  Name: Parameter 1
-  StudioPath: parameter:/Parameter 1
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 617384040
-    data2: 1071380572
-  Type: 1
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
 --- !u!114 &5973765987343494989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,34 +631,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639010822062240005
+  lastModified: 639010659485077627
   FileSizes:
   - Name: Desktop
-    Value: 2046
-  Exists: 1
---- !u!114 &7431779230147277934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Music Manager/Parameter 1
-  m_EditorClassIdentifier: 
-  Name: Parameter 1
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 617384040
-    data2: 1071380572
-  Type: 1
-  IsGlobal: 1
-  Labels: []
+    Value: 1816
   Exists: 1
 --- !u!114 &7765825464659674030
 MonoBehaviour:
@@ -830,38 +651,11 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Abilites.bank
   Name: Abilites
   StudioPath: bank:/Core_systems/Abilites
-  lastModified: 639010498205375900
+  lastModified: 639010659484227313
   FileSizes:
   - Name: Desktop
     Value: 98432
   Exists: 1
---- !u!114 &7952102713456585892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Vehicles/Jump
-  m_EditorClassIdentifier: 
-  Path: event:/Vehicles/Jump
-  Guid:
-    Data1: 1226455710
-    Data2: 1289994234
-    Data3: 1436640423
-    Data4: 415855470
-  Banks:
-  - {fileID: 727166132789400573}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &8030796195863264550
 MonoBehaviour:
   m_ObjectHideFlags: 0

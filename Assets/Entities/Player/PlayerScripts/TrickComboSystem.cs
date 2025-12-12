@@ -136,7 +136,7 @@ public class TrickComboSystem : MonoBehaviour
 
         UpdateBoostMeterInfo updateBoostMeterInfo = new();
         updateBoostMeterInfo.combo = (int)combo;
-        updateBoostMeterInfo.barIndex = barIndex;
+        updateBoostMeterInfo.trickType = trickIndex;
         updateBoostMeterInfo.firstTrickIndex = firstTrickIndex;
         updateBoostMeterInfo.abilityActivationThreshold = abilityActivationThreshold;
         UpdateBoostMeter?.Invoke(updateBoostMeterInfo);
