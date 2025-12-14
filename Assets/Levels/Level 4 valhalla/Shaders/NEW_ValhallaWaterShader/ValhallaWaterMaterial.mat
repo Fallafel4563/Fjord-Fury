@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_New Shader Graph
-  m_Shader: {fileID: -6465566751694194690, guid: b29d41b8e1b8c28489a749a35b11a402, type: 3}
+  m_Name: ValhallaWaterMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: ff03f0e0cd6d33042bac604a579de2ab, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -52,24 +52,28 @@ Material:
     m_Ints: []
     m_Floats:
     - _FlowSpeed: 0.9
-    - _FoamAmount: 4.11
+    - _FoamAmount: 2.37
     - _FoamCutoff: 1.94
     - _FoamScale: 0.85
     - _FoamSpeed: 0.69
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleDensity: 4.39
-    - _RippleSpeed: 3.05
-    - _RippleThickness: 7.79
+    - _RippleDensity: 3.07
+    - _RippleSpeed: 8.2
+    - _RippleThickness: 4.31
+    - _SpecularCutoff: 0.1
+    - _SpecularSmoothness: 3.72
     - _WaveIntensity: -1.43
     - _WaveScale: 0
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.29246226, b: 0.49803922, a: 0}
+    - _BaseColor: {r: 0.93207544, g: 0.82825464, b: 0.31479523, a: 0}
     - _FlowSpeed: {r: 0.08, g: 0.59, b: 0, a: 0}
-    - _FoamColor: {r: 0.6539555, g: 0.6539555, b: 0.6539555, a: 1}
+    - _FoamColor: {r: 0.85660374, g: 0.84506077, b: 0.6125525, a: 1}
     - _FoamScale: {r: 0.05, g: 0.05, b: 0, a: 0}
     - _FoamSpeed: {r: -7.19, g: 0.97, b: 0, a: 0}
-    - _RippleColor: {r: 0.13514417, g: 0.39750144, b: 0.645283, a: 0.79607844}
+    - _RippleColor: {r: 0.85660374, g: 0.81757957, b: 0.050103195, a: 0.79607844}
+    - _SecondaryColor: {r: 0.8399879, g: 1, b: 0.096226394, a: 0}
+    - _SpecularColor: {r: 1, g: 0.99698746, b: 0.8207547, a: 0}
     - _Tiling: {r: 35.96, g: -0.01, b: 0, a: 0}
     - _Vector3: {r: 2.22, g: 1.64, b: 7.95, a: 0}
     - _WaveSpeed: {r: -13.7, g: -18.9, b: 0, a: 0}
