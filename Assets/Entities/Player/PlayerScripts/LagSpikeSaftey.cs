@@ -16,7 +16,7 @@ public class LagSpikeSaftey : MonoBehaviour
 
     void Update()
     {
-        if (Time.deltaTime > 0.1f && playerMovement.airVelocity.magnitude > 100f)
+        if (Time.deltaTime > 0.1f && playerMovement.airVelocity.magnitude > 50f)
         {
             Vector3 rayDirection = oldPosition - (transform.position + transform.up);
             RaycastHit raycastHit;
