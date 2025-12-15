@@ -23,7 +23,7 @@ public class Ability : MonoBehaviour
     private float OwnSplinePosition;
 
     // EqualizerCurve.Evaluate(EqualizerValue * (1 + (shortBoost / strengthDivider)));
-    // EqualizerValue = LeadSplinePosition – OwnSplinePosition;
+    // EqualizerValue = LeadSplinePosition ï¿½ OwnSplinePosition;
 
     private bool _isConected = true;
 

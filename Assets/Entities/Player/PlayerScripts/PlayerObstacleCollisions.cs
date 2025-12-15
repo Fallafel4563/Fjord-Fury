@@ -40,7 +40,8 @@ public class PlayerObstacleCollisions : MonoBehaviour
         
         if (obstacle.bounceHeight > 0f)
         {
-            playerMovement.DetachFromCart();
+            if (playerMovement.isGrounded)
+                playerMovement.DetachFromCart();
             playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
         }
 
