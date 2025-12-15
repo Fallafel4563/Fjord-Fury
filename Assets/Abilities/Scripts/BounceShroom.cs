@@ -8,6 +8,7 @@ public class BounceShroom : MonoBehaviour
     {
         if (collider.GetComponent<PlayerMovement>())
         {
+            Debug.Log("Hit Shroom");
             // Get a refferance to the PlayerMovement script
             PlayerMovement movRef = collider.GetComponent<PlayerMovement>();
 

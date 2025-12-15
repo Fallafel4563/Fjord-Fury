@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
         {
             float sidewaysPos = Mathf.Sign(transform.localPosition.x) * (currentTrack.width / 2.0f);
             // Apply sideways limit
-            transform.localPosition = new Vector3(sidewaysPos, transform.localPosition.y, transform.localPosition.z);
+            transform.localPosition = new Vector3(sidewaysPos, 0f, 0f);
         }
 
 

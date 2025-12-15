@@ -10,7 +10,7 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
     public void SetMaxSize(float maxSize)
     {
         MaxSize = maxSize;
-        Debug.Log("Set MAx Size");
+        //Debug.Log("Set MAx Size");
     }
 
     void Update()
