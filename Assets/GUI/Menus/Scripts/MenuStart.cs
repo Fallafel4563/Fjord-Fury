@@ -12,7 +12,8 @@ public class MenuStart : MonoBehaviour
     //[SerializeField] GameObject playerAmount;
     [SerializeField] GameObject optionsMenu;     
     [SerializeField] GameObject credits;
-
+    [SerializeField] GameObject riverRally;
+    [SerializeField] GameObject valHalla;    
     #endregion
 
 
@@ -87,4 +88,19 @@ public class MenuStart : MonoBehaviour
 
     //have always show mouse when active
     //show selected image as cursor
+
+
+
+
+    public void OnValhallaShow()
+    {
+        riverRally.SetActive(false);
+        valHalla.SetActive(true);        
+    }
+
+        public void OnRiverRallyShow()
+    {
+        valHalla.SetActive(false);
+        riverRally.SetActive(true);        
+    }
 }   
