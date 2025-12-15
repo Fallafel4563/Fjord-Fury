@@ -1019,6 +1019,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8666112770961082338}
     m_Modifications:
+    - target: {fileID: 4074194143786899901, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101055978600216471, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5289725803689158531, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1045,11 +1053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289725803689158531, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5289725803689158531, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5289725803689158531, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1099,9 +1107,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6132993297935299179, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7822309363467475345, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
       propertyPath: m_Name
       value: BoostMeter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682425324756387902, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208114869955582097, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 177.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208114869955582097, guid: 56387f0ec595c87ff9d30e19ff7a2479, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 177.199
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
