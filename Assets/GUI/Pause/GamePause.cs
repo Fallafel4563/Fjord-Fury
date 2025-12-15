@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GamePause : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class GamePause : MonoBehaviour
 
     private void QuitGame()
     {
-
+      
     }
 
     public void SettingsActive()
