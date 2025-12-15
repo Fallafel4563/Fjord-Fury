@@ -27,7 +27,7 @@ public class SplineTrackDistance : MonoBehaviour
     {
         if (splineContainer == null || Player == null)
         {
-            Debug.Log("No Spline and/or Player!.");
+            //Debug.Log("No Spline and/or Player!.");
             return;
         }
 
@@ -48,7 +48,7 @@ public class SplineTrackDistance : MonoBehaviour
     private IEnumerator searchForSpline()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("Searching for Spline");
+        //Debug.Log("Searching for Spline");
     }
 
     private IEnumerator timedCoordinates()
@@ -56,7 +56,7 @@ public class SplineTrackDistance : MonoBehaviour
         while (true) // Loop
         {
             yield return new WaitForSeconds(coordinateDelay);
-            Debug.Log("Coordinates" + pointOnSpline);
+            //Debug.Log("Coordinates" + pointOnSpline);
         }
     }
 

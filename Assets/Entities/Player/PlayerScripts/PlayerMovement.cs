@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
         {
             float sidewaysPos = Mathf.Sign(transform.localPosition.x) * (currentTrack.width / 2.0f);
             // Apply sideways limit
-            transform.localPosition = new Vector3(sidewaysPos, transform.localPosition.y, transform.localPosition.z);
+            transform.localPosition = new Vector3(sidewaysPos, 0f, 0f);
         }
 
 
@@ -424,6 +424,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void LandedOnTrack(SplineTrack splineTrack)
     {
+        //StartCoroutine(LandedOnTrackC(splineTrack));
+        //return;
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
         if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
@@ -447,6 +449,60 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             wasLastTrackRail = true;
+
+        // Set the carts new position
+        splineCart.SplinePosition = distanceInfo.distance;
+        // Renable the carts movement
+        splineCart.AutomaticDolly.Enabled = true;
+
+
+        // Set the override speed if the boat lands on a fast track
+        SetOverrideSpeed(splineTrack.overrideSpeed);
+
+        // Change landing logic based on if the track is a circle or not
+        if (splineTrack.isCircle)
+            LandOnCircleTrack(distanceInfo);
+        else
+            LandOnRoadTrack(distanceInfo);
+        
+        Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
+
+
+        // Invoke events
+        Landed.Invoke();
+        if (startedGroundPound)
+            GroundpoundEnded.Invoke();
+        splineTrack.OnBoatEnter.Invoke(gameObject);
+    }
+
+
+    public IEnumerator LandedOnTrackC(SplineTrack splineTrack)
+    {
+        // Don't change main track when it's inside a DontChangeMainTrack trigger
+        // Can still change to rails
+        if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
+        {
+            yield break;
+        }
+
+        TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
+
+        // Reset  stuff
+        isGrounded = true;
+
+        // Update current and main track
+        currentTrack = splineTrack;
+        splineCart.Spline = currentTrack.track;
+        // Update main track if the new track isn't a rail track
+        if (splineTrack.shouldRespawnOnTrack)
+        {
+            mainTrack = splineTrack;
+            wasLastTrackRail = false;
+        }
+        else
+            wasLastTrackRail = true;
+
+        //yield return new WaitForEndOfFrame();
 
         // Set the carts new position
         splineCart.SplinePosition = distanceInfo.distance;
