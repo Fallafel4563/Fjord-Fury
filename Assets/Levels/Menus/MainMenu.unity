@@ -5080,7 +5080,6 @@ GameObject:
   - component: {fileID: 745419260}
   - component: {fileID: 745419262}
   - component: {fileID: 745419261}
-  - component: {fileID: 745419263}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -5149,19 +5148,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 1281778574}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!114 &745419263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745419259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd6bd9bf82c91e40a27e8efd2a6c62d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenuPanel: {fileID: 261287282}
 --- !u!1 &759816279
 GameObject:
   m_ObjectHideFlags: 0
@@ -8736,7 +8722,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1662513381}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuStart, Assembly-CSharp
         m_MethodName: OnCloseOptionsButton
         m_Mode: 1
@@ -10799,6 +10785,7 @@ GameObject:
   - component: {fileID: 1662513378}
   - component: {fileID: 1662513377}
   - component: {fileID: 1662513381}
+  - component: {fileID: 1662513382}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -10906,6 +10893,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMenu: {fileID: 261287282}
   optionsMenu: {fileID: 1505241954}
+  credits: {fileID: 1598668890}
+--- !u!114 &1662513382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662513376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd6bd9bf82c91e40a27e8efd2a6c62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMenu: {fileID: 261287282}
+  options: {fileID: 1505241954}
   credits: {fileID: 1598668890}
 --- !u!1 &1667970875
 GameObject:
