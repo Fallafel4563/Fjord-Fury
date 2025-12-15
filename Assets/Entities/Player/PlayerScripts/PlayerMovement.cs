@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
         {
-            Debug.LogFormat("Desired track {0}", splineTrack.name);
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
             if (splineCart)
@@ -386,7 +385,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!isGrounded && !isDrifting)
             {
-                Debug.Log("Double jump");
                 DoubleJumped.Invoke();
             }
 
@@ -424,6 +422,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void LandedOnTrack(SplineTrack splineTrack)
     {
+        SplineTrack oldTrack = currentTrack;
+        SplineTrack newTrack = splineTrack;
         //StartCoroutine(LandedOnTrackC(splineTrack));
         //return;
         // Don't change main track when it's inside a DontChangeMainTrack trigger
@@ -464,15 +464,14 @@ public class PlayerMovement : MonoBehaviour
             LandOnCircleTrack(distanceInfo);
         else
             LandOnRoadTrack(distanceInfo);
-        
-        Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
 
+        Debug.LogFormat("Old track {0}, new track {1}, current track {2}", oldTrack.name, newTrack.name, currentTrack.name);
 
         // Invoke events
-        Landed.Invoke();
         if (startedGroundPound)
             GroundpoundEnded.Invoke();
         splineTrack.OnBoatEnter.Invoke(gameObject);
+        Landed.Invoke();
     }
 
 

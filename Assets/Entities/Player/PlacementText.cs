@@ -37,7 +37,7 @@ public class PlacementText : MonoBehaviour
         distanceAlongTrack = splineDistance.distanceBetween0and1;
         DistancesAlongSpline[ playerInput.playerIndex] = distanceAlongTrack;
 
-        Debug.Log(DistancesAlongSpline.Values.ToList());
+        //Debug.Log(DistancesAlongSpline.Values.ToList());
 
         List<float> valuesList = DistancesAlongSpline.Values.ToList();
         valuesList.Sort();
