@@ -33,6 +33,9 @@ public class LoadScreen : MonoBehaviour
             return;
 
         currentCurve = !loaded ? blackOutCurve : revealCurve;
+        if (animationTime > .4f)
+            return;
+        
         animationTime += Time.deltaTime;
 
         if (animationTime >= 1) {
