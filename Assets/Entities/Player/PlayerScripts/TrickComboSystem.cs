@@ -24,8 +24,8 @@ public class TrickComboSystem : MonoBehaviour
     private int sizeBoost = 0;
     private int strengthBoost = 0;
     public int abilityActivationThreshold = 2;
-    public List<string> abilityType = new List<string> { "Shroom", "Whirlwind", "Ram" };
-    public List<string> boostType = new List<string> { "Longer", "Bigger", "Stronger" };
+    public List<string> abilityType = new List<string> { "SHROOM", "WHIRLWIND", "RAM" };
+    public List<string> boostType = new List<string> { "LONGER", "BIGGER", "STRONGER" };
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
@@ -96,12 +96,11 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.black, transform);
-            //Debug.Log("test test test");
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
         }
 
         combo += 1f;
@@ -137,7 +136,7 @@ public class TrickComboSystem : MonoBehaviour
 
         UpdateBoostMeterInfo updateBoostMeterInfo = new();
         updateBoostMeterInfo.combo = (int)combo;
-        updateBoostMeterInfo.barIndex = barIndex;
+        updateBoostMeterInfo.trickType = trickIndex;
         updateBoostMeterInfo.firstTrickIndex = firstTrickIndex;
         updateBoostMeterInfo.abilityActivationThreshold = abilityActivationThreshold;
         UpdateBoostMeter?.Invoke(updateBoostMeterInfo);
@@ -193,7 +192,9 @@ public class TrickComboSystem : MonoBehaviour
 
     private void TriggerComboBoost()
     {
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + combo / 3, ImmediateComboBoostCurve);
+        float speedBoost = 1f + combo / 6f;
+        Debug.LogFormat("Speedboost {0}", speedBoost);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", Mathf.Clamp(speedBoost, 0f, 2f), ImmediateComboBoostCurve);
         ResetSystemValues();
 
         // TODO: Fov, camera shake, 
