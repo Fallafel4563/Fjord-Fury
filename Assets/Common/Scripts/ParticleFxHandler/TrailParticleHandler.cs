@@ -51,5 +51,8 @@ public enum trackType
     water,
     rainbow,
     grind, 
-    piss
+    piss,
+    woodGrind,
+    metalGrind,
+    stoneGrind
 }

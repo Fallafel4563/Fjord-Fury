@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3029947431042228180}
   - component: {fileID: 6912550160104722413}
   - component: {fileID: 24610985154051759}
+  - component: {fileID: 3497531956897113132}
   m_Layer: 0
   m_Name: MultiPlayerSpawner
   m_TagString: Untagged
@@ -113,6 +114,53 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 20bd9de562571794bb9ae139aee47b8a, type: 3}
   - {fileID: 21300000, guid: e0e9569bd293dcf4daaf194c69d1fd8e, type: 3}
   - {fileID: 21300000, guid: 8d7c5a82425fed64c9de9d72f59d3429, type: 3}
+--- !u!114 &3497531956897113132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299405453274881896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903e890737b8a1ea3977584e428e4004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolAmount: 30
+  worldTextPrefab: {fileID: 7484708308013789831, guid: 6b6c4d7a253210c009175e9e03fa72f0, type: 3}
+  defaultSizeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0.022090375
+      outSlope: 0.022090375
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.5945325
+      outSlope: -2.5945325
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.043130994
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2193110245537510332
 GameObject:
   m_ObjectHideFlags: 0

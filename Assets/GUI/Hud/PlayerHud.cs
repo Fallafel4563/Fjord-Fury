@@ -1,13 +1,14 @@
+using UnityEngine.UI;
 using TMPro;
-using Unity.Collections;
 using UnityEngine;
 
 public class PlayerHud : MonoBehaviour
 {
     public BoostMeter boostMeter;
     public GameObject levelEndScreen;
-    public TMP_Text finishedTimeText;
-
+    public GameObject firstPlaceShine;
+    public TMP_Text finishedTimeText, placementText;
+    public Image placementImage;
     private int playerIndex;
     private Canvas canvas;
 
@@ -52,9 +53,9 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    public void UpdateBoostMeter(int i, int a, int x)
+    public void UpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        boostMeter.OnUpdateBoostMeter(i, a, x);
+        boostMeter.OnUpdateBoostMeter(updateBoostMeterInfo);
     }
 
 
@@ -77,5 +78,12 @@ public class PlayerHud : MonoBehaviour
             levelEndScreen.SetActive(true);
             finishedTimeText.text = string.Format("{0} secs", timeSpent);
         }
+    }
+
+    public void SetFirstPlayerShine(int playerPlacement)
+    {
+
+        firstPlaceShine.SetActive(playerPlacement == 1);
+    
     }
 }

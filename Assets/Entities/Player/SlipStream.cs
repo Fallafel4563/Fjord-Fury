@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class SlipStream : MonoBehaviour
 {
@@ -15,10 +17,17 @@ public class SlipStream : MonoBehaviour
     public GameObject TriggerSphere;
     public float spawnTime = 0;
     public float spawnThreshold = 1;
+    public List<TrailRenderer> slipTrails = new List<TrailRenderer>();
     
     void  Awake()
     {
         forwardSpeedMultiplier = GetComponent<ForwardSpeedMultiplier>();
+
+        foreach(TrailRenderer trail in slipTrails)
+                {
+                    trail.enabled = false;
+                }
+        
     }
 
    
@@ -43,6 +52,10 @@ public class SlipStream : MonoBehaviour
             spawnTime = 0;
             Debug.Log("Spawned Sphere");
         }
+
+
+       // TrailRenderer firstTrail = slipTrails[0];
+        //TrailRenderer secondTrail = slipTrails[1];
         
     }
 
@@ -70,6 +83,11 @@ public class SlipStream : MonoBehaviour
                 speedMultiplier += speedIncrease;
                 forwardSpeedMultiplier.SetForwardSpeedMultiplier("SlipStream", speedMultiplier + 1);
                 
+                foreach(TrailRenderer trail in slipTrails)
+                {
+                    trail.enabled = true;
+                }
+                
             }
         }
         else
@@ -80,6 +98,10 @@ public class SlipStream : MonoBehaviour
                 speedMultiplier -= speedIncrease / 2;
                 forwardSpeedMultiplier.SetForwardSpeedMultiplier("SlipStream", speedMultiplier + 1);
                 
+                foreach(TrailRenderer trail in slipTrails)
+                {
+                    trail.enabled = false;
+                }
             }
         }
         

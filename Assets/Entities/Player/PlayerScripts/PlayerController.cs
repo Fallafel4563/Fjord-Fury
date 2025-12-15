@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject skins;
 
     public int selectedCharacter { get; set; } = 0;
-    public int playerIndex { get; private set; }
 
-    private PlayerInput playerInput;
+    public PlayerInput playerInput { get; private set; }
 
 
 
@@ -44,7 +43,6 @@ public class PlayerController : MonoBehaviour
             trickComboSystem.UpdateBoostMeterVisibility += playerHud.UpdateBoostMeterVisibility;
             trickComboSystem.UpdateBoostMeter += playerHud.boostMeter.OnUpdateBoostMeter;
             trickComboSystem.ResetBoostMeter += playerHud.boostMeter.OnResetBoostMeter;
-            trickComboSystem.ResetTrickReaction += playerHud.boostMeter.OnResetTrickReaction;
 
             playerRespawn.RespawnFadeInStarted += playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted += playerHud.OnRespawnFadeOutStarted;
@@ -59,7 +57,6 @@ public class PlayerController : MonoBehaviour
             trickComboSystem.UpdateBoostMeterVisibility -= playerHud.UpdateBoostMeterVisibility;
             trickComboSystem.UpdateBoostMeter -= playerHud.boostMeter.OnUpdateBoostMeter;
             trickComboSystem.ResetBoostMeter -= playerHud.boostMeter.OnResetBoostMeter;
-            trickComboSystem.ResetTrickReaction -= playerHud.boostMeter.OnResetTrickReaction;
 
             playerRespawn.RespawnFadeInStarted -= playerHud.OnRespawnFadeInStarted;
             playerRespawn.RespawnFadeOutStarted -= playerHud.OnRespawnFadeOutStarted;
@@ -159,7 +156,7 @@ public class PlayerController : MonoBehaviour
         if (!inputEnabled)
             return;
         
-        trickComboSystem.ActivateTrick(1);
+        trickComboSystem.ActivateTrick(0);
     }
 
 
@@ -168,7 +165,7 @@ public class PlayerController : MonoBehaviour
         if (!inputEnabled)
             return;
         
-        trickComboSystem.ActivateTrick(2);
+        trickComboSystem.ActivateTrick(1);
     }
 
 
@@ -177,7 +174,7 @@ public class PlayerController : MonoBehaviour
         if (!inputEnabled)
             return;
         
-        trickComboSystem.ActivateTrick(3);
+        trickComboSystem.ActivateTrick(2);
     }
 
 #endregion

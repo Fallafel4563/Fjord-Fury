@@ -259,7 +259,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: causeHarm
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
@@ -305,6 +305,42 @@ PrefabInstance:
     - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[0].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[1].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[0].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338638916975953901, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: ScalingCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: _spawnOffset
@@ -385,8 +421,8 @@ PrefabInstance:
       addedObject: {fileID: 856349840878999895}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1628463512576927024, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 296739706271524222}
+      insertIndex: 3
+      addedObject: {fileID: 5388041343931140236}
     - targetCorrespondingSourceObject: {fileID: 1628463512576927024, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 318189201022766993}
@@ -401,7 +437,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1628463512576927024, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
   m_PrefabInstance: {fileID: 2374147045716248819}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &296739706271524222
+--- !u!114 &5388041343931140236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1afa6810c9865ba44baf3c46ee164b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BouncePower: 35
+  BouncePower: 9
 --- !u!65 &318189201022766993
 BoxCollider:
   m_ObjectHideFlags: 0

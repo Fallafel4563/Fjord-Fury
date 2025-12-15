@@ -10,14 +10,14 @@ public class RamAbility : MonoBehaviour
 
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
 
-    public void StartAbility(ForwardSpeedMultiplier forwardSpeedMultiplier)
+    public void StartAbility(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier)
     {
-        StartCoroutine(abilityBoost(forwardSpeedMultiplier));
+        StartCoroutine(abilityBoost(strength, forwardSpeedMultiplier));
     }
 
-    IEnumerator abilityBoost(ForwardSpeedMultiplier forwardSpeedMultiplier)
+    IEnumerator abilityBoost(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier)
     {
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + speedValue, ImmediateComboBoostCurve);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", speedValue * strength, ImmediateComboBoostCurve);
 
         Debug.Log("Start ram");
 

@@ -6,6 +6,7 @@ public class ReDeSpawn : MonoBehaviour
     public Transform pointB;   // Ending point
     public float speed = 3f;   // Movement speed
     public float respawnDelay = 1f; // Delay before respawn
+    public float timeOffset = 0f;
 
     private Vector3 target;
     private bool isMoving = true;
@@ -19,7 +20,7 @@ public class ReDeSpawn : MonoBehaviour
             return;
         }
 
-        Respawn();
+        Invoke(nameof(Respawn), timeOffset);
     }
 
     void Update()

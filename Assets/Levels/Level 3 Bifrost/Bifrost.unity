@@ -419,7 +419,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 19698293}
   trailType: 0
@@ -1080,7 +1079,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 0
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 34655721}
   trailType: 0
@@ -1848,7 +1846,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 63929506}
   trailType: 0
@@ -2201,7 +2198,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 64413023}
   trailType: 0
@@ -2880,7 +2876,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 72902902}
   trailType: 0
@@ -6117,7 +6112,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 35
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 170313212}
   trailType: 0
@@ -6631,7 +6625,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 172815313}
   trailType: 0
@@ -7043,7 +7036,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 173594246}
   trailType: 0
@@ -7721,7 +7713,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 179978345}
   trailType: 0
@@ -8019,7 +8010,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 180426538}
   trailType: 0
@@ -8841,8 +8831,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
---- !u!4 &192813519 stripped
-Transform:
+--- !u!224 &192813519 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 7867155960454231311, guid: a23068a71da9cb14fa3d3dfb1d8ebf5e, type: 3}
   m_PrefabInstance: {fileID: 192813518}
   m_PrefabAsset: {fileID: 0}
@@ -9470,7 +9460,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 197266648}
   trailType: 0
@@ -10385,7 +10374,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 229236018}
   trailType: 0
@@ -11019,7 +11007,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 253623187}
   trailType: 0
@@ -11413,7 +11400,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 35
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 256349887}
   trailType: 0
@@ -12783,7 +12769,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 289776284}
   trailType: 0
@@ -14413,7 +14398,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 346587063}
   trailType: 0
@@ -14918,7 +14902,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 361271529}
   trailType: 0
@@ -16745,7 +16728,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 425344008}
   trailType: 0
@@ -17364,7 +17346,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 431974117}
   trailType: 0
@@ -18782,7 +18763,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 460500319}
   trailType: 0
@@ -19220,8 +19200,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 192813519}
   - {fileID: 182102070}
+  - {fileID: 192813519}
   m_Father: {fileID: 1019837743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -19959,7 +19939,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 478638907}
   trailType: 0
@@ -20273,7 +20252,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 479921804}
   trailType: 0
@@ -20531,7 +20509,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 486252700}
   trailType: 0
@@ -21566,7 +21543,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 55
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 510605792}
   trailType: 0
@@ -22043,7 +22019,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 514485439}
   trailType: 0
@@ -23185,7 +23160,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 540261459}
   trailType: 0
@@ -23584,7 +23558,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 544155484}
   trailType: 0
@@ -24764,7 +24737,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 584913032}
   trailType: 0
@@ -25450,7 +25422,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 593180373}
   trailType: 1
@@ -26069,7 +26040,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 0
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 609066882}
   trailType: 0
@@ -27292,7 +27262,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 627171309}
   trailType: 0
@@ -28844,7 +28813,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 35
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 651269513}
   trailType: 0
@@ -29228,7 +29196,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 658386770}
   trailType: 0
@@ -30322,7 +30289,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 681123276}
   trailType: 0
@@ -32339,6 +32305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4944d9a8391c64e9daf14f74e9717d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCount: 1
   mainTrack: {fileID: 1052772731}
   playerPrefab: {fileID: 2626241439106697378, guid: f668a56e80eb94378b2cd439c333d4bd, type: 3}
   hudPrefab: {fileID: 6264349540536386738, guid: 37f7cfff3e496797585080e78e1ff0f5, type: 3}
@@ -32667,7 +32634,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 742343342}
   trailType: 0
@@ -33230,7 +33196,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 750054602}
   trailType: 0
@@ -34179,7 +34144,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 772067831}
   trailType: 2
@@ -34719,7 +34683,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 778922845}
   trailType: 0
@@ -35037,7 +35000,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 779498181}
   trailType: 0
@@ -35355,7 +35317,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 786603981}
   trailType: 0
@@ -35756,7 +35717,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 40
   width: 20
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 789356057}
   trailType: 0
@@ -36992,7 +36952,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 822290698}
   trailType: 0
@@ -37316,7 +37275,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 35
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 822671432}
   trailType: 0
@@ -37569,7 +37527,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 823168541}
   trailType: 0
@@ -38110,7 +38067,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 830001515}
   trailType: 0
@@ -38363,7 +38319,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 35
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 832768848}
   trailType: 0
@@ -38885,7 +38840,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 843293965}
   trailType: 0
@@ -39343,7 +39297,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 850391080}
   trailType: 0
@@ -39834,7 +39787,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 854902443}
   trailType: 0
@@ -40092,7 +40044,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 858260604}
   trailType: 0
@@ -40560,7 +40511,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 865383927}
   trailType: 0
@@ -40833,7 +40783,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 869645100}
   trailType: 0
@@ -41900,7 +41849,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 889695281}
   trailType: 0
@@ -42846,7 +42794,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 917416535}
   trailType: 0
@@ -43119,7 +43066,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 924926009}
   trailType: 0
@@ -43882,7 +43828,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 937618144}
   trailType: 0
@@ -44589,7 +44534,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 946081982}
   trailType: 0
@@ -45108,7 +45052,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 35
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 949974315}
   trailType: 0
@@ -45497,7 +45440,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 957022270}
   trailType: 0
@@ -46113,7 +46055,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 965771878}
   trailType: 0
@@ -46521,7 +46462,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 972229268}
   trailType: 0
@@ -47282,7 +47222,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 977421244}
   trailType: 0
@@ -47536,7 +47475,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 979518892}
   trailType: 0
@@ -49605,7 +49543,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1030376880}
   trailType: 0
@@ -50899,7 +50836,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1052772736}
   trailType: 0
@@ -51172,7 +51108,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1053547504}
   trailType: 0
@@ -51471,7 +51406,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1054620994}
   trailType: 0
@@ -52134,7 +52068,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1069987697}
   trailType: 0
@@ -52671,7 +52604,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1079211495}
   trailType: 0
@@ -53040,7 +52972,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1083637246}
   trailType: 0
@@ -54339,7 +54270,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1101479555}
   trailType: 0
@@ -54658,7 +54588,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 20
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1104338035}
   trailType: 0
@@ -56463,7 +56392,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1146524293}
   trailType: 0
@@ -57405,7 +57333,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1165282786}
   trailType: 0
@@ -59127,7 +59054,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1212726520}
   trailType: 0
@@ -59624,7 +59550,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1223454344}
   trailType: 0
@@ -59892,7 +59817,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1224013140}
   trailType: 0
@@ -61308,7 +61232,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1249175747}
   trailType: 0
@@ -61792,7 +61715,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1257178714}
   trailType: 0
@@ -62511,7 +62433,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1275254644}
   trailType: 0
@@ -63838,7 +63759,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1295903577}
   trailType: 0
@@ -64165,7 +64085,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1299327170}
   trailType: 0
@@ -64634,7 +64553,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1302675023}
   trailType: 0
@@ -64887,7 +64805,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1303189223}
   trailType: 0
@@ -65416,7 +65333,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1313134336}
   trailType: 0
@@ -65942,7 +65858,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 55
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1331089779}
   trailType: 0
@@ -66650,7 +66565,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1338404640}
   trailType: 0
@@ -67348,7 +67262,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1359463140}
   trailType: 0
@@ -70501,7 +70414,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1452989356}
   trailType: 0
@@ -72490,7 +72402,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1522906514}
   trailType: 0
@@ -74317,7 +74228,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1573209859}
   trailType: 0
@@ -75460,7 +75370,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1585935176}
   trailType: 0
@@ -76352,7 +76261,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1609032339}
   trailType: 0
@@ -77211,7 +77119,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1631211777}
   trailType: 0
@@ -77464,7 +77371,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1631893803}
   trailType: 0
@@ -78137,7 +78043,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1648479193}
   trailType: 0
@@ -80774,7 +80679,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1707635853}
   trailType: 0
@@ -81348,7 +81252,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1714647933}
   trailType: 0
@@ -85003,7 +84906,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1804165861}
   trailType: 0
@@ -86098,7 +86000,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1830125061}
   trailType: 0
@@ -86903,7 +86804,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1852764486}
   trailType: 0
@@ -87883,7 +87783,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1864161669}
   trailType: 0
@@ -89986,7 +89885,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 45
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1916398330}
   trailType: 0
@@ -90724,7 +90622,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1928476506}
   trailType: 0
@@ -91394,7 +91291,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1942091636}
   trailType: 0
@@ -91948,7 +91844,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 0
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1947616343}
   trailType: 0
@@ -93097,7 +92992,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1974511316}
   trailType: 0
@@ -93628,7 +93522,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1978580880}
   trailType: 0
@@ -94845,7 +94738,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 1997085528}
   trailType: 0
@@ -95605,7 +95497,6 @@ MonoBehaviour:
   jumpOffAtEnd: 1
   overrideSpeed: 50
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2005446537}
   trailType: 0
@@ -97093,7 +96984,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 10
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2049787823}
   trailType: 0
@@ -97417,7 +97307,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2055311888}
   trailType: 0
@@ -97670,7 +97559,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 25
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2058452769}
   trailType: 0
@@ -98892,7 +98780,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 2
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2088232528}
   trailType: 0
@@ -99206,7 +99093,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 15
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2089300486}
   trailType: 0
@@ -99592,7 +99478,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 50
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2095169921}
   trailType: 0
@@ -101503,7 +101388,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 40
   width: 40
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2136063883}
   trailType: 0
@@ -101983,7 +101867,6 @@ MonoBehaviour:
   jumpOffAtEnd: 0
   overrideSpeed: 30
   width: 1
-  multiplier: 1
   segmentsPerUnit: 0.5
   track: {fileID: 2140988301}
   trailType: 0
