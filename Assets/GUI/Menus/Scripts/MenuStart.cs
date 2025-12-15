@@ -9,7 +9,7 @@ public class MenuStart : MonoBehaviour
     #region Properties
 
     [SerializeField] GameObject startMenu;
-    [SerializeField] GameObject playerAmount;
+    //[SerializeField] GameObject playerAmount;
     [SerializeField] GameObject optionsMenu;     
     [SerializeField] GameObject credits;
 
@@ -24,6 +24,7 @@ public class MenuStart : MonoBehaviour
     //    startMenu.SetActive(false);
     //    playerAmount.SetActive(true);
     //}
+
 
     public void OnStartButton()
     {
