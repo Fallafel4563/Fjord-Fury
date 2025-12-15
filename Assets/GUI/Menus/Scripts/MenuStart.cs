@@ -13,9 +13,13 @@ public class MenuStart : MonoBehaviour
     [SerializeField] GameObject optionsMenu;     
     [SerializeField] GameObject credits;
     [SerializeField] GameObject riverRally;
-    [SerializeField] GameObject valHalla;    
+    [SerializeField] GameObject valHalla;
     #endregion
 
+    private void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
 
     #region Play
 
@@ -36,11 +40,16 @@ public class MenuStart : MonoBehaviour
     {
         SceneManager.LoadScene("ValhallaCharacterSelect");
     }
+
+    public void loadLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelect");
+    }
     #endregion
 
 
     #region Options
-    
+
     // Takes you to options screen
     public void OnOptionsButton()
     {   

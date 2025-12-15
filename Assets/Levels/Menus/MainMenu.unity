@@ -8400,7 +8400,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1662513381}
         m_TargetAssemblyTypeName: MenuStart, Assembly-CSharp
-        m_MethodName: OnStartButton
+        m_MethodName: loadLevelSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10894,6 +10894,8 @@ MonoBehaviour:
   startMenu: {fileID: 261287282}
   optionsMenu: {fileID: 1505241954}
   credits: {fileID: 1598668890}
+  riverRally: {fileID: 0}
+  valHalla: {fileID: 0}
 --- !u!114 &1662513382
 MonoBehaviour:
   m_ObjectHideFlags: 0
