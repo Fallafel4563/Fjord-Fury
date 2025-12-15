@@ -55,14 +55,14 @@ public class WorldTextSpawner : MonoBehaviour
     }
 
 
-    public void SpawnText(string text, Vector3 position, Color color, Transform parent = null, AnimationCurve sizeCurve = null)
+    public void SpawnText(string text, Vector3 position, Color color, Transform parent = null, int trick = 3, AnimationCurve sizeCurve = null)
     {
         Transform textInstance = textPool[poolIndex];
         poolIndex++;
         poolIndex %= poolAmount;
 
         textInstance.gameObject.SetActive(true);
-        textInstance.GetComponent<WorldText>().SetUpText(text, color);
+        textInstance.GetComponent<WorldText>().SetUpText(text, color, trick);
         textInstance.position = position;
         if (parent == null)
             textInstance.SetParent(this.transform);
