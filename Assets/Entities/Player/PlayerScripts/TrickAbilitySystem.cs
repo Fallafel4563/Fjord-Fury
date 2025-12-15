@@ -53,12 +53,16 @@ public class TrickAbilitySystem : MonoBehaviour
 
         abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 
+        Ability a = abilityBuffer.GetComponent<Ability>();
+        a.Track = PM.mainTrack;
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost);
+
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;
         float newSpeed = combinedStrength / SpeedDivider;
 
         // Set up the abilityBuffer ref
-        ConfigureAbility(abilityBuffer, comboCount, combinedStrength);
+        //ConfigureAbility(abilityBuffer, comboCount, combinedStrength);
         abilityTimeLeft = abilityDuration / newDuration;
     }
 
@@ -68,7 +72,7 @@ public class TrickAbilitySystem : MonoBehaviour
         Ability a = abilityBuffer.GetComponent<Ability>();
         a.Track = PM.mainTrack;
 
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, GetComponent<ForwardSpeedMultiplier>(), comboCount, strength);
+        //a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, GetComponent<ForwardSpeedMultiplier>(), comboCount, strength);
         abilityBuffer.GetComponentInChildren<Obstacle>().owner = this.transform;
     }
 
