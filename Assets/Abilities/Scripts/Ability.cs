@@ -76,7 +76,7 @@ public class Ability : MonoBehaviour
 
     void SetStrenght(float strength)
     {
-        Debug.Log(strength);
+        //Debug.Log(strength);
 
         if (_artParticles != null) _artParticles.transform.localScale = new Vector3(strength, strength, strength);
         OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
