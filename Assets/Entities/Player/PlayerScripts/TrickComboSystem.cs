@@ -193,7 +193,7 @@ public class TrickComboSystem : MonoBehaviour
     private void TriggerComboBoost()
     {
         float speedBoost = 1f + combo / 6f;
-        Debug.LogFormat("Speedboost {0}", speedBoost);
+        //Debug.LogFormat("Speedboost {0}", speedBoost);
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", Mathf.Clamp(speedBoost, 0f, 2f), ImmediateComboBoostCurve);
         ResetSystemValues();
 
