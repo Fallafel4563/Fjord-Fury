@@ -3,18 +3,33 @@ using UnityEngine;
 public class BounceShroom : MonoBehaviour
 {
     public float BouncePower;
+    [SerializeField] private bool cantHitOwner;
+    [HideInInspector] public Transform Owner;
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<PlayerMovement>())
+        if (!cantHitOwner)
         {
-            Debug.Log("Hit Shroom");
-            // Get a refferance to the PlayerMovement script
-            PlayerMovement movRef = collider.GetComponent<PlayerMovement>();
-
-            // Get the PlayerMovement ref and call the ShroomBounce function
-            movRef.ShroomBounce(BouncePower);
+            if (collider.GetComponent<PlayerMovement>())
+                Bounce(collider);
         }
+        else
+        {
+            if (collider.transform != Owner)
+            {
+                if (collider.GetComponent<PlayerMovement>())
+                    Bounce(collider);
+            }
+        }
+    }
+
+    void Bounce(Collider collider)
+    {
+        // Get a refferance to the PlayerMovement script
+        PlayerMovement movRef = collider.GetComponent<PlayerMovement>();
+
+        // Get the PlayerMovement ref and call the ShroomBounce function
+        movRef.ShroomBounce(BouncePower);
     }
 }
 

@@ -4842,8 +4842,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: causeHarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: bounceHeight
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: crashSpeedMultiplierCurve.endCurve.m_Curve.Array.size
@@ -4995,7 +4999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: _spawnOffset
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7136834789821003459, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_IsActive
@@ -5107,6 +5111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BouncePower: 100
+  cantHitOwner: 1
+  Owner: {fileID: 0}
 --- !u!4 &2190386018528576940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
