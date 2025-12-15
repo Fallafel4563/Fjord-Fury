@@ -424,8 +424,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void LandedOnTrack(SplineTrack splineTrack)
     {
-        StartCoroutine(LandedOnTrackC(splineTrack));
-        return;
+        //StartCoroutine(LandedOnTrackC(splineTrack));
+        //return;
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
         if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
