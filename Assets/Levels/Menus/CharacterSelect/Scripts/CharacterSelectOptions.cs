@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,11 +8,16 @@ using UnityEngine.UI;
 
 public class CharacterSelectOptions : MonoBehaviour
 {
-    [SerializeField] private TMP_Text readyText;
+    [SerializeField] private GameObject choosingSection;
+    [SerializeField] private GameObject readySection;
     [SerializeField] private GameObject characterPrefab;
     List<GameObject> characters = new List<GameObject>();
 
     [SerializeField] Transform[] boatPositions;
+    [SerializeField] GameObject[] selectArrows;
+
+    [SerializeField] AnimationCurve spinCurve;
+    [SerializeField] float spinCurveMultiplier = 10;
 
     private bool ready;
     private int currentCharacter = 0;
@@ -20,6 +26,8 @@ public class CharacterSelectOptions : MonoBehaviour
     public Action<int, PlayerSelectInfo> CharacterSelected;
     public Action<int> CharacterDeselected;
     public Action StartGame;
+
+    float currentSpinTime;
 
 
     private void Awake()
@@ -48,10 +56,10 @@ public class CharacterSelectOptions : MonoBehaviour
     {
         List<int> characterIndexes = GetActiveCharacters();
         
-
+        currentSpinTime += Time.deltaTime;
         for (int i = 0; i < characterIndexes.Count; i++)
         {
-            characters[characterIndexes[i]].transform.eulerAngles = new Vector3(0, Time.time * 30, 0);
+            characters[characterIndexes[i]].transform.eulerAngles = new Vector3(0, currentSpinTime * 30, 0);
         }
     }
 
@@ -62,8 +70,6 @@ public class CharacterSelectOptions : MonoBehaviour
         if (!ready)
         {
             SetReady(true);
-            ready = true;
-            readyText.text = "Ready";
             // Create a data struct about what device is connected to which player and which character they chose
             PlayerSelectInfo playerSelectInfo = new()
             {
@@ -90,14 +96,11 @@ public class CharacterSelectOptions : MonoBehaviour
             Destroy(gameObject);
         else // Deselect the current cahracter when pressing cancel and the player is ready
         {
-            ready = false;
             SetReady(false);
-            readyText.text = "Choosing";
             // Tell character select menu that a player has deselected a character
             CharacterDeselected?.Invoke(playerInput.playerIndex);
         }
     }
-
 
     public void OnLeft()
     {
@@ -160,17 +163,35 @@ public class CharacterSelectOptions : MonoBehaviour
         for (int i = 0; i < characterIndexes.Count; i++)
         {
             characters[characterIndexes[i]].transform.position = boatPositions[i].position - Vector3.forward * 10;
+            characters[characterIndexes[i]].transform.localScale = boatPositions[i].localScale * 30;
         }
-        characters[characterIndexes[0]].transform.localScale = Vector3.one * 15;
-        characters[characterIndexes[1]].transform.localScale = Vector3.one * 30;
-        characters[characterIndexes[2]].transform.localScale = Vector3.one * 15;
     }
 
-    void SetReady(bool ready)
+    void SetReady(bool isReady)
     {
+        ready = isReady;
         List<int> characterIndexes = GetActiveCharacters();
-        characters[characterIndexes[0]].SetActive(!ready);
-        characters[characterIndexes[2]].SetActive(!ready);
+        characters[characterIndexes[0]].SetActive(!isReady);
+        characters[characterIndexes[2]].SetActive(!isReady);
+        
+        choosingSection.SetActive(!isReady);
+        readySection.SetActive(isReady);
+
+        if (isReady)
+        {
+            StartCoroutine(SillySpin());
+        }
+    }
+
+    IEnumerator SillySpin()
+    {
+        float currentAnimationTime = 0;
+        while (currentAnimationTime < 1)
+        {
+            currentAnimationTime += Time.deltaTime;
+            currentSpinTime += spinCurve.Evaluate(currentAnimationTime) * spinCurveMultiplier * Time.deltaTime;
+            yield return null;
+        }
     }
 }
 

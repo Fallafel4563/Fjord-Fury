@@ -40,15 +40,15 @@ public class CharacterJoinPanel : MonoBehaviour
 
     public void SetPanelState(PanelState panelState)
     {
+        text.SetActive(panelState == PanelState.Inactive);
+
         switch (panelState)
         {
             case PanelState.Inactive:
                 FadeTo(inactiveColor);
-                text.SetActive(true);
                 break;
             case PanelState.Choosing:
                 FadeTo(choosingColor);
-                text.SetActive(false);
                 break;
             case PanelState.Selected:
                 FadeTo(selectedColor);
