@@ -1,17 +1,14 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BoostMeter : MonoBehaviour
 {
-    public Image abilityIcon;
-    public List<RectTransform> trickTypeIncrease = new();
+    public Image boostMeterIcon;
+    public List<Image> barSections = new();
+    public List<Color> colorPalette = new();
     public List<Sprite> abilityIcons = new();
-
-
-    private int biggerIndex = 0;
-    private int longerIndex = 0;
-    private int strongerIndex = 0;
 
 
     private void Start()
@@ -22,57 +19,28 @@ public class BoostMeter : MonoBehaviour
 
     public void OnUpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Type {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.trickType);
+        Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Bar {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.barIndex);
         if (updateBoostMeterInfo.combo < updateBoostMeterInfo.abilityActivationThreshold)
         {
-            abilityIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex];
+            boostMeterIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex];
         }
         else if (updateBoostMeterInfo.combo >= updateBoostMeterInfo.abilityActivationThreshold)
         {
-            abilityIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex + 3];
+            boostMeterIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex + 3];
         }
-
-        // Set the bars visible
-        if (updateBoostMeterInfo.combo > 1)
-        {
-            int childIndex = 0;
-            switch (updateBoostMeterInfo.trickType)
-            {
-                case 0:
-                    childIndex = biggerIndex;
-                    biggerIndex++;
-                    break;
-                case 1:
-                    childIndex = longerIndex;
-                    longerIndex++;
-                    break;
-                case 2:
-                    childIndex = strongerIndex;
-                    strongerIndex++;
-                    break;
-            }
-
-            if (childIndex < trickTypeIncrease[updateBoostMeterInfo.trickType].childCount)
-                trickTypeIncrease[updateBoostMeterInfo.trickType].GetChild(childIndex).gameObject.SetActive(true);
-        }
+        Image sectionToChange = barSections[updateBoostMeterInfo.barIndex];
+        int currentColorIndex = colorPalette.IndexOf(sectionToChange.color);
+        if (currentColorIndex < colorPalette.Count)
+            sectionToChange.color = colorPalette[currentColorIndex + 1];
     }
 
 
     public void OnResetBoostMeter()
     {
-        biggerIndex = 0;
-        longerIndex = 0;
-        strongerIndex = 0;
-
-        abilityIcon.sprite = null;
-
-        for (int i = 0; i < trickTypeIncrease.Count; i++)
+        boostMeterIcon.sprite = null;
+        for (int i = 0; i < barSections.Count; i++)
         {
-            Transform trickTypeTransform = trickTypeIncrease[i];
-            for (int i2 = 0; i2 < trickTypeTransform.childCount; i2++)
-            {
-                trickTypeTransform.GetChild(i2).gameObject.SetActive(false);
-            }
+            barSections[i].color = colorPalette[0];
         }
     }
 }
@@ -81,7 +49,7 @@ public class BoostMeter : MonoBehaviour
 public struct UpdateBoostMeterInfo
 {
     public int combo;
-    public int trickType;
+    public int barIndex;
     public int firstTrickIndex;
     public int abilityActivationThreshold;
 }
