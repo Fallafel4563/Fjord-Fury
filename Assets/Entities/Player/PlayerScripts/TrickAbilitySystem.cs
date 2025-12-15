@@ -40,6 +40,8 @@ public class TrickAbilitySystem : MonoBehaviour
         Debug.Log("SpawnAbility " + firstTrick);
 
         abilityHasSpawned = true;
+
+        /*
         int comboCount = 0;
         combinedStrength = 0;
 
@@ -50,6 +52,7 @@ public class TrickAbilitySystem : MonoBehaviour
         comboCount += shortBoost;
         comboCount += mediumBoost;
         comboCount += longBoost;
+        */
 
         abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 

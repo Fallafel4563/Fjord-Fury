@@ -18,10 +18,12 @@ public class Ability : MonoBehaviour
     [SerializeField] private RamAbility RA;
 
     [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
-    [SerializeField] private Obstacle O;
+    //[SerializeField] private Obstacle O;
+
+    Transform owner;
 
 
-
+    /*
     [Header("Ability implementaation")]
     [SerializeField] private float CrashSpeedMultiplier;
     [SerializeField] private AnimationCurve CrashSpeedMultiplierCurve;
@@ -37,17 +39,21 @@ public class Ability : MonoBehaviour
     [SerializeField] private AnimationCurve MultiplierCurve;
 
     ForwardSpeedMultiplier _forwardSpeedMultiplier;
+    */
 
     void Start()
     {
         OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
-        O = GetComponentInChildren<Obstacle>();
+        //O = GetComponentInChildren<Obstacle>();
         RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
     public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/)
     {
+        owner = player;
+
+        transform.SetParent(owner);
         _spline = GetComponent<CinemachineSplineCart>();
         _spline.Spline = Track.GetComponent<SplineContainer>();
 
@@ -56,16 +62,21 @@ public class Ability : MonoBehaviour
         OLSS.MaxSize = mediumBoost + 1;
         //O.bounceHeight = longBoost + 1;
 
-        if (GetComponentInChildren<BounceShroom>()) GetComponentInChildren<BounceShroom>().BouncePower *= longBoost + 1;
+        if (GetComponentInChildren<BounceShroom>())
+        {
+            GetComponentInChildren<BounceShroom>().BouncePower *= longBoost + 1;
+            GetComponentInChildren<BounceShroom>().Owner = owner;
+        }
 
         if (_spline != null)
         {
             if (Track != null) _spline.Spline = Track.track;
             _spline.SplinePosition = (position + _spawnOffset);
-            _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+            if (!GetComponentInChildren<RamAbility>()) _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
     }
 
+    /*
     void SetStrenght(float strength)
     {
         Debug.Log(strength);
@@ -80,11 +91,14 @@ public class Ability : MonoBehaviour
         if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
             Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
     }
+    */
 
+    /*
     void SetRamStrength(float strength)
     {
         RA.StartAbility(strength, _forwardSpeedMultiplier);
     }
+    */
 
     void Update()
     {
@@ -92,6 +106,7 @@ public class Ability : MonoBehaviour
         {
             _isConected = false;
             _spline.enabled = false;
+            transform.SetParent(null);
         }
 
         if (!_isConected)
