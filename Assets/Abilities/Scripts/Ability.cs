@@ -7,44 +7,35 @@ public class Ability : MonoBehaviour
 {
     public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
+    [SerializeField] private RamAbility RA;
+    [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
+
+    [Header("Art")]
     [SerializeField] private GameObject _art;
     [SerializeField] private GameObject _artParticles;
+
+    [Header("Equalizer")]
+    [SerializeField] private float EqualizerValue;
+    [SerializeField] private AnimationCurve EqualizerCurve;
+    [SerializeField] private float strengthDivider;
+
+    private float LeadSplinePosition;
+    private float OwnSplinePosition;
+
+    // EqualizerCurve.Evaluate(EqualizerValue * (1 + (shortBoost / strengthDivider)));
+    // EqualizerValue = LeadSplinePosition – OwnSplinePosition;
+
     private bool _isConected = true;
 
     private float _offSplineSpeed = 140f;
     [SerializeField] private float _spawnOffset = 5f;
     [SerializeField] private float _temporarryDurationVariable;
 
-    [SerializeField] private RamAbility RA;
-
-    [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
-    //[SerializeField] private Obstacle O;
-
     Transform owner;
-
-
-    /*
-    [Header("Ability implementaation")]
-    [SerializeField] private float CrashSpeedMultiplier;
-    [SerializeField] private AnimationCurve CrashSpeedMultiplierCurve;
-    [SerializeField] private AudioSource CrashSound;
-    [SerializeField] private bool CauseHarm;
-    [SerializeField] private bool DestructOnCrash;
-    [SerializeField] private GameObject DestructParticles;
-    [SerializeField] private GameObject Instantiator;
-    [SerializeField] private float BounceHeight;
-
-    [SerializeField] private float MaxSize;
-    [SerializeField] private float LifeSpan;
-    [SerializeField] private AnimationCurve MultiplierCurve;
-
-    ForwardSpeedMultiplier _forwardSpeedMultiplier;
-    */
 
     void Start()
     {
         OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
-        //O = GetComponentInChildren<Obstacle>();
         RA = GetComponent<RamAbility>();
         Destroy(gameObject, _temporarryDurationVariable);
     }
@@ -60,7 +51,6 @@ public class Ability : MonoBehaviour
         // Set strength through the ObstacleLifetimeScalingSystem
         OLSS.LifeTime = shortBoost + 2;
         OLSS.MaxSize = mediumBoost + 1;
-        //O.bounceHeight = longBoost + 1;
 
         if (GetComponentInChildren<BounceShroom>())
         {
@@ -75,30 +65,6 @@ public class Ability : MonoBehaviour
             if (!GetComponentInChildren<RamAbility>()) _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
     }
-
-    /*
-    void SetStrenght(float strength)
-    {
-        Debug.Log(strength);
-
-        if (_artParticles != null) _artParticles.transform.localScale = new Vector3(strength, strength, strength);
-        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
-        OLSS.SetMaxSize(strength);
-        if (_art.GetComponent<BounceShroom>()) _art.GetComponent<BounceShroom>().BouncePower *= strength;
-
-        if (RA != null) SetRamStrength(strength);
-
-        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
-            Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
-    }
-    */
-
-    /*
-    void SetRamStrength(float strength)
-    {
-        RA.StartAbility(strength, _forwardSpeedMultiplier);
-    }
-    */
 
     void Update()
     {
