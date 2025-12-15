@@ -47,6 +47,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     // Spawn players from the players dict
     private void SpawnPlayersFromDict()
     {
+        playerCount = players.Count;
         for (int i = 0; i < players.Count; i++)
         {
             var item = players.ElementAt(i);
@@ -76,7 +77,7 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
+        //Debug.LogFormat("Player {0} joined", playerInput.playerIndex);
 
         // Spawn hud
         GameObject hud = Instantiate(hudPrefab);
@@ -100,13 +101,16 @@ public class MultiplayerPlayerSpawner : MonoBehaviour
     private void SetPlayerPos(PlayerController playerController, PlayerInput playerInput)
     {
         // Set player position
-        float trackLeftPos = -(mainTrack.width / 2f);
+        float trackLeftPos = -mainTrack.width / 2f;
+
 
         // Get the offset between players
-        float playersOffset = mainTrack.width / (PlayerInput.all.Count + 1);
+        float playersOffset = mainTrack.width / playerCount;
 
         // Get the spawn pos of the player
-        float spawnPos = trackLeftPos + (playersOffset * (playerInput.playerIndex + 1));
+        float spawnPos = trackLeftPos + (playersOffset * playerInput.playerIndex) + (playersOffset * 0.5f);
+
+        Debug.LogFormat("Track left pos {0}, Player offset {1}, Spawn pos {2}, Player count {3}", trackLeftPos, playersOffset, spawnPos, PlayerInput.all.Count);
 
         // Set the spawn pos of the player
         playerController.playerMovement.transform.localPosition = new(spawnPos, 0f, 0f);
