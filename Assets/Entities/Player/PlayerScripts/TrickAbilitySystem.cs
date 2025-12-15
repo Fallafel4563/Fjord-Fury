@@ -43,7 +43,9 @@ public class TrickAbilitySystem : MonoBehaviour
         int comboCount = 0;
         combinedStrength = 0;
 
-        combinedStrength = longBoost;
+        combinedStrength += (shortBoost * 1);
+        combinedStrength += (mediumBoost * 2);
+        combinedStrength += (longBoost * 3);
 
         comboCount += shortBoost;
         comboCount += mediumBoost;
