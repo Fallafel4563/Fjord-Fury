@@ -60,13 +60,15 @@ public class TrickAbilitySystem : MonoBehaviour
         a.Track = PM.mainTrack;
         a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost);
 
+        /*
         float newDuration = combinedStrength / DurationDivider;
         float newSize = combinedStrength / SizeDivider;
         float newSpeed = combinedStrength / SpeedDivider;
+        */
 
         // Set up the abilityBuffer ref
         //ConfigureAbility(abilityBuffer, comboCount, combinedStrength);
-        abilityTimeLeft = abilityDuration / newDuration;
+        abilityTimeLeft = abilityDuration;// / newDuration;
     }
 
     // Supply the ability with all data of where it's suppost to spawn

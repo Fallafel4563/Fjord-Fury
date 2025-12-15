@@ -19,11 +19,11 @@ public class Ability : MonoBehaviour
     [SerializeField] private AnimationCurve EqualizerCurve;
     [SerializeField] private float strengthDivider;
 
+    [Header("Bounce")]
+    [SerializeField] private float BounceMultiplier = 2f;
+
     private float LeadSplinePosition;
     private float OwnSplinePosition;
-
-    // EqualizerCurve.Evaluate(EqualizerValue * (1 + (shortBoost / strengthDivider)));
-    // EqualizerValue = LeadSplinePosition – OwnSplinePosition;
 
     private bool _isConected = true;
 
@@ -44,18 +44,23 @@ public class Ability : MonoBehaviour
     {
         owner = player;
 
-        transform.SetParent(owner);
+        if (!GetComponentInChildren<BounceShroom>()) transform.SetParent(owner);
         _spline = GetComponent<CinemachineSplineCart>();
         _spline.Spline = Track.GetComponent<SplineContainer>();
 
         // Set strength through the ObstacleLifetimeScalingSystem
-        OLSS.LifeTime = shortBoost + 2;
-        OLSS.MaxSize = mediumBoost + 1;
+        /// OLSS.LifeTime = shortBoost + 2;
+        /// OLSS.MaxSize = mediumBoost + 1;
+
+        OLSS.LifeTime = Equalizer(shortBoost);
+        OLSS.MaxSize = Equalizer(mediumBoost);
 
         if (GetComponentInChildren<BounceShroom>())
         {
-            GetComponentInChildren<BounceShroom>().BouncePower *= longBoost + 1;
+            //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
             GetComponentInChildren<BounceShroom>().Owner = owner;
+            float BounceStrength = EqualizerCurve.Evaluate(EqualizerValue * (1 + (BounceMultiplier * (longBoost / (strengthDivider * (longBoost / 2))))));
+            GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
         }
 
         if (_spline != null)
@@ -66,9 +71,23 @@ public class Ability : MonoBehaviour
         }
     }
 
+    void GetEqualizerValue()
+    {
+        LeadSplinePosition = 1f;
+        OwnSplinePosition = 2f;
+        EqualizerValue = LeadSplinePosition - OwnSplinePosition;
+    }
+
+    float Equalizer(int input)
+    {
+        return EqualizerCurve.Evaluate(EqualizerValue * (1 + (input / strengthDivider)));
+    }
+
     void Update()
     {
-        if (_spline.SplinePosition > Track.track.Spline.GetLength()-1 && _isConected)
+        GetEqualizerValue();
+
+        if (_spline.SplinePosition > Track.track.Spline.GetLength() - 1 && _isConected)
         {
             _isConected = false;
             _spline.enabled = false;

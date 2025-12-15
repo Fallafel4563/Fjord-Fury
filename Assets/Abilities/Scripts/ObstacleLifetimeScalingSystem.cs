@@ -31,6 +31,6 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
     void Scaling()
     {
         float size = MaxSize * ScalingCurve.Evaluate(animationTime);
-        transform.localScale = new Vector3(size, size, size);
+        //transform.localScale = new Vector3(size, size, size);
     }
 }
