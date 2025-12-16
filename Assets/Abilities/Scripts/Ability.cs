@@ -55,12 +55,8 @@ public class Ability : MonoBehaviour
         if (GetComponentInChildren<BounceShroom>())
         {
             
-            float strengthBoost = longBoost; // it has to be a float in the formula
+            int strengthBoost = longBoost; // it has to be a float in the formula
             print(longBoost);
-            if (strengthBoost == 0) //  Can Never be 0
-            {
-                strengthBoost = 1;
-            }
             print("StrengthBoost: "+ strengthBoost);
             print("curveValue: " + EqualizerCurve.Evaluate(EqualizerValue));
             //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
