@@ -96,11 +96,11 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
 
         combo += 1f;
