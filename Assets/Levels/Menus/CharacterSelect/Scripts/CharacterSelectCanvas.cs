@@ -7,7 +7,7 @@ public class CharacterSelectCanvas : MonoBehaviour
 {
     [SerializeField] private NextSceneLoading nextSceneLoading;
     [SerializeField] private GameObject allPlayersReadyBanner;
-    [SerializeField] private List<GameObject> characterSelectPositions = new();
+    [SerializeField] private List<CharacterJoinPanel> characterJoinPanels = new();
 
     private bool allPlayersReady = false;
     private int playerCount = 0;
@@ -30,11 +30,11 @@ public class CharacterSelectCanvas : MonoBehaviour
         if (playerCount > readyPlayerCount && allPlayersReadyBanner.activeInHierarchy)
             allPlayersReadyBanner.SetActive(false);
 
-        GameObject selectPosition = characterSelectPositions[playerInput.playerIndex];
-        selectPosition.transform.GetChild(0).gameObject.SetActive(false);
+        CharacterJoinPanel joinPanel = characterJoinPanels[playerInput.playerIndex];
+        joinPanel.SetPanelState(CharacterJoinPanel.PanelState.Choosing);
 
         // Set
-        playerInput.transform.SetParent(selectPosition.transform, false);
+        playerInput.transform.SetParent(joinPanel.transform, false);
         playerInput.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 
         // Connect to character select options events
@@ -44,13 +44,12 @@ public class CharacterSelectCanvas : MonoBehaviour
         characterSelectOptions.StartGame += OnStartGame;
     }
 
-
     public void OnPlayerLeft(PlayerInput playerInput)
     {
         playerCount--;
 
-        GameObject selectPosition = characterSelectPositions[playerInput.playerIndex];
-        selectPosition.transform.GetChild(0).gameObject.SetActive(true);
+        CharacterJoinPanel joinPanel = characterJoinPanels[playerInput.playerIndex];
+        joinPanel.SetPanelState(CharacterJoinPanel.PanelState.Inactive);
 
         // Disconnect from character select options events
         CharacterSelectOptions characterSelectOptions = playerInput.GetComponent<CharacterSelectOptions>();
@@ -65,6 +64,10 @@ public class CharacterSelectCanvas : MonoBehaviour
         // Save player choice
         playerChoiceDict.Add(playerIndex, playerSelectInfo);
 
+        CharacterJoinPanel joinPanel = characterJoinPanels[playerIndex];
+        joinPanel.SetPanelState(CharacterJoinPanel.PanelState.Selected);
+
+
         // Show banner if all player are ready
         readyPlayerCount++;
         if (readyPlayerCount >= playerCount && playerCount >= 2)
@@ -77,6 +80,8 @@ public class CharacterSelectCanvas : MonoBehaviour
 
     private void OnCharacterDeselected(int playerIndex)
     {
+        CharacterJoinPanel joinPanel = characterJoinPanels[playerIndex];
+        joinPanel.SetPanelState(CharacterJoinPanel.PanelState.Choosing);
         // Remove choice form dict when a player deselects their character
         if (playerChoiceDict.ContainsKey(playerIndex))
             playerChoiceDict.Remove(playerIndex);
