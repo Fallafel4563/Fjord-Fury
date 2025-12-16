@@ -16,15 +16,17 @@ public class LagSpikeSaftey : MonoBehaviour
 
     void Update()
     {
-        Vector3 rayDirection = oldPosition - (transform.position + transform.up);
-        RaycastHit raycastHit;
-        Debug.DrawLine(oldPosition, transform.position + transform.up, Color.black, 60f);
-        if (Physics.Raycast(oldPosition, -rayDirection.normalized, out raycastHit, rayDirection.magnitude, raycastLayer))
+        if (Time.deltaTime > 0.05f || playerMovement.airVelocity.magnitude > 50f)
         {
-            playerMovement.airVelocity = Vector3.zero;
-            transform.position = raycastHit.point;
+            Vector3 rayDirection = oldPosition - (transform.position + transform.up);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(oldPosition, -rayDirection.normalized, out raycastHit, rayDirection.magnitude, raycastLayer))
+            {
+                playerMovement.airVelocity = Vector3.zero;
+                transform.position = raycastHit.point;
+            }
         }
-
+        Debug.DrawLine(oldPosition, transform.position + transform.up, Color.black, 60f);
         oldPosition = transform.position + transform.up;
     }
 }

@@ -22,7 +22,7 @@ public class BoostMeter : MonoBehaviour
 
     public void OnUpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Type {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.trickType);
+        //Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Type {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.trickType);
         if (updateBoostMeterInfo.combo < updateBoostMeterInfo.abilityActivationThreshold)
         {
             abilityIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex];
@@ -31,6 +31,10 @@ public class BoostMeter : MonoBehaviour
         {
             abilityIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex + 3];
         }
+
+        // Sets the size and color of the ability icon based on the used tricks
+        abilityIcon.transform.localScale = new Vector3(1, 1 + (biggerIndex * 0.4f), 1) * (longerIndex * 0.4f + 1);
+        abilityIcon.color = Color.Lerp(Color.white, Color.red, strongerIndex / 5f);
 
         // Set the bars visible
         if (updateBoostMeterInfo.combo > 1)

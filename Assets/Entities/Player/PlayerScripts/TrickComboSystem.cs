@@ -96,11 +96,11 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
 
         combo += 1f;
@@ -193,7 +193,7 @@ public class TrickComboSystem : MonoBehaviour
     private void TriggerComboBoost()
     {
         float speedBoost = 1f + combo / 6f;
-        Debug.LogFormat("Speedboost {0}", speedBoost);
+        //Debug.LogFormat("Speedboost {0}", speedBoost);
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", Mathf.Clamp(speedBoost, 0f, 2f), ImmediateComboBoostCurve);
         ResetSystemValues();
 
