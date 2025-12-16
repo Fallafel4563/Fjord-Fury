@@ -8,10 +8,13 @@ public class WorldText : MonoBehaviour
     public TMP_ColorGradient tornadoColors;
     public TMP_ColorGradient ramColors;
 
+    private Transform lookAtTarget;
 
-    public void SetUpText(string text, Color color, int trick)
+
+    public void SetUpText(string text, Color color, int trick, Transform lookTarget = null)
     {
         textAsset.text = text;
+        lookAtTarget = lookTarget;
 
         switch (trick)
         {
@@ -27,6 +30,15 @@ public class WorldText : MonoBehaviour
             default:
                 textAsset.color = color;
                 break;
+        }
+    }
+
+
+    private void Update()
+    {
+        if (lookAtTarget)
+        {
+            transform.LookAt(lookAtTarget.transform.position, lookAtTarget.transform.up);
         }
     }
 }
