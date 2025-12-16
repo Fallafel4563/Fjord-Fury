@@ -34,15 +34,14 @@ public class PlayerObstacleCollisions : MonoBehaviour
 
     private void Crash(Obstacle obstacle)
     {
+        Debug.Log("Hit Obstacle");
         obstacle.OnPlayerCrashed();
         if (ramBoostActive && obstacle.owner == null)
             return;
         
         if (obstacle.bounceHeight > 0f)
         {
-            if (playerMovement.isGrounded)
-                playerMovement.DetachFromCart();
-            playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
+            StartCoroutine(DetachPlayer(obstacle));
         }
 
         if (!obstacle.causeHarm)
@@ -61,6 +60,14 @@ public class PlayerObstacleCollisions : MonoBehaviour
             HitObstacleOnGround.Invoke();
         else
             HitObstacleInAir.Invoke();
+    }
+
+
+    private IEnumerator DetachPlayer(Obstacle obstacle)
+    {
+        yield return new WaitForEndOfFrame();
+        playerMovement.DetachFromCart();
+        playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
     }
 
 
