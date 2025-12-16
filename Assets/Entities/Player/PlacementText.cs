@@ -15,6 +15,9 @@ public class PlacementText : MonoBehaviour
     public List<string> placementSuffixes = new List<string>();
     public SplineTrackDistance splineDistance;
     public List<Sprite> placementImages = new List<Sprite>();
+
+    public List<float> valuesList = new();
+
     private Image placementImage;
   
     private int playerIndex;
@@ -39,7 +42,7 @@ public class PlacementText : MonoBehaviour
 
         //Debug.Log(DistancesAlongSpline.Values.ToList());
 
-        List<float> valuesList = DistancesAlongSpline.Values.ToList();
+        valuesList = DistancesAlongSpline.Values.ToList();
         valuesList.Sort();
         valuesList.Reverse();
 
