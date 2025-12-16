@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
         {
-            Debug.LogFormat("Desired track {0}", splineTrack.name);
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
             if (splineCart)
@@ -227,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
         {
             float sidewaysPos = Mathf.Sign(transform.localPosition.x) * (currentTrack.width / 2.0f);
             // Apply sideways limit
-            transform.localPosition = new Vector3(sidewaysPos, transform.localPosition.y, transform.localPosition.z);
+            transform.localPosition = new Vector3(sidewaysPos, 0f, 0f);
         }
 
 
@@ -386,7 +385,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!isGrounded && !isDrifting)
             {
-                Debug.Log("Double jump");
                 DoubleJumped.Invoke();
             }
 
@@ -424,6 +422,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void LandedOnTrack(SplineTrack splineTrack)
     {
+        SplineTrack oldTrack = currentTrack;
+        SplineTrack newTrack = splineTrack;
+        //StartCoroutine(LandedOnTrackC(splineTrack));
+        //return;
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
         if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
@@ -447,6 +449,59 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             wasLastTrackRail = true;
+
+        // Set the carts new position
+        splineCart.SplinePosition = distanceInfo.distance;
+        // Renable the carts movement
+        splineCart.AutomaticDolly.Enabled = true;
+
+
+        // Set the override speed if the boat lands on a fast track
+        SetOverrideSpeed(splineTrack.overrideSpeed);
+
+        // Change landing logic based on if the track is a circle or not
+        if (splineTrack.isCircle)
+            LandOnCircleTrack(distanceInfo);
+        else
+            LandOnRoadTrack(distanceInfo);
+
+        Debug.LogFormat("Old track {0}, new track {1}, current track {2}", oldTrack.name, newTrack.name, currentTrack.name);
+
+        // Invoke events
+        if (startedGroundPound)
+            GroundpoundEnded.Invoke();
+        splineTrack.OnBoatEnter.Invoke(gameObject);
+        Landed.Invoke();
+    }
+
+
+    public IEnumerator LandedOnTrackC(SplineTrack splineTrack)
+    {
+        // Don't change main track when it's inside a DontChangeMainTrack trigger
+        // Can still change to rails
+        if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
+        {
+            yield break;
+        }
+
+        TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
+
+        // Reset  stuff
+        isGrounded = true;
+
+        // Update current and main track
+        currentTrack = splineTrack;
+        splineCart.Spline = currentTrack.track;
+        // Update main track if the new track isn't a rail track
+        if (splineTrack.shouldRespawnOnTrack)
+        {
+            mainTrack = splineTrack;
+            wasLastTrackRail = false;
+        }
+        else
+            wasLastTrackRail = true;
+
+        //yield return new WaitForEndOfFrame();
 
         // Set the carts new position
         splineCart.SplinePosition = distanceInfo.distance;

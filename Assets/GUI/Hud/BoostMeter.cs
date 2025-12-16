@@ -22,7 +22,7 @@ public class BoostMeter : MonoBehaviour
 
     public void OnUpdateBoostMeter(UpdateBoostMeterInfo updateBoostMeterInfo)
     {
-        Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Type {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.trickType);
+        //Debug.LogFormat("Combo {0}, First {1}, Threshold {2}, Type {3}", updateBoostMeterInfo.combo, updateBoostMeterInfo.firstTrickIndex, updateBoostMeterInfo.abilityActivationThreshold, updateBoostMeterInfo.trickType);
         if (updateBoostMeterInfo.combo < updateBoostMeterInfo.abilityActivationThreshold)
         {
             abilityIcon.sprite = abilityIcons[updateBoostMeterInfo.firstTrickIndex];
