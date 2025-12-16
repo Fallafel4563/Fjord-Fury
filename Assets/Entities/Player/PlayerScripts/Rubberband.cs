@@ -15,10 +15,12 @@ public class Ruber : MonoBehaviour
     private void FixedUpdate()
     {
         distance = placementText.distanceAlongTrack;
+        if (placementText.valuesList.Count <= 0)
+            return;
+        
         furthestPlayerDistance = placementText.valuesList[0];
         rubberbandBoost = rubberbandCurve.Evaluate(furthestPlayerDistance - distance);
 
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("Rubberband boost", 1f + rubberbandBoost);
-        Debug.LogFormat("Rubberband {0}", rubberbandBoost);
     }
 }
