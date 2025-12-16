@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class OnboardingManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class OnboardingManager : MonoBehaviour
     private GameObject[] panels;  // Array to store the panels
     private int currentActiveObjectIndex = 0;
 
+    public UnityEvent noMorePanels;
     void Start()
     {
         // Initialize the array
@@ -21,10 +23,12 @@ public class OnboardingManager : MonoBehaviour
     public void WhenButtonClicked()
     {
         currentActiveObjectIndex++;
+        
 
         // Wrap around if we go past the last panel
         if (currentActiveObjectIndex >= panels.Length)
         {
+            noMorePanels.Invoke();
             currentActiveObjectIndex = panels.Length - 1; // stop at last panel
             // OR use 0 if you want it to loop back: currentActiveObjectIndex = 0;
         }
