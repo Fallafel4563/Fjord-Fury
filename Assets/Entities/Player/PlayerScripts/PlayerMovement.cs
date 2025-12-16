@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
+        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning && checkLand)
         {
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
@@ -410,12 +410,13 @@ public class PlayerMovement : MonoBehaviour
         jumpsLeft = maxJumps;
     }
 
-#endregion
+    #endregion
 
 
 
-#region Landing
+    #region Landing
     [Header("Landing")]
+    private bool checkLand = true;
     public UnityEvent Landed;
     public UnityEvent LandedForCam;
 
@@ -480,7 +481,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator LandedOnTrackC(SplineTrack splineTrack)
     {
-        isRespawning = true;
+        checkLand = false;
         Vector3 landPos = transform.position;
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
@@ -542,7 +543,7 @@ public class PlayerMovement : MonoBehaviour
         Landed.Invoke();
         LandedForCam.Invoke();
         yield return new WaitForEndOfFrame();
-        isRespawning = false;
+        checkLand = true;
     }
 
 
