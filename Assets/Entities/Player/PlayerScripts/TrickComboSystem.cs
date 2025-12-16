@@ -96,11 +96,11 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position - transform.forward * 3 + Vector3.up, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .5f);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position - transform.forward * 3 + Vector3.up, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .5f);
         }
 
         combo += 1f;
@@ -162,6 +162,10 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Trigger failed trick sound
         // TODO: Set animator trigget for failing trick
 
+        if (firstTrickIndex != -1)
+            WorldTextSpawner.instance.SpawnText("FAILED!", transform.position + Vector3.up * 5, Color.red, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .4f, false);
+
+        firstTrickIndex = -1;
         TrickFalied.Invoke();
     }
 
@@ -171,6 +175,9 @@ public class TrickComboSystem : MonoBehaviour
         TriggerAbility();
         TriggerComboBoost();
 
+        WorldTextSpawner.instance.SpawnText("SUCCESS!", transform.position + Vector3.up * 5, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .4f, false);
+
+        firstTrickIndex = -1;
         TrickSucceed.Invoke();
         UpdateBoostMeterVisibility?.Invoke(false);
     }
