@@ -10985,6 +10985,21 @@ MonoBehaviour:
           m_StringArgument: LandAnim
           m_BoolArgument: 0
         m_CallState: 2
+  LandedForCam:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8851560557099016440}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: OnLanded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   minDriftBoostTime: 0.5
   diftSlowdownMultipler: 0.8
   driftRotationMultipler: 0.3
