@@ -16,7 +16,7 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
         Debug.Log("Set MAx Size");
     }
 
-    void Update()
+    void LateUpdate()
     {
         Scaling();
 
@@ -31,6 +31,11 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
     void Scaling()
     {
         float size = MaxSize * ScalingCurve.Evaluate(animationTime);
-        //transform.localScale = new Vector3(size, size, size);
+        transform.localScale = new Vector3(size, size, size);
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("I'm out'a here");
     }
 }

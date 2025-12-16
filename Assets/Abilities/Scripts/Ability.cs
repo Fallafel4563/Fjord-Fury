@@ -40,7 +40,7 @@ public class Ability : MonoBehaviour
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/, ForwardSpeedMultiplier forwardSpeedMultiplier)
     {
         owner = player;
 
@@ -49,18 +49,30 @@ public class Ability : MonoBehaviour
         _spline.Spline = Track.GetComponent<SplineContainer>();
 
         // Set strength through the ObstacleLifetimeScalingSystem
-        /// OLSS.LifeTime = shortBoost + 2;
-        /// OLSS.MaxSize = mediumBoost + 1;
-
-        OLSS.LifeTime = Equalizer(shortBoost);
+        OLSS.LifeTime = Equalizer(shortBoost * 2);
         OLSS.MaxSize = Equalizer(mediumBoost);
 
         if (GetComponentInChildren<BounceShroom>())
         {
+            
+            float strengthBoost = longBoost; // it has to be a float in the formula
+            print(longBoost);
+            if (strengthBoost == 0) //  Can Never be 0
+            {
+                strengthBoost = 1;
+            }
+            print("StrengthBoost: "+ strengthBoost);
+            print("curveValue: " + EqualizerCurve.Evaluate(EqualizerValue));
             //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
             GetComponentInChildren<BounceShroom>().Owner = owner;
-            float BounceStrength = EqualizerCurve.Evaluate(EqualizerValue * (1 + (BounceMultiplier * (longBoost / (strengthDivider * (longBoost / 2))))));
-            GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
+            float BounceStrength = EqualizerCurve.Evaluate(EqualizerValue) * (1 + (BounceMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2)))));  
+            Debug.Log("Bounce: " + BounceStrength);
+            //GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
+        }
+
+        if (GetComponent<RamAbility>())
+        {
+            GetComponent<RamAbility>().StartAbility(Equalizer(longBoost), forwardSpeedMultiplier);
         }
 
         if (_spline != null)
@@ -73,14 +85,24 @@ public class Ability : MonoBehaviour
 
     void GetEqualizerValue()
     {
-        LeadSplinePosition = 1f;
-        OwnSplinePosition = 2f;
+        LeadSplinePosition = 2f;
+        OwnSplinePosition = 1f;
         EqualizerValue = LeadSplinePosition - OwnSplinePosition;
     }
 
     float Equalizer(int input)
     {
-        return EqualizerCurve.Evaluate(EqualizerValue * (1 + (input / strengthDivider)));
+        float returnValue = input + 1;
+
+        returnValue = EqualizerCurve.Evaluate(EqualizerValue * (1 + (input / strengthDivider)));
+        if (input == 0) returnValue = 1;
+        if (returnValue == 0)
+        {
+            returnValue = 1;
+            Debug.Log("Returned 0");
+        }
+
+        return returnValue / 2;
     }
 
     void Update()
