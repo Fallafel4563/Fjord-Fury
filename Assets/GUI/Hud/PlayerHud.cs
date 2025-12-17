@@ -46,7 +46,7 @@ public class PlayerHud : MonoBehaviour
         playerIndex = index;
 
         canvas.worldCamera = renderCamera;
-        canvas.planeDistance = 0.3001f;
+        canvas.planeDistance = 0.301f;
     }
 
 
@@ -65,7 +65,6 @@ public class PlayerHud : MonoBehaviour
 
     public void OnRespawnFadeInStarted(float fadeDuration)
     {
-        respawnFadeObject.SetActive(false);
         respawnFadeObject.SetActive(true);
         animator.Play("RespawnFade");
     }
@@ -73,7 +72,7 @@ public class PlayerHud : MonoBehaviour
     
     public void OnRespawnFadeOutStarted(float fadeDuration)
     {
-        //
+        respawnFadeObject.SetActive(false);
     }
 
 
