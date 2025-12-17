@@ -1,68 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &383216858728241571
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1632341215397430577}
-  - component: {fileID: 2924669685209701699}
-  m_Layer: 6
-  m_Name: Trick
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1632341215397430577
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383216858728241571}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4483270094907913245}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2924669685209701699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383216858728241571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1816039578
-      Data2: 1121985293
-      Data3: -583832679
-      Data4: 937740125
-    Path: event:/SFX/Ability/Ability_Ready
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &393084772157128457
 GameObject:
   m_ObjectHideFlags: 0
@@ -11468,6 +11405,19 @@ MonoBehaviour:
           m_StringArgument: FailTrickVignette
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7007123152646633130}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.2
+          m_StringArgument: FailTrickVignette
+          m_BoolArgument: 0
+        m_CallState: 2
+  TrickSounds: {fileID: 2804109397407028773}
 --- !u!114 &2204905582488818726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11576,6 +11526,18 @@ MonoBehaviour:
           m_StringArgument: FailTrickVignette
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5834945742843601021}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.2
+          m_StringArgument: FailTrickVignette
+          m_BoolArgument: 0
+        m_CallState: 2
   HitObstacleInAir:
     m_PersistentCalls:
       m_Calls:
@@ -11593,6 +11555,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 7472714827573697687}
         m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CrashAir
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5834945742843601021}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
@@ -17099,7 +17073,7 @@ MonoBehaviour:
           m_StringArgument: SucceedTrick
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2924669685209701699}
+      - m_Target: {fileID: 4655604074193927093}
         m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
         m_MethodName: Play
         m_Mode: 1
@@ -18040,25 +18014,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8497310814354721785}
     m_Modifications:
-    - target: {fileID: 1236983990497489843, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
-      propertyPath: EventReference.Path
-      value: event:/Vehicles/Jump
-      objectReference: {fileID: 0}
-    - target: {fileID: 1236983990497489843, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
-      propertyPath: EventReference.Guid.Data1
-      value: 1226455710
-      objectReference: {fileID: 0}
-    - target: {fileID: 1236983990497489843, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
-      propertyPath: EventReference.Guid.Data2
-      value: 1289994234
-      objectReference: {fileID: 0}
-    - target: {fileID: 1236983990497489843, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
-      propertyPath: EventReference.Guid.Data3
-      value: 1436640423
-      objectReference: {fileID: 0}
-    - target: {fileID: 1236983990497489843, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
-      propertyPath: EventReference.Guid.Data4
-      value: 415855470
+    - target: {fileID: 544824248711896345, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5113684776641813271, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
       propertyPath: m_Name
@@ -18110,20 +18068,61 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8783129922647529135, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1632341215397430577}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+--- !u!114 &2804109397407028773 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7007045660236805271, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+  m_PrefabInstance: {fileID: 5175819342454760114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f60753dc276cb449995e889dcc7a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4483270094907913245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8783129922647529135, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
   m_PrefabInstance: {fileID: 5175819342454760114}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4655604074193927093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 524725954622003463, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+  m_PrefabInstance: {fileID: 5175819342454760114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5834945742843601021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1670220250861421263, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+  m_PrefabInstance: {fileID: 5175819342454760114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6268608424375619841 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1236983990497489843, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+  m_PrefabInstance: {fileID: 5175819342454760114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7007123152646633130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2804186918793139224, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
   m_PrefabInstance: {fileID: 5175819342454760114}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
