@@ -10164,8 +10164,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283433894581042231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0000020861626, y: 0.0000014696375, z: -0.00000072603405, w: 1}
+  m_LocalPosition: {x: -0.000056393572, y: -0.000023463195, z: 0.000052885734}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12084,9 +12084,6 @@ MonoBehaviour:
   playerMovement: {fileID: 2060630186251258410}
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
   speedLines: {fileID: 5935625046793395468}
-  speedLinesMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &7306347809328879205
 GameObject:
   m_ObjectHideFlags: 0
@@ -18317,8 +18314,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3e8549afd0f6c64b8edbfb48b51932d, type: 3}
---- !u!224 &5129157671054741143 stripped
-RectTransform:
+--- !u!4 &5129157671054741143 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 1349562535947615062, guid: b3e8549afd0f6c64b8edbfb48b51932d, type: 3}
   m_PrefabInstance: {fileID: 6166824544807237057}
   m_PrefabAsset: {fileID: 0}
