@@ -44,9 +44,9 @@ public class PlayerMovement : MonoBehaviour
         // Get the current steer speed based on the ground state of the boat
         steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
-        if (isDrifting)
-            ApplyDriftingMovement();
-        else if (isGrounded && !isDrifting)
+        //if (isDrifting)
+        //    ApplyDriftingMovement();
+        if (isGrounded)// && !isDrifting)
             ApplyGroundMovement();
         else
             ApplyAirMovement();
@@ -57,9 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning)
+        if (other.TryGetComponent(out SplineTrack splineTrack) && (!isGrounded || splineTrack != currentTrack) && !isDrifting && !isRespawning && checkLand)
         {
-            Debug.LogFormat("Desired track {0}", splineTrack.name);
             // This fixes a null reference error when spawning the player (SplineCart reference isn't set the same frame the player spawns)
             // and the boat hits a track during that frame so we get a null reference error without this if statement
             if (splineCart)
@@ -93,17 +92,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void AttachToTrack(bool isTrackCircle)
     {
-        if (isTrackCircle)
+        if (isTrackCircle == true)
         {
             // Set circle rot parent as parent and reset boat
-            transform.parent = circleRotParent.transform;
+            transform.SetParent(circleRotParent);
             transform.localEulerAngles = Vector3.zero;
             transform.localPosition = Vector3.zero;
         }
         else
         {
             // Set boat parent to spline cart and reset position
-            transform.parent = splineCart.transform;
+            transform.SetParent(splineCart.transform, true);
             transform.localEulerAngles = Vector3.zero;
         }
     }
@@ -386,7 +385,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!isGrounded && !isDrifting)
             {
-                Debug.Log("Double jump");
                 DoubleJumped.Invoke();
             }
 
@@ -412,72 +410,28 @@ public class PlayerMovement : MonoBehaviour
         jumpsLeft = maxJumps;
     }
 
-#endregion
+    #endregion
 
 
 
-#region Landing
+    #region Landing
     [Header("Landing")]
+    private bool checkLand = true;
     public UnityEvent Landed;
+    public UnityEvent LandedForCam;
 
 
 
     public void LandedOnTrack(SplineTrack splineTrack)
     {
-        //StartCoroutine(LandedOnTrackC(splineTrack));
-        //return;
-        // Don't change main track when it's inside a DontChangeMainTrack trigger
-        // Can still change to rails
-        if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
-        {
-            return;
-        }
-
-        TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
-
-        // Reset  stuff
-        isGrounded = true;
-
-        // Update current and main track
-        currentTrack = splineTrack;
-        splineCart.Spline = currentTrack.track;
-        // Update main track if the new track isn't a rail track
-        if (splineTrack.shouldRespawnOnTrack)
-        {
-            mainTrack = splineTrack;
-            wasLastTrackRail = false;
-        }
-        else
-            wasLastTrackRail = true;
-
-        // Set the carts new position
-        splineCart.SplinePosition = distanceInfo.distance;
-        // Renable the carts movement
-        splineCart.AutomaticDolly.Enabled = true;
-
-
-        // Set the override speed if the boat lands on a fast track
-        SetOverrideSpeed(splineTrack.overrideSpeed);
-
-        // Change landing logic based on if the track is a circle or not
-        if (splineTrack.isCircle)
-            LandOnCircleTrack(distanceInfo);
-        else
-            LandOnRoadTrack(distanceInfo);
-        
-        Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
-
-
-        // Invoke events
-        Landed.Invoke();
-        if (startedGroundPound)
-            GroundpoundEnded.Invoke();
-        splineTrack.OnBoatEnter.Invoke(gameObject);
+        StartCoroutine(LandedOnTrackC(splineTrack));
     }
 
 
     public IEnumerator LandedOnTrackC(SplineTrack splineTrack)
     {
+        checkLand = false;
+        Vector3 landPos = transform.position;
         // Don't change main track when it's inside a DontChangeMainTrack trigger
         // Can still change to rails
         if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
@@ -492,7 +446,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Update current and main track
         currentTrack = splineTrack;
-        splineCart.Spline = currentTrack.track;
+        splineCart.Spline = splineTrack.track;
         // Update main track if the new track isn't a rail track
         if (splineTrack.shouldRespawnOnTrack)
         {
@@ -502,52 +456,62 @@ public class PlayerMovement : MonoBehaviour
         else
             wasLastTrackRail = true;
 
-        //yield return new WaitForEndOfFrame();
-
         // Set the carts new position
         splineCart.SplinePosition = distanceInfo.distance;
         // Renable the carts movement
         splineCart.AutomaticDolly.Enabled = true;
-
 
         // Set the override speed if the boat lands on a fast track
         SetOverrideSpeed(splineTrack.overrideSpeed);
 
         // Change landing logic based on if the track is a circle or not
         if (splineTrack.isCircle)
+        {
             LandOnCircleTrack(distanceInfo);
+            //yield return new WaitForEndOfFrame();
+            transform.SetParent(circleRotParent);
+            transform.localEulerAngles = Vector3.zero;
+            transform.localPosition = Vector3.zero;
+        }
         else
-            LandOnRoadTrack(distanceInfo);
+        {
+            // Set boat parent to spline cart and reset position
+            transform.SetParent(splineCart.transform, true);
+            transform.localEulerAngles = Vector3.zero;
+            //ddd yield return new WaitForEndOfFrame();
+            LandOnRoadTrack(distanceInfo, landPos);
+        }
         
         Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
 
 
         // Invoke events
-        Landed.Invoke();
         if (startedGroundPound)
             GroundpoundEnded.Invoke();
         splineTrack.OnBoatEnter.Invoke(gameObject);
+        Landed.Invoke();
+        LandedForCam.Invoke();
+        yield return new WaitForEndOfFrame();
+        checkLand = true;
     }
 
 
 
-    private void LandOnRoadTrack(TrackDistanceInfo distanceInfo)
+    private void LandOnRoadTrack(TrackDistanceInfo distanceInfo, Vector3 landPos)
     {
-        AttachToTrack(false);
-
         // Get how far the boat is in the x position (but we don't know if it's to the left or right)
-        float xPosition = Vector3.Distance(transform.position, distanceInfo.nearestSplinePos);
+        float xPosition = Vector3.Distance(landPos, distanceInfo.nearestSplinePos);
 
         // Check if the boat landed on the right or left side
         const float DEBUG_DRAW_DURATION = 60f;
-        Vector3 splinePosToPlayerDir = transform.position - distanceInfo.nearestSplinePos;
-        Debug.DrawLine(transform.position, distanceInfo.nearestSplinePos, Color.red, DEBUG_DRAW_DURATION);
+        Vector3 splinePosToPlayerDir = landPos - distanceInfo.nearestSplinePos;
+        Debug.DrawLine(landPos, distanceInfo.nearestSplinePos, Color.red, DEBUG_DRAW_DURATION);
 
         Vector3 splineUpwardsDirection = currentTrack.track.EvaluateUpVector(distanceInfo.normalizedDistance);
         Debug.DrawLine(distanceInfo.nearestSplinePos, distanceInfo.nearestSplinePos + splineUpwardsDirection * 10f, Color.green, DEBUG_DRAW_DURATION);
 
         Vector3 sideCross = Vector3.Cross(splineUpwardsDirection, splinePosToPlayerDir);
-        Debug.DrawLine(transform.position, transform.position + sideCross, Color.yellow, DEBUG_DRAW_DURATION);
+        Debug.DrawLine(landPos, landPos + sideCross, Color.yellow, DEBUG_DRAW_DURATION);
 
         Vector3 splineTagent = currentTrack.track.EvaluateTangent(distanceInfo.normalizedDistance);
         Debug.DrawLine(distanceInfo.nearestSplinePos, distanceInfo.nearestSplinePos + splineTagent.normalized * 10f, Color.magenta, DEBUG_DRAW_DURATION);
@@ -558,8 +522,7 @@ public class PlayerMovement : MonoBehaviour
             xPosition *= -1f;
         
         // Set new boat position
-        transform.localPosition = new Vector3(xPosition, 0f, 0F);
-        //Debug.Break();
+        transform.localPosition = new Vector3(xPosition, 0f, 0f);
     }
 
 
@@ -577,8 +540,6 @@ public class PlayerMovement : MonoBehaviour
         // Set the rotation of the circle rot parent to match where the boat is landing
         float desiredAngle = Vector3.SignedAngle(Vector3.up, dirToTrack, splineCart.transform.forward);
         circleRotParent.eulerAngles = new(circleRotParent.eulerAngles.x, circleRotParent.eulerAngles.y, desiredAngle);
-
-        AttachToTrack(true);
     }
     #endregion
 
@@ -619,7 +580,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && Mathf.Abs(steerInput) > 0f && !currentTrack.isCircle)
         {
-            InitiateDrift();
+            //InitiateDrift();
         }
         else if (canGroundPound)
         {
