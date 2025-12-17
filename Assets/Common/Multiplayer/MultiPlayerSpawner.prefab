@@ -115,10 +115,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 20bd9de562571794bb9ae139aee47b8a, type: 3}
   - {fileID: 21300000, guid: e0e9569bd293dcf4daaf194c69d1fd8e, type: 3}
   - {fileID: 21300000, guid: 8d7c5a82425fed64c9de9d72f59d3429, type: 3}
-  RaceStart:
-    m_PersistentCalls:
-      m_Calls: []
-  countdownStart:
+  CountdownStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8171888262688309732}
@@ -133,6 +130,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  RaceStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3497531956897113132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,8 +209,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &2193110245537510332
 GameObject:
   m_ObjectHideFlags: 0
