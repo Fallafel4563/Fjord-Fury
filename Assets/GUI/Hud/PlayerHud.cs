@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerHud : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class PlayerHud : MonoBehaviour
     public Image placementImage;
     private int playerIndex;
     private Canvas canvas;
-
+    
+    public List<Sprite> placementIcons = new();
 
     private void Awake()
     {
@@ -71,19 +73,24 @@ public class PlayerHud : MonoBehaviour
     }
 
 
-    private void OnPlayerReachedLevelEnd(int index, float timeSpent)
+    private void OnPlayerReachedLevelEnd(int index, float timeSpent, int playerPlacement)
     {
         if (index == playerIndex)
         {
             levelEndScreen.SetActive(true);
             finishedTimeText.text = string.Format("{0} secs", timeSpent);
+            SetFirstPlayerShine(playerPlacement);
         }
     }
 
     public void SetFirstPlayerShine(int playerPlacement)
     {
 
-        firstPlaceShine.SetActive(playerPlacement == 1);
+        firstPlaceShine.SetActive(playerPlacement == 0);
     
     }
+
+
+
+
 }
