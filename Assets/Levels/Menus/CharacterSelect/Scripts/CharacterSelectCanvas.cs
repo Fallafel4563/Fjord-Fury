@@ -10,7 +10,6 @@ public class CharacterSelectCanvas : MonoBehaviour
     [SerializeField] private List<CharacterJoinPanel> characterJoinPanels = new();
 
     private bool allPlayersReady = false;
-    private int playerCount = 0;
     private int readyPlayerCount = 0;
     private Dictionary<int, PlayerSelectInfo> playerChoiceDict = new();
 
@@ -24,10 +23,9 @@ public class CharacterSelectCanvas : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        playerCount++;
 
         // Hide banner when a new player joins
-        if (playerCount > readyPlayerCount && allPlayersReadyBanner.activeInHierarchy)
+        if (PlayerInput.all.Count > readyPlayerCount && allPlayersReadyBanner.activeInHierarchy)
             allPlayersReadyBanner.SetActive(false);
 
         CharacterJoinPanel joinPanel = characterJoinPanels[playerInput.playerIndex];
@@ -46,8 +44,6 @@ public class CharacterSelectCanvas : MonoBehaviour
 
     public void OnPlayerLeft(PlayerInput playerInput)
     {
-        playerCount--;
-
         CharacterJoinPanel joinPanel = characterJoinPanels[playerInput.playerIndex];
         joinPanel.SetPanelState(CharacterJoinPanel.PanelState.Inactive);
 
@@ -70,7 +66,7 @@ public class CharacterSelectCanvas : MonoBehaviour
 
         // Show banner if all player are ready
         readyPlayerCount++;
-        if (readyPlayerCount >= playerCount && playerCount >= 2)
+        if (readyPlayerCount >= PlayerInput.all.Count && PlayerInput.all.Count >= 2)
         {
             allPlayersReady = true;
             allPlayersReadyBanner.SetActive(true);
@@ -87,7 +83,7 @@ public class CharacterSelectCanvas : MonoBehaviour
             playerChoiceDict.Remove(playerIndex);
 
         // Hide all player ready banner when a player deselects a character
-        if (readyPlayerCount >= playerCount && playerCount >= 2)
+        if (readyPlayerCount >= PlayerInput.all.Count && PlayerInput.all.Count >= 2)
         {
             allPlayersReadyBanner.SetActive(false);
             allPlayersReady = false;
