@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Level_A.bank
   Name: Level_A
   StudioPath: bank:/Levels/Level_A
-  lastModified: 639015780773389399
+  lastModified: 639015822583596797
   FileSizes:
   - Name: Desktop
-    Value: 306144
+    Value: 306176
   Exists: 1
 --- !u!114 &-8610707234701035103
 MonoBehaviour:
@@ -329,6 +329,34 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-5518689290050981226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Tricks/TrickPitch
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Tricks/TrickPitch
+  Guid:
+    Data1: 879013963
+    Data2: 1160323830
+    Data3: 1913006496
+    Data4: 920775706
+  Banks:
+  - {fileID: 727166132789400573}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3850637624208225459}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4904528039760684228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +555,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639015193086668294
+  lastModified: 639015793574546818
   FileSizes:
   - Name: Desktop
     Value: 1722
@@ -691,6 +719,7 @@ MonoBehaviour:
   - {fileID: -8570133590883434040}
   - {fileID: -3360520110762633237}
   - {fileID: -4904528039760684228}
+  - {fileID: -5518689290050981226}
   EditorParameters:
   - {fileID: 1699618133108037387}
   - {fileID: 4529890240682827884}
@@ -701,7 +730,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 7154641747444871622}
   cacheVersion: 131857
-  cacheTime: 639015780773429415
+  cacheTime: 639015822583596797
   SerializableEventsDict:
   - key: event:/SFX/Ability/Ability_Ram
     index: 0
@@ -759,6 +788,8 @@ MonoBehaviour:
     index: 26
   - key: event:/VO/Countdown
     index: 27
+  - key: event:/SFX/Tricks/TrickPitch
+    index: 28
 --- !u!114 &228143264967728809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,10 +883,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Global_sfx.bank
   Name: Global_sfx
   StudioPath: bank:/Core_systems/Global_sfx
-  lastModified: 639015780773344310
+  lastModified: 639015822570784222
   FileSizes:
   - Name: Desktop
-    Value: 7785472
+    Value: 7750080
   Exists: 1
 --- !u!114 &859093366763824872
 MonoBehaviour:
@@ -927,7 +958,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/VO.bank
   Name: VO
   StudioPath: bank:/Core_systems/VO
-  lastModified: 639015780773429415
+  lastModified: 639015193106598368
   FileSizes:
   - Name: Desktop
     Value: 51712
@@ -1055,6 +1086,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3850637624208225459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TrickPitch/TrickPitch
+  m_EditorClassIdentifier: 
+  Name: TrickPitch
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 517306841
+    data2: 3039387357
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &3902923494383873952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1125,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/Core_systems/UI
-  lastModified: 639015780773419396
+  lastModified: 639015193106008403
   FileSizes:
   - Name: Desktop
     Value: 12992
@@ -1279,10 +1334,10 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639015780773409435
+  lastModified: 639015793575330938
   FileSizes:
   - Name: Desktop
-    Value: 2810
+    Value: 2888
   Exists: 1
 --- !u!114 &7682393060326852752
 MonoBehaviour:
@@ -1323,7 +1378,7 @@ MonoBehaviour:
   Path: Fmod/Build/Desktop/Abilites.bank
   Name: Abilites
   StudioPath: bank:/Core_systems/Abilites
-  lastModified: 639015780772736754
+  lastModified: 639014914379464000
   FileSizes:
   - Name: Desktop
     Value: 98432
