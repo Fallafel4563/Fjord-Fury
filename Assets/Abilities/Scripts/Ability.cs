@@ -21,6 +21,7 @@ public class Ability : MonoBehaviour
 
     [Header("Bounce")]
     [SerializeField] private float BounceMultiplier = 2f;
+    [SerializeField] private float shroomStrengthDivider;
 
     private float LeadSplinePosition;
     private float OwnSplinePosition;
@@ -58,7 +59,7 @@ public class Ability : MonoBehaviour
             int strengthBoost = longBoost; // it has to be a float in the formula
             //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
             GetComponentInChildren<BounceShroom>().Owner = owner;
-            float BounceStrength = EqualizerCurve.Evaluate(EqualizerValue) * (1 + (BounceMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2)))));  
+            float BounceStrength = ruber.rubberbandBoost * (10f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2)))));  
             Debug.Log("Bounce: " + BounceStrength);
             //GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
         }
@@ -87,7 +88,7 @@ public class Ability : MonoBehaviour
     {
         float returnValue = input + 1;
 
-        returnValue = EqualizerCurve.Evaluate(EqualizerValue * (1 + (input / strengthDivider)));
+        returnValue = ruber.rubberbandBoost * (1 + (input / strengthDivider));
         if (input == 0) returnValue = 1;
         if (returnValue == 0)
         {
@@ -95,10 +96,10 @@ public class Ability : MonoBehaviour
             Debug.Log("Returned 0");
         }
 
-        Debug.Log(ruber.distance);
-        returnValue /= ruber.distance;
+        Debug.Log(ruber.rubberbandBoost);
+        //returnValue /= ruber.rubberbandBoost;
 
-        return returnValue / 2;
+        return returnValue;
     }
 
     void Update()
