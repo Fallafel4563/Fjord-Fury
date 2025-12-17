@@ -15,6 +15,9 @@ public class PlacementText : MonoBehaviour
     public List<string> placementSuffixes = new List<string>();
     public SplineTrackDistance splineDistance;
     public List<Sprite> placementImages = new List<Sprite>();
+
+    public List<float> valuesList = new();
+
     private Image placementImage;
   
     private int playerIndex;
@@ -34,18 +37,18 @@ public class PlacementText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceAlongTrack = splineDistance.distanceAlongSpline;
+        distanceAlongTrack = splineDistance.distanceBetween0and1;
         DistancesAlongSpline[ playerInput.playerIndex] = distanceAlongTrack;
 
-        Debug.Log(DistancesAlongSpline.Values.ToList());
+        //Debug.Log(DistancesAlongSpline.Values.ToList());
 
-        List<float> valuesList = DistancesAlongSpline.Values.ToList();
+        valuesList = DistancesAlongSpline.Values.ToList();
         valuesList.Sort();
         valuesList.Reverse();
 
-       int Index = valuesList.IndexOf(splineDistance.distanceAlongSpline);
+       int Index = valuesList.IndexOf(distanceAlongTrack);
       
-       placementText.text =Index + 1 + placementSuffixes[Index];
+       //placementText.text =Index + 1 + placementSuffixes[Index];
        placementImage.sprite = placementImages[Index];
        playerControllerRef.playerHud.SetFirstPlayerShine(Index + 1);    
 

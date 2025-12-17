@@ -16,6 +16,8 @@ public class ControllerVibration : MonoBehaviour
     void Start()
     {
         playerIndex = playerInput.user.index;
+        if (playerInput.GetDevice<Gamepad>() == null)
+            return;
         gamePad = playerInput.GetDevice<Gamepad>();
     }
 
@@ -27,6 +29,8 @@ public class ControllerVibration : MonoBehaviour
 
     public void ControllerRumble()
     {
+        if (gamePad == null)
+            return;
         gamePad.SetMotorSpeeds(1,1);
         StartCoroutine(ControllerRumbleDuration());
         //controllerVibrationOn.Invoke();
@@ -35,20 +39,25 @@ public class ControllerVibration : MonoBehaviour
 
     public void LongControllerRumble()
     {
+        if (gamePad == null)
+            return;
         gamePad.SetMotorSpeeds(1,1); 
         StartCoroutine(LongControllerRumbleDuration());
     }
 
     public void SoftControllerRumble()
     {
+        if (gamePad == null)
+            return;
         gamePad.SetMotorSpeeds(0.5f, 0.5f);
         StartCoroutine(SoftControllerRumbleDuration());
     }
 
     public void StopControllerRumble()
     {
+        if (gamePad == null)
+            return;
         gamePad.SetMotorSpeeds(0, 0);
-        
     }
 
     IEnumerator ControllerRumbleDuration()

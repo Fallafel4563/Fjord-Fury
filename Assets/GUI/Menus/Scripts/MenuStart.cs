@@ -9,12 +9,17 @@ public class MenuStart : MonoBehaviour
     #region Properties
 
     [SerializeField] GameObject startMenu;
-    [SerializeField] GameObject playerAmount;
+    //[SerializeField] GameObject playerAmount;
     [SerializeField] GameObject optionsMenu;     
     [SerializeField] GameObject credits;
-
+    [SerializeField] GameObject riverRally;
+    [SerializeField] GameObject valHalla;
     #endregion
 
+    private void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
 
     #region Play
 
@@ -25,15 +30,26 @@ public class MenuStart : MonoBehaviour
     //    playerAmount.SetActive(true);
     //}
 
+
     public void OnStartButton()
     {
         SceneManager.LoadScene("CharacterSelectExampleScene");
+    }
+
+    public void onStartValhallaButton()
+    {
+        SceneManager.LoadScene("ValhallaCharacterSelect");
+    }
+
+    public void loadLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelect");
     }
     #endregion
 
 
     #region Options
-    
+
     // Takes you to options screen
     public void OnOptionsButton()
     {   
@@ -81,4 +97,19 @@ public class MenuStart : MonoBehaviour
 
     //have always show mouse when active
     //show selected image as cursor
+
+
+
+
+    public void OnValhallaShow()
+    {
+        riverRally.SetActive(false);
+        valHalla.SetActive(true);        
+    }
+
+        public void OnRiverRallyShow()
+    {
+        valHalla.SetActive(false);
+        riverRally.SetActive(true);        
+    }
 }   

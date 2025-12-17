@@ -50,7 +50,7 @@ public class SlipStream : MonoBehaviour
            GameObject slipStreamSphere = Instantiate(TriggerSphere, transform.position, Quaternion.identity);
            slipStreamSphere.GetComponent<SlipStreamTriggerSphere>().Instantiator = this.gameObject;
             spawnTime = 0;
-            Debug.Log("Spawned Sphere");
+            //Debug.Log("Spawned Sphere");
         }
 
 
