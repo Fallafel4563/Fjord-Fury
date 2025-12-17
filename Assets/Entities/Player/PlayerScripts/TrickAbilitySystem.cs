@@ -43,7 +43,7 @@ public class TrickAbilitySystem : MonoBehaviour
 
         Ability a = abilityBuffer.GetComponent<Ability>();
         a.Track = PM.mainTrack;
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost, GetComponent<ForwardSpeedMultiplier>());
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost, GetComponent<ForwardSpeedMultiplier>(), GetComponent<Ruber>());
         abilityTimeLeft = abilityDuration;
     }
 

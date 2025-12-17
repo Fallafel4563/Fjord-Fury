@@ -40,7 +40,7 @@ public class Ability : MonoBehaviour
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/, ForwardSpeedMultiplier forwardSpeedMultiplier)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber ruber)
     {
         owner = player;
 
@@ -49,16 +49,13 @@ public class Ability : MonoBehaviour
         _spline.Spline = Track.GetComponent<SplineContainer>();
 
         // Set strength through the ObstacleLifetimeScalingSystem
-        OLSS.LifeTime = Equalizer(shortBoost * 2);
-        OLSS.MaxSize = Equalizer(mediumBoost);
+        OLSS.LifeTime = Equalizer(shortBoost * 2, ruber);
+        OLSS.MaxSize = Equalizer(mediumBoost, ruber);
 
         if (GetComponentInChildren<BounceShroom>())
         {
             
             int strengthBoost = longBoost; // it has to be a float in the formula
-            print(longBoost);
-            print("StrengthBoost: "+ strengthBoost);
-            print("curveValue: " + EqualizerCurve.Evaluate(EqualizerValue));
             //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
             GetComponentInChildren<BounceShroom>().Owner = owner;
             float BounceStrength = EqualizerCurve.Evaluate(EqualizerValue) * (1 + (BounceMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2)))));  
@@ -68,7 +65,7 @@ public class Ability : MonoBehaviour
 
         if (GetComponent<RamAbility>())
         {
-            GetComponent<RamAbility>().StartAbility(Equalizer(longBoost), forwardSpeedMultiplier);
+            GetComponent<RamAbility>().StartAbility(Equalizer(longBoost, ruber), forwardSpeedMultiplier);
         }
 
         if (_spline != null)
@@ -86,7 +83,7 @@ public class Ability : MonoBehaviour
         EqualizerValue = LeadSplinePosition - OwnSplinePosition;
     }
 
-    float Equalizer(int input)
+    float Equalizer(int input, Ruber ruber)
     {
         float returnValue = input + 1;
 
@@ -97,6 +94,9 @@ public class Ability : MonoBehaviour
             returnValue = 1;
             Debug.Log("Returned 0");
         }
+
+        Debug.Log(ruber.distance);
+        returnValue /= ruber.distance;
 
         return returnValue / 2;
     }

@@ -19,6 +19,6 @@ public class Ruber : MonoBehaviour
         rubberbandBoost = rubberbandCurve.Evaluate(furthestPlayerDistance - distance);
 
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("Rubberband boost", 1f + rubberbandBoost);
-        Debug.LogFormat("Rubberband {0}", rubberbandBoost);
+        //Debug.LogFormat("Rubberband {0}", rubberbandBoost);
     }
 }
