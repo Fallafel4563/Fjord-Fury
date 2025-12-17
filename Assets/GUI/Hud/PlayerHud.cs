@@ -8,6 +8,8 @@ public class PlayerHud : MonoBehaviour
     public BoostMeter boostMeter;
     public GameObject levelEndScreen;
     public GameObject firstPlaceShine;
+    public GameObject respawnFadeObject;
+    public Animator animator;
     public TMP_Text finishedTimeText, placementText;
     public Image placementImage;
     private int playerIndex;
@@ -44,7 +46,7 @@ public class PlayerHud : MonoBehaviour
         playerIndex = index;
 
         canvas.worldCamera = renderCamera;
-        canvas.planeDistance = 0.5f;
+        canvas.planeDistance = 0.3001f;
     }
 
 
@@ -63,7 +65,9 @@ public class PlayerHud : MonoBehaviour
 
     public void OnRespawnFadeInStarted(float fadeDuration)
     {
-        //
+        respawnFadeObject.SetActive(false);
+        respawnFadeObject.SetActive(true);
+        animator.Play("RespawnFade");
     }
 
     
