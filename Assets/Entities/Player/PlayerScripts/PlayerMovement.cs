@@ -482,7 +482,7 @@ public class PlayerMovement : MonoBehaviour
             LandOnRoadTrack(distanceInfo, landPos);
         }
         
-        Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
+        //Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
 
 
         // Invoke events

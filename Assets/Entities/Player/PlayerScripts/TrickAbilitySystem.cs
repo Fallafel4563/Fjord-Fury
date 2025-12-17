@@ -37,36 +37,14 @@ public class TrickAbilitySystem : MonoBehaviour
 
     public void SpawnAbility(int firstTrick, int shortBoost, int mediumBoost, int longBoost)
     {
-        Debug.Log("SpawnAbility " + firstTrick);
-
         abilityHasSpawned = true;
-
-        /*
-        int comboCount = 0;
-        combinedStrength = 0;
-
-        combinedStrength += (shortBoost * 1);
-        combinedStrength += (mediumBoost * 2);
-        combinedStrength += (longBoost * 3);
-
-        comboCount += shortBoost;
-        comboCount += mediumBoost;
-        comboCount += longBoost;
-        */
 
         abilityBuffer = Instantiate(abilityPrefabs[firstTrick], AbilitySpawnPoint.position, AbilitySpawnPoint.rotation);
 
         Ability a = abilityBuffer.GetComponent<Ability>();
         a.Track = PM.mainTrack;
-        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost);
-
-        float newDuration = combinedStrength / DurationDivider;
-        float newSize = combinedStrength / SizeDivider;
-        float newSpeed = combinedStrength / SpeedDivider;
-
-        // Set up the abilityBuffer ref
-        //ConfigureAbility(abilityBuffer, comboCount, combinedStrength);
-        abilityTimeLeft = abilityDuration / newDuration;
+        a.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, shortBoost, mediumBoost, longBoost, GetComponent<ForwardSpeedMultiplier>(), GetComponent<Ruber>());
+        abilityTimeLeft = abilityDuration;
     }
 
     // Supply the ability with all data of where it's suppost to spawn
