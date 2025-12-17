@@ -37,7 +37,7 @@ public class LevelStart : MonoBehaviour
         // Start countdown
         raceCountdownTime = raceCountdownDuration + 1.5f;
 
-        yield return new WaitForSeconds(0.34f);
+        yield return new WaitForSeconds(1.34f);
         CountdownStart.Invoke();
     }
 
