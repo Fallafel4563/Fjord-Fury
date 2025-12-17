@@ -40,7 +40,7 @@ public class Ability : MonoBehaviour
         Destroy(gameObject, _temporarryDurationVariable);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber ruber)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber ruber, PlayerObstacleCollisions poc)
     {
         owner = player;
 
@@ -65,7 +65,7 @@ public class Ability : MonoBehaviour
 
         if (GetComponent<RamAbility>())
         {
-            GetComponent<RamAbility>().StartAbility(Equalizer(longBoost, ruber), forwardSpeedMultiplier);
+            GetComponent<RamAbility>().StartAbility(Equalizer(longBoost, ruber), forwardSpeedMultiplier, poc);
         }
 
         if (_spline != null)

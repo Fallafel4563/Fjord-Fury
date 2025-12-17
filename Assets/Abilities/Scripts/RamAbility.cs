@@ -10,14 +10,15 @@ public class RamAbility : MonoBehaviour
 
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
 
-    public void StartAbility(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier)
+    public void StartAbility(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier, PlayerObstacleCollisions poc)
     {
-        StartCoroutine(abilityBoost(strength, forwardSpeedMultiplier));
+        StartCoroutine(abilityBoost(strength, forwardSpeedMultiplier, poc));
     }
 
-    IEnumerator abilityBoost(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier)
+    IEnumerator abilityBoost(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier, PlayerObstacleCollisions poc)
     {
         yield return new WaitForSeconds(0.1f);
+        poc.invulnerable = true;
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", speedValue * strength, ImmediateComboBoostCurve);
 
         Debug.Log("Start ram, " + (speedValue * strength).ToString());
@@ -25,6 +26,7 @@ public class RamAbility : MonoBehaviour
         yield return new WaitForSeconds(Duration);
 
         Debug.Log("End ram");
+        poc.invulnerable = false;
         Destroy(gameObject);
     }
 }
