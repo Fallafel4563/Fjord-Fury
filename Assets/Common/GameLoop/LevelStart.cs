@@ -33,7 +33,7 @@ public class LevelStart : MonoBehaviour
         }
 
         // Start countdown
-        raceCountdownTime = raceCountdownDuration + 1f;
+        raceCountdownTime = raceCountdownDuration + 1.5f;
     }
 
 

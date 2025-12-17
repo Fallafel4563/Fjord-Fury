@@ -23,7 +23,11 @@ public class LagSpikeSaftey : MonoBehaviour
             if (Physics.Raycast(oldPosition, -rayDirection.normalized, out raycastHit, rayDirection.magnitude, raycastLayer))
             {
                 playerMovement.airVelocity = Vector3.zero;
-                transform.position = raycastHit.point;
+                transform.position = raycastHit.point + (raycastHit.normal * 1.5f);
+                //if (raycastHit.collider.TryGetComponent(out SplineTrack splineTrack))
+                //{
+                //    playerMovement.LandedOnTrack(splineTrack);
+                //}
             }
         }
         Debug.DrawLine(oldPosition, transform.position + transform.up, Color.black, 60f);
