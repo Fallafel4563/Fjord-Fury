@@ -55,13 +55,13 @@ public class Ability : MonoBehaviour
 
         if (GetComponentInChildren<BounceShroom>())
         {
-            
+            BounceShroom bounceShroom = GetComponentInChildren<BounceShroom>();
             int strengthBoost = longBoost; // it has to be a float in the formula
             //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
-            GetComponentInChildren<BounceShroom>().Owner = owner;
-            float BounceStrength = ruber.rubberbandBoost * (10f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2)))));  
-            Debug.Log("Bounce: " + BounceStrength);
-            //GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
+            bounceShroom.Owner = owner;
+            float BounceStrength = ruber.rubberbandBoost * (1f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2f)))));  
+            Debug.LogFormat("Bounce {0}, Mult {1}, Strength boost {2}", BounceStrength, 1f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2f)))), strengthBoost);
+            bounceShroom.BouncePower *= BounceStrength;
         }
 
         if (GetComponent<RamAbility>())
