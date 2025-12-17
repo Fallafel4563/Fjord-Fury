@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadScreen : MonoBehaviour
 {
+    public static LoadScreen Instance;
+    [SerializeField] private Animator animator;
     [SerializeField] RectTransform loadIconRect;
 
     [SerializeField] AnimationCurve blackOutCurve;
@@ -15,26 +17,54 @@ public class LoadScreen : MonoBehaviour
     bool loaded = false;
     string sceneToLoad = "";
 
-    void Awake() {
-        DontDestroyOnLoad(this);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+    void Awake()
+    {
+        // Make this a singleton
+        if (Instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
     }
 
     void Start() {
-        Load("valhalla");
+        //StartLoad("valhalla");
+    }
+
+
+    public void StartLoad(string sceneName)
+    {
+        loadIconRect.gameObject.SetActive(false);
+        loadIconRect.gameObject.SetActive(true);
+        sceneToLoad = sceneName;
+        animator.Play("Blackout");
     }
 
     public void Load(string sceneName) {
         sceneToLoad = sceneName;
     }
 
-    void Update() {
-        if (sceneToLoad == "" && animationTime >= 1)
+
+    public void LoadNewScene()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
+
+    void Update()
+    {
+        return;
+        if (sceneToLoad == "")
             return;
 
         currentCurve = !loaded ? blackOutCurve : revealCurve;
-        if (animationTime > .4f)
-            return;
+        //if (animationTime > .4f)
+        //    return;
         
         animationTime += Time.deltaTime;
 
@@ -46,11 +76,11 @@ public class LoadScreen : MonoBehaviour
             }
             else {
                 Destroy(gameObject);
-                sceneToLoad = "";
+                return;
             }
         }
 
-        loadIconRect.sizeDelta = Vector2.one * 4000 * currentCurve.Evaluate(animationTime);
+        loadIconRect.sizeDelta = Vector2.one * 10000 * currentCurve.Evaluate(animationTime);
     }
 
     void OnDestroy()
@@ -61,6 +91,14 @@ public class LoadScreen : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (sceneToLoad != "")
+        {
+            loadIconRect.gameObject.SetActive(false);
+            loadIconRect.gameObject.SetActive(true);
+            animator.Play("Reveal");
+            sceneToLoad = "";
+        }
+        return;
         if (sceneToLoad != "")
             loaded = true;
         
