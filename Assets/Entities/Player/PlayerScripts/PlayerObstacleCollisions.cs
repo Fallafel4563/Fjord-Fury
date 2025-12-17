@@ -66,7 +66,8 @@ public class PlayerObstacleCollisions : MonoBehaviour
     private IEnumerator DetachPlayer(Obstacle obstacle)
     {
         yield return new WaitForEndOfFrame();
-        playerMovement.DetachFromCart();
+        if (playerMovement.isGrounded)
+            playerMovement.DetachFromCart();
         playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
     }
 

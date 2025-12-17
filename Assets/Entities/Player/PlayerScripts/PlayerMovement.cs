@@ -44,9 +44,9 @@ public class PlayerMovement : MonoBehaviour
         // Get the current steer speed based on the ground state of the boat
         steerSpeed = isGrounded ? groundSteerSpeed : airSteerSpeed;
 
-        if (isDrifting)
-            ApplyDriftingMovement();
-        else if (isGrounded && !isDrifting)
+        //if (isDrifting)
+        //    ApplyDriftingMovement();
+        if (isGrounded)// && !isDrifting)
             ApplyGroundMovement();
         else
             ApplyAirMovement();
@@ -425,57 +425,6 @@ public class PlayerMovement : MonoBehaviour
     public void LandedOnTrack(SplineTrack splineTrack)
     {
         StartCoroutine(LandedOnTrackC(splineTrack));
-        return;
-        SplineTrack oldTrack = currentTrack;
-        SplineTrack newTrack = splineTrack;
-        //StartCoroutine(LandedOnTrackC(splineTrack));
-        //return;
-        // Don't change main track when it's inside a DontChangeMainTrack trigger
-        // Can still change to rails
-        if (dontChangeMainTrack && splineTrack != mainTrack && splineTrack.shouldRespawnOnTrack)
-        {
-            return;
-        }
-
-        TrackDistanceInfo distanceInfo = splineTrack.GetDistanceInfoFromPosition(transform.position);
-
-        // Reset  stuff
-        isGrounded = true;
-
-        // Update current and main track
-        currentTrack = splineTrack;
-        splineCart.Spline = currentTrack.track;
-        // Update main track if the new track isn't a rail track
-        if (splineTrack.shouldRespawnOnTrack)
-        {
-            mainTrack = splineTrack;
-            wasLastTrackRail = false;
-        }
-        else
-            wasLastTrackRail = true;
-
-        // Set the carts new position
-        splineCart.SplinePosition = distanceInfo.distance;
-        // Renable the carts movement
-        splineCart.AutomaticDolly.Enabled = true;
-
-
-        // Set the override speed if the boat lands on a fast track
-        SetOverrideSpeed(splineTrack.overrideSpeed);
-
-        // Change landing logic based on if the track is a circle or not
-        if (splineTrack.isCircle)
-            LandOnCircleTrack(distanceInfo);
-        else
-            LandOnRoadTrack(distanceInfo, Vector3.zero);
-
-        Debug.LogFormat("Old track {0}, new track {1}, current track {2}", oldTrack.name, newTrack.name, currentTrack.name);
-
-        // Invoke events
-        if (startedGroundPound)
-            GroundpoundEnded.Invoke();
-        splineTrack.OnBoatEnter.Invoke(gameObject);
-        Landed.Invoke();
     }
 
 
@@ -533,7 +482,7 @@ public class PlayerMovement : MonoBehaviour
             LandOnRoadTrack(distanceInfo, landPos);
         }
         
-        Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
+        //Debug.LogFormat("Current track {0}, Circle track {1}", currentTrack.name, currentTrack.isCircle);
 
 
         // Invoke events
@@ -631,7 +580,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && Mathf.Abs(steerInput) > 0f && !currentTrack.isCircle)
         {
-            InitiateDrift();
+            //InitiateDrift();
         }
         else if (canGroundPound)
         {
