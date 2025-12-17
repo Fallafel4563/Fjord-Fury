@@ -21,6 +21,7 @@ public class Ability : MonoBehaviour
 
     [Header("Bounce")]
     [SerializeField] private float BounceMultiplier = 2f;
+    [SerializeField] private float shroomStrengthDivider;
 
     private float LeadSplinePosition;
     private float OwnSplinePosition;
@@ -54,13 +55,13 @@ public class Ability : MonoBehaviour
 
         if (GetComponentInChildren<BounceShroom>())
         {
-            
+            BounceShroom bounceShroom = GetComponentInChildren<BounceShroom>();
             int strengthBoost = longBoost; // it has to be a float in the formula
             //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
-            GetComponentInChildren<BounceShroom>().Owner = owner;
-            float BounceStrength = EqualizerCurve.Evaluate(EqualizerValue) * (1 + (BounceMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2)))));  
-            Debug.Log("Bounce: " + BounceStrength);
-            //GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
+            bounceShroom.Owner = owner;
+            float BounceStrength = ruber.rubberbandBoost * (1f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2f)))));  
+            Debug.LogFormat("Bounce {0}, Mult {1}, Strength boost {2}", BounceStrength, 1f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2f)))), strengthBoost);
+            bounceShroom.BouncePower *= BounceStrength;
         }
 
         if (GetComponent<RamAbility>())
@@ -87,7 +88,7 @@ public class Ability : MonoBehaviour
     {
         float returnValue = input + 1;
 
-        returnValue = EqualizerCurve.Evaluate(EqualizerValue * (1 + (input / strengthDivider)));
+        returnValue = ruber.rubberbandBoost * (1 + (input / strengthDivider));
         if (input == 0) returnValue = 1;
         if (returnValue == 0)
         {
@@ -95,10 +96,10 @@ public class Ability : MonoBehaviour
             Debug.Log("Returned 0");
         }
 
-        Debug.Log(ruber.distance);
-        returnValue /= ruber.distance;
+        Debug.Log(ruber.rubberbandBoost);
+        //returnValue /= ruber.rubberbandBoost;
 
-        return returnValue / 2;
+        return returnValue;
     }
 
     void Update()
