@@ -76,6 +76,6 @@ public class Leaderboard : MonoBehaviour
     private void OnAccept(CallbackContext callbackContext)
     {
         nextSceneLoading.SceneToLoad = levelToLoad;
-        nextSceneLoading.LoadSceneCoroutine();
+        nextSceneLoading.LoadScene();
     }
 }
