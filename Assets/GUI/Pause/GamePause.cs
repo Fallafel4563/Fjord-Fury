@@ -86,7 +86,7 @@ public class GamePause : MonoBehaviour
 
     private void QuitGame()
     {
-      
+      SceneManager.LoadScene("mainMenu");
     }
 
     public void SettingsActive()
