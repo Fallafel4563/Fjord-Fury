@@ -5001,6 +5001,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 435845071350575578, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: LifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
@@ -5033,6 +5037,10 @@ PrefabInstance:
       propertyPath: _artParticles
       value: 
       objectReference: {fileID: 1830098755089105684}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: obstacleLifetimeScaling
+      value: 
+      objectReference: {fileID: 880991179506390976}
     - target: {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_Name
       value: Fireball tackle
@@ -5085,10 +5093,11 @@ PrefabInstance:
     - {fileID: 9053705082680532183, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
     - {fileID: 2170645974499090941, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
     - {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7136834789821003459, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 570774923707492893}
     - targetCorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       insertIndex: -1
@@ -5103,6 +5112,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
   m_PrefabInstance: {fileID: 735641479276373530}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &880991179506390976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 435845071350575578, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+  m_PrefabInstance: {fileID: 735641479276373530}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec7c8d5fb770214b8e41cd33a16dfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8693354933828015517 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8255245760220296071, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
@@ -5120,8 +5140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03a798ab3e87a24e9e9d5330793e8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 10
-  speedValue: 1.7
   ImmediateComboBoostCurve:
     holdTime: 3
     startCurve:
