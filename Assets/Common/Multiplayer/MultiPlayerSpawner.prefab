@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6912550160104722413}
   - component: {fileID: 24610985154051759}
   - component: {fileID: 3497531956897113132}
+  - component: {fileID: 8171888262688309732}
   m_Layer: 0
   m_Name: MultiPlayerSpawner
   m_TagString: Untagged
@@ -114,6 +115,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 20bd9de562571794bb9ae139aee47b8a, type: 3}
   - {fileID: 21300000, guid: e0e9569bd293dcf4daaf194c69d1fd8e, type: 3}
   - {fileID: 21300000, guid: 8d7c5a82425fed64c9de9d72f59d3429, type: 3}
+  CountdownStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8171888262688309732}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  RaceStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3497531956897113132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +180,37 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8171888262688309732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299405453274881896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 600780541
+      Data2: 1178481130
+      Data3: 457419952
+      Data4: -358927603
+    Path: event:/VO/Countdown
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &2193110245537510332
 GameObject:
   m_ObjectHideFlags: 0

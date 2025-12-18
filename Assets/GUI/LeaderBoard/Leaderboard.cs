@@ -11,6 +11,9 @@ public class Leaderboard : MonoBehaviour
     private string levelToLoad;
     private NextSceneLoading nextSceneLoading;
 
+    public RectTransform[] places;
+    bool alreadyDoneIt = false;
+
 
     private void Awake()
     {
@@ -52,6 +55,7 @@ public class Leaderboard : MonoBehaviour
 
     private void AddPlayerPositionDisplay()
     {
+        if  (alreadyDoneIt ==false)
         for (int i = 0; i < MultiplayerPlayerSpawner.players.Count; i++)
         {
             // Get info about the palyer form the multiplayer player spawner
@@ -59,12 +63,13 @@ public class Leaderboard : MonoBehaviour
 
             // Spawn position dispaly object and set its position
             GameObject positionDisplayObject = Instantiate(playerPositionDisplay, Vector3.zero, Quaternion.identity, backgroundImage.transform);
-            positionDisplayObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            positionDisplayObject.GetComponent<RectTransform>().anchoredPosition = places[i].anchoredPosition;
 
             // Get and update the position display
             LeaderboardPlayerPositionDisplay positionDisplay = positionDisplayObject.GetComponent<LeaderboardPlayerPositionDisplay>();
-            positionDisplay.UpdateDispaly(player.Key, player.Value.totalTimeSpent);
+            positionDisplay.UpdateDispaly(player.Key+1, player.Value.totalTimeSpent, player.Value.characterIndex);
         }
+        alreadyDoneIt = true;
     }
 
 

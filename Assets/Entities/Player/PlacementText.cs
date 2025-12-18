@@ -19,7 +19,7 @@ public class PlacementText : MonoBehaviour
     public List<float> valuesList = new();
 
     private Image placementImage;
-  
+
     private int playerIndex;
     public float distanceAlongTrack;
     public static Dictionary<int, float> DistancesAlongSpline = new Dictionary<int, float>();
@@ -46,13 +46,10 @@ public class PlacementText : MonoBehaviour
         valuesList.Sort();
         valuesList.Reverse();
 
-       int Index = valuesList.IndexOf(distanceAlongTrack);
-      
+        int Index = valuesList.IndexOf(distanceAlongTrack);
        //placementText.text =Index + 1 + placementSuffixes[Index];
-       placementImage.sprite = placementImages[Index];
-       playerControllerRef.playerHud.SetFirstPlayerShine(Index + 1);    
-
-      
+        placementImage.sprite = placementImages[Index];
+        playerControllerRef.playerHud.SetFirstPlayerShine(Index + 1);    
     }
 
 }
