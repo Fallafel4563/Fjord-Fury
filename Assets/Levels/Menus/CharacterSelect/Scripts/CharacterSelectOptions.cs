@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -80,8 +81,8 @@ public class CharacterSelectOptions : MonoBehaviour
             // Send data struct to the character select menu
             CharacterSelected?.Invoke(playerInput.playerIndex, playerSelectInfo);
         }
-        // Only allow the first player to start the game
-        else if (playerInput.playerIndex == 0)
+        // Allow any player to start the game
+        else
         {
             StartGame?.Invoke();
         }
@@ -96,9 +97,19 @@ public class CharacterSelectOptions : MonoBehaviour
             Destroy(gameObject);
         else // Deselect the current cahracter when pressing cancel and the player is ready
         {
-            SetReady(false);
             // Tell character select menu that a player has deselected a character
-            CharacterDeselected?.Invoke(playerInput.playerIndex);
+            // If it isn't ready, it shouldn't use deselect, as this decrements active players and breaks the game
+            if (ready)
+                CharacterDeselected?.Invoke(playerInput.playerIndex);
+            else // Unready player presses back? Go to level select
+            {
+                OnboardingManager.isActive = false;
+                SceneManager.LoadScene("LevelSelect");
+
+            }
+                
+                
+            SetReady(false);
         }
     }
 

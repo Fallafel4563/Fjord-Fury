@@ -7,12 +7,17 @@ public class OnboardingManager : MonoBehaviour
     [SerializeField] GameObject abilities;
     [SerializeField] GameObject tricks;
 
+    public static bool isActive = true;
+
     private GameObject[] panels;  // Array to store the panels
     private int currentActiveObjectIndex = 0;
 
     public UnityEvent noMorePanels;
     void Start()
     {
+        if (!isActive)
+            noMorePanels.Invoke();
+
         // Initialize the array
         panels = new GameObject[] { controls, abilities, tricks };
 
