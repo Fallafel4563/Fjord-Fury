@@ -4861,7 +4861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8316405496215310015
 Transform:
   m_ObjectHideFlags: 0
@@ -4916,21 +4916,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6328cd1fb61fa0eb9c01eedac97b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  causeHarm: 0
+  causeHarm: 1
   destructOnCrash: 0
   bounceHeight: 2
-  crashSpeedMultiplier: 0.5
+  crashSpeedMultiplier: 1
   crashSpeedMultiplierCurve:
     holdTime: 0
     startCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     endCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5085,7 +5121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 10
-  speedValue: 1.5
+  speedValue: 1.7
   ImmediateComboBoostCurve:
     holdTime: 3
     startCurve:

@@ -17,9 +17,10 @@ public class RamAbility : MonoBehaviour
 
     IEnumerator abilityBoost(float strength, ForwardSpeedMultiplier forwardSpeedMultiplier)
     {
+        yield return new WaitForSeconds(0.1f);
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", speedValue * strength, ImmediateComboBoostCurve);
 
-        Debug.Log("Start ram");
+        Debug.Log("Start ram, " + (speedValue * strength).ToString());
 
         yield return new WaitForSeconds(Duration);
 

@@ -10,9 +10,13 @@ public class NextSceneLoading : MonoBehaviour
     public void LoadSceneCoroutine()
     {
         playerCount++;
-        if (!loading)
+        if (LoadScreen.Instance != null)
         {
-        StartCoroutine(LoadNextScene());
+            LoadScreen.Instance.StartLoad(SceneToLoad);
+        }
+        else if (!loading)
+        {
+            StartCoroutine(LoadNextScene());
             loading = true;
         }
     }

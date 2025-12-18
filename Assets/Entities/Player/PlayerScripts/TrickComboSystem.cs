@@ -38,6 +38,7 @@ public class TrickComboSystem : MonoBehaviour
     public UnityEvent TrickSucceed;
     public UnityEvent TrickFalied;
 
+    public TrickSoundManager TrickSounds;
 
     private void Start()
     {
@@ -96,12 +97,14 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
+
+        TrickSounds.playTrickSound((int)combo);
 
         combo += 1f;
 
