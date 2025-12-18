@@ -34,7 +34,7 @@ public class Ability : MonoBehaviour
     }
 
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband, PlayerObstacleCollisions playerObstacleCollisions)
     {
         float rubberbandBoost = rubberband.rubberbandBoost;
         float length = rubberbandBoost * (1f + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
@@ -67,7 +67,7 @@ public class Ability : MonoBehaviour
         {
             RamAbility ramAbility = GetComponentInChildren<RamAbility>();
             transform.SetParent(player);
-            ramAbility.StartAbility(strength, forwardSpeedMultiplier);
+            ramAbility.StartAbility(strength, forwardSpeedMultiplier, playerObstacleCollisions, obstacleLifetimeScaling.LifeTime);
         }
 
 
