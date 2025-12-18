@@ -249,21 +249,4 @@ public class TrickComboSystem : MonoBehaviour
     {
         FailTrick();
     }
-
-
-    // Get the long text that will be displayed on the boost bar
-    //private string GetTrickName()
-    //{
-    //    string tricksName = "";
-    //    for (int i = 0; i < tableOfTricks.Count; i++)
-    //    {
-    //        var item = tableOfTricks.ElementAt(i);
-    //        string key = item.Key;
-    //        int value = item.Value;
-    //
-    //        string number = numberList[value];
-    //        tricksName += number + " " + key + ",";
-    //    }
-    //    return tricksName;
-    //}
 }

@@ -11,6 +11,7 @@ public class TrickAbilitySystem : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private Ruber rubberbandBoost;
     [SerializeField] private ForwardSpeedMultiplier forwardSpeedMultiplier;
+    [SerializeField] private PlayerObstacleCollisions playerObstacleCollisions;
 
     private GameObject abilityBuffer;
 
@@ -24,7 +25,7 @@ public class TrickAbilitySystem : MonoBehaviour
 
         Ability ability = abilityBuffer.GetComponent<Ability>();
         ability.Track = playerMovement.mainTrack;
-        ability.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, lengthBoost, sizeBoost, strengthoost, forwardSpeedMultiplier, rubberbandBoost);
+        ability.ConfigurateMyself(splineCart.SplinePosition, transform.localPosition.x, transform, lengthBoost, sizeBoost, strengthoost, forwardSpeedMultiplier, rubberbandBoost, playerObstacleCollisions);
     }
 
 

@@ -5201,6 +5201,7 @@ Transform:
   m_Children:
   - {fileID: 4805101058444081956}
   - {fileID: 7575265241815793949}
+  - {fileID: 8811680357932890588}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2834201662640471548
@@ -10104,6 +10105,101 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 2060630186251258410}
   particleSystem: {fileID: 9018328636378274389}
+--- !u!1 &3190678163341981423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8811680357932890588}
+  - component: {fileID: 4284048549725729453}
+  - component: {fileID: 7817454463102794258}
+  - component: {fileID: 953339788160812467}
+  m_Layer: 6
+  m_Name: RailAttractor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8811680357932890588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190678163341981423}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5007536021592668373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &4284048549725729453
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190678163341981423}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &7817454463102794258
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190678163341981423}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 16
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 123119
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &953339788160812467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190678163341981423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b5b6106514930df9960982ea302d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 2060630186251258410}
 --- !u!1 &3283433894581042231
 GameObject:
   m_ObjectHideFlags: 0
@@ -10846,7 +10942,6 @@ GameObject:
   - component: {fileID: 2204905582488818726}
   - component: {fileID: 2504890653146001464}
   - component: {fileID: 7040633805338777643}
-  - component: {fileID: 9054204099485319101}
   - component: {fileID: 2784234024063253971}
   - component: {fileID: 8721748571526581582}
   - component: {fileID: 961602446303370989}
@@ -11373,16 +11468,16 @@ MonoBehaviour:
   TrickSucceed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 934489117240917153}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SucceedTrick
           m_BoolArgument: 0
         m_CallState: 2
   TrickFalied:
@@ -11470,10 +11565,11 @@ MonoBehaviour:
   - {fileID: 0}
   AbilitySpawnPoint: {fileID: 6617996798823095572}
   ramSpawnPoint: {fileID: 982908290371443858}
+  splineCart: {fileID: 8965506563597239976}
   playerMovement: {fileID: 2060630186251258410}
   rubberbandBoost: {fileID: 6665466274152888664}
   forwardSpeedMultiplier: {fileID: 2504890653146001464}
-  splineCart: {fileID: 8965506563597239976}
+  playerObstacleCollisions: {fileID: 7040633805338777643}
 --- !u!114 &2504890653146001464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11605,19 +11701,6 @@ MonoBehaviour:
           m_StringArgument: CrashAir
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &9054204099485319101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6421745550217031441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fba45e4dd593e7448c8e9723f9ddc60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinsCollected: {fileID: 11400000, guid: 042028e12412e3c4d956033733f96848, type: 2}
 --- !u!114 &2784234024063253971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17077,18 +17160,6 @@ MonoBehaviour:
   TrickAnimFinishedFX:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 934489117240917153}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SucceedTrick
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2879581412221152697}
         m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
         m_MethodName: Play
@@ -17526,7 +17597,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1023883567629520530, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1259644192449160419, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_Name
@@ -17534,7 +17605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1836426638075020387, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1898563205834206504, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
@@ -17550,7 +17621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6083700974825396248, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6440381947398128560, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17594,7 +17665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6930517423672932255, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8317806165267672257, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17602,7 +17673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8657352314176484987, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8698880709410929972, guid: 0ece5d522eb1094488325730a2abee21, type: 3}
       propertyPath: m_IsActive
