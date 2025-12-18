@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -42,7 +43,6 @@ public class PlayerCamera : MonoBehaviour
     public CinemachineCamera cinemachineCamera { get; set; }
     public CinemachineBrain cinemachineBrain { get; set; }
     public GameObject speedLines;
-    public LayerMask speedLinesMask;
 
 
 
@@ -142,9 +142,9 @@ public class PlayerCamera : MonoBehaviour
         cinemachineBrain.ChannelMask = (OutputChannels)outputChannel;
         cinemachineCamera.OutputChannel = (OutputChannels)outputChannel;
 
-        activeCamera.cullingMask |= 1 << LayerMask.NameToLayer(string.Format("p{0}", playerIndex + 1));
-        speedLinesMask = LayerMask.NameToLayer(string.Format("p{0}", playerIndex + 1));
-        speedLines.layer = speedLinesMask;
+        int speedLinesLayer = LayerMask.NameToLayer(string.Format("p{0}", playerIndex + 1));
+        activeCamera.cullingMask |= 1 << speedLinesLayer;
+        speedLines.layer = speedLinesLayer;
     }
 
 

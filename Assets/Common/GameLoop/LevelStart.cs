@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class LevelStart : MonoBehaviour
@@ -17,11 +18,12 @@ public class LevelStart : MonoBehaviour
     public static Action<float> LevelStarted;
     public static Action<Sprite> UpdateCountDownImage;
 
-
+    public UnityEvent CountdownStart, RaceStart;
     public IEnumerator StartCountdown()
     {
         // Wait for a so that all players have spawned
         yield return new WaitForEndOfFrame();
+        
         // Stop all players
         for (int i = 0; i < PlayerInput.all.Count; i++)
         {
@@ -34,6 +36,9 @@ public class LevelStart : MonoBehaviour
 
         // Start countdown
         raceCountdownTime = raceCountdownDuration + 1.5f;
+
+        yield return new WaitForSeconds(1.34f);
+        CountdownStart.Invoke();
     }
 
 
@@ -60,6 +65,7 @@ public class LevelStart : MonoBehaviour
             // Start race when countdown is over
             if (raceCountdownTime <= 0f)
             {
+                RaceStart.Invoke();
                 StartRace();
             }
         }
