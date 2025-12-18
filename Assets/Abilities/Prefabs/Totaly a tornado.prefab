@@ -9685,13 +9685,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 435845071350575578, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: LifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: causeHarm
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: bounceHeight
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 904230956227653597, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: crashSpeedMultiplierCurve.endCurve.m_Curve.Array.size
@@ -9853,6 +9857,10 @@ PrefabInstance:
       propertyPath: shroomStrengthDivider
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: obstacleLifetimeScaling
+      value: 
+      objectReference: {fileID: 1610542017814535770}
     - target: {fileID: 7136834789821003459, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -9932,13 +9940,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7136834789821003459, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 4541170140123102052}
     - targetCorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 871350553893823301}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1628463512576927024, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
@@ -9965,6 +9974,17 @@ MonoBehaviour:
   BouncePower: 100
   cantHitOwner: 1
   Owner: {fileID: 0}
+--- !u!114 &1610542017814535770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 435845071350575578, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+  m_PrefabInstance: {fileID: 1177029013724049280}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489998770257038000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec7c8d5fb770214b8e41cd33a16dfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2190386018528576940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
