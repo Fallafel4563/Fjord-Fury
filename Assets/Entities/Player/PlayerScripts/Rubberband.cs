@@ -19,8 +19,8 @@ public class Ruber : MonoBehaviour
             return;
         
         furthestPlayerDistance = placementText.valuesList[0];
-        rubberbandBoost = rubberbandCurve.Evaluate(furthestPlayerDistance - distance);
+        rubberbandBoost = 1f+ rubberbandCurve.Evaluate(furthestPlayerDistance - distance);
 
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Rubberband boost", 1f + rubberbandBoost);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("Rubberband boost", rubberbandBoost);
     }
 }
