@@ -34,7 +34,6 @@ public class PlayerObstacleCollisions : MonoBehaviour
 
     private void Crash(Obstacle obstacle)
     {
-        Debug.Log("Hit Obstacle");
         obstacle.OnPlayerCrashed();
         if (ramBoostActive && obstacle.owner == null)
             return;
