@@ -29,7 +29,7 @@ public class Leaderboard : MonoBehaviour
 
     private void OnDisable()
     {
-        LevelEndTrigger.AllPlayersCompleted += OnAllPlayersComplted;
+        LevelEndTrigger.AllPlayersCompleted -= OnAllPlayersComplted;
     }
 
 
