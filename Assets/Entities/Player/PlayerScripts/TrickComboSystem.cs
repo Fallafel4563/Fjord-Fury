@@ -38,6 +38,7 @@ public class TrickComboSystem : MonoBehaviour
     public UnityEvent TrickSucceed;
     public UnityEvent TrickFalied;
 
+    public TrickSoundManager TrickSounds;
 
     private void Start()
     {
@@ -102,6 +103,8 @@ public class TrickComboSystem : MonoBehaviour
         {
             WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
+
+        TrickSounds.playTrickSound((int)combo);
 
         combo += 1f;
 
@@ -246,21 +249,4 @@ public class TrickComboSystem : MonoBehaviour
     {
         FailTrick();
     }
-
-
-    // Get the long text that will be displayed on the boost bar
-    //private string GetTrickName()
-    //{
-    //    string tricksName = "";
-    //    for (int i = 0; i < tableOfTricks.Count; i++)
-    //    {
-    //        var item = tableOfTricks.ElementAt(i);
-    //        string key = item.Key;
-    //        int value = item.Value;
-    //
-    //        string number = numberList[value];
-    //        tricksName += number + " " + key + ",";
-    //    }
-    //    return tricksName;
-    //}
 }

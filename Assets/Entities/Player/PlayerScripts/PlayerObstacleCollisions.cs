@@ -34,7 +34,6 @@ public class PlayerObstacleCollisions : MonoBehaviour
 
     private void Crash(Obstacle obstacle)
     {
-        Debug.Log("Hit Obstacle");
         obstacle.OnPlayerCrashed();
         if (ramBoostActive && obstacle.owner == null)
             return;
@@ -54,7 +53,7 @@ public class PlayerObstacleCollisions : MonoBehaviour
             trickComboSystem.FailTrick();
 
         // TODO: Play crash sound
-        StartCoroutine(ActivateInvulnerable());
+        StartCoroutine(ActivateInvulnerable(invulnerableDuration));
 
         if (playerMovement.isGrounded || playerMovement.isDrifting)
             HitObstacleOnGround.Invoke();
@@ -72,12 +71,12 @@ public class PlayerObstacleCollisions : MonoBehaviour
     }
 
 
-    private IEnumerator ActivateInvulnerable()
+    public IEnumerator ActivateInvulnerable(float duration)
     {
         invulnerable = true;
         // TODO: Enable invulnerable shader
 
-        yield return new WaitForSeconds(invulnerableDuration);
+        yield return new WaitForSeconds(duration);
 
         invulnerable = false;
         // TODO: Disable invulnerable shader

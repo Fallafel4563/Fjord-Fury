@@ -1,111 +1,90 @@
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
 public class Ability : MonoBehaviour
 {
     public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
-    [SerializeField] private RamAbility RA;
-    [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
+    [SerializeField] private ObstacleLifetimeScalingSystem obstacleLifetimeScaling;
 
     [Header("Art")]
     [SerializeField] private GameObject _art;
-    [SerializeField] private GameObject _artParticles;
-
-    [Header("Equalizer")]
-    [SerializeField] private float EqualizerValue;
-    [SerializeField] private AnimationCurve EqualizerCurve;
-    [SerializeField] private float strengthDivider;
 
     [Header("Bounce")]
-    [SerializeField] private float BounceMultiplier = 2f;
-    [SerializeField] private float shroomStrengthDivider;
 
-    private float LeadSplinePosition;
-    private float OwnSplinePosition;
+    [Header("Scaling")]
+    [SerializeField] private float sizeDivider = 3f;
+    [SerializeField] private float sizeMultiplier = 2f;
+    [SerializeField] private float lengthDivider = 3f;
+    [SerializeField] private float lengthMultiplier = 2f;
+    [SerializeField] private float strengthDivider = 3f;
+    [SerializeField] private float strengthMultiplier = 2f;
 
     private bool _isConected = true;
 
-    private float _offSplineSpeed = 140f;
+    [Header("Off spline")]
+    [SerializeField] private float _offSplineSpeed = 140f;
     [SerializeField] private float _spawnOffset = 5f;
-    [SerializeField] private float _temporarryDurationVariable;
 
-    Transform owner;
 
-    void Start()
+    private void Start()
     {
-        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
-        RA = GetComponent<RamAbility>();
-        Destroy(gameObject, _temporarryDurationVariable);
+        Destroy(gameObject, 100f);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, int shortBoost/*Longer*/, int mediumBoost/*Bigger*/, int longBoost/*Stronger*/, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber ruber, PlayerObstacleCollisions poc)
+
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband, PlayerObstacleCollisions playerObstacleCollisions)
     {
-        owner = player;
+        float rubberbandBoost = rubberband.rubberbandBoost;
+        float length = rubberbandBoost * (1f + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
+        float size = rubberbandBoost * (1f + (sizeMultiplier * (sizeBoost / (sizeDivider + (sizeBoost / 2f)))));
+        float strength = rubberbandBoost * (1f + (strengthMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2f)))));
 
-        if (!GetComponentInChildren<BounceShroom>()) transform.SetParent(owner);
-        _spline = GetComponent<CinemachineSplineCart>();
-        _spline.Spline = Track.GetComponent<SplineContainer>();
+        Debug.LogFormat(
+            "Length mult {0}, Length input {1} \nSize mult {2}, Size input {3} \nStength mult {4}, Strength input {5} \n",
+            length,
+            lengthBoost,
+            size,
+            sizeBoost,
+            strength,
+            strengthBoost
+        );
 
-        // Set strength through the ObstacleLifetimeScalingSystem
-        OLSS.LifeTime = Equalizer(shortBoost * 2, ruber);
-        OLSS.MaxSize = Equalizer(mediumBoost, ruber);
+        // Set size and duration through the ObstacleLifetimeScalingSystem
+        obstacleLifetimeScaling.LifeTime *= length;
+        obstacleLifetimeScaling.MaxSize *= size;
 
+        // This is also for the tornado
         if (GetComponentInChildren<BounceShroom>())
         {
-            
-            int strengthBoost = longBoost; // it has to be a float in the formula
-            //GetComponentInChildren<BounceShroom>().BouncePower *= Equalizer(longBoost);
-            GetComponentInChildren<BounceShroom>().Owner = owner;
-            float BounceStrength = ruber.rubberbandBoost * (10f + (BounceMultiplier * (strengthBoost / (shroomStrengthDivider + (strengthBoost / 2)))));  
-            Debug.Log("Bounce: " + BounceStrength);
-            //GetComponentInChildren<BounceShroom>().BouncePower = BounceStrength;
+            BounceShroom bounceShroom = GetComponentInChildren<BounceShroom>();
+            bounceShroom.Owner = player;
+            bounceShroom.BouncePower *= strength;
         }
 
-        if (GetComponent<RamAbility>())
+        if (GetComponentInChildren<RamAbility>())
         {
-            GetComponent<RamAbility>().StartAbility(Equalizer(longBoost, ruber), forwardSpeedMultiplier, poc);
+            RamAbility ramAbility = GetComponentInChildren<RamAbility>();
+            transform.SetParent(player);
+            ramAbility.StartAbility(strength, forwardSpeedMultiplier, playerObstacleCollisions, obstacleLifetimeScaling.LifeTime);
         }
+
+
+        _spline = GetComponent<CinemachineSplineCart>();
+        _spline.Spline = Track.GetComponent<SplineContainer>();
 
         if (_spline != null)
         {
             if (Track != null) _spline.Spline = Track.track;
-            _spline.SplinePosition = (position + _spawnOffset);
+            _spline.SplinePosition = position + _spawnOffset;
             if (!GetComponentInChildren<RamAbility>()) _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
     }
 
-    void GetEqualizerValue()
-    {
-        LeadSplinePosition = 2f;
-        OwnSplinePosition = 1f;
-        EqualizerValue = LeadSplinePosition - OwnSplinePosition;
-    }
-
-    float Equalizer(int input, Ruber ruber)
-    {
-        float returnValue = input + 1;
-
-        returnValue = ruber.rubberbandBoost * (1 + (input / strengthDivider));
-        if (input == 0) returnValue = 1;
-        if (returnValue == 0)
-        {
-            returnValue = 1;
-            Debug.Log("Returned 0");
-        }
-
-        Debug.Log(ruber.rubberbandBoost);
-        //returnValue /= ruber.rubberbandBoost;
-
-        return returnValue;
-    }
 
     void Update()
     {
-        GetEqualizerValue();
-
         if (_spline.SplinePosition > Track.track.Spline.GetLength() - 1 && _isConected)
         {
             _isConected = false;

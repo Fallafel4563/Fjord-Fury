@@ -41,16 +41,16 @@ public class GamePause : MonoBehaviour
     {
         if (pauseGame.WasPressedThisFrame())
         {
-            if (isGamePaused)
-            {
+           if (isGamePaused)
+           {
                 ResumeGame();
-            } 
-            else
+           } 
+           else
             {
                 PauseGame();
             }
         }
-    
+        
     }
 
     public void PauseGame()
@@ -81,12 +81,12 @@ public class GamePause : MonoBehaviour
         backgroundPanel.gameObject.SetActive(false);
         pausedBackground.gameObject.SetActive(false);
         darkBackground.gameObject.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(null);
+         EventSystem.current.SetSelectedGameObject(null);
     }
 
-    public void QuitGame()
+    private void QuitGame()
     {
-        ResumeGame();
+         Time.timeScale = 1;
     }
 
     public void SettingsActive()

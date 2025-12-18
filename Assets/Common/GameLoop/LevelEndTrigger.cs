@@ -11,7 +11,7 @@ public class LevelEndTrigger : MonoBehaviour
     private float levelStartTime;
 
     public static Action<string> AllPlayersCompleted;
-    public static Action<int, float> PlayerReachedLevelEnd;
+    public static Action<int, float, int> PlayerReachedLevelEnd;
 
 
     private void OnEnable()
@@ -54,7 +54,7 @@ public class LevelEndTrigger : MonoBehaviour
             playerMovement.splineCart.AutomaticDolly.Enabled = false;
             playerMovement.enabled = false;
 
-            PlayerReachedLevelEnd?.Invoke(playerIndex, timeSpent);
+            PlayerReachedLevelEnd?.Invoke(playerIndex, timeSpent, playersCompleted);
             playersCompleted++;
             if (playersCompleted >= PlayerInput.all.Count)
             {
