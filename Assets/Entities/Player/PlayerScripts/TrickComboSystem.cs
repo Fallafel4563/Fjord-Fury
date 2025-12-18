@@ -24,8 +24,8 @@ public class TrickComboSystem : MonoBehaviour
     private int sizeBoost = 0;
     private int strengthBoost = 0;
     public int abilityActivationThreshold = 2;
-    public List<string> abilityType = new List<string> { "Shroom", "Whirlwind", "Ram" };
-    public List<string> boostType = new List<string> { "Longer", "Bigger", "Stronger" };
+    public List<string> abilityType = new List<string> { "SHROOM", "WHIRLWIND", "RAM" };
+    public List<string> boostType = new List<string> { "LONGER", "BIGGER", "STRONGER" };
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
@@ -38,6 +38,7 @@ public class TrickComboSystem : MonoBehaviour
     public UnityEvent TrickSucceed;
     public UnityEvent TrickFalied;
 
+    public TrickSoundManager TrickSounds;
 
     private void Start()
     {
@@ -96,12 +97,14 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform);
         }
+
+        TrickSounds.playTrickSound((int)combo);
 
         combo += 1f;
 
@@ -193,7 +196,7 @@ public class TrickComboSystem : MonoBehaviour
     private void TriggerComboBoost()
     {
         float speedBoost = 1f + combo / 6f;
-        Debug.LogFormat("Speedboost {0}", speedBoost);
+        //Debug.LogFormat("Speedboost {0}", speedBoost);
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", Mathf.Clamp(speedBoost, 0f, 2f), ImmediateComboBoostCurve);
         ResetSystemValues();
 

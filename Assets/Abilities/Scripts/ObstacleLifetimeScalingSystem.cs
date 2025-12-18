@@ -3,20 +3,25 @@ using UnityEngine;
 public class ObstacleLifetimeScalingSystem : MonoBehaviour
 {
     public float MaxSize;
+
     [SerializeField] private AnimationCurve ScalingCurve;
-    [SerializeField] private GameObject Parent;
+    public float LifeTime;
     float animationTime;
+
+    [SerializeField] private GameObject Parent;
 
     public void SetMaxSize(float maxSize)
     {
         MaxSize = maxSize;
-        Debug.Log("Set MAx Size");
+        //Debug.Log("Set MAx Size");
     }
 
-    void Update()
+    void LateUpdate()
     {
-        animationTime += Time.deltaTime;
         Scaling();
+
+        // Set the time based on the scalingCurve and the Lifetime
+        animationTime += Time.deltaTime / LifeTime;
 
         //Destroy parent if the ScalingCurve has reached its end
         if (animationTime > ScalingCurve.length) Destroy(Parent);
@@ -27,5 +32,10 @@ public class ObstacleLifetimeScalingSystem : MonoBehaviour
     {
         float size = MaxSize * ScalingCurve.Evaluate(animationTime);
         transform.localScale = new Vector3(size, size, size);
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("I'm out'a here");
     }
 }
