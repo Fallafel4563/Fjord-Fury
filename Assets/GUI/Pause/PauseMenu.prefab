@@ -1206,7 +1206,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2141661707006140396}
         m_TargetAssemblyTypeName: NextSceneLoading, Assembly-CSharp
-        m_MethodName: LoadSceneCoroutine
+        m_MethodName: LoadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1241,7 +1241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: MainMenu
-  playerCount: 0
 --- !u!1 &5935001986038241172
 GameObject:
   m_ObjectHideFlags: 0
