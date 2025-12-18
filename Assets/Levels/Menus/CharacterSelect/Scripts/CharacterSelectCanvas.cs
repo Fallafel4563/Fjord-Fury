@@ -13,9 +13,12 @@ public class CharacterSelectCanvas : MonoBehaviour
     private int readyPlayerCount = 0;
     private Dictionary<int, PlayerSelectInfo> playerChoiceDict = new();
 
+    bool starting;
+
 
     private void Start()
     {
+        starting = false;
         allPlayersReadyBanner.SetActive(false);
         // TODO: Spawn in the first player automatically
     }
@@ -57,6 +60,9 @@ public class CharacterSelectCanvas : MonoBehaviour
 
     private void OnCharacterSelected(int playerIndex, PlayerSelectInfo playerSelectInfo)
     {
+        if (starting)
+            return;
+
         // Save player choice
         playerChoiceDict.Add(playerIndex, playerSelectInfo);
 
@@ -76,6 +82,9 @@ public class CharacterSelectCanvas : MonoBehaviour
 
     private void OnCharacterDeselected(int playerIndex)
     {
+        if (starting)
+            return;
+
         CharacterJoinPanel joinPanel = characterJoinPanels[playerIndex];
         joinPanel.SetPanelState(CharacterJoinPanel.PanelState.Choosing);
         // Remove choice form dict when a player deselects their character
@@ -89,6 +98,7 @@ public class CharacterSelectCanvas : MonoBehaviour
             allPlayersReady = false;
         }
         readyPlayerCount--;
+        readyPlayerCount = Mathf.Clamp(readyPlayerCount, 0, 4);
     }
 
 
@@ -98,7 +108,10 @@ public class CharacterSelectCanvas : MonoBehaviour
         {
             // Give the multiplayer spawn information about which player chose what character
             MultiplayerPlayerSpawner.players = playerChoiceDict;
+
             nextSceneLoading.LoadScene();
+            starting = true;
+
         }
     }
 }
