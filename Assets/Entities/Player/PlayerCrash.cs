@@ -20,6 +20,10 @@ public class PlayerCrash : MonoBehaviour
     public CinemachineCollisionImpulseSource impulseSource;
     
     private bool wasGroundedLastFrame;
+
+
+    private bool Aenabled = true;
+
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -36,6 +40,9 @@ public class PlayerCrash : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (!enabled)
+            return;
+        
         if(other.gameObject.TryGetComponent(out PlayerCrash otherBoat))
         {
             Debug.Log("Works");
@@ -90,6 +97,14 @@ public class PlayerCrash : MonoBehaviour
             //Vector3 direction = (other.transform.position-transform.position).normalized;
             //other.gameObject.GetComponent<Rigidbody>().AddForce(direction * bumpDistance, ForceMode.Impulse);
         }
+    }
+
+
+    public IEnumerator TempDisable(float duration)
+    {
+        Aenabled = false;
+        yield return new WaitForSeconds(duration);
+        Aenabled = true;
     }
 
     public IEnumerator SetBump(PlayerMovement boat, Vector3 bump)

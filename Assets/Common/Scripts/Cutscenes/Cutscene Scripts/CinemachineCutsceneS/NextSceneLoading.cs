@@ -8,6 +8,7 @@ public class NextSceneLoading : MonoBehaviour
 
     public void LoadScene()
     {
+        PlacementText.DistancesAlongSpline.Clear();
         if (LoadScreen.Instance != null)
         {
             Time.timeScale = 1f;

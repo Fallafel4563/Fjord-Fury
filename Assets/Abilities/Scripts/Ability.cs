@@ -67,7 +67,7 @@ public class Ability : MonoBehaviour
         {
             RamAbility ramAbility = GetComponentInChildren<RamAbility>();
             transform.SetParent(player);
-            ramAbility.StartAbility(strength, forwardSpeedMultiplier, playerObstacleCollisions, obstacleLifetimeScaling.LifeTime);
+            ramAbility.StartAbility(strength, forwardSpeedMultiplier, playerObstacleCollisions, obstacleLifetimeScaling.LifeTime, player);
         }
 
 
