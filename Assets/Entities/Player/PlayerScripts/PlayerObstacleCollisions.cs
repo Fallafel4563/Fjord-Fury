@@ -15,10 +15,22 @@ public class PlayerObstacleCollisions : MonoBehaviour
     public bool invulnerable { get; set; } = false;
     public bool ramBoostActive { get; set; } = false;
 
-
+    float ramTime;
     public UnityEvent HitObstacleOnGround;
     public UnityEvent HitObstacleInAir;
 
+    private void FixedUpdate()
+    {
+        if (ramBoostActive)
+        {
+            ramTime -= Time.fixedDeltaTime;
+            if (ramTime <= 0 )
+            {
+                ramBoostActive = false;
+                Debug.Log("no more ramboosting");
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -81,4 +93,13 @@ public class PlayerObstacleCollisions : MonoBehaviour
         invulnerable = false;
         // TODO: Disable invulnerable shader
     }
+
+
+    public void ActivateRamboost(float duration)
+    {
+        ramTime = duration;
+        ramBoostActive = true;
+        Debug.Log("ramboosting");
+    }
 }
+
