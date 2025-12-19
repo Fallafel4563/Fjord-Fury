@@ -5020,7 +5020,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 435845071350575578, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: LifeTime
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5055,9 +5055,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1440333112888624948}
     - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: sizeDivider
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: _artParticles
       value: 
       objectReference: {fileID: 1830098755089105684}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: lengthDivider
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: sizeBaseValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: lengthBaseValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: strengthDivider
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: lengthMultiplier
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: strengthBaseValue
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      propertyPath: strengthMultiplier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6782713375089201330, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       propertyPath: obstacleLifetimeScaling
       value: 
@@ -5165,7 +5197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ImmediateComboBoostCurve:
-    holdTime: 3
+    holdTime: 1
     startCurve:
       serializedVersion: 2
       m_Curve:
@@ -5178,6 +5210,24 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.10207729
+        value: 0.9972712
+        inSlope: 1.4402893
+        outSlope: 1.4402893
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.3090152
+        value: 1.0247164
+        inSlope: -0.23033409
+        outSlope: -0.23033409
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
@@ -5237,7 +5287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6571403684638881891, guid: ca7ca26ad92dad04c98bd2c3fdc80d51, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 6571403684638881891, guid: ca7ca26ad92dad04c98bd2c3fdc80d51, type: 3}
       propertyPath: m_LocalRotation.w

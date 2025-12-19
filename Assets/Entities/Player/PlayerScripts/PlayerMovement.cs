@@ -288,6 +288,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundResetStuff()
     {
+        airTimePassed = 0;
         airVelocity = Vector3.zero;
         canGroundPound = true;
         startedGroundPound = false;
@@ -307,6 +308,7 @@ public class PlayerMovement : MonoBehaviour
     // How it should rotate when steering in the air
     public float airSteerRotSpeed = 0.5f;
     public float resetAirRotationSpeed = 10f;
+    private float airTimePassed = 0;
 
     public Vector3 airVelocity { get; set; } = Vector3.zero;
 
@@ -318,6 +320,10 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyAirMovement()
     {
         NonCicleSteering();
+        
+        float verticalVel = Vector3.Dot(transform.up, airVelocity);
+        Vector3 horizontalVel = airVelocity - (transform.up * verticalVel);
+        airVelocity = Vector3.Lerp(transform.forward * horizontalVel.magnitude + Vector3.up * verticalVel, airVelocity, Mathf.Lerp(1, 0.99f, airTimePassed/3));
 
         // Move boat forwards
         // Get how fast the boat is moving forwards
@@ -334,6 +340,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply gravity
         airVelocity += Vector3.down * gravity * Mathf.Pow(timeSinceJump + 0.5f, 2f) * Time.deltaTime;
+
+        airTimePassed += Time.deltaTime;
 
         // Apply air velocity
         transform.position += airVelocity * Time.deltaTime;

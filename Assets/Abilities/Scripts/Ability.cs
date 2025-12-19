@@ -14,10 +14,15 @@ public class Ability : MonoBehaviour
     [Header("Bounce")]
 
     [Header("Scaling")]
+    [SerializeField] private float sizeBaseValue = 1f;
     [SerializeField] private float sizeDivider = 3f;
     [SerializeField] private float sizeMultiplier = 2f;
+    [Space(10)]
+    [SerializeField] private float lengthBaseValue = 1f;
     [SerializeField] private float lengthDivider = 3f;
     [SerializeField] private float lengthMultiplier = 2f;
+    [Space(10)]
+    [SerializeField] private float strengthBaseValue = 1f;
     [SerializeField] private float strengthDivider = 3f;
     [SerializeField] private float strengthMultiplier = 2f;
 
@@ -37,9 +42,9 @@ public class Ability : MonoBehaviour
     public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband, PlayerObstacleCollisions playerObstacleCollisions)
     {
         float rubberbandBoost = rubberband.rubberbandBoost;
-        float length = rubberbandBoost * (1f + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
-        float size = rubberbandBoost * (1f + (sizeMultiplier * (sizeBoost / (sizeDivider + (sizeBoost / 2f)))));
-        float strength = rubberbandBoost * (1f + (strengthMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2f)))));
+        float length = rubberbandBoost * (lengthBaseValue + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
+        float size = rubberbandBoost * (sizeBaseValue + (sizeMultiplier * (sizeBoost / (sizeDivider + (sizeBoost / 2f)))));
+        float strength = rubberbandBoost * (strengthBaseValue + (strengthMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2f)))));
 
         Debug.LogFormat(
             "Length mult {0}, Length input {1} \nSize mult {2}, Size input {3} \nStength mult {4}, Strength input {5} \n",
