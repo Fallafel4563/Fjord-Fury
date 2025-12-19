@@ -1,3 +1,4 @@
+
 using TMPro;
 using UnityEngine;
 
@@ -11,10 +12,16 @@ public class WorldText : MonoBehaviour
     private Transform lookAtTarget;
 
 
-    public void SetUpText(string text, Color color, int trick, Transform lookTarget = null)
+    public void SetUpText(string text, Color color, int trick, bool useTrickColor, Transform lookTarget = null)
     {
         textAsset.text = text;
         lookAtTarget = lookTarget;
+
+        if (!useTrickColor)
+        {
+            textAsset.colorGradientPreset = new TMP_ColorGradient(color);
+            return;
+        }
 
         switch (trick)
         {
@@ -28,7 +35,7 @@ public class WorldText : MonoBehaviour
                 textAsset.colorGradientPreset = ramColors;
                 break;
             default:
-                textAsset.color = color;
+                textAsset.colorGradientPreset = new TMP_ColorGradient(color);
                 break;
         }
     }

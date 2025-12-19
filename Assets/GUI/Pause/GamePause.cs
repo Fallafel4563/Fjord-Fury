@@ -86,7 +86,7 @@ public class GamePause : MonoBehaviour
 
     private void QuitGame()
     {
-      SceneManager.LoadScene("mainMenu");
+         Time.timeScale = 1;
     }
 
     public void SettingsActive()

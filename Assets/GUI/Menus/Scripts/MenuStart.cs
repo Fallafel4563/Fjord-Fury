@@ -43,6 +43,7 @@ public class MenuStart : MonoBehaviour
 
     public void loadLevelSelect()
     {
+        OnboardingManager.isActive = true;
         SceneManager.LoadScene("LevelSelect");
     }
     #endregion

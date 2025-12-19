@@ -34,12 +34,12 @@ public class Ability : MonoBehaviour
     }
 
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband)
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband, PlayerObstacleCollisions playerObstacleCollisions)
     {
         float rubberbandBoost = rubberband.rubberbandBoost;
-        float length = GetDuration(lengthBoost, rubberbandBoost);
-        float size = GetSize(sizeBoost, rubberbandBoost);
-        float strength = GetStrength(strengthBoost, rubberbandBoost);
+        float length = rubberbandBoost * (1f + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
+        float size = rubberbandBoost * (1f + (sizeMultiplier * (sizeBoost / (sizeDivider + (sizeBoost / 2f)))));
+        float strength = rubberbandBoost * (1f + (strengthMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2f)))));
 
         Debug.LogFormat(
             "Length mult {0}, Length input {1} \nSize mult {2}, Size input {3} \nStength mult {4}, Strength input {5} \n",
@@ -67,7 +67,7 @@ public class Ability : MonoBehaviour
         {
             RamAbility ramAbility = GetComponentInChildren<RamAbility>();
             transform.SetParent(player);
-            ramAbility.StartAbility(strength, forwardSpeedMultiplier);
+            ramAbility.StartAbility(strength, forwardSpeedMultiplier, playerObstacleCollisions, obstacleLifetimeScaling.LifeTime, player);
         }
 
 
@@ -80,22 +80,6 @@ public class Ability : MonoBehaviour
             _spline.SplinePosition = position + _spawnOffset;
             if (!GetComponentInChildren<RamAbility>()) _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
-    }
-
-
-    private float GetDuration(int lengthBoost, float rubberbandBoost)
-    {
-        return rubberbandBoost * (1f + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
-    }
-
-    private float GetSize(int sizeBoost, float rubberbandBoost)
-    {
-        return rubberbandBoost * (1f + (sizeMultiplier * (sizeBoost / (sizeDivider + (sizeBoost / 2f)))));
-    }
-
-    private float GetStrength(int strengthBoost, float rubberbandBoost)
-    {
-        return rubberbandBoost * (1f + (strengthMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2f)))));
     }
 
 
