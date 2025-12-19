@@ -1,37 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class NextSceneLoading : MonoBehaviour
 {
     public string SceneToLoad;
-    bool loading = false;
-    public int playerCount;
-    public void LoadSceneCoroutine()
+
+
+    public void LoadScene()
     {
-        playerCount++;
-        if (!loading)
+        PlacementText.DistancesAlongSpline.Clear();
+        if (LoadScreen.Instance != null)
         {
-        StartCoroutine(LoadNextScene());
-            loading = true;
+            Time.timeScale = 1f;
+            LoadScreen.Instance.StartLoad(SceneToLoad);
         }
-    }
-    
-
-    IEnumerator LoadNextScene()
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneToLoad);//Add level to be loaded inside parentheses.
-
-        asyncLoad.allowSceneActivation = false;
-
-         while (!asyncLoad.isDone)
-         {
-            if (asyncLoad.progress >= 0.9f)
-            {
-                asyncLoad.allowSceneActivation = true;
-                
-            }
-            yield return null;
-         }
+        else
+        {
+            SceneManager.LoadScene(SceneToLoad);
+        }
     }
 }

@@ -1,17 +1,22 @@
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerHud : MonoBehaviour
 {
     public BoostMeter boostMeter;
     public GameObject levelEndScreen;
     public GameObject firstPlaceShine;
+    public GameObject respawnFadeObject;
+    public Animator animator;
     public TMP_Text finishedTimeText, placementText;
     public Image placementImage;
+    public Image finalPlacementImage;
     private int playerIndex;
     private Canvas canvas;
-
+    
+    public List<Sprite> placementIcons = new();
 
     private void Awake()
     {
@@ -42,7 +47,7 @@ public class PlayerHud : MonoBehaviour
         playerIndex = index;
 
         canvas.worldCamera = renderCamera;
-        canvas.planeDistance = 0.5f;
+        canvas.planeDistance = 0.301f;
     }
 
 
@@ -61,29 +66,31 @@ public class PlayerHud : MonoBehaviour
 
     public void OnRespawnFadeInStarted(float fadeDuration)
     {
-        //
+        respawnFadeObject.SetActive(false);
+        respawnFadeObject.SetActive(true);
+        animator.Play("RespawnFade");
     }
 
-    
+
     public void OnRespawnFadeOutStarted(float fadeDuration)
     {
         //
     }
 
 
-    private void OnPlayerReachedLevelEnd(int index, float timeSpent)
+    private void OnPlayerReachedLevelEnd(int index, float timeSpent, int playerPlacement)
     {
         if (index == playerIndex)
         {
             levelEndScreen.SetActive(true);
-            finishedTimeText.text = string.Format("{0} secs", timeSpent);
+            finishedTimeText.text = string.Format("{0} secs", timeSpent.ToString("#.00"));
+            Debug.LogFormat("Player placement {0}, Player index {1}", playerPlacement, playerIndex);
+            finalPlacementImage.sprite = placementIcons[playerPlacement];
         }
     }
 
     public void SetFirstPlayerShine(int playerPlacement)
     {
-
-        firstPlaceShine.SetActive(playerPlacement == 1);
-    
+        firstPlaceShine.SetActive(playerPlacement == 0);
     }
 }

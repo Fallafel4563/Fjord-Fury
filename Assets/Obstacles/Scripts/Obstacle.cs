@@ -19,8 +19,6 @@ public class Obstacle : MonoBehaviour
         // TODO: Play sound
         if (destructOnCrash)
         {
-            Debug.Log("ASD");
-
             Destroy(this.gameObject);
             // TODO: Play crash particles
         }

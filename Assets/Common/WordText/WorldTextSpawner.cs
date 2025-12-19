@@ -41,7 +41,7 @@ public class WorldTextSpawner : MonoBehaviour
         {
             WorldTextInstanceInfo textInstanceInfo = activeTextInstances[i];
             // Scale the text instance using the animation curve
-            float scale = textInstanceInfo.animationCurve.Evaluate(Time.time - textInstanceInfo.spawnTime);
+            float scale = textInstanceInfo.animationCurve.Evaluate(Time.time - textInstanceInfo.spawnTime) * textInstanceInfo.sizeMultiplier;
             textInstanceInfo.transform.localScale = Vector3.one * scale;
 
             // Disable text instance when the time animation curve has reached its end
@@ -55,14 +55,14 @@ public class WorldTextSpawner : MonoBehaviour
     }
 
 
-    public void SpawnText(string text, Vector3 position, Color color, Transform parent = null, AnimationCurve sizeCurve = null)
+    public void SpawnText(string text, Vector3 position, Color color, Transform parent = null, int trick = 3, Transform lookTarget = null, float size=1, bool useTrickColor=true, AnimationCurve sizeCurve = null)
     {
         Transform textInstance = textPool[poolIndex];
         poolIndex++;
         poolIndex %= poolAmount;
 
         textInstance.gameObject.SetActive(true);
-        textInstance.GetComponent<WorldText>().SetUpText(text, color);
+        textInstance.GetComponent<WorldText>().SetUpText(text, color, trick, useTrickColor, lookTarget);
         textInstance.position = position;
         if (parent == null)
             textInstance.SetParent(this.transform);
@@ -76,6 +76,7 @@ public class WorldTextSpawner : MonoBehaviour
         textInstanceInfo.spawnTime = Time.time;
         textInstanceInfo.transform = textInstance;
         textInstanceInfo.animationCurve = curve;
+        textInstanceInfo.sizeMultiplier = size;
 
         activeTextInstances.Add(textInstanceInfo);
     }
@@ -85,6 +86,7 @@ public class WorldTextSpawner : MonoBehaviour
 public class WorldTextInstanceInfo
 {
     public float spawnTime;
+    public float sizeMultiplier;
     public Transform transform;
     public AnimationCurve animationCurve;
 }

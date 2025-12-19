@@ -1,107 +1,100 @@
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
 public class Ability : MonoBehaviour
 {
-    [HideInInspector] public SplineTrack Track;
+    public SplineTrack Track;
     [SerializeField] private CinemachineSplineCart _spline;
+    [SerializeField] private ObstacleLifetimeScalingSystem obstacleLifetimeScaling;
+
+    [Header("Art")]
     [SerializeField] private GameObject _art;
+
+    [Header("Bounce")]
+
+    [Header("Scaling")]
+    [SerializeField] private float sizeBaseValue = 1f;
+    [SerializeField] private float sizeDivider = 3f;
+    [SerializeField] private float sizeMultiplier = 2f;
+    [Space(10)]
+    [SerializeField] private float lengthBaseValue = 1f;
+    [SerializeField] private float lengthDivider = 3f;
+    [SerializeField] private float lengthMultiplier = 2f;
+    [Space(10)]
+    [SerializeField] private float strengthBaseValue = 1f;
+    [SerializeField] private float strengthDivider = 3f;
+    [SerializeField] private float strengthMultiplier = 2f;
+
     private bool _isConected = true;
 
-    private float _offSplineSpeed = 140f;
+    [Header("Off spline")]
+    [SerializeField] private float _offSplineSpeed = 140f;
     [SerializeField] private float _spawnOffset = 5f;
-    [SerializeField] private float _temporarryDurationVariable;
-
-    [SerializeField] private RamAbility RA;
-
-    [SerializeField] int trickNumberRecuired;
-
-    [SerializeField] private ObstacleLifetimeScalingSystem OLSS;
 
 
-
-    [Header("Ability implementaation")]
-    [SerializeField] private float CrashSpeedMultiplier;
-    [SerializeField] private AnimationCurve CrashSpeedMultiplierCurve;
-    [SerializeField] private AudioSource CrashSound;
-    [SerializeField] private bool CauseHarm;
-    [SerializeField] private bool DestructOnCrash;
-    [SerializeField] private GameObject DestructParticles;
-    [SerializeField] private GameObject Instantiator;
-    [SerializeField] private float BounceHeight;
-
-    [SerializeField] private float MaxSize;
-    [SerializeField] private float LifeSpan;
-    [SerializeField] private AnimationCurve MultiplierCurve;
-
-    ForwardSpeedMultiplier _forwardSpeedMultiplier;
-
-    void Start()
+    private void Start()
     {
-        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
-        RA = GetComponent<RamAbility>();
-        Destroy(gameObject, _temporarryDurationVariable);
+        Destroy(gameObject, 100f);
     }
 
-    public void ConfigurateMyself(float position, float XPosition, Transform player, ForwardSpeedMultiplier forwardSpeedMultiplier, int comboCount, float strength)//, float speed)
-    {
-        _forwardSpeedMultiplier = forwardSpeedMultiplier;
 
-        if (comboCount < trickNumberRecuired) return;
+    public void ConfigurateMyself(float position, float XPosition, Transform player, int lengthBoost, int sizeBoost, int strengthBoost, ForwardSpeedMultiplier forwardSpeedMultiplier, Ruber rubberband, PlayerObstacleCollisions playerObstacleCollisions)
+    {
+        float rubberbandBoost = rubberband.rubberbandBoost;
+        float length = rubberbandBoost * (lengthBaseValue + (lengthMultiplier * (lengthBoost / (lengthDivider + (lengthBoost / 2f)))));
+        float size = rubberbandBoost * (sizeBaseValue + (sizeMultiplier * (sizeBoost / (sizeDivider + (sizeBoost / 2f)))));
+        float strength = rubberbandBoost * (strengthBaseValue + (strengthMultiplier * (strengthBoost / (strengthDivider + (strengthBoost / 2f)))));
+
+        Debug.LogFormat(
+            "Length mult {0}, Length input {1} \nSize mult {2}, Size input {3} \nStength mult {4}, Strength input {5} \n",
+            length,
+            lengthBoost,
+            size,
+            sizeBoost,
+            strength,
+            strengthBoost
+        );
+
+        // Set size and duration through the ObstacleLifetimeScalingSystem
+        obstacleLifetimeScaling.LifeTime *= length;
+        obstacleLifetimeScaling.MaxSize *= size;
+
+        // This is also for the tornado
+        if (GetComponentInChildren<BounceShroom>())
+        {
+            BounceShroom bounceShroom = GetComponentInChildren<BounceShroom>();
+            bounceShroom.Owner = player;
+            bounceShroom.BouncePower *= strength;
+        }
+
+        if (GetComponentInChildren<RamAbility>())
+        {
+            RamAbility ramAbility = GetComponentInChildren<RamAbility>();
+            transform.SetParent(player);
+            ramAbility.StartAbility(strength, forwardSpeedMultiplier, playerObstacleCollisions, obstacleLifetimeScaling.LifeTime, player);
+        }
+
+
+        _spline = GetComponent<CinemachineSplineCart>();
+        _spline.Spline = Track.GetComponent<SplineContainer>();
 
         if (_spline != null)
         {
-            _spline.Spline = Track.track;
-            _spline.SplinePosition = (position + _spawnOffset);
-            _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
+            if (Track != null) _spline.Spline = Track.track;
+            _spline.SplinePosition = position + _spawnOffset;
+            if (!GetComponentInChildren<RamAbility>()) _art.transform.localPosition = new Vector3(XPosition, 0f, 0f);
         }
-
-        if (RA != null)
-        {
-            _spline.enabled = false;
-            transform.rotation = player.rotation;
-            transform.position = player.position;
-            transform.SetParent(player);
-            _art.transform.localPosition = new Vector3(0f, 0f, 0f);
-        }
-        //_spline = GetComponent<CinemachineSplineCart>();
-        //GetComponent<SplineContainer>();
-        // _spline.Spline = Track.GetComponent<SplineContainer>();
-
-        SetStrenght(strength);
     }
 
-    void SetStrenght(float strength)
-    {
-        Debug.Log(strength);
-
-        //if (RA == null) _art.transform.localScale = new Vector3(strength, strength, strength);
-        OLSS = GetComponentInChildren<ObstacleLifetimeScalingSystem>();
-        OLSS.SetMaxSize(strength);
-        if (_art.GetComponent<BounceShroom>()) _art.GetComponent<BounceShroom>().BouncePower *= strength;
-
-        if (RA != null) SetRamStrength(strength);
-
-        if (_spline.AutomaticDolly.Method is SplineAutoDolly.FixedSpeed autoDolly)
-            Debug.Log("Confermation");//autoDolly.Speed = 1f;// *= (strength / 2);
-    }
-
-    void SetRamStrength(float strength)
-    {
-        RA.StartAbility(strength, _forwardSpeedMultiplier);
-    }
 
     void Update()
     {
-        if (_spline.SplinePosition > Track.track.Spline.GetLength()-1 && _isConected)
+        if (_spline.SplinePosition > Track.track.Spline.GetLength() - 1 && _isConected)
         {
             _isConected = false;
             _spline.enabled = false;
-        }
-        else
-        {
+            transform.SetParent(null);
         }
 
         if (!_isConected)

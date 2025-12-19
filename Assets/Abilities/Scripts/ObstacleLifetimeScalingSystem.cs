@@ -1,26 +1,36 @@
+using System.Linq;
 using UnityEngine;
 
 public class ObstacleLifetimeScalingSystem : MonoBehaviour
 {
     public float MaxSize;
-    [SerializeField] private AnimationCurve ScalingCurve;
+    public float LifeTime;
+
     [SerializeField] private GameObject Parent;
-    float animationTime;
+    [SerializeField] private AnimationCurve ScalingCurve;
+
+    private float animationTime;
+
 
     public void SetMaxSize(float maxSize)
     {
         MaxSize = maxSize;
-        Debug.Log("Set MAx Size");
+        //Debug.Log("Set MAx Size");
     }
 
-    void Update()
+
+    void LateUpdate()
     {
-        animationTime += Time.deltaTime;
         Scaling();
 
+        // Set the time based on the scalingCurve and the Lifetime
+        animationTime += Time.deltaTime / LifeTime;
+
         //Destroy parent if the ScalingCurve has reached its end
-        if (animationTime > ScalingCurve.length) Destroy(Parent);
+        if (animationTime > ScalingCurve.keys.Last().time)
+            Destroy(Parent);
     }
+
 
     //Set the new size of the art based on the ScalingCurve
     void Scaling()

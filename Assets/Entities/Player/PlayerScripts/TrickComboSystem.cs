@@ -24,8 +24,8 @@ public class TrickComboSystem : MonoBehaviour
     private int sizeBoost = 0;
     private int strengthBoost = 0;
     public int abilityActivationThreshold = 2;
-    public List<string> abilityType = new List<string> { "Shroom", "Whirlwind", "Ram" };
-    public List<string> boostType = new List<string> { "Longer", "Bigger", "Stronger" };
+    public List<string> abilityType = new List<string> { "SHROOM", "WHIRLWIND", "RAM" };
+    public List<string> boostType = new List<string> { "LONGER", "BIGGER", "STRONGER" };
 
     public float inputBufferDuration = 0.2f;
     public SpeedMultiplierCurve ImmediateComboBoostCurve;
@@ -38,6 +38,7 @@ public class TrickComboSystem : MonoBehaviour
     public UnityEvent TrickSucceed;
     public UnityEvent TrickFalied;
 
+    public TrickSoundManager TrickSounds;
 
     private void Start()
     {
@@ -96,12 +97,14 @@ public class TrickComboSystem : MonoBehaviour
         {
             UpdateBoostMeterVisibility?.Invoke(true);
             firstTrickIndex = trickIndex;
-            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(abilityType[trickIndex], transform.position - transform.forward * 3 + Vector3.up, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .5f);
         }
         else
         {
-            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position, Color.black, transform);
+            WorldTextSpawner.instance.SpawnText(boostType[trickIndex], transform.position - transform.forward * 3 + Vector3.up, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .5f);
         }
+
+        TrickSounds.playTrickSound((int)combo);
 
         combo += 1f;
 
@@ -136,7 +139,7 @@ public class TrickComboSystem : MonoBehaviour
 
         UpdateBoostMeterInfo updateBoostMeterInfo = new();
         updateBoostMeterInfo.combo = (int)combo;
-        updateBoostMeterInfo.barIndex = barIndex;
+        updateBoostMeterInfo.trickType = trickIndex;
         updateBoostMeterInfo.firstTrickIndex = firstTrickIndex;
         updateBoostMeterInfo.abilityActivationThreshold = abilityActivationThreshold;
         UpdateBoostMeter?.Invoke(updateBoostMeterInfo);
@@ -162,6 +165,10 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Trigger failed trick sound
         // TODO: Set animator trigget for failing trick
 
+        if (firstTrickIndex != -1)
+            WorldTextSpawner.instance.SpawnText("FAILED!", transform.position + Vector3.up * 5, Color.red, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .4f, false);
+
+        firstTrickIndex = -1;
         TrickFalied.Invoke();
     }
 
@@ -171,6 +178,9 @@ public class TrickComboSystem : MonoBehaviour
         TriggerAbility();
         TriggerComboBoost();
 
+        WorldTextSpawner.instance.SpawnText("SUCCESS!", transform.position + Vector3.up * 5, Color.white, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .4f, false);
+
+        firstTrickIndex = -1;
         TrickSucceed.Invoke();
         UpdateBoostMeterVisibility?.Invoke(false);
     }
@@ -192,7 +202,9 @@ public class TrickComboSystem : MonoBehaviour
 
     private void TriggerComboBoost()
     {
-        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", 1f + combo / 3, ImmediateComboBoostCurve);
+        float speedBoost = 1f + combo / 6f;
+        //Debug.LogFormat("Speedboost {0}", speedBoost);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", Mathf.Clamp(speedBoost, 0f, 2f), ImmediateComboBoostCurve);
         ResetSystemValues();
 
         // TODO: Fov, camera shake, 
@@ -244,21 +256,4 @@ public class TrickComboSystem : MonoBehaviour
     {
         FailTrick();
     }
-
-
-    // Get the long text that will be displayed on the boost bar
-    //private string GetTrickName()
-    //{
-    //    string tricksName = "";
-    //    for (int i = 0; i < tableOfTricks.Count; i++)
-    //    {
-    //        var item = tableOfTricks.ElementAt(i);
-    //        string key = item.Key;
-    //        int value = item.Value;
-    //
-    //        string number = numberList[value];
-    //        tricksName += number + " " + key + ",";
-    //    }
-    //    return tricksName;
-    //}
 }

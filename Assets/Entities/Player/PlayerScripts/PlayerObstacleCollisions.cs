@@ -15,10 +15,22 @@ public class PlayerObstacleCollisions : MonoBehaviour
     public bool invulnerable { get; set; } = false;
     public bool ramBoostActive { get; set; } = false;
 
-
+    float ramTime;
     public UnityEvent HitObstacleOnGround;
     public UnityEvent HitObstacleInAir;
 
+    private void FixedUpdate()
+    {
+        if (ramBoostActive)
+        {
+            ramTime -= Time.fixedDeltaTime;
+            if (ramTime <= 0 )
+            {
+                ramBoostActive = false;
+                Debug.Log("no more ramboosting");
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,8 +52,7 @@ public class PlayerObstacleCollisions : MonoBehaviour
         
         if (obstacle.bounceHeight > 0f)
         {
-            playerMovement.DetachFromCart();
-            playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
+            StartCoroutine(DetachPlayer(obstacle));
         }
 
         if (!obstacle.causeHarm)
@@ -54,7 +65,7 @@ public class PlayerObstacleCollisions : MonoBehaviour
             trickComboSystem.FailTrick();
 
         // TODO: Play crash sound
-        StartCoroutine(ActivateInvulnerable());
+        StartCoroutine(ActivateInvulnerable(invulnerableDuration));
 
         if (playerMovement.isGrounded || playerMovement.isDrifting)
             HitObstacleOnGround.Invoke();
@@ -63,14 +74,32 @@ public class PlayerObstacleCollisions : MonoBehaviour
     }
 
 
-    private IEnumerator ActivateInvulnerable()
+    private IEnumerator DetachPlayer(Obstacle obstacle)
+    {
+        yield return new WaitForEndOfFrame();
+        if (playerMovement.isGrounded)
+            playerMovement.DetachFromCart();
+        playerMovement.airVelocity += transform.up * obstacle.bounceHeight;
+    }
+
+
+    public IEnumerator ActivateInvulnerable(float duration)
     {
         invulnerable = true;
         // TODO: Enable invulnerable shader
 
-        yield return new WaitForSeconds(invulnerableDuration);
+        yield return new WaitForSeconds(duration);
 
         invulnerable = false;
         // TODO: Disable invulnerable shader
     }
+
+
+    public void ActivateRamboost(float duration)
+    {
+        ramTime = duration;
+        ramBoostActive = true;
+        Debug.Log("ramboosting");
+    }
 }
+
