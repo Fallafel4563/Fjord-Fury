@@ -72,6 +72,10 @@ public class BoostMeter : MonoBehaviour
         longerIndex = 0;
         strongerIndex = 0;
 
+        // Sets the size and color of the ability icon based on the used tricks
+        abilityIcon.transform.localScale = new Vector3(1, 1, 1) * (longerIndex * 0.4f + 1);
+        clockIcon.transform.localScale = new Vector3(1, 1, 1) * (biggerIndex * 0.4f + 1);
+        abilityIcon.color = Color.Lerp(Color.white, Color.red, strongerIndex / 5f);
         //abilityIcon.sprite = null;
 
         for (int i = 0; i < trickTypeIncrease.Count; i++)
