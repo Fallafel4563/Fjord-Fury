@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8131094219880187088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4279659875429183545}
+  - component: {fileID: 5582694538277838701}
+  m_Layer: 0
+  m_Name: place sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4279659875429183545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131094219880187088}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6056184548427103650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5582694538277838701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131094219880187088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 616120683
+      Data2: 1122003339
+      Data3: 1784960929
+      Data4: 1043878863
+    Path: event:/SFX/Ability/Ability_Use_Mushroom
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &894216150378053308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347,6 +410,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7136834789821003459, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8428849450046272849, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4279659875429183545}
     - targetCorrespondingSourceObject: {fileID: 1022446704612960812, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 856349840878999895}
@@ -357,6 +423,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1628463512576927024, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
       insertIndex: 4
       addedObject: {fileID: 5388041343931140236}
+    - targetCorrespondingSourceObject: {fileID: 1628463512576927024, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3796235223271522736}
   m_SourcePrefab: {fileID: 100100000, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
 --- !u!114 &2809899686939425065 stripped
 MonoBehaviour:
@@ -415,3 +484,39 @@ MonoBehaviour:
   BouncePower: 20
   cantHitOwner: 0
   Owner: {fileID: 0}
+--- !u!114 &3796235223271522736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3921470647890406851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Player
+  EventReference:
+    Guid:
+      Data1: 2061466815
+      Data2: 1130939734
+      Data3: -1449376348
+      Data4: 933086371
+    Path: event:/SFX/Ability/Ability_Mushroom_bounce
+  Event: 
+  EventPlayTrigger: 3
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &6056184548427103650 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8428849450046272849, guid: 063508af99be6e8498b257bb72c9f56b, type: 3}
+  m_PrefabInstance: {fileID: 2374147045716248819}
+  m_PrefabAsset: {fileID: 0}
