@@ -10,6 +10,7 @@ public class RamAbility : MonoBehaviour
     {
         GetComponentInChildren<RamCrash>().Enable(owner, strength);
         StartCoroutine(playerObstacleCollisions.ActivateInvulnerable(duration));
+        StartCoroutine(owner.GetComponent<PlayerCrash>().TempDisable(duration));
         // Set how long the boost will last
         ImmediateComboBoostCurve.holdTime = duration - ImmediateComboBoostCurve.endCurve.keys.Last().time - ImmediateComboBoostCurve.startCurve.keys.Last().time;
         forwardSpeedMultiplier.SetForwardSpeedMultiplier("Ram", 1f * strength, ImmediateComboBoostCurve);
