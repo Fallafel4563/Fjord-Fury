@@ -3,6 +3,7 @@ using UnityEngine.Audio;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class MenuStart : MonoBehaviour
 {
@@ -14,11 +15,17 @@ public class MenuStart : MonoBehaviour
     [SerializeField] GameObject credits;
     [SerializeField] GameObject riverRally;
     [SerializeField] GameObject valHalla;
+
+    public UnityEvent StartLevelSelect;
+    public static bool startLevelSelect = false;
     #endregion
 
     private void Start()
     {
         Time.timeScale = 1.0f;
+        if (startLevelSelect)
+            StartLevelSelect.Invoke();
+        startLevelSelect = false;
     }
 
     #region Play

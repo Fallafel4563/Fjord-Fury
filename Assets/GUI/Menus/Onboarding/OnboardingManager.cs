@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class OnboardingManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class OnboardingManager : MonoBehaviour
     private int currentActiveObjectIndex = 0;
 
     public UnityEvent noMorePanels;
+    public UnityEvent BackToMainMenu;
+
+
     void Start()
     {
         if (!isActive)
@@ -36,6 +40,21 @@ public class OnboardingManager : MonoBehaviour
             noMorePanels.Invoke();
             currentActiveObjectIndex = panels.Length - 1; // stop at last panel
             // OR use 0 if you want it to loop back: currentActiveObjectIndex = 0;
+        }
+
+        UpdateCurrentlyActiveObject();
+    }
+
+
+    public void OnPrevButtonPressed()
+    {
+        currentActiveObjectIndex--;
+
+        if (currentActiveObjectIndex < 0)
+        {
+            currentActiveObjectIndex = 0;
+            BackToMainMenu.Invoke();
+            return;
         }
 
         UpdateCurrentlyActiveObject();

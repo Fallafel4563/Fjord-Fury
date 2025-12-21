@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class CharacterSelectOptions : MonoBehaviour
 {
@@ -104,7 +102,8 @@ public class CharacterSelectOptions : MonoBehaviour
             else // Unready player presses back? Go to level select
             {
                 OnboardingManager.isActive = false;
-                SceneManager.LoadScene("LevelSelect");
+                MenuStart.startLevelSelect = true;
+                SceneManager.LoadScene("MainMenu");
 
             }
                 
