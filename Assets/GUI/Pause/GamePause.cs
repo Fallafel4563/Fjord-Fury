@@ -7,45 +7,31 @@ using UnityEngine.SceneManagement;
 
 public class GamePause : MonoBehaviour
 {
-    public Image PauseText;
-    public TextMeshProUGUI TimerObject;
-    public RawImage backgroundPanel;
-    public RawImage pausedBackground;
-    public Image darkBackground;
     public Button ResumeButton;
-    public Button OptionsButton;
-    public Button QuitButton;
-    private bool isGamePaused;
-    InputAction pauseGame;
-   
+    public GameObject pausePanel;
+    public GameObject darkBackground;
+    public NextSceneLoading nextSceneLoading;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isGamePaused;
+    private InputAction pauseGame;
+
+
     void Start()
     {
-        TimerObject.enabled = false;
-        PauseText.gameObject.SetActive(false);
-        ResumeButton.gameObject.SetActive(false);
-        OptionsButton.gameObject.SetActive(false);
-        QuitButton.gameObject.SetActive(false);
-        backgroundPanel.gameObject.SetActive(false);
-        pausedBackground.gameObject.SetActive(false);
-        darkBackground.gameObject.SetActive(false);
-        isGamePaused = false;
+        ResumeGame();
         pauseGame = InputSystem.actions.FindAction("Pause");
-        
-
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (pauseGame.WasPressedThisFrame())
         {
-           if (isGamePaused)
-           {
+            if (isGamePaused)
+            {
                 ResumeGame();
-           } 
-           else
+            } 
+            else
             {
                 PauseGame();
             }
@@ -53,44 +39,43 @@ public class GamePause : MonoBehaviour
         
     }
 
+
     public void PauseGame()
     {
-        TimerObject.enabled = true;
+        Cursor.visible = true;
         Time.timeScale = 0;
         isGamePaused = true;
-        ResumeButton.gameObject.SetActive(true);
-        OptionsButton.gameObject.SetActive(true);
-        QuitButton.gameObject.SetActive(true);
-        PauseText.gameObject.SetActive(true);
-        backgroundPanel.gameObject.SetActive(true);
-        pausedBackground.gameObject.SetActive(true);
-        darkBackground.gameObject.SetActive(true);
+        pausePanel.SetActive(true);
+        darkBackground.SetActive(true);
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(ResumeButton.gameObject);
     }
 
+
     public void ResumeGame()
     {
-        TimerObject.enabled = false;
+        Cursor.visible = false;
         Time.timeScale = 1;
         isGamePaused = false;
-        ResumeButton.gameObject.SetActive(false);
-        OptionsButton.gameObject.SetActive(false);
-        QuitButton.gameObject.SetActive(false);
-        PauseText.gameObject.SetActive(false);
-        backgroundPanel.gameObject.SetActive(false);
-        pausedBackground.gameObject.SetActive(false);
-        darkBackground.gameObject.SetActive(false);
-         EventSystem.current.SetSelectedGameObject(null);
+        pausePanel.SetActive(false);
+        darkBackground.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
-    private void QuitGame()
+
+    public void RestartLevel()
     {
-         Time.timeScale = 1;
+        Time.timeScale = 1;
+        string currentScene = SceneManager.GetActiveScene().name;
+        nextSceneLoading.LoadSceneFromName(currentScene);
     }
 
-    public void SettingsActive()
-    {
 
+    public void QuitToMenu()
+    {
+        Time.timeScale = 1;
+        nextSceneLoading.LoadSceneFromName("MainMenu");
     }
 }

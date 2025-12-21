@@ -32,8 +32,11 @@ public class LoadScreen : MonoBehaviour
         }
     }
 
-    void Start() {
-        //StartLoad("valhalla");
+
+    void OnDestroy()
+    {
+        // Always unsubscribe to prevent memory leaks or errors
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 
@@ -45,49 +48,12 @@ public class LoadScreen : MonoBehaviour
         animator.Play("Blackout");
     }
 
-    public void Load(string sceneName) {
-        sceneToLoad = sceneName;
-    }
-
 
     public void LoadNewScene()
     {
         SceneManager.LoadScene(sceneToLoad);
     }
 
-
-    void Update()
-    {
-        return;
-        if (sceneToLoad == "")
-            return;
-
-        currentCurve = !loaded ? blackOutCurve : revealCurve;
-        //if (animationTime > .4f)
-        //    return;
-        
-        animationTime += Time.deltaTime;
-
-        if (animationTime >= 1) {
-            if (!loaded)
-            {
-                SceneManager.LoadScene(sceneToLoad);
-                return;
-            }
-            else {
-                Destroy(gameObject);
-                return;
-            }
-        }
-
-        loadIconRect.sizeDelta = Vector2.one * 10000 * currentCurve.Evaluate(animationTime);
-    }
-
-    void OnDestroy()
-    {
-        // Always unsubscribe to prevent memory leaks or errors
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -97,17 +63,6 @@ public class LoadScreen : MonoBehaviour
             loadIconRect.gameObject.SetActive(true);
             animator.Play("Reveal");
             sceneToLoad = "";
-        }
-        return;
-        if (sceneToLoad != "")
-            loaded = true;
-        
-        animationTime = 0;
-        if (loadIconRect != null)
-        {
-            // Toggle the component to force a redraw/re-stencil
-            loadIconRect.gameObject.SetActive(false);
-            loadIconRect.gameObject.SetActive(true);
         }
     }
 }
