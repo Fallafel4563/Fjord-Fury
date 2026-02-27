@@ -47,7 +47,7 @@ public class LevelEndTrigger : MonoBehaviour
 
             // Modify the data in the players dict
             PlayerSelectInfo playerSelectInfo = MultiplayerPlayerSpawner.players[playerIndex];
-            playerSelectInfo.totalTimeSpent += timeSpent;
+            playerSelectInfo.totalTimeSpent = timeSpent;
             MultiplayerPlayerSpawner.players[playerIndex] = playerSelectInfo;
 
             playerMovement.playerController.inputEnabled = false;
