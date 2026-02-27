@@ -71,7 +71,7 @@ public class CharacterSelectCanvas : MonoBehaviour
 
         // Show banner if all player are ready
         readyPlayerCount++;
-        if (readyPlayerCount >= PlayerInput.all.Count && PlayerInput.all.Count >= 2)
+        if (readyPlayerCount >= PlayerInput.all.Count && PlayerInput.all.Count >= 1)
         {
             allPlayersReady = true;
             allPlayersReadyBanner.SetActive(true);
@@ -91,7 +91,7 @@ public class CharacterSelectCanvas : MonoBehaviour
             playerChoiceDict.Remove(playerIndex);
 
         // Hide all player ready banner when a player deselects a character
-        if (readyPlayerCount >= PlayerInput.all.Count && PlayerInput.all.Count >= 2)
+        if (readyPlayerCount >= PlayerInput.all.Count && PlayerInput.all.Count >= 1)
         {
             allPlayersReadyBanner.SetActive(false);
             allPlayersReady = false;
