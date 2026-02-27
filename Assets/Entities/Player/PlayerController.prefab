@@ -5266,7 +5266,6 @@ GameObject:
   - component: {fileID: 492201478471945602}
   - component: {fileID: 9018328636378274389}
   - component: {fileID: 3768676886933495487}
-  - component: {fileID: 8299552924632480306}
   m_Layer: 0
   m_Name: WaterSpray
   m_TagString: Untagged
@@ -10091,20 +10090,69 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8299552924632480306
+--- !u!1 &3004758183318921001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8961698223520047098}
+  - component: {fileID: 3203890956421793321}
+  m_Layer: 6
+  m_Name: crashNoTrick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8961698223520047098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3004758183318921001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4483270094907913245}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3203890956421793321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2930691827343099361}
+  m_GameObject: {fileID: 3004758183318921001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e730e51361c892f4f8a2aeb9b84a37ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 2060630186251258410}
-  particleSystem: {fileID: 9018328636378274389}
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621022096
+      Data2: 1138776132
+      Data3: 137639063
+      Data4: -1816274012
+    Path: event:/SFX/Crash/Hit_Obj_Rock
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &3190678163341981423
 GameObject:
   m_ObjectHideFlags: 0
@@ -11542,6 +11590,33 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0.2
           m_StringArgument: FailTrickVignette
+          m_BoolArgument: 0
+        m_CallState: 2
+  Crashed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3203890956421793321}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6390389101009673272}
+        m_TargetAssemblyTypeName: ControllerVibration, Assembly-CSharp
+        m_MethodName: SoftControllerRumble
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   TrickSounds: {fileID: 2804109397407028773}
@@ -18189,7 +18264,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8783129922647529135, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 8961698223520047098}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a9d53b56c3bed14c841e9e4a3329416, type: 3}
 --- !u!114 &2804109397407028773 stripped

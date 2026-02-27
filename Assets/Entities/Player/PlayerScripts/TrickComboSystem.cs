@@ -37,6 +37,7 @@ public class TrickComboSystem : MonoBehaviour
 
     public UnityEvent TrickSucceed;
     public UnityEvent TrickFalied;
+    public UnityEvent Crashed;
 
     public TrickSoundManager TrickSounds;
 
@@ -149,7 +150,10 @@ public class TrickComboSystem : MonoBehaviour
 
     private void RailTrick()
     {
-        combo = 0.5f;
+        NormalTrick();
+        float speedBoost = 1f + combo / 6f;
+        //Debug.LogFormat("Speedboost {0}", speedBoost);
+        forwardSpeedMultiplier.SetForwardSpeedMultiplier("ImmediateComboBoost", Mathf.Clamp(speedBoost, 0f, 2f), ImmediateComboBoostCurve);
     }
 
 
@@ -166,10 +170,18 @@ public class TrickComboSystem : MonoBehaviour
         // TODO: Set animator trigget for failing trick
 
         if (firstTrickIndex != -1)
+        {
             WorldTextSpawner.instance.SpawnText("FAILED!", transform.position + Vector3.up * 5, Color.red, transform, firstTrickIndex, playerMovement.playerController.playerCamera.transform, .4f, false);
+            TrickFalied.Invoke();
 
+        }
+        else
+        {
+            Crashed.Invoke();
+        }
         firstTrickIndex = -1;
-        TrickFalied.Invoke();
+
+        
     }
 
 
