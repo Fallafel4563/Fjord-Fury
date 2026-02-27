@@ -12,7 +12,7 @@ public class RaceFinishTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeDisplay.text = "Time: "+ finishTime.value.ToString();
+        timeDisplay.text = "Time: "+ finishTime.value.ToString("0.00");
         if (isCounting)
         {
             finishTime.value += Time.deltaTime;   
